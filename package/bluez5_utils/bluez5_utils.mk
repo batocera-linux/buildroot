@@ -3,25 +3,22 @@
 # bluez5_utils
 #
 ################################################################################
-
-# Keep the version and patches in sync with bluez5_utils-headers
-BLUEZ5_UTILS_VERSION = 5.52
+# batocera revert back to 5.47
+BLUEZ5_UTILS_VERSION = 5.47
 BLUEZ5_UTILS_SOURCE = bluez-$(BLUEZ5_UTILS_VERSION).tar.xz
 BLUEZ5_UTILS_SITE = $(BR2_KERNEL_MIRROR)/linux/bluetooth
 BLUEZ5_UTILS_INSTALL_STAGING = YES
+BLUEZ5_UTILS_DEPENDENCIES = dbus libglib2
 BLUEZ5_UTILS_LICENSE = GPL-2.0+, LGPL-2.1+
 BLUEZ5_UTILS_LICENSE_FILES = COPYING COPYING.LIB
-
-BLUEZ5_UTILS_DEPENDENCIES = \
-	$(if $(BR2_PACKAGE_BLUEZ5_UTILS_HEADERS),bluez5_utils-headers) \
-	dbus \
-	libglib2
 
 BLUEZ5_UTILS_CONF_OPTS = \
 	--enable-tools \
 	--enable-library \
 	--disable-cups \
 	--with-dbusconfdir=/etc
+
+BLUEZ5_UTILS_CONF_OPTS += --enable-deprecated
 
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_OBEX),y)
 BLUEZ5_UTILS_CONF_OPTS += --enable-obex
@@ -45,14 +42,14 @@ BLUEZ5_UTILS_CONF_OPTS += --disable-experimental
 endif
 
 # enable health plugin
-ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_HEALTH),y)
+ifeq ($(BR2_PACKAGE_BLUEZ5_PLUGINS_HEALTH),y)
 BLUEZ5_UTILS_CONF_OPTS += --enable-health
 else
 BLUEZ5_UTILS_CONF_OPTS += --disable-health
 endif
 
 # enable midi profile
-ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_MIDI),y)
+ifeq ($(BR2_PACKAGE_BLUEZ5_PLUGINS_MIDI),y)
 BLUEZ5_UTILS_CONF_OPTS += --enable-midi
 BLUEZ5_UTILS_DEPENDENCIES += alsa-lib
 else
@@ -60,14 +57,14 @@ BLUEZ5_UTILS_CONF_OPTS += --disable-midi
 endif
 
 # enable nfc plugin
-ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_NFC),y)
+ifeq ($(BR2_PACKAGE_BLUEZ5_PLUGINS_NFC),y)
 BLUEZ5_UTILS_CONF_OPTS += --enable-nfc
 else
 BLUEZ5_UTILS_CONF_OPTS += --disable-nfc
 endif
 
 # enable sap plugin
-ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_SAP),y)
+ifeq ($(BR2_PACKAGE_BLUEZ5_PLUGINS_SAP),y)
 BLUEZ5_UTILS_CONF_OPTS += --enable-sap
 else
 BLUEZ5_UTILS_CONF_OPTS += --disable-sap
@@ -117,5 +114,13 @@ BLUEZ5_UTILS_DEPENDENCIES += systemd
 else
 BLUEZ5_UTILS_CONF_OPTS += --disable-systemd
 endif
+
+define BLUEZ5_UTILS_INSTALL_INIT_SYSTEMD
+	mkdir -p $(TARGET_DIR)/etc/systemd/system/bluetooth.target.wants
+	ln -fs ../../../../usr/lib/systemd/system/bluetooth.service \
+		$(TARGET_DIR)/etc/systemd/system/bluetooth.target.wants/bluetooth.service
+	ln -fs ../../../../usr/lib/systemd/system/bluetooth.service \
+		$(TARGET_DIR)/etc/systemd/system/dbus-org.bluez.service
+endef
 
 $(eval $(autotools-package))
