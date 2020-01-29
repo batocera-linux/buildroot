@@ -88,7 +88,8 @@ define step_pkg_size
 	$(if $(filter install-host,$(2)),\
 		$(if $(filter end,$(1)),$(call step_pkg_size_inner,$(3),$(HOST_DIR),-host)))
 endef
-GLOBAL_INSTRUMENTATION_HOOKS += step_pkg_size
+# batocera
+#GLOBAL_INSTRUMENTATION_HOOKS += step_pkg_size
 
 # Relies on step_pkg_size, so must be after
 define check_bin_arch
@@ -100,7 +101,8 @@ define check_bin_arch
 			-a $(BR2_READELF_ARCH_NAME))
 endef
 
-GLOBAL_INSTRUMENTATION_HOOKS += check_bin_arch
+# batocera
+#GLOBAL_INSTRUMENTATION_HOOKS += check_bin_arch
 
 # This hook checks that host packages that need libraries that we build
 # have a proper DT_RPATH or DT_RUNPATH tag
