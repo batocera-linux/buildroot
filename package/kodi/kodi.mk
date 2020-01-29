@@ -253,6 +253,16 @@ else
 KODI_CONF_OPTS += -DENABLE_ALSA=OFF
 endif
 
+# batocera
+ifeq ($(BR2_PACKAGE_KODI_GBM),y)
+  ifeq ($(BR2_PACKAGE_MESA3D),y)
+    KODI_DEPENDENCIES += mesa3d
+  endif
+KODI_CONF_OPTS += -DENABLE_GBM=ON
+else
+KODI_CONF_OPTS += -DENABLE_GBM=OFF
+endif
+
 ifeq ($(BR2_PACKAGE_KODI_LIBMICROHTTPD),y)
 KODI_CONF_OPTS += -DENABLE_MICROHTTPD=ON
 KODI_DEPENDENCIES += libmicrohttpd
@@ -399,5 +409,10 @@ define KODI_INSTALL_INIT_SYSTEMD
 	$(INSTALL) -D -m 644 package/kodi/kodi.service \
 		$(TARGET_DIR)/usr/lib/systemd/system/kodi.service
 endef
+
+# batocera - kodi segfaults when not with -O0 on arm
+ifeq ($(BR2_arm),y)
+KODI_CONF_OPTS += -DCMAKE_CXX_FLAGS="`echo $(TARGET_CXXFLAGS) | sed -e s+'-O[1-3]'+' '+` -O0" -DCMAKE_C_FLAGS="`echo $(TARGET_CFLAGS) | sed -e s+'-O[1-3]'+' '+` -O0"
+endif
 
 $(eval $(cmake-package))
