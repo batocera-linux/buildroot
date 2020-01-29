@@ -28,6 +28,11 @@ MESA3D_CONF_OPTS = \
 	-Dpower8=false \
 	-Dvalgrind=false
 
+#batocera enable libglvnd support
+ifeq ($(BR2_PACKAGE_LIBGLVND),y)
+MESA3D_DEPENDENCIES += libglvnd
+endif
+
 ifeq ($(BR2_PACKAGE_MESA3D_LLVM),y)
 MESA3D_DEPENDENCIES += host-llvm llvm
 MESA3D_MESON_EXTRA_BINARIES += llvm-config='$(STAGING_DIR)/usr/bin/llvm-config'
@@ -240,6 +245,11 @@ MESA3D_CONF_OPTS += -Dlmsensors=true
 MESA3D_DEPENDENCIES += lm-sensors
 else
 MESA3D_CONF_OPTS += -Dlmsensors=false
+endif
+
+# batocera enable libglvnd support
+ifeq ($(BR2_PACKAGE_LIBGLVND),y)
+MESA3D_CONF_OPTS += -Dglvnd=true
 endif
 
 $(eval $(meson-package))
