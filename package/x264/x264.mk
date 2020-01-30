@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-X264_VERSION = 20190623-2245
-X264_SITE = http://download.videolan.org/x264/snapshots
-X264_SOURCE = x264-snapshot-$(X264_VERSION).tar.bz2
+# batocera: kodi: fix video with noisy sound
+X264_VERSION = df79067c0cf33da712d344b5f8869be7eaf326f3
+X264_SITE = git://git.videolan.org/x264.git
 X264_LICENSE = GPL-2.0+
 X264_DEPENDENCIES = host-pkgconf
 X264_LICENSE_FILES = COPYING
