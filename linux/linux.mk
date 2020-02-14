@@ -131,6 +131,25 @@ LINUX_MAKE_FLAGS = \
 	CROSS_COMPILE="$(TARGET_CROSS)" \
 	DEPMOD=$(HOST_DIR)/sbin/depmod
 
+# batocera
+ifeq ($(BR2_LINUX_AARCH64_KERNEL_IN_ARM_USER),y)
+	# make 64-bit kernel in 32-bit userspace
+	LINUX_DEPENDENCIES += host-toolchain-optional-linaro-aarch64
+	LINUX_MAKE_FLAGS = \
+		HOSTCC="$(HOSTCC) $(HOST_CFLAGS) $(HOST_LDFLAGS)" \
+		ARCH=arm64 \
+		INSTALL_MOD_PATH=$(TARGET_DIR) \
+		CROSS_COMPILE="$(HOST_DIR)/lib/gcc-linaro-aarch64-linux-gnu/bin/aarch64-linux-gnu-" \
+		DEPMOD=$(HOST_DIR)/sbin/depmod
+	else
+	LINUX_MAKE_FLAGS = \
+		HOSTCC="$(HOSTCC) $(HOST_CFLAGS) $(HOST_LDFLAGS)" \
+		ARCH=$(KERNEL_ARCH) \
+		INSTALL_MOD_PATH=$(TARGET_DIR) \
+		CROSS_COMPILE="$(TARGET_CROSS)" \
+		DEPMOD=$(HOST_DIR)/sbin/depmod
+endif
+
 ifeq ($(BR2_REPRODUCIBLE),y)
 LINUX_MAKE_ENV += \
 	KBUILD_BUILD_VERSION=1 \
@@ -222,6 +241,10 @@ ifeq ($(KERNEL_ARCH),i386)
 LINUX_ARCH_PATH = $(LINUX_DIR)/arch/x86
 else ifeq ($(KERNEL_ARCH),x86_64)
 LINUX_ARCH_PATH = $(LINUX_DIR)/arch/x86
+# batocera
+else ifeq ($(BR2_LINUX_AARCH64_KERNEL_IN_ARM_USER),y)
+# arm64 kernel when arch is arm
+LINUX_ARCH_PATH = $(LINUX_DIR)/arch/arm64
 else
 LINUX_ARCH_PATH = $(LINUX_DIR)/arch/$(KERNEL_ARCH)
 endif
