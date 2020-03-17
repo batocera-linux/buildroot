@@ -4,7 +4,8 @@
 #
 ################################################################################
 
-AUTOMAKE_VERSION = 1.15.1
+# batocera : 1.16 required for libbluray
+AUTOMAKE_VERSION = 1.16
 AUTOMAKE_SOURCE = automake-$(AUTOMAKE_VERSION).tar.xz
 AUTOMAKE_SITE = $(BR2_GNU_MIRROR)/automake
 AUTOMAKE_LICENSE = GPL-2.0+
