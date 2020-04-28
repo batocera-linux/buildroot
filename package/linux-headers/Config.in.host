@@ -57,6 +57,10 @@ config BR2_KERNEL_HEADERS_5_4
 	bool "Linux 5.4.x kernel headers"
 	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_4
 
+config BR2_KERNEL_HEADERS_5_6
+	bool "Linux 5.6.x kernel headers"
+	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_6
+
 config BR2_KERNEL_HEADERS_VERSION
 	bool "Manually specified Linux version"
 	help
@@ -121,6 +125,10 @@ choice
 
 	  This is used to hide/show some packages that have strict
 	  requirements on the version of kernel headers.
+
+config BR2_PACKAGE_HOST_LINUX_HEADERS_CUSTOM_5_6
+	bool "5.6.x"
+	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_6
 
 config BR2_PACKAGE_HOST_LINUX_HEADERS_CUSTOM_5_4
 	bool "5.4.x"
