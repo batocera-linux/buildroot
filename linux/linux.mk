@@ -132,6 +132,7 @@ LINUX_MAKE_FLAGS = \
 	DEPMOD=$(HOST_DIR)/sbin/depmod
 
 # batocera
+LINUX_DEPENDENCIES += host-libyaml # needed by recent kernel versions
 ifeq ($(BR2_LINUX_AARCH64_KERNEL_IN_ARM_USER),y)
 	# make 64-bit kernel in 32-bit userspace
 	LINUX_DEPENDENCIES += host-toolchain-optional-linaro-aarch64
