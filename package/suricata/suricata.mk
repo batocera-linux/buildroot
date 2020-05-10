@@ -4,11 +4,11 @@
 #
 ################################################################################
 
-SURICATA_VERSION = 4.1.5
+SURICATA_VERSION = 4.1.8
 SURICATA_SITE = https://www.openinfosecfoundation.org/download
 SURICATA_LICENSE = GPL-2.0
 SURICATA_LICENSE_FILES = COPYING LICENSE
-# We're patching configure.ac
+# We're patching python/Makefile.am
 SURICATA_AUTORECONF = YES
 
 SURICATA_DEPENDENCIES = \
@@ -21,8 +21,8 @@ SURICATA_DEPENDENCIES = \
 	libpcap \
 	libyaml \
 	$(if $(BR2_PACKAGE_LZ4),lz4) \
-	$(if $(BR2_PACKAGE_LZMA),lzma) \
-	pcre
+	pcre \
+	$(if $(BR2_PACKAGE_XZ),xz)
 
 SURICATA_CONF_ENV = ac_cv_path_HAVE_SPHINXBUILD=no
 

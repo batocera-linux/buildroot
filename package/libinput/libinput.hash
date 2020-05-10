@@ -1,8 +1,8 @@
-# From https://lists.freedesktop.org/archives/wayland-devel/2019-October/040967.html
-md5 d052faa64eb6d2e649e582cc0fcf6e32 libinput-1.14.3.tar.xz
-sha1 af23a4359202c24b592033f54347719a8f44d872 libinput-1.14.3.tar.xz
-sha256 0feb3a0589709cc1032893bfaf4c49150d5360bd9782bec888f9e4dd9044c5b7 libinput-1.14.3.tar.xz
-sha512 f01d1bd1b25b8060519575644597d35f0c89de5386d298441f440128ceee3e57549921a058adec31adc8b33dbdedf4c0bd12c76905a69f752859d3136e26336d libinput-1.14.3.tar.xz
+# From https://lists.freedesktop.org/archives/wayland-devel/2020-April/041400.html
+md5  c9a1b15bb932eaf22f840efe4c3f84eb  libinput-1.15.5.tar.xz
+sha1  644b1c6936cfff8a4547da71fbcd7ebd28618426  libinput-1.15.5.tar.xz
+sha256  a90efc8f423c3094f2f9f372fb92381b2f3aad62e8b5882a8abe333aa8249c97  libinput-1.15.5.tar.xz
+sha512  a0a3a325048841fc017e19d3bc5f5490605972ab9e2730dc5678bda7efb7a5b1fa6f531f3c8abd8393899ec383d8d2bcfd586eacee04fc1fbda0e02ba2af956a  libinput-1.15.5.tar.xz
 
 # License files
-sha256 70d5b1dfe5a9c50a1f2ea91b1c2b1c85d876c5c92339585edbb85cf69e945e14 COPYING
+sha256  70d5b1dfe5a9c50a1f2ea91b1c2b1c85d876c5c92339585edbb85cf69e945e14  COPYING

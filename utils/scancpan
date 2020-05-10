@@ -611,6 +611,9 @@ sub fetch {
     unless ($dist{$name} && !$top) {
         say qq{fetch ${name}} unless $quiet;
         my $result = $mcpan->release( distribution => $name );
+        my $main_module = $result->{main_module};
+        push @info, qq{[$name] $main_module is a core module}
+            if $top && Module::CoreList::is_core( $main_module, undef, $] );
         $dist{$name} = $result;
         $license_files{$name} = {};
         eval {
@@ -797,15 +800,15 @@ while (my ($distname, $dist) = each %dist) {
         say qq{write ${hashname}} unless $quiet;
         open my $fh, q{>}, $hashname;
         say {$fh} qq{# retrieved by scancpan from ${mirror}/};
-        say {$fh} qq{md5    ${md5} ${filename}};
-        say {$fh} qq{sha256 ${sha256} ${filename}};
+        say {$fh} qq{md5  ${md5}  ${filename}};
+        say {$fh} qq{sha256  ${sha256}  ${filename}};
         my %license_files =  %{$license_files{$distname}};
         if (scalar keys %license_files) {
             say {$fh} q{};
             say {$fh} qq{# computed by scancpan};
             foreach my $license (sort keys %license_files) {
                 my $digest = $license_files{$license};
-                say {$fh} qq{sha256 ${digest} ${license}};
+                say {$fh} qq{sha256  ${digest}  ${license}};
             }
         }
         close $fh;

@@ -50,22 +50,17 @@ config BR2_HOST_GCC_AT_LEAST_8
 	default y if BR2_HOST_GCC_VERSION = "8"
 	select BR2_HOST_GCC_AT_LEAST_7
 
+config BR2_HOST_GCC_AT_LEAST_9
+	bool
+	default y if BR2_HOST_GCC_VERSION = "9"
+	select BR2_HOST_GCC_AT_LEAST_8
+
 # When adding new entries above, be sure to update
 # the HOSTCC_MAX_VERSION variable in the Makefile.
 
 # Hidden boolean selected by packages in need of Java in order to build
 # (example: kodi)
 config BR2_NEEDS_HOST_JAVA
-	bool
-
-# Hidden boolean selected by packages in need of javac in order to build
-# (example: classpath)
-config BR2_NEEDS_HOST_JAVAC
-	bool
-
-# Hidden boolean selected by packages in need of jar in order to build
-# (example: classpath)
-config BR2_NEEDS_HOST_JAR
 	bool
 
 # Hidden boolean selected by pre-built packages for x86, when they
@@ -758,6 +753,7 @@ config BR2_SSP_REGULAR
 
 config BR2_SSP_STRONG
 	bool "-fstack-protector-strong"
+	depends on BR2_TOOLCHAIN_HAS_SSP_STRONG
 	help
 	  Like -fstack-protector but includes additional functions to be
 	  protected - those that have local array definitions, or have

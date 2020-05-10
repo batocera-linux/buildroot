@@ -9,7 +9,7 @@ config BR2_PACKAGE_LIBCURL
 
 if BR2_PACKAGE_LIBCURL
 
-config BR2_PACKAGE_CURL
+config BR2_PACKAGE_LIBCURL_CURL
 	bool "curl binary"
 	help
 	  Install curl binary as well
@@ -51,6 +51,10 @@ choice
 config BR2_PACKAGE_LIBCURL_OPENSSL
 	bool "OpenSSL"
 	depends on BR2_PACKAGE_OPENSSL
+
+config BR2_PACKAGE_LIBCURL_BEARSSL
+	bool "BearSSL"
+	depends on BR2_PACKAGE_BEARSSL
 
 config BR2_PACKAGE_LIBCURL_GNUTLS
 	bool "GnuTLS"

@@ -4,11 +4,21 @@
 #
 ################################################################################
 
-FAIL2BAN_VERSION = 0.10.4
+FAIL2BAN_VERSION = 0.11.1
 FAIL2BAN_SITE = $(call github,fail2ban,fail2ban,$(FAIL2BAN_VERSION))
 FAIL2BAN_LICENSE = GPL-2.0+
 FAIL2BAN_LICENSE_FILES = COPYING
 FAIL2BAN_SETUP_TYPE = distutils
+
+ifeq ($(BR2_PACKAGE_PYTHON3),y)
+define FAIL2BAN_PYTHON_2TO3
+	$(HOST_DIR)/bin/2to3 --write --nobackups --no-diffs $(@D)/bin/* $(@D)/fail2ban
+endef
+FAIL2BAN_DEPENDENCIES += host-python3
+# We can't use _POST_PATCH_HOOKS because dependencies are not guaranteed
+# to build and install before _POST_PATCH_HOOKS run.
+FAIL2BAN_PRE_CONFIGURE_HOOKS += FAIL2BAN_PYTHON_2TO3
+endif
 
 define FAIL2BAN_FIX_DEFAULT_CONFIG
 	$(SED) '/^socket/c\socket = /run/fail2ban.sock' $(TARGET_DIR)/etc/fail2ban/fail2ban.conf

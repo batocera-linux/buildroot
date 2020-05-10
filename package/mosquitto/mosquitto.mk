@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MOSQUITTO_VERSION = 1.6.8
+MOSQUITTO_VERSION = 1.6.9
 MOSQUITTO_SITE = https://mosquitto.org/files/source
 MOSQUITTO_LICENSE = EPL-1.0 or EDLv1.0
 MOSQUITTO_LICENSE_FILES = LICENSE.txt epl-v10 edl-v10
@@ -51,7 +51,7 @@ ifeq ($(BR2_PACKAGE_LIBOPENSSL),y)
 MOSQUITTO_DEPENDENCIES += host-pkgconf libopenssl
 MOSQUITTO_MAKE_OPTS += \
 	WITH_TLS=yes \
-	WITH_TLS_STATIC_LIB_DEPS="`$(PKG_CONFIG_HOST_BINARY) --libs openssl`"
+	CLIENT_STATIC_LDADD="`$(PKG_CONFIG_HOST_BINARY) --libs openssl`"
 else
 MOSQUITTO_MAKE_OPTS += WITH_TLS=no
 endif
