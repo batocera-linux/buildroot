@@ -4,9 +4,15 @@
 #
 ################################################################################
 
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ROCKCHIP_ANY),y)
+FFMPEG_VERSION = 4.0.4-Leia-18.4
+FFMPEG_SITE = git://github.com/xbmc/FFmpeg.git
+FFMPEG_SITE_METHOD = git
+else
 FFMPEG_VERSION = 4.2.2
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
 FFMPEG_SITE = http://ffmpeg.org/releases
+endif
 FFMPEG_INSTALL_STAGING = YES
 
 FFMPEG_LICENSE = LGPL-2.1+, libjpeg license
@@ -553,6 +559,44 @@ endif
 
 FFMPEG_CONF_ENV += CFLAGS="$(FFMPEG_CFLAGS)"
 FFMPEG_CONF_OPTS += $(call qstrip,$(BR2_PACKAGE_FFMPEG_EXTRACONF))
+
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ROCKCHIP_ANY),y)
+FFMPEG_CONF_OPTS += --enable-rkmpp --enable-version3
+FFMPEG_DEPENDENCIES += rkmpp
+
+FFMPEG_CONF_OPTS += --disable-w32threads \
+	--enable-asm \
+	--enable-bsfs \
+	--enable-demuxers \
+	--enable-encoder=aac \
+	--enable-encoder=ac3 \
+	--enable-encoder=mjpeg \
+	--enable-encoder=png \
+	--enable-encoder=wmav2 \
+	--enable-filters \
+	--enable-gpl \
+	--enable-muxer=adts \
+	--enable-muxer=asf \
+	--enable-muxer=ipod \
+	--enable-muxer=mpegts \
+	--enable-muxer=spdif \
+	--enable-parsers \
+	--enable-pic \
+	--enable-postproc \
+	--enable-protocol=http \
+	--enable-pthreads \
+	--enable-shared \
+	--enable-swscale \
+	--enable-yasm \
+	--enable-zlib
+endif
+
+define FFMPEG_APPLY_LOCAL_PATCHES
+	if [ -d $(@D)/$(FFMPEG_VERSION) ]; then \
+		$(APPLY_PATCHES) $(@D) $(@D)/$(FFMPEG_VERSION) *.patch; \
+	fi
+endef
+FFMPEG_POST_PATCH_HOOKS += FFMPEG_APPLY_LOCAL_PATCHES
 
 # Override FFMPEG_CONFIGURE_CMDS: FFmpeg does not support --target and others
 define FFMPEG_CONFIGURE_CMDS
