@@ -4,15 +4,9 @@
 #
 ################################################################################
 
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ROCKCHIP_ANY),y)
-FFMPEG_VERSION = 4.0.4-Leia-18.4
-FFMPEG_SITE = git://github.com/xbmc/FFmpeg.git
-FFMPEG_SITE_METHOD = git
-else
 FFMPEG_VERSION = 4.2.2
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
 FFMPEG_SITE = http://ffmpeg.org/releases
-endif
 FFMPEG_INSTALL_STAGING = YES
 
 FFMPEG_LICENSE = LGPL-2.1+, libjpeg license
@@ -561,8 +555,9 @@ FFMPEG_CONF_ENV += CFLAGS="$(FFMPEG_CFLAGS)"
 FFMPEG_CONF_OPTS += $(call qstrip,$(BR2_PACKAGE_FFMPEG_EXTRACONF))
 
 ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ROCKCHIP_ANY),y)
+FFMPEG_VERSION = 4.3
 FFMPEG_CONF_OPTS += --enable-rkmpp --enable-version3
-FFMPEG_DEPENDENCIES += rkmpp
+FFMPEG_DEPENDENCIES += rockchip-mpp
 
 FFMPEG_CONF_OPTS += --disable-w32threads \
 	--enable-asm \
