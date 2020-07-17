@@ -634,6 +634,7 @@ F:	board/hardkernel/odroidc2/
 F:	configs/odroidc2_defconfig
 F:	package/meson-tools/
 F:	package/odroidc2-firmware/
+F:	package/meson-tools/
 
 N:	Daniel J. Leach <dleach@belcan.com>
 F:	package/dacapo/
