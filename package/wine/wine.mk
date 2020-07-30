@@ -9,8 +9,7 @@ WINE_SOURCE = wine-$(WINE_VERSION).tar.xz
 WINE_SITE = https://dl.winehq.org/wine/source/5.0
 WINE_LICENSE = LGPL-2.1+
 WINE_LICENSE_FILES = COPYING.LIB LICENSE
-# batocera add vulkan dependencies
-WINE_DEPENDENCIES = host-bison host-flex host-wine vulkan-headers vulkan-loader
+WINE_DEPENDENCIES = host-bison host-flex host-wine
 HOST_WINE_DEPENDENCIES = host-bison host-flex
 
 # Wine needs its own directory structure and tools for cross compiling
@@ -27,10 +26,24 @@ WINE_CONF_OPTS = \
 	--without-gsm \
 	--without-hal \
 	--without-opencl \
-	--without-oss
-#batocera
-#	--without-vkd3d \
-#	--without-vulkan
+	--without-oss \
+	--without-vkd3d \
+	--without-vulkan
+
+# batocera
+ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yy)
+WINE_CONF_OPTS += --with-vulkan
+WINE_DEPENDENCIES += vulkan-headers vulkan-loader
+else
+WINE_CONF_OPTS += --without-vulkan
+endif
+
+ifeq ($(BR2_PACKAGE_VKD3D)$(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yyy)
+WINE_CONF_OPTS += --with-vkd3d
+WINE_DEPENDENCIES += vkd3d
+else
+WINE_CONF_OPTS += --without-vkd3d
+endif
 
 # Wine uses a wrapper around gcc, and uses the value of --host to
 # construct the filename of the gcc to call.  But for external
