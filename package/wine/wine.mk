@@ -31,19 +31,28 @@ WINE_CONF_OPTS = \
 	--without-vulkan
 
 # batocera
+# Add FAudio if available
+ifeq ($(BR2_PACKAGE_FAUDIO),y)
+WINE_CONF_OPTS += --with-faudio
+WINE_DEPENDENCIES += faudio
+else
+WINE_CONF_OPTS += --without-vulkan
+endif
+# Add Vulkan if available
 ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yy)
 WINE_CONF_OPTS += --with-vulkan
 WINE_DEPENDENCIES += vulkan-headers vulkan-loader
 else
 WINE_CONF_OPTS += --without-vulkan
 endif
-
+# Add VKD3D if available
 ifeq ($(BR2_PACKAGE_VKD3D)$(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yyy)
 WINE_CONF_OPTS += --with-vkd3d
 WINE_DEPENDENCIES += vkd3d
 else
 WINE_CONF_OPTS += --without-vkd3d
 endif
+# TODO Add DXVK if available
 
 # Wine uses a wrapper around gcc, and uses the value of --host to
 # construct the filename of the gcc to call.  But for external
