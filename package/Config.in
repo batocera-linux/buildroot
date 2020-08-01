@@ -1974,8 +1974,6 @@ menu "Miscellaneous"
 	source "package/sunwait/Config.in"
 	source "package/taskd/Config.in"
 	source "package/wine/Config.in"
-	source "package/spirv-headers/Config.in"
-	source "package/vkd3d/Config.in"
 	source "package/xutil_util-macros/Config.in"
 endmenu
 
