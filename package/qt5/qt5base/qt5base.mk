@@ -18,14 +18,17 @@ QT5BASE_INSTALL_STAGING = YES
 #     want to use the Buildroot packaged zlib
 #  * -system-pcre because pcre is mandatory to build Qt, and we
 #    want to use the one packaged in Buildroot
+#  * -no-feature-relocatable to work around path mismatch
+#     while searching qml files and buildroot BR2_ROOTFS_MERGED_USR
+#     feature enabled
 QT5BASE_CONFIGURE_OPTS += \
 	-optimized-qmake \
-	-no-cups \
 	-no-iconv \
 	-system-zlib \
 	-system-pcre \
 	-no-pch \
-	-shared
+	-shared \
+	-no-feature-relocatable
 
 # starting from version 5.9.0, -optimize-debug is enabled by default
 # for debug builds and it overrides -O* with -Og which is not what we
@@ -102,6 +105,13 @@ endif
 
 ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
 QT5BASE_DEPENDENCIES += udev
+endif
+
+ifeq ($(BR2_PACKAGE_CUPS), y)
+QT5BASE_DEPENDENCIES += cups
+QT5BASE_CONFIGURE_OPTS += -cups
+else
+QT5BASE_CONFIGURE_OPTS += -no-cups
 endif
 
 # Qt5 SQL Plugins
@@ -304,13 +314,6 @@ define QT5BASE_CONFIGURE_CMDS
 	)
 endef
 
-# The file "qt.conf" can be used to override the hard-coded paths that are
-# compiled into the Qt library. We need it to make "qmake" relocatable.
-define QT5BASE_INSTALL_QT_CONF
-	sed -e "s|@@HOST_DIR@@|$(HOST_DIR)|" -e "s|@@STAGING_DIR@@|$(STAGING_DIR)|" \
-		$(QT5BASE_PKGDIR)/qt.conf.in > $(HOST_DIR)/bin/qt.conf
-endef
-
-QT5BASE_POST_INSTALL_STAGING_HOOKS += QT5BASE_INSTALL_QT_CONF
+QT5BASE_POST_INSTALL_STAGING_HOOKS += QT5_INSTALL_QT_CONF
 
 $(eval $(qmake-package))
