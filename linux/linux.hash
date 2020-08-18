@@ -1,5 +1,5 @@
 # From https://www.kernel.org/pub/linux/kernel/v5.x/sha256sums.asc
-sha256  4725430c65b7573b7d26c402dd9ffdad18529a302ce2e342c849e7800f193d44  linux-5.7.10.tar.xz
+sha256  0eeb17448973bc591d8dbbfb064a88474e6db148ccc2ccadbbd285c6eb3e5212  linux-5.7.15.tar.xz
 sha256  faa7b6f99220d5726f0eaee74a6394f0a3b89be1a75254f3804630211f3d6d21  linux-5.4.53.tar.xz
 # From https://www.kernel.org/pub/linux/kernel/v4.x/sha256sums.asc
 sha256  e7f6c63c5a3921623f1c5df32a9cd61a93a76bc543dd7d91184a4714362cd7b0  linux-4.4.231.tar.xz
