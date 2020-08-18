@@ -193,6 +193,7 @@ config BR2_PACKAGE_QT5BASE_XCB
 	select BR2_PACKAGE_XCB_UTIL_IMAGE
 	select BR2_PACKAGE_XCB_UTIL_KEYSYMS
 	select BR2_PACKAGE_XCB_UTIL_WM
+	select BR2_PACKAGE_XCB_UTIL_RENDERUTIL
 	select BR2_PACKAGE_LIBXKBCOMMON
 
 comment "X.org XCB backend available if X.org is enabled"
