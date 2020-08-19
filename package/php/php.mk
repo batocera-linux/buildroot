@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-PHP_VERSION = 7.4.5
+PHP_VERSION = 7.4.9
 PHP_SITE = http://www.php.net/distributions
 PHP_SOURCE = php-$(PHP_VERSION).tar.xz
 PHP_INSTALL_STAGING = YES
@@ -331,6 +331,11 @@ PHP_CONF_OPTS += \
 	--with-jpeg \
 	--with-freetype
 PHP_DEPENDENCIES += jpeg libpng freetype zlib
+endif
+
+ifeq ($(BR2_PACKAGE_PHP_EXT_FFI),y)
+PHP_CONF_OPTS += --with-ffi
+PHP_DEPENDENCIES += libffi
 endif
 
 ifeq ($(BR2_PACKAGE_PHP_SAPI_FPM),y)

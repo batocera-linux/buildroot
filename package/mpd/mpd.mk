@@ -5,7 +5,7 @@
 ################################################################################
 
 MPD_VERSION_MAJOR = 0.21
-MPD_VERSION = $(MPD_VERSION_MAJOR).22
+MPD_VERSION = $(MPD_VERSION_MAJOR).24
 MPD_SOURCE = mpd-$(MPD_VERSION).tar.xz
 MPD_SITE = http://www.musicpd.org/download/mpd/$(MPD_VERSION_MAJOR)
 MPD_DEPENDENCIES = host-pkgconf boost
@@ -95,6 +95,13 @@ MPD_DEPENDENCIES += flac
 MPD_CONF_OPTS += -Dflac=enabled
 else
 MPD_CONF_OPTS += -Dflac=disabled
+endif
+
+ifeq ($(BR2_PACKAGE_MPD_FLUIDSYNTH),y)
+MPD_DEPENDENCIES += fluidsynth
+MPD_CONF_OPTS += -Dfluidsynth=enabled
+else
+MPD_CONF_OPTS += -Dfluidsynth=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_MPD_HTTPD_OUTPUT),y)
@@ -191,6 +198,13 @@ ifeq ($(BR2_PACKAGE_MPD_NEIGHBOR_DISCOVERY_SUPPORT),y)
 MPD_CONF_OPTS += -Dneighbor=true
 else
 MPD_CONF_OPTS += -Dneighbor=false
+endif
+
+ifeq ($(BR2_PACKAGE_MPD_OPENAL),y)
+MPD_DEPENDENCIES += openal
+MPD_CONF_OPTS += -Dopenal=enabled
+else
+MPD_CONF_OPTS += -Dopenal=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_MPD_OPUS),y)

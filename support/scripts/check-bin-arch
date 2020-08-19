@@ -88,6 +88,10 @@ while read f; do
 	if [ "${arch}" = "AArch64" -a "${arch_name}" = "ARM" ] ; then
 		printf 'NOTE: Detected Arch is AArch64 with ARM Userspace for file:\n"%s"\n\n' \
 		"${f}"
+	# batocera: support Compiling i386 code in x86_64 system - for 32-bit only emulators like pcsx2 and 32-bit wine support
+	elif [ "${arch}" = "Intel 80386" -a "${arch_name}" = "Advanced Micro Devices X86-64" ] ; then
+		printf 'NOTE: Detected Arch is x86_64 with i386 Userspace for file:\n"%s"\n\n' \
+		"${f}" 
 	else
 		printf 'ERROR: architecture for "%s" is "%s", should be "%s"\n' \
 		       "${f}" "${arch}" "${arch_name}"
