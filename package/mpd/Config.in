@@ -34,6 +34,12 @@ config BR2_PACKAGE_MPD_SQLITE
 	  Enable sqlite database support.
 	  If you don't use sqlite it will use an ASCII database.
 
+config BR2_PACKAGE_MPD_ZZIP
+	bool "zzip"
+	select BR2_PACKAGE_ZZIPLIB
+	help
+	  Enable ZIP archive support.
+
 comment "Commercial services"
 
 config BR2_PACKAGE_MPD_QOBUZ
@@ -140,6 +146,12 @@ config BR2_PACKAGE_MPD_MAD
 	  Enable mad input support.
 	  Select this if you want to play back MP3 files.
 
+config BR2_PACKAGE_MPD_MODPLUG
+	bool "modplug"
+	select BR2_PACKAGE_LIBMODPLUG
+	help
+	  Enable Modplug decoder support.
+
 config BR2_PACKAGE_MPD_MPG123
 	bool "mpg123"
 	select BR2_PACKAGE_LIBID3TAG
@@ -164,6 +176,12 @@ config BR2_PACKAGE_MPD_OPUS
 	help
 	  Enable opus input support.
 	  Select this if you want to play back OPUS encoded files.
+
+config BR2_PACKAGE_MPD_SIDPLAY
+	bool "sidplay"
+	select BR2_PACKAGE_LIBSIDPLAY2
+	help
+	  Enable C64 SID support.
 
 config BR2_PACKAGE_MPD_TREMOR
 	bool "tremor"
@@ -376,6 +394,14 @@ config BR2_PACKAGE_MPD_UPNP
 	select BR2_PACKAGE_MPD_CURL
 	help
 	  Enable MPD UPnP client support.
+
+comment "Tag plugins"
+
+config BR2_PACKAGE_MPD_ID3TAG
+	bool "id3tag"
+	select BR2_PACKAGE_LIBID3TAG
+	help
+	  Enable ID3 support.
 
 endif
 

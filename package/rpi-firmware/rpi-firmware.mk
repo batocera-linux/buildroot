@@ -3,8 +3,8 @@
 # rpi-firmware
 #
 ################################################################################
-# Batocera kernel: Bump to 5.4.58
-RPI_FIRMWARE_VERSION = 2878d98d7d0c113efbe6419bde4c4d3b90d2f43e
+# Batocera kernel: Bump to 5.4.59
+RPI_FIRMWARE_VERSION = f293685f683c48b1872beeb38c2f7da1f46141a0
 RPI_FIRMWARE_SITE = $(call github,raspberrypi,firmware,$(RPI_FIRMWARE_VERSION))
 RPI_FIRMWARE_LICENSE = BSD-3-Clause
 RPI_FIRMWARE_LICENSE_FILES = boot/LICENCE.broadcom

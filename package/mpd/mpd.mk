@@ -110,6 +110,13 @@ else
 MPD_CONF_OPTS += -Dhttpd=false
 endif
 
+ifeq ($(BR2_PACKAGE_MPD_ID3TAG),y)
+MPD_DEPENDENCIES += libid3tag
+MPD_CONF_OPTS += -Did3tag=enabled
+else
+MPD_CONF_OPTS += -Did3tag=disabled
+endif
+
 ifeq ($(BR2_PACKAGE_MPD_JACK2),y)
 MPD_DEPENDENCIES += jack2
 MPD_CONF_OPTS += -Djack=enabled
@@ -180,6 +187,13 @@ else
 MPD_CONF_OPTS += -Dmad=disabled
 endif
 
+ifeq ($(BR2_PACKAGE_MPD_MODPLUG),y)
+MPD_DEPENDENCIES += libmodplug
+MPD_CONF_OPTS += -Dmodplug=enabled
+else
+MPD_CONF_OPTS += -Dmodplug=disabled
+endif
+
 ifeq ($(BR2_PACKAGE_MPD_MPG123),y)
 MPD_DEPENDENCIES += libid3tag mpg123
 MPD_CONF_OPTS += -Dmpg123=enabled
@@ -239,6 +253,13 @@ MPD_DEPENDENCIES += libshout
 MPD_CONF_OPTS += -Dshout=enabled
 else
 MPD_CONF_OPTS += -Dshout=disabled
+endif
+
+ifeq ($(BR2_PACKAGE_MPD_SIDPLAY),y)
+MPD_DEPENDENCIES += libsidplay2
+MPD_CONF_OPTS += -Dsidplay=enabled
+else
+MPD_CONF_OPTS += -Dsidplay=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_MPD_SOUNDCLOUD),y)
@@ -301,6 +322,13 @@ MPD_DEPENDENCIES += wavpack
 MPD_CONF_OPTS += -Dwavpack=enabled
 else
 MPD_CONF_OPTS += -Dwavpack=disabled
+endif
+
+ifeq ($(BR2_PACKAGE_MPD_ZZIP),y)
+MPD_DEPENDENCIES += zziplib
+MPD_CONF_OPTS += -Dzzip=enabled
+else
+MPD_CONF_OPTS += -Dzzip=disabled
 endif
 
 define MPD_INSTALL_EXTRA_FILES
