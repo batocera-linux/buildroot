@@ -97,7 +97,6 @@ PHP_CONF_OPTS += \
 	$(if $(BR2_PACKAGE_PHP_EXT_SOCKETS),--enable-sockets) \
 	$(if $(BR2_PACKAGE_PHP_EXT_POSIX),--enable-posix) \
 	$(if $(BR2_PACKAGE_PHP_EXT_SESSION),--enable-session) \
-	$(if $(BR2_PACKAGE_PHP_EXT_HASH),--enable-hash) \
 	$(if $(BR2_PACKAGE_PHP_EXT_DOM),--enable-dom) \
 	$(if $(BR2_PACKAGE_PHP_EXT_SIMPLEXML),--enable-simplexml) \
 	$(if $(BR2_PACKAGE_PHP_EXT_SOAP),--enable-soap) \
@@ -151,7 +150,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_PHP_EXT_LIBXML2),y)
 PHP_CONF_ENV += php_cv_libxml_build_works=yes
-PHP_CONF_OPTS += --with-libxml --with-libxml-dir=$(STAGING_DIR)/usr
+PHP_CONF_OPTS += --with-libxml
 PHP_DEPENDENCIES += libxml2
 endif
 
