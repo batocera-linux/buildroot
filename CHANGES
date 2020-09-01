@@ -1,8 +1,20 @@
+2020.08, released September 1st, 2020
+
+	Various fixes.
+
+	Updated/fixed packages: am33x-cm3, avahi, bluez-tools,
+	busybox, chocolate-doom, collectd, dhcp, docker-cli, domoticz,
+	gobject-introspection, graphite2, haproxy, ibm-sw-tpm2,
+	imagemagick, libeXosip2, libressl, lxc, mbedtls, menu-cache,
+	mongodb, mosquitto, nvidia-driver, paho-mqtt-c, pixz,
+	postgresql, python-django, rtty, squid, stress-ng, systemd,
+	trousers, uclibc, wireshark, wolfssl, zbar
+
 2020.08-rc3, released August 28th, 2020
 
 	Fixes all over the tree.
 
-	Infrastructure: Ensure RPATH entries thay may be needed for
+	Infrastructure: Ensure RPATH entries that may be needed for
 	dlopen() are not dropped by patchelf.
 
 	Toolchain: Drop old GCC 6 based external Sourcery AMD64
@@ -57,7 +69,7 @@
 
 	#12876: nodejs fails to build when host-icu has been built before
 	#13111: python-gunicorn: missing dependency on python-setuptools
-	#12121: wpa_supplicant fails to build without libopenssl enabled
+	#13121: wpa_supplicant fails to build without libopenssl enabled
 	#13146: raspberrypi3_defconfig: "Inappropriate ioctl for device"..
 	#13156: package live555 new license
 	#13166: python-rpi-gpio: does not work against aarch64, unint..
@@ -115,6 +127,40 @@
 	#13046: Optimize for fast -Ofast is not compliant
 	#13081: host-e2fsprogs attempts to create udev  rules.d on build host if not exists
 	#13101: BR audit2allow support
+
+2020.05.2, released August 29th, 2020
+
+	Important / security related fixes.
+
+	Infrastructure: Ensure RPATH entries that may be needed for
+	dlopen() are not dropped by patchelf.
+
+	BR_VERSION_FULL/setlocalversion (used by make print-version
+	and /etc/os-release): Properly handle local git tags
+
+	Updated/fixed packages: apache, assimp, at91bootstrap3, bind,
+	boost, busybox, capnproto, cegui, chrony, collectd, cpio,
+	cryptsetup, cups, cvs, dbus, docker-engine, domoticz, dovecot,
+	dovecot-pigeonhole, dropbear, efl, elixir, f2fs-tools, ffmpeg,
+	gd, gdk-pixbuf, ghostscript, glibc, gnuradio, grub2,
+	gst1-plugins-bad, gstreamer1-editing-services, hostapd,
+	ibm-sw-tpm2, iputils, jasper, json-c, libcurl, libressl,
+	libwebsockets, linux, live555, mesa3d, mongodb, mosquitto,
+	mpv, nodejs, opencv, opencv3, openfpgaloader, openjpeg,
+	patchelf, perl, php, postgresql, prosody, python-django,
+	python-gunicorn, python-matplotlib, ripgrep, rtl8188eu,
+	rtl8821au, ruby, shadowsocks-libev, squid, systemd,
+	tpm2-abrmd, tpm2-tools, trousers, uboot, webkitgtk, wireshark,
+	wolfssl, wpa_supplicant, wpewebkit, xen, xlib_libX11,
+	xserver_xorg-server
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#12876: nodejs fails to build when host-icu has been built before
+	#13111: python-gunicorn: missing dependency on python-setuptools
+	#13121: wpa_supplicant fails to build without libopenssl enabled
+	#13141: Target-finalize fail with "depmod: ERROR: Bad version passed"
+	#13156: package live555 new license
 
 2020.05.1, released July 25th, 2020
 
@@ -346,6 +392,38 @@
 	#12751: OpenJdk package installation issues on	target
 	#12796: Update OpenSSL to Version 1.1.1g to patch  CVE-2020-1967
 	#12811: bootstrap stuck and no login prompt
+
+2020.02.5, released August 29th, 2020
+
+	Important / security related fixes.
+
+	Infrastructure: Ensure RPATH entries that may be needed for
+	dlopen() are not dropped by patchelf.
+
+	BR_VERSION_FULL/setlocalversion (used by make print-version
+	and /etc/os-release): Properly handle local git tags
+
+	Updated/fixed packages: apache, at91bootstrap3, bind, boost,
+	busybox, capnproto, chrony, collectd, cpio, cryptsetup, cups,
+	cvs, dbus, docker-engine, domoticz, dovecot,
+	dovecot-pigeonhole, dropbear, efl, elixir, f2fs-tools, ffmpeg,
+	gd, gdk-pixbuf, ghostscript, glibc, grub2, gst1-plugins-bad,
+	hostapd, iputils, jasper, json-c, libcurl, libwebsockets,
+	linux, live555, mesa3d, mosquitto, mpv, nodejs, opencv,
+	opencv3, openjpeg, patchelf, perl, php, postgresql,
+	python-django, python-gunicorn, python-matplotlib, ripgrep,
+	rtl8188eu, rtl8821au, ruby, shadowsocks-libev, squid,
+	tpm2-abrmd, tpm2-tools, trousers, uacme, webkitgtk, wireshark,
+	wolfssl, wpa_supplicant, wpewebkit, xen, xlib_libX11,
+	xserver_xorg-server
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#12876: nodejs fails to build when host-icu has been built before
+	#13111: python-gunicorn: missing dependency on python-setuptools
+	#13121: wpa_supplicant fails to build without libopenssl enabled
+	#13141: Target-finalize fail with "depmod: ERROR: Bad version passed"
+	#13156: package live555 new license
 
 2020.02.4, released July 26th, 2020
 
