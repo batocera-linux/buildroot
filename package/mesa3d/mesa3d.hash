@@ -1,7 +1,6 @@
-# From https://lists.freedesktop.org/archives/mesa-announce/2020-July/000591.html
-sha256  23bed40114b03ad640c95bfe72cc879ed2f941d0d481b77b5204a1fc567fa93c  mesa-20.1.6.tar.xz
-sha256  6800271c2be2a0447510eb4e9b67edd9521859a4d565310617c4b359eb6799fe  mesa-20.1.4.tar.xz
-sha512  f4d79694cda8531e7560147caf5d18bce5c685cd6c61264dced5adaa9043be9c83d3a2bd623ebffedc8d4258b9b1f97d84d9aeea307aa77cf99d0bc47c987155  mesa-20.1.4.tar.xz
+# From https://lists.freedesktop.org/archives/mesa-announce/2020-September/000597.html
+sha256  4de9dd0cb2ca367606cada421db62fbf6d276dfd533e522bfab6001ff9aba288  mesa-20.1.7.tar.xz
+sha512  5ff614c3f7568db7673cd2398615e5398c7f50093abdabd0730e07fe9c358310793fea3f130058110c9a2aa284c6efd207e1bdca3d1a1ba46fb18d76e34f361a  mesa-20.1.7.tar.xz
 
 # License
 sha256  1ddae7da415352a5b5360ff3a9d7ecf23ba81408f62eeecce0011f32e3ef9da6  docs/license.html
