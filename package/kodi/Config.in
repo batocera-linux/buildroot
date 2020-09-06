@@ -18,6 +18,26 @@ comment "kodi needs python w/ .py modules, a uClibc or glibc toolchain w/ C++, t
 config BR2_PACKAGE_KODI_PLATFORM_SUPPORTS
 	bool
 
+#batocera
+config BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM_GL
+        bool
+        default y
+        depends on BR2_ENABLE_LOCALE # libinput
+        depends on BR2_PACKAGE_HAS_LIBGL
+        depends on BR2_PACKAGE_HAS_LIBEGL
+        depends on BR2_PACKAGE_MESA3D_GBM
+        depends on BR2_PACKAGE_HAS_UDEV # libinput
+        select BR2_PACKAGE_KODI_PLATFORM_SUPPORTS
+
+config BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM_GLES
+        bool
+        default y
+        depends on BR2_ENABLE_LOCALE # libinput
+        depends on BR2_PACKAGE_HAS_LIBGLES
+        depends on BR2_PACKAGE_HAS_UDEV # libinput
+        depends on !BR2_PACKAGE_RPI_USERLAND
+        select BR2_PACKAGE_KODI_PLATFORM_SUPPORTS
+
 config BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_RBPI
 	bool
 	default y
@@ -119,6 +139,12 @@ if BR2_PACKAGE_KODI
 source "package/kodi-platform/Config.in"
 
 # batocera
+config BR2_PACKAGE_KODI_LIBTHEORA
+        bool "theora"
+        select BR2_PACKAGE_LIBTHEORA
+        help
+          Enable Theora input support.
+          Select this if you want to play back OGG/OGV files (Video).
 config BR2_PACKAGE_KODI_GBM
        bool "gbm"
        help
@@ -205,6 +231,19 @@ config BR2_PACKAGE_KODI_MYSQL
 choice
 	prompt "platform"
 	default BR2_PACKAGE_KODI_PLATFORM_X11_OPENGL
+
+#batocera
+config BR2_PACKAGE_KODI_PLATFORM_GBM_GL
+        bool "gbm/OpenGL"
+        depends on BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM_GL
+        select BR2_PACKAGE_LIBGLU
+        select BR2_PACKAGE_LIBINPUT
+        select BR2_PACKAGE_LIBXKBCOMMON
+config BR2_PACKAGE_KODI_PLATFORM_GBM_GLES
+        bool "gbm/GLES"
+        depends on BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM_GLES
+        select BR2_PACKAGE_LIBINPUT
+        select BR2_PACKAGE_LIBXKBCOMMON
 
 config BR2_PACKAGE_KODI_PLATFORM_RBPI
 	bool "Raspberry Pi"

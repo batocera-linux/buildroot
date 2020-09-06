@@ -61,7 +61,7 @@ KODI_EXTRA_DOWNLOADS += \
 	$(call github,xbmc,libdvdread,$(KODI_LIBDVDREAD_VERSION))/kodi-libdvdread-$(KODI_LIBDVDREAD_VERSION).tar.gz
 
 define KODI_CPLUFF_AUTOCONF
-	cd $(KODI_SRCDIR)/lib/cpluff && ./autogen.sh
+	cd $(KODI_SRCDIR)/lib/cpluff && PATH=$(PATH):$(HOST_DIR)/bin ./autogen.sh
 endef
 KODI_PRE_CONFIGURE_HOOKS += KODI_CPLUFF_AUTOCONF
 KODI_DEPENDENCIES += host-automake host-autoconf host-libtool
@@ -167,6 +167,26 @@ endif
 # mips: uses __atomic_load_8
 ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
 KODI_CXX_FLAGS += -latomic
+endif
+
+#batocera
+ifeq ($(BR2_PACKAGE_KODI_PLATFORM_GBM_GL),y)
+KODI_CONF_OPTS += \
+        -DCORE_PLATFORM_NAME=gbm \
+        -DGBM_RENDER_SYSTEM=gl \
+        -DENABLE_OPENGL=ON
+KODI_DEPENDENCIES += libegl libglu libinput libxkbcommon mesa3d
+endif
+
+ifeq ($(BR2_PACKAGE_KODI_PLATFORM_GBM_GLES),y)
+KODI_CONF_OPTS += \
+        -DCORE_PLATFORM_NAME=gbm \
+        -DGBM_RENDER_SYSTEM=gles
+
+KODI_DEPENDENCIES += libgles libinput libxkbcommon
+ifeq ($(BR2_PACKAGE_PROVIDES_LIBGLES),mesa3d)
+        KODI_DEPENDENCIES += mesa3d
+endif
 endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_RBPI),y)
@@ -399,9 +419,10 @@ define KODI_INSTALL_INIT_SYSTEMD
 		$(TARGET_DIR)/usr/lib/systemd/system/kodi.service
 endef
 
+# batocera outdated patch ??
 # batocera - kodi segfaults when not with -O0 on arm
-ifeq ($(BR2_arm),y)
-KODI_CONF_OPTS += -DCMAKE_CXX_FLAGS="`echo $(TARGET_CXXFLAGS) | sed -e s+'-O[1-3]'+' '+` -O0" -DCMAKE_C_FLAGS="`echo $(TARGET_CFLAGS) | sed -e s+'-O[1-3]'+' '+` -O0"
-endif
+#ifeq ($(BR2_arm),y)
+#KODI_CONF_OPTS += -DCMAKE_CXX_FLAGS="`echo $(TARGET_CXXFLAGS) | sed -e s+'-O[1-3]'+' '+` -O0" -DCMAKE_C_FLAGS="`echo $(TARGET_CFLAGS) | sed -e s+'-O[1-3]'+' '+` -O0"
+#endif
 
 $(eval $(cmake-package))
