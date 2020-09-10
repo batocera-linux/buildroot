@@ -549,7 +549,9 @@ ifeq ($(BR2_PACKAGE_X264),y)
 VLC_CONF_OPTS += --enable-x264
 VLC_DEPENDENCIES += x264
 else
-VLC_CONF_OPTS += --disable-x264
+# batocera
+# disable x26410b if no x264 (linking fails if x26410b enabled)
+VLC_CONF_OPTS += --disable-x264 --disable-x26410b
 endif
 
 ifeq ($(BR2_PACKAGE_X265),y)
