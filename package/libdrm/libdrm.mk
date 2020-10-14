@@ -99,12 +99,13 @@ else
 LIBDRM_CONF_OPTS += -Dudev=false
 endif
 
-ifeq ($(BR2_PACKAGE_VALGRIND),y)
-LIBDRM_CONF_OPTS += -Dvalgrind=true
-LIBDRM_DEPENDENCIES += valgrind
-else
+#batocera
+#ifeq ($(BR2_PACKAGE_VALGRIND),y)
+#LIBDRM_CONF_OPTS += -Dvalgrind=true
+#LIBDRM_DEPENDENCIES += valgrind
+#else
 LIBDRM_CONF_OPTS += -Dvalgrind=false
-endif
+#endif
 
 ifeq ($(BR2_PACKAGE_LIBDRM_INSTALL_TESTS),y)
 LIBDRM_CONF_OPTS += -Dinstall-test-programs=true
