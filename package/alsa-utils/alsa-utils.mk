@@ -3,7 +3,7 @@
 # alsa-utils
 #
 ################################################################################
-
+# batocera
 ALSA_UTILS_VERSION = 1.2.4
 ALSA_UTILS_SOURCE = alsa-utils-$(ALSA_UTILS_VERSION).tar.bz2
 ALSA_UTILS_SITE = https://www.alsa-project.org/files/pub/utils
