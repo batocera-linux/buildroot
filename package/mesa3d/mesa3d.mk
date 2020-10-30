@@ -293,4 +293,20 @@ ifeq ($(BR2_PACKAGE_LIBGLVND),y)
 MESA3D_CONF_OPTS += -Dglvnd=true
 endif
 
+# batocera icd.@0@.json vulkan files
+define MESA3D_VULKANJSON_X86_64
+        $(SED) s+"host_machine.cpu()"+"'x86_64'"+ $(@D)/src/intel/vulkan/meson.build $(@D)/src/amd/vulkan/meson.build
+endef
+
+define MESA3D_VULKANJSON_X86
+        $(SED) s+"host_machine.cpu()"+"'i586'"+ $(@D)/src/intel/vulkan/meson.build $(@D)/src/amd/vulkan/meson.build
+endef
+
+ifeq ($(BR2_x86_64),y)
+	MESA3D_PRE_CONFIGURE_HOOKS += MESA3D_VULKANJSON_X86_64
+endif
+ifeq ($(BR2_x86_i586),y)
+	MESA3D_PRE_CONFIGURE_HOOKS += MESA3D_VULKANJSON_X86
+endif
+
 $(eval $(meson-package))
