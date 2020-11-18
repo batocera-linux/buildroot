@@ -57,4 +57,9 @@ ifneq ($(BR2_TOOLCHAIN_HAS_THREADS),y)
 LIBKRB5_CONF_OPTS += --disable-thread-support
 endif
 
+# batocera
+ifeq ($(BR2_SHARED_STATIC_LIBS),y)
+LIBKRB5_CONF_OPTS += --disable-static
+endif
+
 $(eval $(autotools-package))
