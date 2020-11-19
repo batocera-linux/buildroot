@@ -12,6 +12,9 @@ ZEROMQ_CONF_OPTS = --without-documentation
 ZEROMQ_LICENSE = LGPL-3.0+ with exceptions
 ZEROMQ_LICENSE_FILES = COPYING COPYING.LESSER
 
+# We're patching configure.ac
+ZEROMQ_AUTORECONF = YES
+
 # Assume these flags are always available. It is true, at least for
 # SOCK_CLOEXEC, since linux v2.6.27.
 # Note: the flag TCP_KEEPALIVE is NOT available so we do not include it.
@@ -51,6 +54,13 @@ ifeq ($(BR2_PACKAGE_ZEROMQ_DRAFTS),y)
 ZEROMQ_CONF_OPTS += --enable-drafts
 else
 ZEROMQ_CONF_OPTS += --disable-drafts
+endif
+
+ifeq ($(BR2_PACKAGE_LIBBSD),y)
+ZEROMQ_DEPENDENCIES += host-pkgconf libbsd
+ZEROMQ_CONF_OPTS += --enable-libbsd
+else
+ZEROMQ_CONF_OPTS += --disable-libbsd
 endif
 
 # ZeroMQ uses libsodium if it's available.

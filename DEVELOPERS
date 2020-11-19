@@ -707,7 +707,7 @@ N:	Dominik Faessler <faessler@was.ch>
 F:	package/logsurfer/
 F:	package/python-id3/
 
-N:	Doug Kehn <rdkehn@yahoo.com>
+N:	Doug Kehn <rdkehn@gmail.com>
 F:	package/nss-pam-ldapd/
 F:	package/sp-oops-extract/
 F:	package/unscd/
@@ -1440,7 +1440,7 @@ F:	board/technologic/ts7680/
 F:	configs/ts7680_defconfig
 F:	package/paho-mqtt-c
 
-N:	Julien Olivain <juju@cotds.org>
+N:	Julien Olivain <ju.o@free.fr>
 F:	board/qmtech/zynq/
 F:	board/technexion/imx8mmpico/
 F:	board/technexion/imx8mpico/
@@ -1583,9 +1583,6 @@ F:	package/ffmpeg/
 F:	package/mpv/
 F:	package/rpi-firmware/
 F:	package/rpi-userland/
-
-N:	Mamatha Inamdar <mamatha4@linux.vnet.ibm.com>
-F:	package/nvme/
 
 N:	Manuel Vögele <develop@manuel-voegele.de>
 F:	package/python-pyqt5/
@@ -2272,11 +2269,6 @@ F:	package/python-tornado/
 F:	package/resiprocate/
 F:	package/websocketpp/
 
-N:	Ryan Coe <bluemrp9@gmail.com>
-F:	package/inadyn/
-F:	package/libite/
-F:	package/mariadb/
-
 N:	Ryan Wilkins <ryan@deadfrog.net>
 F:	package/biosdevname/
 
@@ -2583,9 +2575,6 @@ F:	package/waf/
 F:	support/testing/tests/package/test_crudini.py
 F:	support/testing/tests/package/test_redis.py
 
-N:	Trent Piepho <tpiepho@impinj.com>
-F:	package/libp11/
-
 N:	Tudor Holton <buildroot@tudorholton.com>
 F:	package/openjdk/
 
@@ -2636,6 +2625,8 @@ N:	Wade Berrier <wberrier@gmail.com>
 F:	package/ngrep/
 
 N:	Waldemar Brodkorb <wbx@openadk.org>
+F:	package/mksh/
+F:	package/ruby/
 F:	package/uclibc/
 F:	package/uclibc-ng-test/
 
