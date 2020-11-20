@@ -236,10 +236,9 @@ F:	package/pkg-golang.mk
 N:	Anthony Viallard <viallard@syscom-instruments.com>
 F:	package/gnuplot/
 
-N:	Antoine Ténart <antoine.tenart@bootlin.com>
+N:	Antoine Tenart <atenart@kernel.org>
 F:	package/libselinux/
 F:	package/refpolicy/
-F:	package/wf111/
 
 N:	Antony Pavlov <antonynpavlov@gmail.com>
 F:	package/lsscsi/
@@ -630,13 +629,6 @@ F:	package/libloki/
 N:	Cyril Bur <cyrilbur@gmail.com>
 F:	arch/Config.in.powerpc
 F:	package/kvm-unit-tests
-
-N:	Dagg Stompler <daggs@gmx.com>
-F:	board/hardkernel/odroidc2/
-F:	configs/odroidc2_defconfig
-F:	package/meson-tools/
-F:	package/odroidc2-firmware/
-F:	package/meson-tools/
 
 N:	Daniel J. Leach <dleach@belcan.com>
 F:	package/dacapo/

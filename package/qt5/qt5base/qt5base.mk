@@ -176,7 +176,6 @@ QT5BASE_DEPENDENCIES   += \
 	libxcb \
 	xcb-util-wm \
 	xcb-util-image \
-	xcb-util-renderutil \
 	xcb-util-keysyms \
 	xcb-util-renderutil \
 	xlib_libX11 \
