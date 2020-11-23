@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-WINE_VERSION = 5.0.2
+WINE_VERSION = 5.12
 WINE_SOURCE = wine-$(WINE_VERSION).tar.xz
-WINE_SITE = https://dl.winehq.org/wine/source/5.0
+WINE_SITE = https://dl.winehq.org/wine/source/5.x
 WINE_LICENSE = LGPL-2.1+
 WINE_LICENSE_FILES = COPYING.LIB LICENSE
 WINE_DEPENDENCIES = host-bison host-flex host-wine
@@ -29,30 +29,6 @@ WINE_CONF_OPTS = \
 	--without-oss \
 	--without-vkd3d \
 	--without-vulkan
-
-# batocera
-# Add FAudio if available
-ifeq ($(BR2_PACKAGE_FAUDIO),y)
-WINE_CONF_OPTS += --with-faudio
-WINE_DEPENDENCIES += faudio
-else
-WINE_CONF_OPTS += --without-vulkan
-endif
-# Add Vulkan if available
-ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yy)
-WINE_CONF_OPTS += --with-vulkan
-WINE_DEPENDENCIES += vulkan-headers vulkan-loader
-else
-WINE_CONF_OPTS += --without-vulkan
-endif
-# Add VKD3D if available
-ifeq ($(BR2_PACKAGE_VKD3D)$(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yyy)
-WINE_CONF_OPTS += --with-vkd3d
-WINE_DEPENDENCIES += vkd3d
-else
-WINE_CONF_OPTS += --without-vkd3d
-endif
-# TODO Add DXVK if available
 
 # Wine uses a wrapper around gcc, and uses the value of --host to
 # construct the filename of the gcc to call.  But for external
@@ -169,11 +145,18 @@ else
 WINE_CONF_OPTS += --without-png
 endif
 
+ifeq ($(BR2_PACKAGE_LIBUSB),y)
+WINE_CONF_OPTS += --with-usb
+WINE_DEPENDENCIES += libusb
+else
+WINE_CONF_OPTS += --without-usb
+endif
+
 ifeq ($(BR2_PACKAGE_LIBV4L),y)
-WINE_CONF_OPTS += --with-v4l
+WINE_CONF_OPTS += --with-v4l2
 WINE_DEPENDENCIES += libv4l
 else
-WINE_CONF_OPTS += --without-v4l
+WINE_CONF_OPTS += --without-v4l2
 endif
 
 ifeq ($(BR2_PACKAGE_LIBXML2),y)
@@ -410,7 +393,8 @@ HOST_WINE_CONF_OPTS += \
 	--without-sane \
 	--without-sdl \
 	--without-tiff \
-	--without-v4l \
+	--without-usb \
+	--without-v4l2 \
 	--without-vkd3d \
 	--without-vulkan \
 	--without-x \
