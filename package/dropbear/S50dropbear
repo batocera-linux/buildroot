@@ -11,7 +11,7 @@ systemsetting="python /usr/lib/python2.7/site-packages/configgen/settings/batoce
 start() {
         # batocera
         enabled="`$systemsetting  -command load -key system.ssh.enabled`"
-        if [ "$enabled" == "0" ];then
+        if [ "$enabled" = "0" ]; then
           echo "SSH services: disabled"
           exit 0
         fi
