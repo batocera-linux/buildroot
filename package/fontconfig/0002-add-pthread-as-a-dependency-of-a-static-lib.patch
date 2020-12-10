@@ -38,7 +38,7 @@ index 61b35fb..f823bac 100644
 -Libs.private: @ICONV_LIBS@ @PKG_EXPAT_LIBS@
 -Cflags: -I${includedir} @ICONV_CFLAGS@ @PKG_EXPAT_CFLAGS@
 +Libs.private: @ICONV_LIBS@ @PKG_EXPAT_LIBS@ @PTHREAD_LIBS@
-+Cflags: -I${includedir} @ICONV_CFLAGS@ @PKG_EXPAT_CFLAGS@ @PTHREAD_CFLAGS@
++Cflags: -I${includedir} @ICONV_CFLAGS@ @PKG_EXPAT_CFLAGS@
 -- 
 2.27.0
 
