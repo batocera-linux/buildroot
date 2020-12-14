@@ -4,7 +4,8 @@
 #
 ################################################################################
 
-LIBDRM_VERSION = 2.4.102
+# batocera bump to 2.4.103
+LIBDRM_VERSION = 2.4.103
 LIBDRM_SOURCE = libdrm-$(LIBDRM_VERSION).tar.xz
 LIBDRM_SITE = https://dri.freedesktop.org/libdrm
 LIBDRM_LICENSE = MIT
