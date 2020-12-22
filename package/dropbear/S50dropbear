@@ -8,7 +8,7 @@ test -r /etc/default/dropbear && . /etc/default/dropbear
 
 start() {
         # batocera
-        enabled="`/usr/bin/batocera-settings -r system.ssh.enabled`"
+        enabled="$(/usr/bin/batocera-settings-get system.ssh.enabled)"
         if [ "$enabled" = "0" ]; then
           echo "SSH services: disabled"
           exit 0
