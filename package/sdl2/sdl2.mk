@@ -41,7 +41,7 @@ endif
 
 # batocera
 # Used in screen rotation (SDL and Retroarch)
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ODROIDGOA),y)
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ODROIDGOA)$(BR2_PACKAGE_BATOCERA_TARGET_ODROIDGOS),y)
 SDL2_DEPENDENCIES += librga
 endif
 
