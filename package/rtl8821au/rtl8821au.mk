@@ -4,8 +4,9 @@
 #
 ################################################################################
 
-RTL8821AU_VERSION = 48a530c2b1b1acfe92d5fb5b6e32529e941baa9c
-RTL8821AU_SITE = $(call github,abperiasamy,rtl8812AU_8821AU_linux,$(RTL8821AU_VERSION))
+#batocera (change repo and hash)
+RTL8821AU_VERSION = 31a3a1cd421b0a32bd1fcb8e53fc6cb319a564da
+RTL8821AU_SITE = $(call github,lwfinger,rtl8812au,$(RTL8821AU_VERSION))
 RTL8821AU_LICENSE = GPL-2.0
 RTL8821AU_LICENSE_FILES = LICENSE
 
