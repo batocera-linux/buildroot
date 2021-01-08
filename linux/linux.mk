@@ -141,7 +141,7 @@ LINUX_MAKE_FLAGS = \
 
 # batocera
 LINUX_DEPENDENCIES += host-libyaml # needed by recent kernel versions
-ifeq ($(BR2_LINUX_AARCH64_KERNEL_IN_ARM_USER),y)
+ifeq ($(BR2_KERNEL_64_USERLAND_32),y)
 	# make 64-bit kernel in 32-bit userspace
 	LINUX_DEPENDENCIES += host-toolchain-optional-linaro-aarch64
 	LINUX_MAKE_FLAGS = \
@@ -252,9 +252,9 @@ LINUX_ARCH_PATH = $(LINUX_DIR)/arch/x86
 else ifeq ($(KERNEL_ARCH),x86_64)
 LINUX_ARCH_PATH = $(LINUX_DIR)/arch/x86
 # batocera
-else ifeq ($(BR2_LINUX_AARCH64_KERNEL_IN_ARM_USER),y)
-# arm64 kernel when arch is arm
-LINUX_ARCH_PATH = $(LINUX_DIR)/arch/arm64
+else ifeq ($(BR2_KERNEL_64_USERLAND_32),y)
+# arm -> arm64
+LINUX_ARCH_PATH = $(LINUX_DIR)/arch/$(KERNEL_ARCH)64
 else
 LINUX_ARCH_PATH = $(LINUX_DIR)/arch/$(KERNEL_ARCH)
 endif
