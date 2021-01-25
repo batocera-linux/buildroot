@@ -46,5 +46,6 @@ sha256 02309322467af8e37256ccf1f064f5233c7fca4423dffde0bd5eb32cde46942a  rust-st
 # Locally generated
 sha256 638c3983ad20f9b9e1f49da1c64ac681eec5cf705fee1089f052de4c09b05c2b  rust-std-1.49.0-x86_64-unknown-linux-gnu.tar.xz
 sha256 4f7cc328231e1a853e0d28d2fea960c6055b7d2eef9d06e7e2c85482e50b23ef  rust-1.49.0-x86_64-unknown-linux-gnu.tar.xz
+sha256 69c9a3d56fe8fcbb74b9885e451dd387c9316513a0da8f618dda066597011256  rust-std-1.49.0-aarch64-unknown-linux-gnu.tar.xz
 sha256 62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a  LICENSE-APACHE
 sha256 23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3  LICENSE-MIT
