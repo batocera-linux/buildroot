@@ -11,4 +11,9 @@ PYTHON_PYPARSING_LICENSE = MIT
 PYTHON_PYPARSING_LICENSE_FILES = LICENSE
 PYTHON_PYPARSING_SETUP_TYPE = setuptools
 
+#batocera
+PYTHON_PYPARSING_INSTALL_STAGING = YES
+
 $(eval $(python-package))
+#batocera
+$(eval $(host-python-package))
