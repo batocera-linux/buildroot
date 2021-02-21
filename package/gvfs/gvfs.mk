@@ -70,12 +70,14 @@ else
 GVFS_CONF_OPTS += -Dbluray=false
 endif
 
-ifeq ($(BR2_PACKAGE_LIBCAP)$(BR2_PACKAGE_POLKIT),yy)
-GVFS_DEPENDENCIES += libcap polkit
-GVFS_CONF_OPTS += -Dadmin=true
-else
+#batocera
 GVFS_CONF_OPTS += -Dadmin=false
-endif
+#ifeq ($(BR2_PACKAGE_LIBCAP)$(BR2_PACKAGE_POLKIT),yy)
+#GVFS_DEPENDENCIES += libcap polkit
+#GVFS_CONF_OPTS += -Dadmin=true
+#else
+#GVFS_CONF_OPTS += -Dadmin=false
+#endif
 
 ifeq ($(BR2_PACKAGE_LIBCDIO_PARANOIA)$(BR2_PACKAGE_LIBGUDEV),yy)
 GVFS_DEPENDENCIES += libcdio-paranoia libgudev
