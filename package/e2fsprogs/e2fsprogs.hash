@@ -1,5 +1,4 @@
-# https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.46.1/sha256sums.asc
-sha256  bbe6af3b7bb7119556b6f57a78d41b330007738bca8530b2ba95d2ba35430151  e2fsprogs-1.46.1.tar.xz
+# https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.45.6/sha256sums.asc
 sha256  ffa7ae6954395abdc50d0f8605d8be84736465afc53b8938ef473fcf7ff44256  e2fsprogs-1.45.6.tar.xz
 # Locally calculated
 sha256  5da5ef153e559c1d990d4c3eedbedd4442db892d37eae1f35fff069de8ec9020  NOTICE
