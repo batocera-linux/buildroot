@@ -12,9 +12,6 @@ SDL2_MIXER_LICENSE_FILES = COPYING.txt
 SDL2_MIXER_INSTALL_STAGING = YES
 SDL2_MIXER_DEPENDENCIES = sdl2 host-pkgconf
 
-# batocera
-SDL2_MIXER_CONF_OPTS = --disable-fluidsynth
-
 ifeq ($(BR2_PACKAGE_FLAC),y)
 SDL2_MIXER_CONF_OPTS += --enable-music-flac
 SDL2_MIXER_DEPENDENCIES += flac
@@ -51,8 +48,10 @@ SDL2_MIXER_CONF_OPTS += --disable-music-ogg-tremor
 endif
 
 # batocera
+ifeq ($(BR2_PACKAGE_LIBMAD),y)
 SDL2_MIXER_CONF_OPTS += --enable-music-mp3-mad-gpl
 SDL2_MIXER_DEPENDENCIES += libmad
+endif
 
 # batocera
 ifeq ($(BR2_PACKAGE_LIBVORBIS),y)
