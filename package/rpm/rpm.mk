@@ -22,6 +22,9 @@ RPM_LICENSE_FILES = COPYING
 # We're patching configure.ac
 RPM_AUTORECONF = YES
 
+#batocera
+RPM_INSTALL_STAGING = YES
+
 # Don't set --{dis,en}-openmp as upstream wants to abort the build if
 # --enable-openmp is provided and OpenMP is < 4.5:
 # https://github.com/rpm-software-management/rpm/pull/1433
