@@ -4,11 +4,11 @@
 #
 ################################################################################
 
-# batocera bump to 2.4.104
 LIBDRM_VERSION = 2.4.104
 LIBDRM_SOURCE = libdrm-$(LIBDRM_VERSION).tar.xz
 LIBDRM_SITE = https://dri.freedesktop.org/libdrm
 LIBDRM_LICENSE = MIT
+LIBDRM_LICENSE_FILES = xf86drm.c
 LIBDRM_INSTALL_STAGING = YES
 
 LIBDRM_DEPENDENCIES = \
@@ -100,13 +100,12 @@ else
 LIBDRM_CONF_OPTS += -Dudev=false
 endif
 
-#batocera
-#ifeq ($(BR2_PACKAGE_VALGRIND),y)
-#LIBDRM_CONF_OPTS += -Dvalgrind=true
-#LIBDRM_DEPENDENCIES += valgrind
-#else
+ifeq ($(BR2_PACKAGE_VALGRIND),y)
+LIBDRM_CONF_OPTS += -Dvalgrind=true
+LIBDRM_DEPENDENCIES += valgrind
+else
 LIBDRM_CONF_OPTS += -Dvalgrind=false
-#endif
+endif
 
 ifeq ($(BR2_PACKAGE_LIBDRM_INSTALL_TESTS),y)
 LIBDRM_CONF_OPTS += -Dinstall-test-programs=true
