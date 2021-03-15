@@ -7,6 +7,7 @@
 LINUX_FIRMWARE_VERSION = 20201022
 LINUX_FIRMWARE_SITE = http://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
 LINUX_FIRMWARE_SITE_METHOD = git
+LINUX_FIRMWARE_INSTALL_IMAGES = YES
 
 LINUX_FIRMWARE_CPE_ID_VENDOR = kernel
 
@@ -638,26 +639,12 @@ LINUX_FIRMWARE_FILES += ti_3410.fw ti_5052.fw \
 LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENCE.moxa
 endif
 
-ifneq ($(LINUX_FIRMWARE_FILES),)
-define LINUX_FIRMWARE_INSTALL_FILES
-	cd $(@D) && \
-		$(TAR) cf install.tar $(sort $(LINUX_FIRMWARE_FILES)) && \
-		$(TAR) xf install.tar -C $(TARGET_DIR)/lib/firmware
-endef
-endif
-
-ifneq ($(LINUX_FIRMWARE_DIRS),)
-# We need to rm-rf the destination directory to avoid copying
-# into it in itself, should we re-install the package.
-define LINUX_FIRMWARE_INSTALL_DIRS
-	$(foreach d,$(LINUX_FIRMWARE_DIRS), \
-		rm -rf $(TARGET_DIR)/lib/firmware/$(d); \
-		mkdir -p $(dir $(TARGET_DIR)/lib/firmware/$(d)); \
-		cp -a $(@D)/$(d) $(TARGET_DIR)/lib/firmware/$(d)$(sep))
-endef
-endif
-
 ifneq ($(LINUX_FIRMWARE_FILES)$(LINUX_FIRMWARE_DIRS),)
+
+define LINUX_FIRMWARE_BUILD_CMDS
+	cd $(@D) && \
+	$(TAR) cf br-firmware.tar $(sort $(LINUX_FIRMWARE_FILES) $(LINUX_FIRMWARE_DIRS))
+endef
 
 # Most firmware files are under a proprietary license, so no need to
 # repeat it for every selections above. Those firmwares that have more
@@ -673,8 +660,6 @@ LINUX_FIRMWARE_ALL_LICENSE_FILES += WHENCE
 # duplicates
 LINUX_FIRMWARE_LICENSE_FILES = $(sort $(LINUX_FIRMWARE_ALL_LICENSE_FILES))
 
-endif
-
 # Some firmware are distributed as a symlink, for drivers to load them using a
 # defined name other than the real one. Since 9cfefbd7fbda ("Remove duplicate
 # symlinks") those symlink aren't distributed in linux-firmware but are created
@@ -686,8 +671,10 @@ endif
 # sure we canonicalize the pointed-to file, to cover the symlinks of the form
 # a/foo -> ../b/foo  where a/ (the directory where to put the symlink) does
 # not yet exist.
-define LINUX_FIRMWARE_CREATE_SYMLINKS
-	cd $(TARGET_DIR)/lib/firmware/ ; \
+define LINUX_FIRMWARE_INSTALL_FW
+	mkdir -p $(1)
+	$(TAR) xf $(@D)/br-firmware.tar -C $(1)
+	cd $(1) ; \
 	sed -r -e '/^Link: (.+) -> (.+)$$/!d; s//\1 \2/' $(@D)/WHENCE | \
 	while read f d; do \
 		if test -f $$(readlink -m $$(dirname $$f)/$$d); then \
@@ -697,11 +684,14 @@ define LINUX_FIRMWARE_CREATE_SYMLINKS
 	done
 endef
 
+endif  # LINUX_FIRMWARE_FILES || LINUX_FIRMWARE_DIRS
+
 define LINUX_FIRMWARE_INSTALL_TARGET_CMDS
-	mkdir -p $(TARGET_DIR)/lib/firmware
-	$(LINUX_FIRMWARE_INSTALL_FILES)
-	$(LINUX_FIRMWARE_INSTALL_DIRS)
-	$(LINUX_FIRMWARE_CREATE_SYMLINKS)
+	$(call LINUX_FIRMWARE_INSTALL_FW, $(TARGET_DIR)/lib/firmware)
+endef
+
+define LINUX_FIRMWARE_INSTALL_IMAGES_CMDS
+	$(call LINUX_FIRMWARE_INSTALL_FW, $(BINARIES_DIR))
 endef
 
 $(eval $(generic-package))
