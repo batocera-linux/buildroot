@@ -70,6 +70,7 @@ F:	package/odhcp6c/
 N:	Alexander Dahl <post@lespocky.de>
 F:	package/fastd/
 F:	package/libuecc/
+F:	package/siproxd/
 F:	package/putty/
 
 N:	Alexander Egorenkov <egorenar-dev@posteo.net>
@@ -509,9 +510,6 @@ N:	Christian Kellermann <christian.kellermann@solectrix.de>
 F:	package/python-pylibftdi/
 
 N:	Christian Stewart <christian@paral.in>
-F:	linux/linux-ext-aufs.mk
-F:	package/aufs/
-F:	package/aufs-util/
 F:	package/batman-adv/
 F:	package/delve/
 F:	package/docker-cli/
@@ -921,6 +919,7 @@ F:	package/copas/
 F:	package/coxpcall/
 F:	package/dado/
 F:	package/ficl/
+F:	package/janet/
 F:	package/libtomcrypt/
 F:	package/libtommath/
 F:	package/libwpe/
@@ -1055,6 +1054,7 @@ F:	package/python-wtforms/
 
 N:	Guillaume William Brs <guillaume.bressaix@gmail.com>
 F:	package/libnids/
+F:	package/libxcrypt/
 F:	package/liquid-dsp/
 F:	package/pixiewps/
 F:	package/python-pybind/
@@ -1122,6 +1122,7 @@ F:	package/exempi/
 
 N:	Ismael Luceno <ismael@iodev.co.uk>
 F:	package/axel/
+F:	package/mawk/
 
 N:	Jagan Teki <jagan@amarulasolutions.com>
 F:	board/amarula/
@@ -1283,6 +1284,7 @@ F:	board/globalscale/espressobin/
 F:	package/mg/
 F:	package/netcalc/
 F:	package/ssdp-responder/
+F:	package/sysklogd/
 
 N:	Joao Pinto <jpinto@synopsys.com>
 F:	board/synopsys/vdk/
@@ -2103,6 +2105,7 @@ F:	package/libuev/
 F:	package/log4cplus/
 F:	package/postgresql/
 F:	package/python-colorzero/
+F:	package/python-flask-wtf/
 F:	package/python-gpiozero/
 F:	package/qt5/
 F:	package/quotatool/
@@ -2309,6 +2312,8 @@ N:	Ryan Barnett <ryan.barnett@rockwellcollins.com>
 F:	package/atftp/
 F:	package/c-periphery/
 F:	package/miraclecast/
+F:	package/opkg/
+F:	package/opkg-utils/
 F:	package/python-pysnmp/
 F:	package/python-pysnmp-mibs/
 F:	package/python-tornado/
