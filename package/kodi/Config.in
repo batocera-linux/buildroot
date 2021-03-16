@@ -110,8 +110,6 @@ menuconfig BR2_PACKAGE_KODI
 
 if BR2_PACKAGE_KODI
 
-source "package/kodi-platform/Config.in"
-
 # batocera
 config BR2_PACKAGE_KODI_LIBTHEORA
         bool "theora"

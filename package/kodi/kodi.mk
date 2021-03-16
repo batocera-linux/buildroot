@@ -58,10 +58,6 @@ KODI_EXTRA_DOWNLOADS += \
 	$(call github,xbmc,libdvdnav,$(KODI_LIBDVDNAV_VERSION))/kodi-libdvdnav-$(KODI_LIBDVDNAV_VERSION).tar.gz \
 	$(call github,xbmc,libdvdread,$(KODI_LIBDVDREAD_VERSION))/kodi-libdvdread-$(KODI_LIBDVDREAD_VERSION).tar.gz
 
-define KODI_CPLUFF_AUTOCONF
-	cd $(KODI_SRCDIR)/lib/cpluff && PATH=$(PATH):$(HOST_DIR)/bin ./autogen.sh
-endef
-KODI_PRE_CONFIGURE_HOOKS += KODI_CPLUFF_AUTOCONF
 KODI_DEPENDENCIES += host-automake host-autoconf host-libtool
 
 KODI_CONF_OPTS += \
@@ -238,6 +234,7 @@ ifeq ($(BR2_PACKAGE_KODI_PLATFORM_X11_OPENGL),y)
 KODI_CONF_OPTS += -DCORE_PLATFORM_NAME=x11
 KODI_DEPENDENCIES += libegl libglu libgl xlib_libX11 xlib_libXext \
 	xlib_libXrandr libdrm
+endif
 
 ifeq ($(BR2_TOOLCHAIN_GCC_AT_LEAST_5),)
 KODI_C_FLAGS += -std=gnu99
