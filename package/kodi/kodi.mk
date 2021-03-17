@@ -92,10 +92,10 @@ endif
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM),y)
 KODI_CORE_PLATFORM_NAME += gbm
 KODI_DEPENDENCIES += libinput libxkbcommon 
-ifeq ($(BR2_PACKAGE_HAS_LIBMALI),y)
-KODI_DEPENDENCIES += libmali
-else
+ifeq ($(BR2_PACKAGE_MESA3D),y)
 KODI_DEPENDENCIES += mesa3d
+else ifeq ($(BR2_PACKAGE_HAS_LIBMALI),y)
+KODI_DEPENDENCIES += libmali
 endif
 endif
 
