@@ -207,7 +207,6 @@ ifeq ($(BR2_PACKAGE_KODI_PLATFORM_GBM_GLES),y)
 KODI_CONF_OPTS += \
         -DCORE_PLATFORM_NAME=gbm \
         -DGBM_RENDER_SYSTEM=gles
-
 KODI_DEPENDENCIES += libgles libinput libxkbcommon
 ifeq ($(BR2_PACKAGE_PROVIDES_LIBGLES),mesa3d)
         KODI_DEPENDENCIES += mesa3d
@@ -215,7 +214,9 @@ endif
 endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_RBPI),y)
-KODI_CONF_OPTS += -DCORE_PLATFORM_NAME=rbpi
+KODI_CONF_OPTS += \
+	-DCORE_PLATFORM_NAME=gbm \
+        -DGBM_RENDER_SYSTEM=gles
 KODI_DEPENDENCIES += libinput libxkbcommon rpi-userland
 endif
 
