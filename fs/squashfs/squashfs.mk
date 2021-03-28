@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-ROOTFS_SQUASHFS_DEPENDENCIES = host-squashfs
+ROOTFS_SQUASHFS_DEPENDENCIES = host-squashfs zstd
 
 ROOTFS_SQUASHFS_ARGS = -noappend -processors $(PARALLEL_JOBS)
 
