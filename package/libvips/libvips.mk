@@ -32,9 +32,7 @@ LIBVIPS_CONF_OPTS = \
 	--without-cfitsio \
 	--without-libwebp \
 	--without-pangoft2 \
-	--without-x \
-	--without-zip \
-	--without-python
+	--without-x
 LIBVIPS_INSTALL_STAGING = YES
 LIBVIPS_DEPENDENCIES = \
 	host-pkgconf expat libglib2 \
@@ -59,6 +57,13 @@ LIBVIPS_CONF_OPTS += --with-png
 LIBVIPS_DEPENDENCIES += libpng
 else
 LIBVIPS_CONF_OPTS += --without-png
+endif
+
+ifeq ($(BR2_PACKAGE_POPPLER),y)
+LIBVIPS_CONF_OPTS += --with-poppler
+LIBVIPS_DEPENDENCIES += poppler
+else
+LIBVIPS_CONF_OPTS += --without-poppler
 endif
 
 ifeq ($(BR2_PACKAGE_TIFF),y)
