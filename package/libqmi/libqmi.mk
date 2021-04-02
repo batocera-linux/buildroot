@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBQMI_VERSION = 1.26.6
+LIBQMI_VERSION = 1.28.2
 LIBQMI_SITE = http://www.freedesktop.org/software/libqmi
 LIBQMI_SOURCE = libqmi-$(LIBQMI_VERSION).tar.xz
 LIBQMI_LICENSE = LGPL-2.0+ (library), GPL-2.0+ (programs)
@@ -13,8 +13,7 @@ LIBQMI_INSTALL_STAGING = YES
 
 LIBQMI_DEPENDENCIES = libglib2
 
-# we don't want -Werror
-LIBQMI_CONF_OPTS = --enable-more-warnings=no
+LIBQMI_CONF_OPTS = --disable-Werror
 
 # if libgudev available, request udev support for a better
 # qmi-firmware-update experience
@@ -31,6 +30,14 @@ LIBQMI_DEPENDENCIES += libmbim
 LIBQMI_CONF_OPTS += --enable-mbim-qmux
 else
 LIBQMI_CONF_OPTS += --disable-mbim-qmux
+endif
+
+# if libqrtr-glib available, enable support for QMI over QRTR
+ifeq ($(BR2_PACKAGE_LIBQRTR_GLIB),y)
+LIBQMI_DEPENDENCIES += libqrtr-glib
+LIBQMI_CONF_OPTS += --enable-qrtr
+else
+LIBQMI_CONF_OPTS += --disable-qrtr
 endif
 
 # if ModemManager available, enable MM runtime check in
