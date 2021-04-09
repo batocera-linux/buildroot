@@ -63,6 +63,40 @@ TVHEADEND_CONF_OPTS += \
 	--disable-libx265
 endif
 
+ifeq ($(BR2_PACKAGE_TVHEADEND_DESCRAMBLER),y)
+TVHEADEND_CONF_OPTS += \
+	--enable-cardclient \
+	--enable-cwc \
+	--enable-cccam \
+	--enable-capmt \
+	--enable-constcw
+else
+TVHEADEND_CONF_OPTS += \
+	--disable-cardclient \
+	--disable-cwc \
+	--disable-cccam \
+	--disable-capmt \
+	--disable-constcw
+endif
+
+ifeq ($(BR2_PACKAGE_TVHEADEND_IPTV),y)
+TVHEADEND_CONF_OPTS += --enable-iptv
+else
+TVHEADEND_CONF_OPTS += --disable-iptv
+endif
+
+ifeq ($(BR2_PACKAGE_TVHEADEND_SATIP),y)
+TVHEADEND_CONF_OPTS += --enable-satip_client --enable-satip_server
+else
+TVHEADEND_CONF_OPTS += --disable-satip_client --disable-satip_server
+endif
+
+ifeq ($(BR2_PACKAGE_TVHEADEND_TIMESHIFT),y)
+TVHEADEND_CONF_OPTS += --enable-timeshift
+else
+TVHEADEND_CONF_OPTS += --disable-timeshift
+endif
+
 ifeq ($(BR2_PACKAGE_LIBDVBCSA),y)
 TVHEADEND_DEPENDENCIES += libdvbcsa
 TVHEADEND_CONF_OPTS += --enable-tvhcsa
