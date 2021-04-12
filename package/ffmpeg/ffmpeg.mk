@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FFMPEG_VERSION = 4.3.2
+FFMPEG_VERSION = 4.4
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
 FFMPEG_SITE = http://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
@@ -368,13 +368,6 @@ else
 FFMPEG_CONF_OPTS += --disable-libtheora
 endif
 
-ifeq ($(BR2_PACKAGE_WAVPACK),y)
-FFMPEG_CONF_OPTS += --enable-libwavpack
-FFMPEG_DEPENDENCIES += wavpack
-else
-FFMPEG_CONF_OPTS += --disable-libwavpack
-endif
-
 ifeq ($(BR2_PACKAGE_LIBICONV),y)
 FFMPEG_CONF_OPTS += --enable-iconv
 FFMPEG_DEPENDENCIES += libiconv
@@ -558,7 +551,7 @@ FFMPEG_CONF_ENV += CFLAGS="$(FFMPEG_CFLAGS)"
 FFMPEG_CONF_OPTS += $(call qstrip,$(BR2_PACKAGE_FFMPEG_EXTRACONF))
 
 ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ROCKCHIP_ANY),y)
-FFMPEG_VERSION = 4.3
+FFMPEG_VERSION = 4.4
 FFMPEG_CONF_OPTS += --enable-rkmpp --enable-version3
 FFMPEG_DEPENDENCIES += rockchip-mpp
 
