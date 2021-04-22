@@ -5,8 +5,8 @@
 ################################################################################
 
 # LLVM, Clang and lld should be version bumped together
-# batocera bump to 11.0.1
-LLD_VERSION = 11.0.1
+# batocera bump to 12.0.0
+LLD_VERSION = 12.0.0
 LLD_SITE = https://github.com/llvm/llvm-project/releases/download/llvmorg-$(LLD_VERSION)
 LLD_SOURCE = lld-$(LLD_VERSION).src.tar.xz
 LLD_LICENSE = Apache-2.0 with exceptions
