@@ -502,6 +502,15 @@ config BR2_PACKAGE_PROVIDES_LIBOPENCL
 
 endif # BR2_PACKAGE_MESA3D
 
+config BR2_PACKAGE_MESA3D_CUSTOM_VERSION
+        bool "Custom version"
+        help
+          This option allows to use a specific Mesa3D version
+
+config BR2_PACKAGE_MESA3D_CUSTOM_VERSION_VALUE
+        string "Mesa3D version"
+        depends on BR2_PACKAGE_MESA3D_CUSTOM_VERSION
+
 comment "mesa3d needs a toolchain w/ C++, NPTL, dynamic library"
 	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS_NPTL || \
 		BR2_STATIC_LIBS
