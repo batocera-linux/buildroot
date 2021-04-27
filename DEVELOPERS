@@ -240,6 +240,7 @@ F:	package/python*
 F:	package/snmpclitools/
 F:	package/spdlog/
 F:	package/uftp/
+F:	package/uftrace/
 F:	package/uvw/
 F:	package/zeromq/
 
@@ -1401,6 +1402,10 @@ F:	package/libuio/
 F:	package/netsniff-ng/
 F:	package/rabbitmq-c/
 
+N:	José Luis Salvador Rufo <salvador.joseluis@gmail.com>
+F:	package/zfs/
+F:	support/testing/tests/package/test_zfs.py
+
 N:	Joseph Kogut <joseph.kogut@gmail.com>
 F:	package/at-spi2-atk/
 F:	package/at-spi2-core/
@@ -1785,6 +1790,7 @@ F:	package/python-filelock/
 F:	package/python-flask-cors/
 F:	package/python-iptables/
 F:	package/python-ipy/
+F:	package/python-iwlib/
 F:	package/python-posix-ipc/
 F:	package/python-pycairo/
 F:	package/python-pypcap/
@@ -1836,6 +1842,8 @@ N:	Max Filippov <jcmvbkbc@gmail.com>
 F:	arch/Config.in.xtensa
 
 N:	Maxim Kochetkov <fido_max@inbox.ru>
+F:	package/postgis/
+F:	package/protozero/
 F:	package/timescaledb/
 
 N:	Maxime Hadjinlian <maxime.hadjinlian@gmail.com>
