@@ -236,7 +236,7 @@ KODI_CXX_FLAGS += `$(PKG_CONFIG_HOST_BINARY) --cflags egl`
 KODI_DEPENDENCIES += libegl libgles libxkbcommon waylandpp
 endif
 
-ifeq ($(BR2_PACKAGE_KODI_PLATFORM_X11_OPENGL),y)
+ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_X11),y)
 KODI_CONF_OPTS += -DCORE_PLATFORM_NAME=x11
 KODI_DEPENDENCIES += libegl libglu libgl xlib_libX11 xlib_libXext \
 	xlib_libXrandr libdrm
