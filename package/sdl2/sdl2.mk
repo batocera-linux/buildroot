@@ -4,13 +4,11 @@
 #
 ################################################################################
 
-SDL2_VERSION = 2.0.14
+SDL2_VERSION = 2.0.12
 SDL2_SOURCE = SDL2-$(SDL2_VERSION).tar.gz
 SDL2_SITE = http://www.libsdl.org/release
 SDL2_LICENSE = Zlib
 SDL2_LICENSE_FILES = COPYING.txt
-SDL2_CPE_ID_VENDOR = libsdl
-SDL2_CPE_ID_PRODUCT = simple_directmedia_layer
 SDL2_INSTALL_STAGING = YES
 SDL2_CONFIG_SCRIPTS = sdl2-config
 
@@ -152,6 +150,13 @@ SDL2_CONF_OPTS += --enable-video-opengles
 SDL2_DEPENDENCIES += libgles
 else
 SDL2_CONF_OPTS += --disable-video-opengles
+endif
+
+ifeq ($(BR2_PACKAGE_TSLIB),y)
+SDL2_DEPENDENCIES += tslib
+SDL2_CONF_OPTS += --enable-input-tslib
+else
+SDL2_CONF_OPTS += --disable-input-tslib
 endif
 
 ifeq ($(BR2_PACKAGE_ALSA_LIB),y)
