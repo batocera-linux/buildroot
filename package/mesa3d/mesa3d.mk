@@ -5,7 +5,7 @@
 ################################################################################
 
 # When updating the version, please also update mesa3d-headers
-MESA3D_VERSION = 21.0.3
+MESA3D_VERSION = 21.1.0
 ifeq ($(BR2_PACKAGE_MESA3D_CUSTOM_VERSION),y)
 MESA3D_VERSION = $(call qstrip,$(BR2_PACKAGE_MESA3D_CUSTOM_VERSION_VALUE))
 endif
