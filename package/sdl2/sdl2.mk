@@ -4,9 +4,11 @@
 #
 ################################################################################
 
-SDL2_VERSION = 2.0.14
-SDL2_SOURCE = SDL2-$(SDL2_VERSION).tar.gz
-SDL2_SITE = http://www.libsdl.org/release
+#SDL2_VERSION = 2.0.14
+#SDL2_SOURCE = SDL2-$(SDL2_VERSION).tar.gz
+#SDL2_SITE = http://www.libsdl.org/release
+SDL2_VERSION = b5b7804ed42b325fa34ea9ef262f7a604334a1b5
+SDL2_SITE = $(call github,libsdl-org,SDL,$(SDL2_VERSION))
 SDL2_LICENSE = Zlib
 SDL2_LICENSE_FILES = COPYING.txt
 SDL2_CPE_ID_VENDOR = libsdl
@@ -29,6 +31,13 @@ SDL2_CONF_OPTS += \
 define SDL2_REMOVE_SDL2_CONFIG_CMAKE
 	rm -rf $(STAGING_DIR)/usr/lib/cmake/SDL2
 endef
+
+define SDL2_FIX_WAYLAND_SCANNER_PATH
+	sed -i "s+/usr/bin/wayland-scanner+$(HOST_DIR)/usr/bin/wayland-scanner+g" $(@D)/Makefile
+endef
+
+SDL2_POST_CONFIGURE_HOOKS += SDL2_FIX_WAYLAND_SCANNER_PATH
+
 SDL2_POST_INSTALL_STAGING_HOOKS += SDL2_REMOVE_SDL2_CONFIG_CMAKE
 
 # We must enable static build to get compilation successful.
@@ -159,6 +168,13 @@ SDL2_DEPENDENCIES += libdrm
 SDL2_CONF_OPTS += --enable-video-kmsdrm
 else
 SDL2_CONF_OPTS += --disable-video-kmsdrm
+endif
+
+ifeq ($(BR2_PACKAGE_WAYLAND),y)
+SDL2_DEPENDENCIES += wayland waylandpp
+SDL2_CONF_OPTS += --enable-video-wayland
+else
+SDL2_CONF_OPTS += --disable-video-wayland
 endif
 
 $(eval $(autotools-package))

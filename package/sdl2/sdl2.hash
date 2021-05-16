@@ -1,4 +1,5 @@
 # Locally calculated after checking http://www.libsdl.org/release/SDL2-2.0.14.tar.gz.sig
+sha256  53361069e67f43cc6f7736b21832bfefa78df2bdcda79d72207f6fde09a2ab0d  sdl2-b5b7804ed42b325fa34ea9ef262f7a604334a1b5.tar.gz
 sha256  d8215b571a581be1332d2106f8036fcb03d12a70bae01e20f424976d275432bc  SDL2-2.0.14.tar.gz
 # Locally calculated
 sha256  ae4df3759a726538607b84c00ab8f8a5567d9f38ad5397486eb9b5c5f626caef  COPYING.txt
