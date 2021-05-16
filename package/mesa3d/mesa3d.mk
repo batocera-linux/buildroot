@@ -5,10 +5,7 @@
 ################################################################################
 
 # When updating the version, please also update mesa3d-headers
-MESA3D_VERSION = 21.0.3
-ifeq ($(BR2_PACKAGE_MESA3D_CUSTOM_VERSION),y)
-MESA3D_VERSION = $(call qstrip,$(BR2_PACKAGE_MESA3D_CUSTOM_VERSION_VALUE))
-endif
+MESA3D_VERSION = 21.1.0
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 MESA3D_SITE = https://mesa.freedesktop.org/archive
 MESA3D_LICENSE = MIT, SGI, Khronos
