@@ -146,23 +146,6 @@ LINUX_MAKE_FLAGS = \
 
 # batocera
 LINUX_DEPENDENCIES += host-libyaml # needed by recent kernel versions
-ifeq ($(BR2_KERNEL_64_USERLAND_32_ARM_LINARO),y)
-	# make 64-bit kernel in 32-bit userspace
-	LINUX_DEPENDENCIES += host-toolchain-optional-linaro-aarch64
-	LINUX_MAKE_FLAGS = \
-		HOSTCC="$(HOSTCC) $(HOST_CFLAGS) $(HOST_LDFLAGS)" \
-		ARCH=arm64 \
-		INSTALL_MOD_PATH=$(TARGET_DIR) \
-		CROSS_COMPILE="$(HOST_DIR)/lib/gcc-linaro-aarch64-linux-gnu/bin/aarch64-linux-gnu-" \
-		DEPMOD=$(HOST_DIR)/sbin/depmod
-	else
-	LINUX_MAKE_FLAGS = \
-		HOSTCC="$(HOSTCC) $(HOST_CFLAGS) $(HOST_LDFLAGS)" \
-		ARCH=$(KERNEL_ARCH) \
-		INSTALL_MOD_PATH=$(TARGET_DIR) \
-		CROSS_COMPILE="$(TARGET_CROSS)" \
-		DEPMOD=$(HOST_DIR)/sbin/depmod
-endif
 
 ifeq ($(BR2_REPRODUCIBLE),y)
 LINUX_MAKE_ENV += \

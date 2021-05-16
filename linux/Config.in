@@ -4,19 +4,11 @@ config BR2_LINUX_KERNEL
 	bool "Linux Kernel"
 	select BR2_PACKAGE_HOST_KMOD # Unconditional, even if modules not enabled
 	select BR2_PACKAGE_HOST_IMAGEMAGICK if BR2_LINUX_KERNEL_CUSTOM_LOGO_PATH != ""
-	select BR2_TOOLCHAIN_OPTIONAL_LINARO_AARCH64 if BR2_KERNEL_64_USERLAND_32_ARM_LINARO # batocera
 	help
 	  Enable this option if you want to build a Linux kernel for
 	  your embedded device
 
 if BR2_LINUX_KERNEL
-
-# batocera
-config BR2_KERNEL_64_USERLAND_32_ARM_LINARO
-	bool "Use a 64-bit kernel built with Linaro toolchain but a 32-bit userland (ARM)"
-	select BR2_KERNEL_64_USERLAND_32
-	select BR2_TOOLCHAIN_OPTIONAL_LINARO_AARCH64
-	depends on BR2_arm
 
 # Packages that need to have a kernel with support for loadable modules,
 # but do not use the kernel-modules infrastructure, should select that

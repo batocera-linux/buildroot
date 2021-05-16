@@ -17,8 +17,7 @@ SDL2_CONF_OPTS += \
 	--disable-arts \
 	--disable-esd \
 	--disable-dbus \
-	--disable-pulseaudio \
-	--disable-video-wayland
+	--disable-pulseaudio
 
 # We are using autotools build system for sdl2, so the sdl2-config.cmake
 # include path are not resolved like for sdl2-config script.
@@ -37,12 +36,6 @@ SDL2_CONF_OPTS += --enable-static
 # sdl2 set the rpi video output from the host name
 ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
 SDL2_CONF_OPTS += --host=arm-raspberry-linux-gnueabihf
-endif
-
-# batocera
-# Used in screen rotation (SDL and Retroarch)
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ODROIDGOA),y)
-SDL2_DEPENDENCIES += librga
 endif
 
 ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
