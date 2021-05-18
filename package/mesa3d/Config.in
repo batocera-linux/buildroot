@@ -173,6 +173,7 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_PANFROST
 	bool "Gallium panfrost driver"
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 	select BR2_PACKAGE_MESA3D_GALLIUM_KMSRO
+        select BR2_PACKAGE_MESA3D_OPENGL_EGL
 	help
 	  Mesa driver for ARM Mali Midgard and Bifrost GPUs.
 
