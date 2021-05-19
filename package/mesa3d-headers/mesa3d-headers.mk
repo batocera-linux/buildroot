@@ -13,10 +13,7 @@ endif
 # Not possible to directly refer to mesa3d variables, because of
 # first/second expansion trickery...
 # When updating the version, please also update mesa3d-headers
-MESA3D_HEADERS_VERSION = 21.0.3
-ifeq ($(BR2_PACKAGE_MESA3D_CUSTOM_VERSION),y)
-MESA3D_HEADERS_VERSION = $(call qstrip,$(BR2_PACKAGE_MESA3D_CUSTOM_VERSION_VALUE))
-endif
+MESA3D_HEADERS_VERSION = 21.1.0
 MESA3D_HEADERS_SOURCE = mesa-$(MESA3D_HEADERS_VERSION).tar.xz
 MESA3D_HEADERS_SITE = https://mesa.freedesktop.org/archive
 MESA3D_HEADERS_DL_SUBDIR = mesa3d
