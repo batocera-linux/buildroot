@@ -5,11 +5,13 @@
 ################################################################################
 
 # When updating the version, please also update mesa3d-headers
-MESA3D_VERSION = 21.1.0
+MESA3D_VERSION = 21.1.1
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 MESA3D_SITE = https://mesa.freedesktop.org/archive
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
+MESA3D_CPE_ID_VENDOR = mesa3d
+MESA3D_CPE_ID_PRODUCT = mesa
 
 MESA3D_INSTALL_STAGING = YES
 

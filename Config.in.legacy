@@ -146,6 +146,26 @@ endif
 
 comment "Legacy options removed in 2021.05"
 
+config BR2_PACKAGE_UDISKS_LVM2
+	bool "udisks lvm2 support removed"
+	select BR2_LEGACY
+	help
+	  The lvm2 support was removed because udisks < 2.7.0 still
+	  depends on lvm2 application library, which was removed
+	  in lvm2.
+
+config BR2_PACKAGE_LVM2_APP_LIBRARY
+	bool "lvm2 application library removed"
+	select BR2_LEGACY
+	help
+	  The lvm2 application library was removed upstream.
+
+config BR2_PACKAGE_LVM2_LVMETAD
+	bool "lvm2 lvmetad removed"
+	select BR2_LEGACY
+	help
+	  The lvm2 lvmetad was removed upstream.
+
 config BR2_PACKAGE_MONKEY
 	bool "monkey package removed"
 	select BR2_LEGACY
@@ -162,7 +182,7 @@ config BR2_PACKAGE_DOCKER_CONTAINERD
 	  The package was renamed to containerd accordingly.
 
 config BR2_PACKAGE_IOSTAT
-	bool "iostat removed"
+	bool "iostat package removed"
 	select BR2_LEGACY
 	help
 	  This package has been removed, use sysstat instead.
