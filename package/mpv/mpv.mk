@@ -104,6 +104,8 @@ endif
 ifeq ($(BR2_PACKAGE_LIBDRM),y)
 MPV_CONF_OPTS += --enable-drm
 MPV_DEPENDENCIES += libdrm
+# Batocera
+MPV_CONF_OPTS += --enable-egl-drm
 else
 MPV_CONF_OPTS += --disable-drm
 endif
