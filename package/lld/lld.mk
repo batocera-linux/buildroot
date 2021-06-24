@@ -12,7 +12,7 @@ LLD_SOURCE = lld-$(LLD_VERSION).src.tar.xz
 LLD_LICENSE = Apache-2.0 with exceptions
 LLD_LICENSE_FILES = LICENSE.TXT
 LLD_SUPPORTS_IN_SOURCE_BUILD = NO
-HOST_LLD_DEPENDENCIES = host-llvm
+HOST_LLD_DEPENDENCIES = host-llvm libunwind host-libunwind
 
 # LLVM > 9.0 will soon require C++14 support, building llvm <= 9.0 using a
 # toolchain using gcc < 5.1 gives an error but actually still works. Setting

@@ -20,3 +20,4 @@ LIBUNWIND_DEPENDENCIES = libatomic_ops
 endif
 
 $(eval $(autotools-package))
+$(eval $(host-autotools-package))

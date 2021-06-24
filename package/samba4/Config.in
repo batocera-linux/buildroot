@@ -1,6 +1,6 @@
 comment "samba4 needs a uClibc or glibc toolchain w/ wchar, dynamic library, NPTL"
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4
-	depends on !BR2_USE_WCHAR || BR2_TOOLCHAIN_USES_MUSL \
+	depends on !BR2_USE_WCHAR \
 		|| BR2_STATIC_LIBS || !BR2_TOOLCHAIN_HAS_THREADS_NPTL
 	depends on BR2_USE_MMU
 
@@ -12,7 +12,6 @@ config BR2_PACKAGE_SAMBA4
 	depends on !BR2_STATIC_LIBS # cmocka, python, gnutls
 	depends on !BR2_nios2 # binary too large, relocations don't fit
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4
-	depends on !BR2_TOOLCHAIN_USES_MUSL
 	select BR2_PACKAGE_CMOCKA
 	select BR2_PACKAGE_E2FSPROGS
 	select BR2_PACKAGE_GNUTLS
