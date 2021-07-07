@@ -99,6 +99,7 @@ endif
 ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),y)
 PIPEWIRE_CONF_OPTS += -Dvulkan=enabled
 PIPEWIRE_DEPENDENCIES += mesa3d
+PIPEWIRE_DEPENDENCIES += vulkan-loader # batocera, to fix pipewire compilation
 else
 PIPEWIRE_CONF_OPTS += -Dvulkan=disabled
 endif
