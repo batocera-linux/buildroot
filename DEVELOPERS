@@ -181,6 +181,9 @@ F:	package/sshguard/
 F:	package/sunwait/
 F:	package/sysdig/
 
+N:	Andy Shevchenko <andy.shevchenko@gmail.com>
+F:	package/fb-test-app/
+
 N:	Anisse Astier <anisse@astier.eu>
 F:	package/go/
 F:	package/nghttp2/
@@ -1039,6 +1042,7 @@ F:	package/minicom/
 F:	package/nfs-utils/
 F:	package/sunxi-mali-mainline/
 F:	package/sunxi-mali-mainline-driver/
+F:	package/udisks/
 
 N:	Gregory Dymarek <gregd72002@gmail.com>
 F:	package/ding-libs/
