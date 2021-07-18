@@ -24,7 +24,6 @@ HOST_PYTHON_CONF_OPTS += \
 	--disable-sqlite3 \
 	--disable-tk \
 	--with-expat=system \
-	--with-system-ffi \
 	--disable-curses \
 	--disable-codecs-cjk \
 	--disable-nis \
@@ -62,7 +61,7 @@ ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_HEADERS),y)
 PYTHON_DEPENDENCIES += bluez5_utils-headers
 endif
 
-HOST_PYTHON_DEPENDENCIES = host-expat host-libffi host-zlib
+HOST_PYTHON_DEPENDENCIES = host-expat host-zlib
 
 ifeq ($(BR2_PACKAGE_HOST_PYTHON_SSL),y)
 HOST_PYTHON_DEPENDENCIES += host-openssl
