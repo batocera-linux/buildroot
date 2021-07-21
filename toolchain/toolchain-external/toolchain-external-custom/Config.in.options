@@ -120,7 +120,7 @@ choice
 	  in the choice, then select the latest version.
 
 config BR2_TOOLCHAIN_EXTERNAL_HEADERS_5_14
-	bool "5.12.x or later"
+	bool "5.14.x or later"
 	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_14
 
 config BR2_TOOLCHAIN_EXTERNAL_HEADERS_5_12

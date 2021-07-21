@@ -513,7 +513,7 @@ config BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_12
 
 config BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_14
 	bool
-	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_13
+	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_12
 	select BR2_TOOLCHAIN_HEADERS_LATEST
 
 # This should be selected by the latest version, above, to indicate that
