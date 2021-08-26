@@ -35,12 +35,12 @@ else
 PULSEAUDIO_CONF_OPTS += --disable-samplerate
 endif
 
-ifeq ($(BR2_PACKAGE_GDBM),y)
-PULSEAUDIO_CONF_OPTS += --with-database=gdbm
-PULSEAUDIO_DEPENDENCIES += gdbm
-else
+# ifeq ($(BR2_PACKAGE_GDBM),y)
+# PULSEAUDIO_CONF_OPTS += --with-database=gdbm
+# PULSEAUDIO_DEPENDENCIES += gdbm
+# else
 PULSEAUDIO_CONF_OPTS += --with-database=simple
-endif
+# endif
 
 ifeq ($(BR2_PACKAGE_JACK2),y)
 PULSEAUDIO_CONF_OPTS += --enable-jack
