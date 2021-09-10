@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-PIPEWIRE_VERSION = 0.3.34
+PIPEWIRE_VERSION = 0.3.37
 PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(PIPEWIRE_VERSION))
 PIPEWIRE_LICENSE = MIT
 PIPEWIRE_LICENSE_FILES = COPYING LICENSE
