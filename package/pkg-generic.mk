@@ -155,7 +155,8 @@ endif
 # $2: staging directory of the package
 ifeq ($(BR2_PER_PACKAGE_DIRECTORIES),y)
 define fixup-libtool-files
-	$(Q)find $(2)/usr/lib* -name "*.la" | xargs --no-run-if-empty \
+	$(Q)find $(2) \( -path '$(2)/lib*' -o -path '$(2)/usr/lib*' \) \
+		-name "*.la" -print0 | xargs -0 --no-run-if-empty \
 		$(SED) "s:$(PER_PACKAGE_DIR)/[^/]\+/:$(PER_PACKAGE_DIR)/$(1)/:g"
 endef
 endif
@@ -191,6 +192,23 @@ define check_bin_arch
 		$(foreach i,$($(PKG)_BIN_ARCH_EXCLUDE),-i "$(i)") \
 		-r $(TARGET_READELF) \
 		-a $(BR2_READELF_ARCH_NAME)
+endef
+
+# Functions to remove conflicting and useless files
+
+# $1: base directory (target, staging, host)
+define remove-conflicting-useless-files
+	$(if $(strip $($(PKG)_DROP_FILES_OR_DIRS)),
+		$(Q)$(RM) -rf $(patsubst %, $(1)%, $($(PKG)_DROP_FILES_OR_DIRS)))
+endef
+define REMOVE_CONFLICTING_USELESS_FILES_IN_HOST
+	$(call remove-conflicting-useless-files,$(HOST_DIR))
+endef
+define REMOVE_CONFLICTING_USELESS_FILES_IN_STAGING
+	$(call remove-conflicting-useless-files,$(STAGING_DIR))
+endef
+define REMOVE_CONFLICTING_USELESS_FILES_IN_TARGET
+	$(call remove-conflicting-useless-files,$(TARGET_DIR))
 endef
 
 ################################################################################
@@ -293,7 +311,9 @@ $(BUILD_DIR)/%/.stamp_configured:
 	@$(call pkg_size_before,$(TARGET_DIR))
 	@$(call pkg_size_before,$(STAGING_DIR),-staging)
 	@$(call pkg_size_before,$(HOST_DIR),-host)
+	$(call fixup-libtool-files,$(NAME),$(HOST_DIR))
 	$(call fixup-libtool-files,$(NAME),$(STAGING_DIR))
+	$(foreach hook,$($(PKG)_POST_PREPARE_HOOKS),$(call $(hook))$(sep))
 	$(foreach hook,$($(PKG)_PRE_CONFIGURE_HOOKS),$(call $(hook))$(sep))
 	$($(PKG)_CONFIGURE_CMDS)
 	$(foreach hook,$($(PKG)_POST_CONFIGURE_HOOKS),$(call $(hook))$(sep))
@@ -874,11 +894,22 @@ $(2)_PRE_LEGAL_INFO_HOOKS       ?=
 $(2)_POST_LEGAL_INFO_HOOKS      ?=
 $(2)_TARGET_FINALIZE_HOOKS      ?=
 $(2)_ROOTFS_PRE_CMD_HOOKS       ?=
+$(2)_POST_PREPARE_HOOKS         ?=
 
 ifeq ($$($(2)_TYPE),target)
 ifneq ($$(HOST_$(2)_KCONFIG_VAR),)
 $$(error "Package $(1) defines host variant before target variant!")
 endif
+endif
+
+# Globaly remove following conflicting and useless files
+$(2)_DROP_FILES_OR_DIRS += /share/info/dir
+
+ifeq ($$($(2)_TYPE),host)
+$(2)_POST_INSTALL_HOOKS += REMOVE_CONFLICTING_USELESS_FILES_IN_HOST
+else
+$(2)_POST_INSTALL_STAGING_HOOKS += REMOVE_CONFLICTING_USELESS_FILES_IN_STAGING
+$(2)_POST_INSTALL_TARGET_HOOKS += REMOVE_CONFLICTING_USELESS_FILES_IN_TARGET
 endif
 
 # human-friendly targets and target sequencing

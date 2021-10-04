@@ -4,7 +4,6 @@ config BR2_PACKAGE_BLUEZ5_UTILS
 	depends on BR2_TOOLCHAIN_HAS_THREADS # dbus, libglib2
 	depends on BR2_USE_MMU # dbus
 	depends on !BR2_STATIC_LIBS # uses dlfcn
-	depends on !BR2_PACKAGE_BLUEZ_UTILS # conflicts with 4.x version
 	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_4
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4
 	select BR2_PACKAGE_DBUS
@@ -38,13 +37,28 @@ config BR2_PACKAGE_BLUEZ5_UTILS_CLIENT
 	help
 	  Build the command line client "bluetoothctl".
 
+config BR2_PACKAGE_BLUEZ5_UTILS_MONITOR
+	bool "build monitor utility"
+	help
+	  Build monitor utility btmon.
+
+config BR2_PACKAGE_BLUEZ5_UTILS_TOOLS
+	bool "build tools"
+	help
+	  Build tools like bluemoon, btattach, hex2hcd, l2test,
+	  l2ping, mpris-proxy, rctest.
+
 config BR2_PACKAGE_BLUEZ5_UTILS_DEPRECATED
 	bool "install deprecated tools"
-	depends on BR2_PACKAGE_BLUEZ5_UTILS_CLIENT
+	depends on BR2_PACKAGE_BLUEZ5_UTILS_CLIENT || BR2_PACKAGE_BLUEZ5_UTILS_TOOLS
 	help
-	  Build deprecated tools. These currently include:
+	  Build deprecated tools.
+
+	  When "build tools" is selected these tools are installed:
 	  hciattach, hciconfig, hcitool, hcidump, rfcomm, sdptool,
-	  ciptool, gatttool.
+	  ciptool.
+
+	  When CLI client is enabled "gatttool" is installed.
 
 config BR2_PACKAGE_BLUEZ5_UTILS_EXPERIMENTAL
 	bool "build experimental tools"
@@ -53,10 +67,26 @@ config BR2_PACKAGE_BLUEZ5_UTILS_EXPERIMENTAL
 	  "Nokia OBEX PC Suite tool". So, only if OBEX support is
 	  enabled this option has an effect.
 
-config BR2_PACKAGE_BLUEZ5_PLUGINS_HEALTH
+config BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_AUDIO
+	bool "build audio plugins (a2dp and avrcp)"
+	help
+	  Build plugins for audio profiles (for A2DP and AVRCP).
+
+config BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_HEALTH
 	bool "build health plugin"
 	help
 	  Build plugin for health profiles.
+
+config BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_HID
+	bool "build hid plugin"
+	select BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_HOG
+	help
+	  Build plugin for HID (input) profiles.
+
+config BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_HOG
+	bool "build hog plugin"
+	help
+	  Build plugin for HoG (input) profiles.
 
 config BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_MESH
 	bool "build mesh plugin"
@@ -77,12 +107,18 @@ config BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_MIDI
 	help
 	  Build MIDI support via ALSA sequencer.
 
-config BR2_PACKAGE_BLUEZ5_PLUGINS_NFC
+config BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_NETWORK
+	bool "build network plugin"
+	default y
+	help
+	  Build plugin for PANU, NAP, GN profiles.
+
+config BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_NFC
 	bool "build nfc plugin"
 	help
 	  Build plugin for NFC pairing.
 
-config BR2_PACKAGE_BLUEZ5_PLUGINS_SAP
+config BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_SAP
 	bool "build sap plugin"
 	help
 	  Build plugin for SAP profile.
@@ -90,6 +126,7 @@ config BR2_PACKAGE_BLUEZ5_PLUGINS_SAP
 config BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_SIXAXIS
 	bool "build sixaxis plugin"
 	depends on BR2_PACKAGE_HAS_UDEV
+	select BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_HID # runtime
 	help
 	  Build sixaxis plugin (support Sony Dualshock
 	  controller)
@@ -105,6 +142,8 @@ config BR2_PACKAGE_BLUEZ5_UTILS_TEST
 config BR2_PACKAGE_BLUEZ5_UTILS_TOOLS_HID2HCI
 	bool "build hid2hci tool"
 	depends on BR2_PACKAGE_HAS_UDEV
+	select BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_HID # runtime
+	select BR2_PACKAGE_BLUEZ5_UTILS_TOOLS
 	help
 	  Build hid2hci tool
 
@@ -118,6 +157,3 @@ comment "bluez5-utils needs a toolchain w/ wchar, threads, headers >= 3.4, dynam
 		!BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_4 || BR2_STATIC_LIBS
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4
 	depends on BR2_USE_MMU
-
-comment "bluez5-utils conflicts with older bluez-utils version"
-	depends on BR2_PACKAGE_BLUEZ_UTILS

@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-KISMET_VERSION = 2020-12-R3
+KISMET_VERSION = 2021-06-R1
 KISMET_SOURCE = kismet-$(KISMET_VERSION).tar.xz
 KISMET_SITE = http://www.kismetwireless.net/code
 KISMET_DEPENDENCIES = \
@@ -17,14 +17,7 @@ KISMET_DEPENDENCIES = \
 	zlib
 KISMET_LICENSE = GPL-2.0+
 KISMET_LICENSE_FILES = LICENSE
-
-# We're patching configure.ac
-KISMET_AUTORECONF = YES
-
 KISMET_SELINUX_MODULES = kismet
-# Needed because tarball configure has not been rebuilt after
-# https://github.com/kismetwireless/kismet/commit/e70968bcbca86dd448d619c40cdeaae8b7dcee98
-KISMET_AUTORECONF = YES
 
 KISMET_CONF_OPTS = --disable-debuglibs
 
