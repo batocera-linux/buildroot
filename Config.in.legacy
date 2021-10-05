@@ -146,6 +146,12 @@ endif
 
 comment "Legacy options removed in 2021.08"
 
+config BR2_PACKAGE_GNURADIO_PAGER
+	bool "gnuradio gr-flex support removed"
+	select BR2_LEGACY
+	help
+	  gr-flex has been removed from gnuradio since version 3.8.0.0.
+
 config BR2_PACKAGE_LIBMCRYPT
 	bool "libmcrypt package was removed"
 	select BR2_LEGACY
@@ -223,8 +229,6 @@ config BR2_PACKAGE_PHP_EXT_XMLRPC
 	help
 	  The XMLRPC php extension was removed.
 	  See: https://wiki.php.net/rfc/unbundle_xmlprc
-
-comment "Legacy options removed in 2021.08"
 
 config BR2_GCC_VERSION_8_X
 	bool "gcc 8.x support removed"
