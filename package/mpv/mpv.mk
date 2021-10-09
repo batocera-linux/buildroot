@@ -121,7 +121,7 @@ ifeq ($(BR2_PACKAGE_LIBDRM),y)
 MPV_CONF_OPTS += --enable-drm
 MPV_DEPENDENCIES += libdrm
 # Batocera
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_S922X),)
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_S922X),y)
 MPV_CONF_OPTS += --enable-egl-drm
 endif
 else
