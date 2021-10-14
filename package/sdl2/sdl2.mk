@@ -49,6 +49,13 @@ ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ODROIDGOA),y)
 SDL2_DEPENDENCIES += librga
 endif
 
+# batocera
+# pipewire
+ifeq ($(BR2_PACKAGE_PIPEWIRE),y)
+SDL2_CONF_OPTS += --enable-pipewire
+SDL2_DEPENDENCIES += pipewire
+endif
+
 ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
 SDL2_DEPENDENCIES += udev
 SDL2_CONF_OPTS += --enable-libudev
