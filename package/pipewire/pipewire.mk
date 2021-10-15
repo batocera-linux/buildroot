@@ -134,12 +134,8 @@ else
 PIPEWIRE_CONF_OPTS += -Dlibpulse=disabled
 endif
 
-ifeq ($(BR2_PACKAGE_SDL2),y)
-PIPEWIRE_DEPENDENCIES += sdl2
-PIPEWIRE_CONF_OPTS += -Dsdl2=enabled
-else
+# batocera
 PIPEWIRE_CONF_OPTS += -Dsdl2=disabled
-endif
 
 ifeq ($(WEBRTC_AUDIO_PROCESSING),y)
 PIPEWIRE_CONF_OPTS += -Decho-cancel-webrtc=enabled
