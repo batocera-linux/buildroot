@@ -159,7 +159,7 @@ config BR2_LZCAT
 
 config BR2_TAR_OPTIONS
 	string "Tar options"
-	default ""
+	default "--no-same-owner"
 	help
 	  Options to pass to tar when extracting the sources.
 	  E.g. " -v --exclude='*.svn*'" to exclude all .svn internal
