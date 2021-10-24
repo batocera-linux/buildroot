@@ -298,6 +298,11 @@ ifeq ($(BR2_x86_64),y)
 endif
 ifeq ($(BR2_x86_i686),y)
 	MESA3D_PRE_CONFIGURE_HOOKS += MESA3D_VULKANJSON_X86
+
+MESA3D_CFLAGS = $(TARGET_CFLAGS)
+# m68k needs 32-bit offsets in switch tables to build
+ifeq ($(BR2_m68k),y)
+MESA3D_CFLAGS += -mlong-jump-table-offsets
 endif
 
 $(eval $(meson-package))
