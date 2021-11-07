@@ -3,9 +3,8 @@
 # rpi-firmware
 #
 ################################################################################
-
-# batocera
-RPI_FIRMWARE_VERSION = 1.20211007
+# Version.: Commits on Nov 5, 2021 (5.10.77)
+RPI_FIRMWARE_VERSION = c8c985aed7b849deefc77236d9fc550ee7bec15d
 RPI_FIRMWARE_SITE = $(call github,raspberrypi,firmware,$(RPI_FIRMWARE_VERSION))
 RPI_FIRMWARE_LICENSE = BSD-3-Clause
 RPI_FIRMWARE_LICENSE_FILES = boot/LICENCE.broadcom
