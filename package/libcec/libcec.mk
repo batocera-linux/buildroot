@@ -36,12 +36,18 @@ LIBCEC_CONF_OPTS += \
 	-DCMAKE_CXX_FLAGS="$(TARGET_CXXFLAGS) \
 		-I$(STAGING_DIR)/usr/include/interface/vmcs_host/linux \
 		-I$(STAGING_DIR)/usr/include/interface/vcos/pthreads"
-endif 
+endif
 
 # batocera
 ifeq ($(BR2_PACKAGE_BATOCERA_RPI_MESA3D),y)
 LIBCEC_CONF_OPTS += \
 	-DHAVE_RPI_API=0 \
+	-DHAVE_LINUX_API=1
+endif
+
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_AMLOGIC_ANY),y)
+LIBCEC_CONF_OPTS += \
+	-DHAVE_AMLOGIC_API=1 \
 	-DHAVE_LINUX_API=1
 endif
 
