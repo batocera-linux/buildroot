@@ -1,5 +1,5 @@
 # From https://lists.freedesktop.org/archives/mesa-announce/2021-June/000635.html
-sha256  8e49585fb760d973723dab6435d0c86f7849b8305b1e6d99f475138d896bacbb  mesa-21.2.5.tar.xz
+sha256  a2753c09deef0ba14d35ae8a2ceff3fe5cd13698928c7bb62c2ec8736eb09ce1  mesa-21.3.0.tar.xz
 
 # License
 sha256  998437f3f75f0c542046f83c1cb349408122268168fb13eb4ae6967aa18b7d98  docs/license.rst
