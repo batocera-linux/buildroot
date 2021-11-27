@@ -19,8 +19,7 @@ SDL2_CONF_OPTS += \
 	--disable-arts \
 	--disable-esd \
 	--disable-dbus \
-	--disable-pulseaudio \
-	--disable-video-wayland
+	--disable-pulseaudio
 
 # We are using autotools build system for sdl2, so the sdl2-config.cmake
 # include path are not resolved like for sdl2-config script.
@@ -32,6 +31,24 @@ define SDL2_FIX_SDL2_CONFIG_CMAKE
 	$(SED) 's%"/usr"%$${PACKAGE_PREFIX_DIR}%' \
 		$(STAGING_DIR)/usr/lib/cmake/SDL2/sdl2-config.cmake
 endef
+
+# Batocera
+define SDL2_FIX_WAYLAND_SCANNER_PATH
+	sed -i "s+/usr/bin/wayland-scanner+$(HOST_DIR)/usr/bin/wayland-scanner+g" $(@D)/Makefile
+endef
+
+define SDL2_FIX_CONFIGURE_PATHS
+	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/config.log
+	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/config.status
+	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/libtool
+	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/Makefile
+	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/sdl2-config
+	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/sdl2.pc
+endef
+
+SDL2_POST_CONFIGURE_HOOKS += SDL2_FIX_WAYLAND_SCANNER_PATH
+SDL2_POST_CONFIGURE_HOOKS += SDL2_FIX_CONFIGURE_PATHS
+
 SDL2_POST_INSTALL_STAGING_HOOKS += SDL2_FIX_SDL2_CONFIG_CMAKE
 
 # We must enable static build to get compilation successful.
@@ -176,6 +193,14 @@ SDL2_DEPENDENCIES += libdrm
 SDL2_CONF_OPTS += --enable-video-kmsdrm
 else
 SDL2_CONF_OPTS += --disable-video-kmsdrm
+endif
+
+# Batocera
+ifeq ($(BR2_PACKAGE_SDL2_WAYLAND),y)
+SDL2_DEPENDENCIES += wayland
+SDL2_CONF_OPTS += --enable-video-wayland
+else
+SDL2_CONF_OPTS += --disable-video-wayland
 endif
 
 $(eval $(autotools-package))
