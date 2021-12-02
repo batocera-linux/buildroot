@@ -5,6 +5,13 @@
 ################################################################################
 
 GDB_VERSION = $(call qstrip,$(BR2_GDB_VERSION))
+
+ifeq ($(GDB_VERSION),)
+GDB_VERSION = 10.2
+BR2_PACKAGE_GDB_DEBUGGER = y
+BR2_PACKAGE_GDB_SERVER = y
+endif # GDB_VERSION
+
 GDB_SITE = $(BR2_GNU_MIRROR)/gdb
 GDB_SOURCE = gdb-$(GDB_VERSION).tar.xz
 
