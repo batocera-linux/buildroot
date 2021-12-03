@@ -3,8 +3,8 @@
 # mpv
 #
 ################################################################################
-
-MPV_VERSION = 0.33.1
+# batocera (update)
+MPV_VERSION = 0.34.0
 MPV_SITE = $(call github,mpv-player,mpv,v$(MPV_VERSION))
 MPV_DEPENDENCIES = \
 	host-pkgconf ffmpeg libass zlib \
@@ -12,6 +12,7 @@ MPV_DEPENDENCIES = \
 MPV_LICENSE = GPL-2.0+
 MPV_LICENSE_FILES = LICENSE.GPL
 MPV_CPE_ID_VENDOR = mpv
+MPV_INSTALL_STAGING = YES
 
 MPV_NEEDS_EXTERNAL_WAF = YES
 
@@ -46,8 +47,7 @@ else
 MPV_CONF_OPTS += --disable-alsa
 endif
 
-# GBM support is provided by mesa3d when EGL=y
-ifeq ($(BR2_PACKAGE_MESA3D_OPENGL_EGL),y)
+ifeq ($(BR2_PACKAGE_MESA3D_GBM),y)
 MPV_CONF_OPTS += --enable-gbm
 MPV_DEPENDENCIES += mesa3d
 ifeq ($(BR2_PACKAGE_LIBDRM),y)
@@ -120,10 +120,6 @@ endif
 ifeq ($(BR2_PACKAGE_LIBDRM),y)
 MPV_CONF_OPTS += --enable-drm
 MPV_DEPENDENCIES += libdrm
-# Batocera
-ifneq ($(BR2_PACKAGE_BATOCERA_TARGET_S922X)$(BR2_PACKAGE_BATOCERA_TARGET_ODROIDXU4),)
-MPV_CONF_OPTS += --enable-egl-drm
-endif
 else
 MPV_CONF_OPTS += --disable-drm
 endif
