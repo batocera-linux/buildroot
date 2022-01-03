@@ -96,7 +96,11 @@ endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM),y)
 KODI_CORE_PLATFORM_NAME += gbm
-KODI_DEPENDENCIES += libgbm libinput libxkbcommon
+KODI_DEPENDENCIES += libgbm libinput libxkbcommon 
+# batocera - to test, previously removed in the kodi bump
+ifeq ($(BR2_PACKAGE_HAS_LIBMALI),y)
+KODI_DEPENDENCIES += libmali
+endif
 endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_WAYLAND),y)
@@ -196,11 +200,14 @@ endif
 
 #batocera
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_GBM_GL),y)
-KODI_CONF_OPTS += \
+# batocera - don't set OGL for RPi4 use GLES instead
+  ifeq ($(!BR2_PACKAGE_BATOCERA_TARGET_RPI4),y)
+    KODI_CONF_OPTS += \
         -DCORE_PLATFORM_NAME=gbm \
         -DGBM_RENDER_SYSTEM=gl \
         -DENABLE_OPENGL=ON
-KODI_DEPENDENCIES += libegl libglu libinput libxkbcommon mesa3d
+    KODI_DEPENDENCIES += libegl libglu libinput libxkbcommon mesa3d
+  endif
 endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_GBM_GLES),y)
