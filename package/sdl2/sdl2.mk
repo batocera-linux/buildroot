@@ -86,6 +86,11 @@ else
 SDL2_CONF_OPTS += --disable-sse
 endif
 
+# batocera / with patch sdl2_add_video_mali_gles2.patch / mrfixit
+ifeq ($(BR2_PACKAGE_HAS_LIBMALI),y)
+SDL2_CONF_OPTS += --enable-video-mali
+endif
+
 ifeq ($(BR2_X86_CPU_HAS_3DNOW),y)
 SDL2_CONF_OPTS += --enable-3dnow
 else
