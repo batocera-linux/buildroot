@@ -4,7 +4,7 @@
 #
 ################################################################################
 # batocera (update)
-RPI_FIRMWARE_VERSION = 24d966d35bb8cba9133c54eb5f2ac3e1615e8a47
+RPI_FIRMWARE_VERSION = fbbde90b7099af81d02a6c5ed034b987b716e7ca
 RPI_FIRMWARE_SITE = $(call github,raspberrypi,firmware,$(RPI_FIRMWARE_VERSION))
 RPI_FIRMWARE_LICENSE = BSD-3-Clause
 RPI_FIRMWARE_LICENSE_FILES = boot/LICENCE.broadcom
