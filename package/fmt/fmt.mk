@@ -4,7 +4,8 @@
 #
 ################################################################################
 
-FMT_VERSION = 8.0.1
+# Batocera Update
+FMT_VERSION = 8.1.1
 FMT_SITE = https://github.com/fmtlib/fmt/releases/download/$(FMT_VERSION)
 FMT_SOURCE = fmt-$(FMT_VERSION).zip
 FMT_LICENSE = MIT with exception
