@@ -4,7 +4,8 @@
 #
 ################################################################################
 
-WOLFSSL_VERSION = 4.8.1-stable
+# Batocera Update
+WOLFSSL_VERSION = 5.1.0-stable
 WOLFSSL_SITE = $(call github,wolfSSL,wolfssl,v$(WOLFSSL_VERSION))
 WOLFSSL_INSTALL_STAGING = YES
 
@@ -18,7 +19,8 @@ WOLFSSL_DEPENDENCIES = host-pkgconf
 # script, so we need autoreconf
 WOLFSSL_AUTORECONF = YES
 
-WOLFSSL_CONF_OPTS = --disable-examples --disable-crypttests
+# Adding --enable-writedup from RetroLX
+WOLFSSL_CONF_OPTS = --disable-examples --disable-crypttests --enable-writedup
 
 ifeq ($(BR2_PACKAGE_WOLFSSL_ALL),y)
 WOLFSSL_CONF_OPTS += --enable-all
