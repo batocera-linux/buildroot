@@ -9,6 +9,8 @@ menuconfig BR2_PACKAGE_MESA3D
 	select BR2_PACKAGE_LIBDRM
 	select BR2_PACKAGE_WAYLAND_PROTOCOLS if BR2_PACKAGE_WAYLAND
 	select BR2_PACKAGE_ZLIB
+	select BR2_PACKAGE_PYTHON3    #batocera
+	select BR2_PACKAGE_GLSLANG    #batocera
 	help
 	  Mesa 3D, an open-source implementation of the OpenGL
 	  specification.
