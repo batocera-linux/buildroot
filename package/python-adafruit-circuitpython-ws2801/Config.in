@@ -1,0 +1,6 @@
+config BR2_PACKAGE_PYTHON_ADAFRUIT_CIRCUITPYTHON_WS2801
+	bool "python-adafruit-circuitpython-ws2801"
+	help
+	  CircuitPython library for WS2801 LEDs.
+
+	  https://pypi.org/project/adafruit-circuitpython-ws2801

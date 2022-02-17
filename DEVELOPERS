@@ -2390,6 +2390,9 @@ F:	package/ripgrep/
 N:	Santosh Multhalli <santosh.multhalli@collins.com>
 F:	package/valijson/
 
+N:	Scott Shawcroft <scott@chickadee.tech>
+F:	package/python-adafruit-circuitpython-ws2801/
+
 N:	Sébastien Szymanski <sebastien.szymanski@armadeus.com>
 F:	package/mmc-utils/
 F:	package/python-flask-jsonrpc/
