@@ -10,6 +10,6 @@ PYTHON_ADAFRUIT_BLINKA_SITE = https://files.pythonhosted.org/packages/c3/6c/e7d8
 PYTHON_ADAFRUIT_BLINKA_SETUP_TYPE = setuptools
 PYTHON_ADAFRUIT_BLINKA_LICENSE = MIT
 PYTHON_ADAFRUIT_BLINKA_LICENSE_FILES = LICENSE
-PYTHON_ADAFRUIT_BLINKA_BIN_ARCH_EXCLUDE = microcontroller/bcm283x/pulseio
+PYTHON_ADAFRUIT_BLINKA_BIN_ARCH_EXCLUDE = adafruit_blinka/microcontroller/bcm283x/pulseio
 
 $(eval $(python-package))
