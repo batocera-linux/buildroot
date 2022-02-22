@@ -4,7 +4,8 @@
 #
 ################################################################################
 
-LIBGLVND_VERSION = 1.3.2
+# batocera (update)
+LIBGLVND_VERSION = 1.3.4
 LIBGLVND_SOURCE = libglvnd-v$(LIBGLVND_VERSION).tar.gz
 LIBGLVND_SITE = https://gitlab.freedesktop.org/glvnd/libglvnd/-/archive/v$(LIBGLVND_VERSION)
 
