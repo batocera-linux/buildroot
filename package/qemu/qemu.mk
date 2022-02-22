@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-QEMU_VERSION = 6.0.0
+QEMU_VERSION = 6.2.0
 QEMU_SOURCE = qemu-$(QEMU_VERSION).tar.xz
 QEMU_SITE = http://download.qemu.org
 QEMU_LICENSE = GPL-2.0, LGPL-2.1, MIT, BSD-3-Clause, BSD-2-Clause, Others/BSD-1c
@@ -167,6 +167,10 @@ else
 QEMU_OPTS += --disable-usb-redir
 endif
 
+ifeq ($(BR2_STATIC_LIBS),y)
+QEMU_OPTS += --static
+endif
+
 # Override CPP, as it expects to be able to call it like it'd
 # call the compiler.
 define QEMU_CONFIGURE_CMDS
@@ -183,39 +187,47 @@ define QEMU_CONFIGURE_CMDS
 			--audio-drv-list= \
 			--meson=$(HOST_DIR)/bin/meson \
 			--ninja=$(HOST_DIR)/bin/ninja \
-			--enable-kvm \
-			--enable-attr \
-			--enable-vhost-net \
-			--disable-bsd-user \
-			--disable-containers \
-			--disable-xen \
-			--disable-virtfs \
+			--disable-alsa \
+			--disable-bpf \
 			--disable-brlapi \
-			--disable-curses \
+			--disable-bsd-user \
+			--disable-cap-ng \
+			--disable-capstone \
+			--disable-containers \
+			--disable-coreaudio \
 			--disable-curl \
-			--disable-vde \
+			--disable-curses \
+			--disable-docs \
+			--disable-dsound \
+			--disable-hvf \
+			--disable-jack \
+			--disable-libiscsi \
+			--disable-libxml2 \
 			--disable-linux-aio \
 			--disable-linux-io-uring \
-			--disable-cap-ng \
-			--disable-docs \
-			--disable-rbd \
-			--disable-libiscsi \
-			--disable-strip \
-			--disable-sparse \
-			--disable-mpath \
-			--disable-sanitizers \
-			--disable-hvf \
-			--disable-whpx \
 			--disable-malloc-trim \
 			--disable-membarrier \
-			--disable-vhost-crypto \
-			--disable-libxml2 \
-			--disable-capstone \
-			--with-git-submodules=ignore \
+			--disable-mpath \
+			--disable-netmap \
 			--disable-opengl \
+			--disable-oss \
+			--disable-pa \
+			--disable-rbd \
+			--disable-sanitizers \
+			--disable-selinux \
+			--disable-sparse \
+			--disable-strip \
+			--disable-vde \
+			--disable-vhost-crypto \
 			--disable-vhost-user-blk-server \
+			--disable-virtfs \
 			--disable-virtiofsd \
-			--disable-tests \
+			--disable-whpx \
+			--disable-xen \
+			--enable-attr \
+			--enable-kvm \
+			--enable-vhost-net \
+			--with-git-submodules=ignore \
 			$(QEMU_OPTS)
 endef
 
@@ -351,19 +363,29 @@ define HOST_QEMU_CONFIGURE_CMDS
 		--extra-ldflags="$(HOST_LDFLAGS)" \
 		--meson=$(HOST_DIR)/bin/meson \
 		--ninja=$(HOST_DIR)/bin/ninja \
+		--disable-alsa \
+		--disable-bpf \
 		--disable-bzip2 \
 		--disable-containers \
+		--disable-coreaudio \
 		--disable-curl \
 		--disable-docs \
+		--disable-dsound \
+		--disable-jack \
 		--disable-libssh \
+		--disable-linux-aio \
 		--disable-linux-io-uring \
+		--disable-netmap \
+		--disable-oss \
+		--disable-pa \
 		--disable-sdl \
+		--disable-selinux \
+		--disable-vde \
 		--disable-vhost-user-blk-server \
 		--disable-virtiofsd \
 		--disable-vnc-jpeg \
 		--disable-vnc-png \
 		--disable-vnc-sasl \
-		--disable-tests \
 		$(HOST_QEMU_OPTS)
 endef
 

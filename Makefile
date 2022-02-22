@@ -92,9 +92,9 @@ all:
 .PHONY: all
 
 # Set and export the version string
-export BR2_VERSION := 2021.08.2
+export BR2_VERSION := 2022.02-rc2
 # Actual time the release is cut (for reproducible builds)
-BR2_VERSION_EPOCH = 1636546000
+BR2_VERSION_EPOCH = 1645395000
 
 # Save running make version since it's clobbered by the make package
 RUNNING_MAKE_VERSION := $(MAKE_VERSION)
@@ -141,7 +141,7 @@ nobuild_targets := source %-source \
 	clean distclean help show-targets graph-depends \
 	%-graph-depends %-show-depends %-show-version \
 	graph-build graph-size list-defconfigs \
-	savedefconfig update-defconfig printvars
+	savedefconfig update-defconfig printvars show-vars
 ifeq ($(MAKECMDGOALS),)
 BR_BUILDING = y
 else ifneq ($(filter-out $(nobuild_targets),$(MAKECMDGOALS)),)
@@ -286,12 +286,16 @@ ifndef HOSTCC
 HOSTCC := gcc
 HOSTCC := $(shell which $(HOSTCC) || type -p $(HOSTCC) || echo gcc)
 endif
+ifndef HOSTCC_NOCCACHE
 HOSTCC_NOCCACHE := $(HOSTCC)
+endif
 ifndef HOSTCXX
 HOSTCXX := g++
 HOSTCXX := $(shell which $(HOSTCXX) || type -p $(HOSTCXX) || echo g++)
 endif
+ifndef HOSTCXX_NOCCACHE
 HOSTCXX_NOCCACHE := $(HOSTCXX)
+endif
 ifndef HOSTCPP
 HOSTCPP := cpp
 endif
@@ -433,22 +437,8 @@ QUIET := $(if $(findstring s,$(filter-out --%,$(MAKEFLAGS))),-q)
 
 # Strip off the annoying quoting
 ARCH := $(call qstrip,$(BR2_ARCH))
-
-KERNEL_ARCH := $(shell echo "$(ARCH)" | sed -e "s/-.*//" \
-	-e s/i.86/i386/ -e s/sun4u/sparc64/ \
-	-e s/arcle/arc/ \
-	-e s/arceb/arc/ \
-	-e s/arm.*/arm/ -e s/sa110/arm/ \
-	-e s/aarch64.*/arm64/ \
-	-e s/nds32.*/nds32/ \
-	-e s/or1k/openrisc/ \
-	-e s/parisc64/parisc/ \
-	-e s/powerpc64.*/powerpc/ \
-	-e s/ppc.*/powerpc/ -e s/mips.*/mips/ \
-	-e s/riscv.*/riscv/ \
-	-e s/sh.*/sh/ \
-	-e s/s390x/s390/ \
-	-e s/microblazeel/microblaze/)
+NORMALIZED_ARCH := $(call qstrip,$(BR2_NORMALIZED_ARCH))
+KERNEL_ARCH := $(call qstrip,$(BR2_NORMALIZED_ARCH))
 
 ZCAT := $(call qstrip,$(BR2_ZCAT))
 BZCAT := $(call qstrip,$(BR2_BZCAT))
@@ -595,6 +585,9 @@ $(BUILD_DIR)/buildroot-config/auto.conf: $(BR2_CONFIG)
 
 .PHONY: prepare
 prepare: $(BUILD_DIR)/buildroot-config/auto.conf
+	@$(foreach s, $(call qstrip,$(BR2_ROOTFS_PRE_BUILD_SCRIPT)), \
+		$(call MESSAGE,"Executing pre-build script $(s)"); \
+		$(EXTRA_ENV) $(s) $(TARGET_DIR) $(call qstrip,$(BR2_ROOTFS_POST_SCRIPT_ARGS))$(sep))
 
 .PHONY: world
 world: target-post-image
@@ -1054,12 +1047,20 @@ ifeq ($(NEED_WRAPPER),y)
 	$(Q)$(TOPDIR)/support/scripts/mkmakefile $(TOPDIR) $(O)
 endif
 
+.PHONY: check-make-version
+check-make-version:
+ifneq ($(filter $(RUNNING_MAKE_VERSION),4.3),)
+	@echo "Make 4.3 doesn't support 'printvars' and 'show-vars' recipes"
+	@exit 1
+endif
+
 # printvars prints all the variables currently defined in our
 # Makefiles. Alternatively, if a non-empty VARS variable is passed,
 # only the variables matching the make pattern passed in VARS are
 # displayed.
+# show-vars does the same, but as a JSON dictionnary.
 .PHONY: printvars
-printvars:
+printvars: check-make-version
 	@:
 	$(foreach V, \
 		$(sort $(filter $(VARS),$(.VARIABLES))), \
@@ -1068,7 +1069,23 @@ printvars:
 		$(if $(QUOTED_VARS),\
 			$(info $V='$(subst ','\'',$(if $(RAW_VARS),$(value $V),$($V)))'), \
 			$(info $V=$(if $(RAW_VARS),$(value $V),$($V))))))
-# ' Syntax colouring...
+# ')))) # Syntax colouring...
+
+.PHONY: show-vars
+show-vars: VARS?=%
+show-vars: check-make-version
+	@:
+	$(info $(call clean-json, { \
+			$(foreach V, \
+				$(sort $(filter $(VARS),$(.VARIABLES))), \
+				$(if $(filter-out environment% default automatic, $(origin $V)), \
+					"$V": { \
+						"expanded": $(call mk-json-str,$($V))$(comma) \
+						"raw": $(call mk-json-str,$(value $V)) \
+					}$(comma) \
+				) \
+			) \
+	} ))
 
 .PHONY: clean
 clean:
@@ -1162,6 +1179,8 @@ help:
 	@echo '  pkg-stats              - generate info about packages as JSON and HTML'
 	@echo '  missing-cpe            - generate XML snippets for missing CPE identifiers'
 	@echo '  printvars              - dump internal variables selected with VARS=...'
+	@echo '  show-vars              - dump all internal variables as a JSON blurb; use VARS=...'
+	@echo '                           to limit the list to variables names matching that pattern'
 	@echo
 	@echo '  make V=0|1             - 0 => quiet build (default), 1 => verbose build'
 	@echo '  make O=dir             - Locate all output files in "dir", including .config'
@@ -1210,7 +1229,7 @@ release:
 	$(MAKE) O=$(OUT) distclean
 	tar rf $(OUT).tar $(OUT)
 	gzip -9 -c < $(OUT).tar > $(OUT).tar.gz
-	bzip2 -9 -c < $(OUT).tar > $(OUT).tar.bz2
+	xz -9 -c < $(OUT).tar > $(OUT).tar.xz
 	rm -rf $(OUT) $(OUT).tar
 
 print-version:
@@ -1224,8 +1243,8 @@ check-flake8:
 	| xargs -- python3 -m flake8 --statistics
 
 check-package:
-	find $(TOPDIR) -type f \( -name '*.mk' -o -name '*.hash' -o -name 'Config.*' \) \
-		-exec ./utils/check-package {} +
+	find $(TOPDIR) -type f \( -name '*.mk' -o -name '*.hash' -o -name 'Config.*' -o -name '*.patch' \) \
+		-exec ./utils/check-package --exclude=Sob --exclude=HashSpaces {} +
 
 include docs/manual/manual.mk
 -include $(foreach dir,$(BR2_EXTERNAL_DIRS),$(sort $(wildcard $(dir)/docs/*/*.mk)))

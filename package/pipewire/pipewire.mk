@@ -10,7 +10,8 @@ PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(PIPEWIRE_VERSION))
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
 PIPEWIRE_LICENSE_FILES = COPYING LICENSE
 PIPEWIRE_INSTALL_STAGING = YES
-PIPEWIRE_DEPENDENCIES = host-pkgconf dbus $(TARGET_NLS_DEPENDENCIES)
+PIPEWIRE_DEPENDENCIES = host-pkgconf $(TARGET_NLS_DEPENDENCIES)
+PIPEWIRE_LDFLAGS = $(TARGET_NLS_LIBS)
 
 # batocera : -Dexamples=enabled
 PIPEWIRE_CONF_OPTS += \
@@ -28,13 +29,29 @@ PIPEWIRE_CONF_OPTS += \
 	-Dtest=disabled \
 	-Dvideoconvert=enabled \
 	-Dvideotestsrc=enabled \
-	-Dvolume=enabled
+	-Dvolume=enabled \
+	-Dsession-managers=[] \
+	-Dlibcanberra=disabled \
+	-Dlv2=disabled
+
+ifeq ($(BR2_PACKAGE_DBUS),y)
+PIPEWIRE_CONF_OPTS += -Ddbus=enabled
+PIPEWIRE_DEPENDENCIES += dbus
+else
+PIPEWIRE_CONF_OPTS += -Ddbus=disabled
+endif
 
 ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
 PIPEWIRE_CONF_OPTS += -Dudev=enabled
 PIPEWIRE_DEPENDENCIES += udev
 else
 PIPEWIRE_CONF_OPTS += -Dudev=disabled
+endif
+
+ifeq ($(BR2_PACKAGE_PIPEWIRE_EXAMPLES),y)
+PIPEWIRE_CONF_OPTS += -Dexamples=enabled
+else
+PIPEWIRE_CONF_OPTS += -Dexamples=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_PIPEWIRE_GSTREAMER),y)
@@ -45,10 +62,16 @@ PIPEWIRE_CONF_OPTS += -Dgstreamer=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_SYSTEMD),y)
-PIPEWIRE_CONF_OPTS += -Dsystemd=enabled
+PIPEWIRE_CONF_OPTS += \
+	-Dsystemd=enabled \
+	-Dsystemd-system-service=enabled \
+	-Dsystemd-user-service=enabled
 PIPEWIRE_DEPENDENCIES += systemd
 else
-PIPEWIRE_CONF_OPTS += -Dsystemd=disabled
+PIPEWIRE_CONF_OPTS += \
+	-Dsystemd=disabled \
+	-Dsystemd-system-service=disabled \
+	-Dsystemd-user-service=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_ALSA_LIB),y)
@@ -63,7 +86,7 @@ else
 PIPEWIRE_CONF_OPTS += -Dalsa=disabled -Dpipewire-alsa=disabled
 endif
 
-ifeq ($(BR2_PACKAGE_AVAHI),y)
+ifeq ($(BR2_PACKAGE_AVAHI_LIBAVAHI_CLIENT),y)
 PIPEWIRE_CONF_OPTS += -Davahi=enabled
 PIPEWIRE_DEPENDENCIES += avahi
 else
@@ -91,10 +114,14 @@ else
 PIPEWIRE_CONF_OPTS += -Dffmpeg=disabled
 endif
 
+ifeq ($(BR2_PACKAGE_NCURSES_WCHAR),y)
+PIPEWIRE_DEPENDENCIES += ncurses
+endif
+
 ifeq ($(BR2_PACKAGE_PIPEWIRE_V4L2),y)
-PIPEWIRE_CONF_OPTS += -Dv4l2=enabled
+PIPEWIRE_CONF_OPTS += -Dpipewire-v4l2=enabled -Dv4l2=enabled
 else
-PIPEWIRE_CONF_OPTS += -Dv4l2=disabled
+PIPEWIRE_CONF_OPTS += -Dpipewire-v4l2=disabled -Dv4l2=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_LIBCAMERA)$(BR2_PACKAGE_LIBDRM)$(BR2_PACKAGE_HAS_UDEV),yyy)
@@ -102,6 +129,13 @@ PIPEWIRE_CONF_OPTS += -Dlibcamera=enabled
 PIPEWIRE_DEPENDENCIES += libcamera libdrm
 else
 PIPEWIRE_CONF_OPTS += -Dlibcamera=disabled
+endif
+
+ifeq ($(BR2_PACKAGE_XLIB_LIBX11),y)
+PIPEWIRE_CONF_OPTS += -Dx11=enabled
+PIPEWIRE_DEPENDENCIES += xlib_libX11
+else
+PIPEWIRE_CONF_OPTS += -Dx11=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_LIBUSB),y)
@@ -135,8 +169,16 @@ else
 PIPEWIRE_CONF_OPTS += -Dlibpulse=disabled
 endif
 
-# batocera
+ifeq ($(BR2_PACKAGE_READLINE),y)
+PIPEWIRE_DEPENDENCIES += readline
+endif
+
+ifeq ($(BR2_PACKAGE_SDL2),y)
+PIPEWIRE_DEPENDENCIES += sdl2
+PIPEWIRE_CONF_OPTS += -Dsdl2=enabled
+else
 PIPEWIRE_CONF_OPTS += -Dsdl2=disabled
+endif
 
 ifeq ($(WEBRTC_AUDIO_PROCESSING),y)
 PIPEWIRE_CONF_OPTS += -Decho-cancel-webrtc=enabled
@@ -144,5 +186,16 @@ PIPEWIRE_DEPENDENCIES += webrtc-audio-processing
 else
 PIPEWIRE_CONF_OPTS += -Decho-cancel-webrtc=disabled
 endif
+
+ifeq ($(BR2_PACKAGE_OPENSSL),y)
+PIPEWIRE_CONF_OPTS += -Draop=enabled
+PIPEWIRE_DEPENDENCIES += openssl
+else
+PIPEWIRE_CONF_OPTS += -Draop=disabled
+endif
+
+define PIPEWIRE_USERS
+	pipewire -1 pipewire -1 * - - audio,video PipeWire System Daemon
+endef
 
 $(eval $(meson-package))

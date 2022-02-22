@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-WEBKITGTK_VERSION = 2.32.4
+WEBKITGTK_VERSION = 2.34.6
 WEBKITGTK_SITE = https://www.webkitgtk.org/releases
 WEBKITGTK_SOURCE = webkitgtk-$(WEBKITGTK_VERSION).tar.xz
 WEBKITGTK_INSTALL_STAGING = YES
@@ -13,7 +13,7 @@ WEBKITGTK_LICENSE_FILES = \
 	Source/WebCore/LICENSE-APPLE \
 	Source/WebCore/LICENSE-LGPL-2.1
 WEBKITGTK_CPE_ID_VENDOR = webkitgtk
-WEBKITGTK_DEPENDENCIES = host-ruby host-python host-gperf \
+WEBKITGTK_DEPENDENCIES = host-ruby host-python3 host-gperf \
 	enchant harfbuzz icu jpeg libgcrypt libgtk3 libsecret libsoup \
 	libtasn1 libxml2 libxslt openjpeg sqlite webp woff2
 WEBKITGTK_CONF_OPTS = \
@@ -21,14 +21,13 @@ WEBKITGTK_CONF_OPTS = \
 	-DENABLE_GAMEPAD=OFF \
 	-DENABLE_GEOLOCATION=OFF \
 	-DENABLE_GTKDOC=OFF \
-	-DENABLE_INTROSPECTION=OFF \
 	-DENABLE_MINIBROWSER=ON \
 	-DENABLE_SPELLCHECK=ON \
 	-DPORT=GTK \
-	-DSILENCE_CROSS_COMPILATION_NOTICES=ON \
 	-DUSE_LIBNOTIFY=OFF \
 	-DUSE_LIBHYPHEN=OFF \
 	-DUSE_OPENJPEG=ON \
+	-DUSE_SOUP2=ON \
 	-DUSE_WOFF2=ON \
 	-DUSE_WPE_RENDERER=OFF
 
@@ -46,7 +45,7 @@ ifeq ($(BR2_PACKAGE_WEBKITGTK_MULTIMEDIA),y)
 WEBKITGTK_CONF_OPTS += \
 	-DENABLE_VIDEO=ON \
 	-DENABLE_WEB_AUDIO=ON
-WEBKITGTK_DEPENDENCIES += gstreamer1 gst1-libav gst1-plugins-base gst1-plugins-good
+WEBKITGTK_DEPENDENCIES += gstreamer1 gst1-libav gst1-plugins-base
 else
 WEBKITGTK_CONF_OPTS += \
 	-DENABLE_VIDEO=OFF \
@@ -59,6 +58,20 @@ else
 WEBKITGTK_CONF_OPTS += -DENABLE_WEBDRIVER=OFF
 endif
 
+ifeq ($(BR2_PACKAGE_LCMS2),y)
+WEBKITGTK_CONF_OPTS += -DUSE_LCMS=ON
+WEBKITGTK_DEPENDENCIES += lcms2
+else
+WEBKITGTK_CONF_OPTS += -DUSE_LCMS=OFF
+endif
+
+ifeq ($(BR2_PACKAGE_GOBJECT_INTROSPECTION),y)
+WEBKITGTK_CONF_OPTS += -DENABLE_INTROSPECTION=ON
+WEBKITGTK_DEPENDENCIES += gobject-introspection
+else
+WEBKITGTK_CONF_OPTS += -DENABLE_INTROSPECTION=OFF
+endif
+
 # Only one target platform can be built, assume X11 > Wayland
 
 # GTK3-X11 target gives OpenGL from newer libgtk3 versions
@@ -68,7 +81,6 @@ ifeq ($(BR2_PACKAGE_LIBGTK3_X11),y)
 WEBKITGTK_CONF_OPTS += \
 	-DENABLE_ACCELERATED_2D_CANVAS=ON \
 	-DENABLE_GLES2=OFF \
-	-DENABLE_GRAPHICS_CONTEXT_GL=ON \
 	-DENABLE_X11_TARGET=ON
 WEBKITGTK_DEPENDENCIES += libgl \
 	xlib_libXcomposite xlib_libXdamage xlib_libXrender xlib_libXt
@@ -84,15 +96,11 @@ else # !X11
 WEBKITGTK_DEPENDENCIES += libegl
 # GLESv2 support is optional though
 ifeq ($(BR2_PACKAGE_HAS_LIBGLES),y)
-WEBKITGTK_CONF_OPTS += \
-	-DENABLE_GLES2=ON \
-	-DENABLE_GRAPHICS_CONTEXT_GL=ON
+WEBKITGTK_CONF_OPTS += -DENABLE_GLES2=ON
 WEBKITGTK_DEPENDENCIES += libgles
 else
 # Disable general OpenGL (shading) if there's no GLESv2
-WEBKITGTK_CONF_OPTS += \
-	-DENABLE_GLES2=OFF \
-	-DENABLE_GRAPHICS_CONTEXT_GL=OFF
+WEBKITGTK_CONF_OPTS += -DENABLE_GLES2=OFF
 endif
 # We must explicitly state the wayland target
 ifeq ($(BR2_PACKAGE_LIBGTK3_WAYLAND),y)

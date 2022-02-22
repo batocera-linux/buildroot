@@ -71,12 +71,6 @@ source "package/gdb/Config.in.host"
 
 comment "Toolchain Generic Options"
 
-# https://sourceware.org/bugzilla/show_bug.cgi?id=21464
-# Affect toolchains built with binutils 2.31.1, still not fixed.
-config BR2_TOOLCHAIN_HAS_BINUTILS_BUG_21464
-	bool
-	default y if BR2_or1k
-
 # https://sourceware.org/bugzilla/show_bug.cgi?id=27597
 # Affect toolchains built with binutils 2.36.1, still not fixed.
 config BR2_TOOLCHAIN_HAS_BINUTILS_BUG_27597
@@ -114,6 +108,16 @@ config BR2_TOOLCHAIN_SUPPORTS_VARIADIC_MI_THUNK
 	default y
 	depends on !BR2_or1k
 	depends on !BR2_xtensa
+
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=43744. This bug no
+# reappeared on gcc 9.x and is still not fixed on gcc 11.x
+config BR2_TOOLCHAIN_HAS_GCC_BUG_43744
+	bool
+	default y if BR2_sh4
+	depends on !BR2_TOOLCHAIN_GCC_AT_LEAST_8 || \
+		BR2_TOOLCHAIN_GCC_AT_LEAST_9 || \
+		BR2_TOOLCHAIN_GCC_AT_LEAST_10 || \
+		BR2_TOOLCHAIN_GCC_AT_LEAST_11
 
 # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63261. This bug no
 # longer exists in gcc 8.x.
@@ -181,11 +185,11 @@ config BR2_TOOLCHAIN_HAS_GCC_BUG_93847
 # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=99410
 # Error: branch offset out of range on Nios II. This bug
 # no longer exists in gcc 8.x but reappeared on gcc 9.x and has been
-# fixed on gcc 10.x.
+# fixed on gcc 11.x.
 config BR2_TOOLCHAIN_HAS_GCC_BUG_99140
 	bool
 	default y if !BR2_TOOLCHAIN_GCC_AT_LEAST_8
-	default y if BR2_TOOLCHAIN_GCC_AT_LEAST_9 && !BR2_TOOLCHAIN_GCC_AT_LEAST_10
+	default y if BR2_TOOLCHAIN_GCC_AT_LEAST_9 && !BR2_TOOLCHAIN_GCC_AT_LEAST_11
 	depends on BR2_nios2
 
 # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101737
@@ -554,6 +558,18 @@ config BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_12
 config BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_13
 	bool
 	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_12
+
+config BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_14
+	bool
+	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_13
+
+config BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_15
+	bool
+	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_14
+
+config BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_16
+	bool
+	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_15
 	select BR2_TOOLCHAIN_HEADERS_LATEST
 
 # This should be selected by the latest version, above, to indicate that
@@ -567,6 +583,9 @@ config BR2_TOOLCHAIN_HEADERS_LATEST
 # stops affecting a value on the first matching default.
 config BR2_TOOLCHAIN_HEADERS_AT_LEAST
 	string
+	default "5.16" if BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_16
+	default "5.15" if BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_15
+	default "5.14" if BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_14
 	default "5.13" if BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_13
 	default "5.12" if BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_12
 	default "5.11" if BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_11

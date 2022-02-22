@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-GOBJECT_INTROSPECTION_VERSION_MAJOR = 1.68
+GOBJECT_INTROSPECTION_VERSION_MAJOR = 1.70
 GOBJECT_INTROSPECTION_VERSION = $(GOBJECT_INTROSPECTION_VERSION_MAJOR).0
 GOBJECT_INTROSPECTION_SITE = http://ftp.gnome.org/pub/GNOME/sources/gobject-introspection/$(GOBJECT_INTROSPECTION_VERSION_MAJOR)
 GOBJECT_INTROSPECTION_SOURCE = gobject-introspection-$(GOBJECT_INTROSPECTION_VERSION).tar.xz
@@ -83,6 +83,8 @@ define GOBJECT_INTROSPECTION_INSTALL_PRE_WRAPPERS
 	$(INSTALL) -D -m 755 $(GOBJECT_INTROSPECTION_PKGDIR)/g-ir-scanner-qemuwrapper.in \
 		$(STAGING_DIR)/usr/bin/g-ir-scanner-qemuwrapper
 	$(SED) "s%@QEMU_USER@%$(QEMU_USER)%g" \
+		$(STAGING_DIR)/usr/bin/g-ir-scanner-qemuwrapper
+	$(SED) "s%@QEMU_USERMODE_ARGS@%$(call qstrip,$(BR2_PACKAGE_HOST_QEMU_USER_MODE_ARGS))%g" \
 		$(STAGING_DIR)/usr/bin/g-ir-scanner-qemuwrapper
 	$(SED) "s%@TOOLCHAIN_HEADERS_VERSION@%$(BR2_TOOLCHAIN_HEADERS_AT_LEAST)%g" \
 		$(STAGING_DIR)/usr/bin/g-ir-scanner-qemuwrapper

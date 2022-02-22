@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-WPEWEBKIT_VERSION = 2.32.4
+WPEWEBKIT_VERSION = 2.34.6
 WPEWEBKIT_SITE = http://www.wpewebkit.org/releases
 WPEWEBKIT_SOURCE = wpewebkit-$(WPEWEBKIT_VERSION).tar.xz
 WPEWEBKIT_INSTALL_STAGING = YES
@@ -14,7 +14,7 @@ WPEWEBKIT_LICENSE_FILES = \
 	Source/WebCore/LICENSE-LGPL-2.1
 WPEWEBKIT_CPE_ID_VENDOR = wpewebkit
 WPEWEBKIT_CPE_ID_PRODUCT = wpe_webkit
-WPEWEBKIT_DEPENDENCIES = host-gperf host-python host-ruby \
+WPEWEBKIT_DEPENDENCIES = host-gperf host-python3 host-ruby \
 	harfbuzz cairo icu jpeg libepoxy libgcrypt libgles libsoup libtasn1 \
 	libpng libxslt openjpeg wayland-protocols webp wpebackend-fdo
 
@@ -23,6 +23,7 @@ WPEWEBKIT_CONF_OPTS = \
 	-DENABLE_ACCESSIBILITY=OFF \
 	-DENABLE_API_TESTS=OFF \
 	-DENABLE_MINIBROWSER=OFF \
+	-DUSE_SOUP2=ON \
 	-DSILENCE_CROSS_COMPILATION_NOTICES=ON
 
 ifeq ($(BR2_PACKAGE_WPEWEBKIT_SANDBOX),y)
@@ -39,7 +40,7 @@ ifeq ($(BR2_PACKAGE_WPEWEBKIT_MULTIMEDIA),y)
 WPEWEBKIT_CONF_OPTS += \
 	-DENABLE_VIDEO=ON \
 	-DENABLE_WEB_AUDIO=ON
-WPEWEBKIT_DEPENDENCIES += gstreamer1 gst1-libav gst1-plugins-base gst1-plugins-good
+WPEWEBKIT_DEPENDENCIES += gstreamer1 gst1-libav gst1-plugins-base
 else
 WPEWEBKIT_CONF_OPTS += \
 	-DENABLE_VIDEO=OFF \
@@ -63,6 +64,13 @@ ifeq ($(BR2_PACKAGE_WPEWEBKIT_WEBDRIVER),y)
 WPEWEBKIT_CONF_OPTS += -DENABLE_WEBDRIVER=ON
 else
 WPEWEBKIT_CONF_OPTS += -DENABLE_WEBDRIVER=OFF
+endif
+
+ifeq ($(BR2_PACKAGE_LCMS2),y)
+WPEWEBKIT_CONF_OPTS += -DUSE_LCMS=ON
+WPEWEBKIT_DEPENDENCIES += lcms2
+else
+WPEWEBKIT_CONF_OPTS += -DUSE_LCMS=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_WOFF2),y)

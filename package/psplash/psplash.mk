@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-PSPLASH_VERSION = fd33a9b3d68c89fa22ff6873f4f9fd28bd85830c
+PSPLASH_VERSION = 44afb7506d43cca15582b4c5b90ba5580344d75d
 PSPLASH_SITE = git://git.yoctoproject.org/psplash
 PSPLASH_LICENSE = GPL-2.0+
 PSPLASH_LICENSE_FILES = COPYING
@@ -16,6 +16,16 @@ PSPLASH_DEPENDENCIES += systemd
 PSPLASH_CONF_OPTS += --with-systemd
 else
 PSPLASH_CONF_OPTS += --without-systemd
+endif
+
+PSPLASH_IMAGE = $(call qstrip,$(BR2_PACKAGE_PSPLASH_IMAGE))
+
+ifneq ($(PSPLASH_IMAGE),)
+define PSPLASH_COPY_IMAGE
+	cp $(PSPLASH_IMAGE) $(@D)/base-images/psplash-poky.png
+endef
+
+PSPLASH_POST_EXTRACT_HOOKS += PSPLASH_COPY_IMAGE
 endif
 
 define PSPLASH_INSTALL_INIT_SYSTEMD
