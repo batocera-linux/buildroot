@@ -643,6 +643,16 @@ N:	Danilo Bargen <mail@dbrgn.ch>
 F:	board/pcengines/apu2/
 F:	configs/pcengines_apu2_defconfig
 
+N:	Danny Trunk <dtrunk90@gmail.com>
+F:	package/python-adafruit-blinka/
+F:	package/python-adafruit-circuitpython-busdevice/
+F:	package/python-adafruit-circuitpython-typing/
+F:	package/python-adafruit-circuitpython-ws2801/
+F:	package/python-adafruit-platformdetect/
+F:	package/python-adafruit-pureio/
+F:	package/python-pyftdi/
+F:	package/python-sysv-ipc/
+
 N:	Danomi Manchego <danomimanchego123@gmail.com>
 F:	package/cjson/
 F:	package/jq/
