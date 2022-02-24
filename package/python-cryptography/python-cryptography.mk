@@ -21,7 +21,8 @@ PYTHON_CRYPTOGRAPHY_ENV = \
 	$(PKG_CARGO_ENV) \
 	PYO3_CROSS_LIB_DIR="$(STAGING_DIR)/usr/lib/python$(PYTHON3_VERSION_MAJOR)"
 # We need to vendor the Cargo crates at download time
-PYTHON_CRYPTOGRAPHY_DOWNLOAD_POST_PROCESS = cargo
+# batocera ; don't do post-process (it creates issues on br compilation about $HOME)
+#PYTHON_CRYPTOGRAPHY_DOWNLOAD_POST_PROCESS = cargo
 PYTHON_CRYPTOGRAPHY_DOWNLOAD_DEPENDENCIES = host-rustc
 PYTHON_CRYPTOGRAPHY_DL_ENV = \
 	BR_CARGO_MANIFEST_PATH=src/rust/Cargo.toml
