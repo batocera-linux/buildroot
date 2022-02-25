@@ -31,4 +31,18 @@ define P7ZIP_INSTALL_TARGET_CMDS
 		$(TARGET_DIR)/usr/bin/$(P7ZIP_TARGET)
 endef
 
+# batocera
+define HOST_P7ZIP_BUILD_CMDS
+        $(HOST_CONFIGURE_OPTS) $(HOST_MAKE_ENV) $(MAKE) -C $(@D) $(P7ZIP_TARGET)
+endef
+
+# batocera
+define HOST_P7ZIP_INSTALL_CMDS
+	$(INSTALL) -D -m 0755 $(@D)/bin/$(P7ZIP_TARGET) \
+		$(HOST_DIR)/usr/bin/$(P7ZIP_TARGET)
+endef
+
+
 $(eval $(generic-package))
+# batocera
+$(eval $(host-generic-package))
