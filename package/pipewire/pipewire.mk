@@ -13,7 +13,7 @@ PIPEWIRE_INSTALL_STAGING = YES
 PIPEWIRE_DEPENDENCIES = host-pkgconf $(TARGET_NLS_DEPENDENCIES)
 PIPEWIRE_LDFLAGS = $(TARGET_NLS_LIBS)
 
-# batocera : -Dexamples=enabled
+# batocera : -Dexamples=enabled and -Dsession-managers=media-session
 PIPEWIRE_CONF_OPTS += \
 	-Ddocs=disabled \
 	-Dexamples=enabled \
@@ -30,9 +30,12 @@ PIPEWIRE_CONF_OPTS += \
 	-Dvideoconvert=enabled \
 	-Dvideotestsrc=enabled \
 	-Dvolume=enabled \
-	-Dsession-managers=[] \
+	-Dsession-managers=media-session \
 	-Dlibcanberra=disabled \
 	-Dlv2=disabled
+
+# batocera
+PIPEWIRE_CONF_OPTS += --wrap-mode=default
 
 ifeq ($(BR2_PACKAGE_DBUS),y)
 PIPEWIRE_CONF_OPTS += -Ddbus=enabled
