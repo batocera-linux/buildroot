@@ -4,8 +4,12 @@
 #
 ################################################################################
 
-WPA_SUPPLICANT_VERSION = 2.10
+# batocera - downgrade from 2.10 (no -wired, no wifi on rk3326)
+WPA_SUPPLICANT_VERSION = 2.9
 WPA_SUPPLICANT_SITE = http://w1.fi/releases
+WPA_SUPPLICANT_PATCH = \
+	https://w1.fi/security/2020-2/0001-P2P-Fix-copying-of-secondary-device-types-for-P2P-gr.patch \
+	https://w1.fi/security/2021-1/0001-P2P-Fix-a-corner-case-in-peer-addition-based-on-PD-R.patch
 WPA_SUPPLICANT_LICENSE = BSD-3-Clause
 WPA_SUPPLICANT_LICENSE_FILES = README
 WPA_SUPPLICANT_CPE_ID_VENDOR = w1.fi
@@ -15,6 +19,15 @@ WPA_SUPPLICANT_DBUS_SERVICE = fi.w1.wpa_supplicant1
 WPA_SUPPLICANT_CFLAGS = $(TARGET_CFLAGS) -I$(STAGING_DIR)/usr/include/libnl3/
 WPA_SUPPLICANT_LDFLAGS = $(TARGET_LDFLAGS)
 WPA_SUPPLICANT_SELINUX_MODULES = networkmanager
+
+# 0001-AP-Silently-ignore-management-frame-from-unexpected-.patch
+WPA_SUPPLICANT_IGNORE_CVES += CVE-2019-16275
+
+# 0001-P2P-Fix-a-corner-case-in-peer-addition-based-on-PD-R.patch
+WPA_SUPPLICANT_IGNORE_CVES += CVE-2021-27803
+
+# 0002-ASN.1-Validate-DigestAlgorithmIdentifier-parameters.patch
+WPA_SUPPLICANT_IGNORE_CVES += CVE-2021-30004
 
 # install the wpa_client library
 WPA_SUPPLICANT_INSTALL_STAGING = YES
@@ -92,9 +105,7 @@ else
 WPA_SUPPLICANT_CONFIG_DISABLE += CONFIG_WIFI_DISPLAY
 endif
 
-ifeq ($(BR2_PACKAGE_WPA_SUPPLICANT_MESH_NETWORKING),y)
-WPA_SUPPLICANT_CONFIG_ENABLE += CONFIG_MESH
-else
+ifeq ($(BR2_PACKAGE_WPA_SUPPLICANT_MESH_NETWORKING),)
 WPA_SUPPLICANT_CONFIG_DISABLE += CONFIG_MESH
 endif
 
