@@ -68,6 +68,10 @@ SDL2_DEPENDENCIES += rockchip-rga
 endif
 
 # batocera
+# disable hidapi
+SDL2_CONF_OPTS += --disable-hidapi
+
+# batocera
 # pipewire
 ifeq ($(BR2_PACKAGE_PIPEWIRE),y)
 SDL2_CONF_OPTS += --enable-pipewire
