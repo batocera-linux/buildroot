@@ -141,6 +141,13 @@ else
 PIPEWIRE_CONF_OPTS += -Dx11=disabled
 endif
 
+ifeq ($(BR2_PACKAGE_XLIB_LIBXFIXES),y)
+PIPEWIRE_CONF_OPTS += -Dx11-xfixes=enabled
+PIPEWIRE_DEPENDENCIES += xlib_libXfixes
+else
+PIPEWIRE_CONF_OPTS += -Dx11-xfixes=disabled
+endif
+
 ifeq ($(BR2_PACKAGE_LIBUSB),y)
 PIPEWIRE_CONF_OPTS += -Dlibusb=enabled
 PIPEWIRE_DEPENDENCIES += libusb
