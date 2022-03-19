@@ -304,6 +304,7 @@ ifeq ($(BR2_x86_64),y)
 endif
 ifeq ($(BR2_x86_i686),y)
 	MESA3D_PRE_CONFIGURE_HOOKS += MESA3D_VULKANJSON_X86
+	MESA3D_CONF_OPTS += -Dcpp_rtti=true
 endif
 
 MESA3D_CFLAGS = $(TARGET_CFLAGS)
