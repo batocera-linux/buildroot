@@ -144,7 +144,7 @@ endif
 # OpenGL support
 ifeq ($(BR2_PACKAGE_HAS_LIBGL),y)
 # Batocera - don't build OpenGL for RPi4
-  ifeq ($(!BR2_PACKAGE_BATOCERA_RPI4_WITH_XORG),y)
+  ifneq ($(BR2_PACKAGE_BATOCERA_RPI4_WITH_XORG),y)
     MPV_CONF_OPTS += --enable-gl
     MPV_DEPENDENCIES += libgl
   endif
