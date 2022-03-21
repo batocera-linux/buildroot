@@ -202,7 +202,7 @@ endif
 #batocera
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_GBM_GL),y)
 # batocera - don't set OGL for RPi4 use GLES instead
-  ifeq ($(!BR2_PACKAGE_BATOCERA_RPI4_WITH_XORG),y)
+  ifneq ($(BR2_PACKAGE_BATOCERA_RPI4_WITH_XORG),y)
     KODI_CONF_OPTS += \
         -DCORE_PLATFORM_NAME=gbm \
         -DGBM_RENDER_SYSTEM=gl \
