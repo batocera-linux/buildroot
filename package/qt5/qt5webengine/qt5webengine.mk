@@ -10,7 +10,7 @@ QT5WEBENGINE_SITE = https://download.qt.io/archive/qt/$(QT5WEBENGINE_VERSION_MAJ
 QT5WEBENGINE_SOURCE = qtwebengine-$(QT5_SOURCE_TARBALL_PREFIX)-$(QT5WEBENGINE_VERSION).tar.xz
 QT5WEBENGINE_DEPENDENCIES = ffmpeg libglib2 libvpx libxkbcommon opus webp \
 	qt5declarative qt5webchannel host-bison host-flex host-gperf \
-	host-pkgconf host-python
+	host-pkgconf host-python3
 QT5WEBENGINE_INSTALL_STAGING = YES
 
 include package/qt5/qt5webengine/chromium-latest.inc
