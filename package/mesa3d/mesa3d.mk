@@ -127,7 +127,7 @@ MESA3D_VULKAN_DRIVERS-$(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_FREEDRENO) += freedreno
 # Vulkan Layers - helps with multi-GPU switching
 ifeq ($(BR2_PACKAGE_WAYLAND)$(BR2_PACKAGE_MESA3D_NEEDS_X11),yy)
 MESA3D_DEPENDENCIES += python3 host-glslang
-MESA3D_CONF_OPTS += -Dvulkan-layers=device-select,intel-nullhw,overlay
+MESA3D_CONF_OPTS += -Dvulkan-layers=device-select,overlay
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER),)
