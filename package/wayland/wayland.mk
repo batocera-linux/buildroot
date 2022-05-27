@@ -3,7 +3,7 @@
 # wayland
 #
 ################################################################################
-# batocera (update)
+
 WAYLAND_VERSION = 1.20.0
 WAYLAND_SITE = https://wayland.freedesktop.org/releases
 WAYLAND_SOURCE = wayland-$(WAYLAND_VERSION).tar.xz

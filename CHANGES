@@ -1,3 +1,151 @@
+2022.05-rc1, released May 18th, 2022
+
+	Fixes all over the tree and new features.
+
+	Toolchain:
+	- glibc update to 2.35, musl updated to 1.2.3
+	- gcc 11.x updated to 11.3, support for external gcc 12.x
+	- binutils 2.38 added, 2.32/2.35.2 removed, default changed to 2.37
+	- s390x Bootlin external toolchain added
+	- 5.17.x kernel headers support added
+
+	Filesystem:
+	- Rework OCI entrypoint/command logic to handle command arguments
+	- Squashfs block size is now configurable
+
+	Graphs: Also generate a build time timeline graph (for top
+	level parallel builds).
+
+	scripts/pkg-stats: Optimize memory consumption for CPE parsing
+
+	Fix compatibility issue with the fakeroot script logic and
+	modern versions of dash.
+
+	Change git:// URLs pointing to Github to https://, now that
+	Github has turned off support for git://
+
+	New defconfigs: Octavo osd32mp1_brk / osd32mp1_red
+
+	New packages: falcosecurity-libs, lzma-alone, octave,
+	python-flit-core, python-orjson, python-pydevmem,
+	qt5webengine-chromium, qt5webengine-chromium-catapult, ragel,
+	tbb, wilc-driver, wtfutil
+
+	Wilc1000-firmware renamed to wilc-firmware
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#14596: package dialog is outdated and contains a bug
+	#14651: OpenSSH 8.9p1 compiler error under ARM
+	#14656: Adding dependencies from an external tree does not work
+	#14661: Fakeroot script relies on bash-isms, does not work with..
+	#14681: QT5WEBENGINE not building
+	#14686: genimage.cfg have a hard-coded .ext4 extension which..
+	#14701: Multiple unresolved symbols while building kernel ..
+	#14706: nodjs build problem
+	#14711: nodjs build problem missing bzip
+	#14721: python-argon2_cffi no longer works
+	#14731: BR2_PACKAGE_IOSTAT
+	#14751: LVM2 Outdated Link
+
+2022.02.1, released April 11th, 2022
+
+	Important / security related fixes.
+
+	Graphs: Also generate a build time timeline graph (for top
+	level parallel builds).
+
+	scripts/pkg-stats: Optimize memory consumption for CPE parsing
+
+	Fix compatibility issue with the fakeroot script logic and
+	modern versions of dash.
+
+	Change git:// URLs pointing to Github to https://, now that
+	Github has turned off support for git://
+
+	Updated/fixed packages: ace, apache, apr, apr-util, belr,
+	bind, bluez5_utils, boinc, bpftool, busybox, cloop, cog,
+	containerd, cppcms, dav1d, dhcp, dieharder, dnsmasq,
+	docker-cli, docker-engine, efl, ell, fakeroot, flac,
+	fluidsynth, gdk-pixbuf, glib-networking, gnutls, gst-omx,
+	gst1-devtools, gst1-libav, gst1-plugins-bad,
+	gst1-plugins-base, gst1-plugins-good, gst1-plugins-ugly,
+	gst1-python, gst1-rtsp-server, gst1-vaapi, gstreamer1,
+	gstreamer1-editing-services, haproxy, htop, intel-gmmlib,
+	ipmiutil, iwd, jack1, jack2, lftp, libabseil-cpp, libbluray,
+	libcamera-apps, libcoap, libcurl, libest, libgee, libglib2,
+	libgtk3, libiec61850, libkrb5, libminiupnpc, libodb,
+	libodb-boost, libopenssl, libp11, libpsl, libressl, librstp,
+	librtlsdr, liburing, libyang, libzlib, luasec, lxc, matio,
+	meson, minidlna, minizip, mpd, mtools, netatalk, nbd, odb,
+	openblas, openssh, openvpn, optee-os, opus, paho-mqtt-c,
+	pango, php, pipewire, pkcs11-helper, postgresql, ppp,
+	protozero, python-aioconsole, python-avro, python-brotli,
+	python-greenlet, python-paramiko, python-pillow,
+	python-rpi-gpio, python-treq, python-twisted, python-ujson,
+	python-weasyprint, qt5base, qt5wayland, raptor, rpi-firmware,
+	rpi-userland, rtl_433, runc, rust, rygel, samba4,
+	shairport-sync, spice, spidev_test, stunnel, systemd,
+	timescaledb, trace-cmd, trousers, ts4900-fpga, tvheadend,
+	udpcast, unbound, upower, urandom-scripts, usbguard, valgrind,
+	valijson, vim, wavpack, wget, wireplumber, wireshark, woff2,
+	xmrig, zabbix, zlib-ng, zynaddsubfx, zziplib
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#13971: ip6tables-nft build does not include MASQUERADE target..
+	#14651: OpenSSH 8.9p1 compiler error under ARM
+	#14656: Adding dependencies from an external tree does not work
+	#14661: Fakeroot script relies on bash-isms, does not work ..
+	#14686: genimage.cfg have a hard-coded .ext4 extension which..
+	#14701: Multiple unresolved symbols while building kernel ..
+	#14711: nodjs build problem missing bzip
+	#14731: BR2_PACKAGE_IOSTAT
+
+2022.02, released March 8th, 2022
+
+	Various fixes.
+
+	Fixes to cargo and golang packaging infrastructure.
+
+	Defconfigs: OrangePi RK3399: Fix genimage format
+
+	Updated/fixed packages: azure-iot-sdk-c, bpftool, cog,
+	directfb, directfb-examples, dnsmasq, docker-engine, expat,
+	freerdp, frr, gdb, ghostscript, glib-networking, go, haproxy,
+	hostapd, kf5-extra-cmake-modules, kf5-kcoreaddons,
+	kf5-modemmanager-qt, kf5-networkmanager-qt, libcamera-apps,
+	libgee, libglfw, librstp, libtorrent, libvirt, libxslt, linux,
+	mariadb, oprofile, osm2pgsql, pulseview, python-cryptography,
+	python-gnupg, python-treq, qt5base, qt5webkit, rauc, re2,
+	rygel, safeclib, sconeserver, seatd, sord, upmpdcli,
+	util-linux, weston, wpa_supplicant, xdriver_xf86-video-mach64,
+	xdriver_xf86-video-nouveau, xdriver_xf86-video-qxl,
+	xscreensaver, zabbix
+
+	New packages: gdk-pixbuf-xlib
+
+	Removed packages: python-pycli
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#13126: make fails - bzip2-1.0.6.tar.gz and DirectFB-1.7.7.tar..
+	#14611: 2022.02-rc2: Build of BR2_x86_64 with BR2_LINUX_KERNEL_..
+	#14631: host-go-bootstrap: go not being built for package in ..
+	#14636: azure-iot-sdk-c: Installed headers do not compile
+	#14641: oprofile can not find the events files
+
+2022.02-rc3, released February 28th, 2022
+
+	Fixes all over the tree.
+
+	Defconfigs: Xilinx zynqmp zcu102/zcu106: Fix U-Boot DTS config
+
+	Updated/fixed packages: bluez5_utils, bpftool, dbus, exempi,
+	flac, freerdp, frr, gnutls, libpjsip, libxml2, mariadb,
+	openssh, python-twisted, qt5webkit, samba4, vim, weston,
+	wireshark, wolfssl, xdg-dbus-proxy, xterm,
+
 2022.02-rc2, released February 20th, 2022
 
 	Fixes all over the tree.
@@ -86,6 +234,52 @@
 	#14471: alsa_utils wrong deployment
 	#14501: lttng-modules v2.11 package fails to build
 	#14531: Package EFL - build error
+
+2021.11.3, released March 24th, 2022
+
+	Important / security related fixes.
+
+	Updated/fixed packages: apache, azure-iot-sdk-c, boinc, dbus,
+	directfb, docker-engine, exempi, expat, flac, gdb, gdk-pixbuf,
+	gnutls, go, haproxy, libcurl, libiec61850, libminiupnpc,
+	libodb, libodb-boost, libopenssl, libpjsip, libressl, librsvg,
+	libsrtp, libvirt, libxml2, libxslt, lxc, mariadb, minidlna,
+	odb, openblas, openvpn, oprofile, php, pppd, python-ipython,
+	python-twisted, raptor, rpi-firmware, samba4, seatd,
+	timescaledb, usbguard, util-linux, vim, wavpack,
+	wireless-regdb, wireplumber, wireshark, wolfssl, xscreensaver,
+	xterm, zsh
+
+	New packages: gdk-pixbuf-xlib
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#13126: make fails - bzip2-1.0.6.tar.gz and DirectFB-1.7.7.tar..
+	#14636: azure-iot-sdk-c: Installed headers do not compile
+	#14641: oprofile can not find the events files
+
+2021.11.2, released February 28th, 2022
+
+	Important / security related fixes.
+
+	Defconfigs: Andes ae3xx, Intel galileo: Fix build with host
+	gcc >= 10, ROC-RK3399-PC: Bump rootfs size to fix build issue.
+
+	Add conditional patching logic to fix build issues for older
+	U-Boot / Linux kernel versions when built with a host gcc >=
+	10.
+
+	Updated/fixed packages: apitrace, binutils, casync, cgilua,
+	connman, expat, gauche, gdb, gensio, glibc, go, gst-omx,
+	gst1-devtools, gst1-libav, gst1-plugins-bad,
+	gst1-plugins-base, gst1-plugins-good, gst1-plugins-ugly,
+	gst1-python, gst1-rtsp-server, gst1-vaapi, gstreamer1,
+	gstreamer1-editing-services, kf5-extra-cmake-modules, kodi,
+	libarchive, linux, lm-sensors, localedef, log4cxx, mpd,
+	nfs-utils, php, pistache, pkcs11-helper, prosody,
+	python-django, python-pyzmq, python-regex,
+	python-sqliteschema, resiprocate, rtl8723bu, thermald, tiff,
+	tor, util-linux, vim, xen
 
 2021.11.1, released January 29th, 2022
 
@@ -712,6 +906,61 @@
 	#13741: genext2fs does not allow to set perms of root node
 	#13751: libopenssl (static): huge drop in performance in newer ..
 	#13771: package htop has undeclared dependency on host python
+
+2021.02.12, released April 6th, 2022
+
+	Important / security related fixes.
+
+	pkg-stats: Limit memory use for CPE matching
+
+	Updated/fixed packages: gdk-pixbuf, jack2, libzlib, matio,
+	nbd, netatalk, opus, python-paramiko, python-treq,
+	python-twisted, spidev_test, unbound, urandom-scripts, vim,
+	wireshark, zlib-ng, zziplib
+
+2021.02.11, released March 25th, 2022
+
+	Important / security related fixes.
+
+	Updated/fixed packages: apache, azure-iot-sdk-c, dbus,
+	directfb, docker-engine, exempi, expat, flac, gdk-pixbuf,
+	gnutls, go, haproxy, libcurl, libiec61850, libminiupnpc,
+	libodb, libodb-boost, libopenssl, libpjsip, libressl, librsvg,
+	libsrtp, libxml2, libxslt, lxc, mariadb, odbm openblas,
+	openvpn, oprofile, php, pppd, python-ipython, python-treq,
+	python-twisted, python-txbus, python-txtorcon, raptor,
+	rpi-firmware, samba4, timescaledb, util-linux, vim, wavpack,
+	wireless-regdb, wireshark, wolfssl, xscreensaver, xterm, zsh
+
+	New packages: gdk-pixbuf-xlib
+
+	Removed packages: python-coherence
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#13126: make fails - bzip2-1.0.6.tar.gz and DirectFB-1.7.7.tar..
+	#14636: azure-iot-sdk-c: Installed headers do not compile
+	#14641: oprofile can not find the events files
+
+2021.02.10, released February 28th, 2022
+
+	Important / security related fixes.
+
+	Defconfigs: Andes ae3xx, Intel galileo: Fix build with host
+	gcc >= 10, ROC-RK3399-PC: Bump rootfs size to fix build issue.
+
+	Add conditional patching logic to fix build issues for older
+	U-Boot / Linux kernel versions when built with a host gcc >=
+	10.
+
+	Updated/fixed packages: casync, cgilua, connman, expat,
+	gauche, gensio, go, gst-omx, gst1-devtools, gst1-libav,
+	gst1-plugins-bad, gst1-plugins-base, gst1-plugins-good,
+	gst1-plugins-ugly, gst1-python, gst1-rtsp-server, gst1-vaapi,
+	gstreamer1, gstreamer1-editing-services,
+	kf5-extra-cmake-modules, kodi, libarchive, linux, lm-sensors,
+	log4cxx, mpd, nfs-utils, pistache, prosody, python-django,
+	python-pyzmq, rtl8723bu, thermald, tiff, util-linux, vim, xen
 
 2021.02.9, released January 29th, 2022
 

@@ -4,9 +4,8 @@
 #
 ################################################################################
 
-# Batocera Update
-WOLFSSL_VERSION = 5.1.0-stable
-WOLFSSL_SITE = $(call github,wolfSSL,wolfssl,v$(WOLFSSL_VERSION))
+WOLFSSL_VERSION = 5.2.0
+WOLFSSL_SITE = $(call github,wolfSSL,wolfssl,v$(WOLFSSL_VERSION)-stable)
 WOLFSSL_INSTALL_STAGING = YES
 
 WOLFSSL_LICENSE = GPL-2.0+

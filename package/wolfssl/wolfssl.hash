@@ -1,7 +1,5 @@
 # Locally computed:
-# Batocera Update
-sha256  3791e62ef98e3b054968729e7ebd935930562bc4453fe1ee40a1983589112e5e  wolfssl-5.1.0-stable.tar.gz
-
+sha256  409b4646c5f54f642de0e9f3544c3b83de7238134f5b1ff93fb44527bf119d05  wolfssl-5.2.0.tar.gz
 # Hash for license files:
 sha256  8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643  COPYING
 sha256  b23c1da1f85d699d3288d73c952b4cd02760d23dc1ddc1b221cbb8be82387189  LICENSING

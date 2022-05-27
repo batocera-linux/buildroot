@@ -15,8 +15,27 @@ RAUC_DEPENDENCIES = host-pkgconf openssl libglib2
 ifeq ($(BR2_PACKAGE_RAUC_DBUS),y)
 RAUC_CONF_OPTS += --enable-service
 RAUC_DEPENDENCIES += dbus
+
+# systemd service uses dbus interface
+ifeq ($(BR2_PACKAGE_SYSTEMD),y)
+# configure uses pkg-config --variable=systemdsystemunitdir systemd
+RAUC_DEPENDENCIES += systemd
+define RAUC_INSTALL_INIT_SYSTEMD
+	mkdir -p $(TARGET_DIR)/usr/lib/systemd/system/rauc.service.d
+	printf '[Install]\nWantedBy=multi-user.target\n' \
+		>$(TARGET_DIR)/usr/lib/systemd/system/rauc.service.d/buildroot-enable.conf
+endef
+endif
+
 else
 RAUC_CONF_OPTS += --disable-service
+endif
+
+ifeq ($(BR2_PACKAGE_RAUC_GPT),y)
+RAUC_CONF_OPTS += --enable-gpt
+RAUC_DEPENDENCIES += util-linux-libs
+else
+RAUC_CONF_OPTS += --disable-gpt
 endif
 
 ifeq ($(BR2_PACKAGE_RAUC_NETWORK),y)
@@ -32,17 +51,6 @@ RAUC_DEPENDENCIES += json-glib
 else
 RAUC_CONF_OPTS += --disable-json
 endif
-
-ifeq ($(BR2_PACKAGE_SYSTEMD),y)
-# configure uses pkg-config --variable=systemdsystemunitdir systemd
-RAUC_DEPENDENCIES += systemd
-endif
-
-define RAUC_INSTALL_INIT_SYSTEMD
-	mkdir -p $(TARGET_DIR)/usr/lib/systemd/system/rauc.service.d
-	printf '[Install]\nWantedBy=multi-user.target\n' \
-		>$(TARGET_DIR)/usr/lib/systemd/system/rauc.service.d/buildroot-enable.conf
-endef
 
 HOST_RAUC_DEPENDENCIES = \
 	host-pkgconf \

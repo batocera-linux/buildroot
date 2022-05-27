@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-BOTAN_VERSION = 2.18.2
+BOTAN_VERSION = 2.19.1
 BOTAN_SOURCE = Botan-$(BOTAN_VERSION).tar.xz
 BOTAN_SITE = http://botan.randombit.net/releases
 BOTAN_LICENSE = BSD-2-Clause
@@ -18,6 +18,7 @@ BOTAN_INSTALL_STAGING = YES
 
 BOTAN_CONF_OPTS = \
 	--cpu=$(BR2_ARCH) \
+	--disable-cc-tests \
 	--os=linux \
 	--cc=gcc \
 	--cc-bin="$(TARGET_CXX)" \

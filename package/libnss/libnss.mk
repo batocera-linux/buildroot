@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBNSS_VERSION = 3.75
+LIBNSS_VERSION = 3.78
 LIBNSS_SOURCE = nss-$(LIBNSS_VERSION).tar.gz
 LIBNSS_SITE = https://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_$(subst .,_,$(LIBNSS_VERSION))_RTM/src
 LIBNSS_DISTDIR = dist
@@ -62,6 +62,11 @@ LIBNSS_BUILD_VARS = \
 ifeq ($(BR2_POWERPC_CPU_HAS_ALTIVEC),)
 # Disable Altivec if not supported
 LIBNSS_BUILD_VARS += NSS_DISABLE_ALTIVEC=1
+endif
+
+ifeq ($(BR2_POWERPC_CPU_HAS_VSX),)
+# Disable VSX if not supported
+LIBNSS_BUILD_VARS += NSS_DISABLE_CRYPTO_VSX=1
 endif
 
 ifeq ($(BR2_ARM_CPU_HAS_NEON),)

@@ -4,19 +4,17 @@
 #
 ################################################################################
 
-# Batocera Update
-PIPEWIRE_VERSION = 0.3.50
-PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(PIPEWIRE_VERSION))
+PIPEWIRE_VERSION = 0.3.51
+PIPEWIRE_SOURCE = pipewire-$(PIPEWIRE_VERSION).tar.bz2
+PIPEWIRE_SITE = https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/$(PIPEWIRE_VERSION)
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
 PIPEWIRE_LICENSE_FILES = COPYING LICENSE
 PIPEWIRE_INSTALL_STAGING = YES
 PIPEWIRE_DEPENDENCIES = host-pkgconf $(TARGET_NLS_DEPENDENCIES)
 PIPEWIRE_LDFLAGS = $(TARGET_NLS_LIBS)
 
-# batocera : -Dexamples=enabled and -Dsession-managers=media-session
 PIPEWIRE_CONF_OPTS += \
 	-Ddocs=disabled \
-	-Dexamples=enabled \
 	-Dman=disabled \
 	-Dtests=disabled \
 	-Dspa-plugins=enabled \
@@ -30,12 +28,9 @@ PIPEWIRE_CONF_OPTS += \
 	-Dvideoconvert=enabled \
 	-Dvideotestsrc=enabled \
 	-Dvolume=enabled \
-	-Dsession-managers=media-session \
-	-Dlibcanberra=disabled \
-	-Dlv2=disabled
-
-# batocera
-PIPEWIRE_CONF_OPTS += --wrap-mode=default
+	-Dsession-managers=[] \
+	-Dlegacy-rtkit=false \
+	-Dlibcanberra=disabled
 
 ifeq ($(BR2_PACKAGE_DBUS),y)
 PIPEWIRE_CONF_OPTS += -Ddbus=enabled
@@ -134,6 +129,13 @@ else
 PIPEWIRE_CONF_OPTS += -Dlibcamera=disabled
 endif
 
+ifeq ($(BR2_PACKAGE_LILV),y)
+PIPEWIRE_CONF_OPTS += -Dlv2=enabled
+PIPEWIRE_DEPENDENCIES += lilv
+else
+PIPEWIRE_CONF_OPTS += -Dlv2=disabled
+endif
+
 ifeq ($(BR2_PACKAGE_XLIB_LIBX11),y)
 PIPEWIRE_CONF_OPTS += -Dx11=enabled
 PIPEWIRE_DEPENDENCIES += xlib_libX11
@@ -158,9 +160,6 @@ endif
 ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),y)
 PIPEWIRE_CONF_OPTS += -Dvulkan=enabled
 PIPEWIRE_DEPENDENCIES += mesa3d
-ifeq ($(BR2_PACKAGE_VULKAN_LOADER),y)
-PIPEWIRE_DEPENDENCIES += vulkan-loader # batocera, to fix pipewire compilation
-endif
 else
 PIPEWIRE_CONF_OPTS += -Dvulkan=disabled
 endif
@@ -183,8 +182,12 @@ ifeq ($(BR2_PACKAGE_READLINE),y)
 PIPEWIRE_DEPENDENCIES += readline
 endif
 
-# batocera
+ifeq ($(BR2_PACKAGE_SDL2),y)
+PIPEWIRE_DEPENDENCIES += sdl2
+PIPEWIRE_CONF_OPTS += -Dsdl2=enabled
+else
 PIPEWIRE_CONF_OPTS += -Dsdl2=disabled
+endif
 
 ifeq ($(WEBRTC_AUDIO_PROCESSING),y)
 PIPEWIRE_CONF_OPTS += -Decho-cancel-webrtc=enabled

@@ -250,7 +250,8 @@ $(BUILD_DIR)/%/.stamp_downloaded:
 			break ; \
 		fi ; \
 	done
-	$(foreach p,$($(PKG)_ALL_DOWNLOADS),$(call DOWNLOAD,$(p),$(PKG))$(sep))
+	$(if $($(PKG)_MAIN_DOWNLOAD),$(call DOWNLOAD,$($(PKG)_MAIN_DOWNLOAD),$(PKG),$(patsubst %,-p '%',$($(PKG)_DOWNLOAD_POST_PROCESS))))
+	$(foreach p,$($(PKG)_ADDITIONAL_DOWNLOADS),$(call DOWNLOAD,$(p),$(PKG))$(sep))
 	$(foreach hook,$($(PKG)_POST_DOWNLOAD_HOOKS),$(call $(hook))$(sep))
 	$(Q)mkdir -p $(@D)
 	@$(call step_end,download)
@@ -598,6 +599,30 @@ ifndef $(2)_SUBDIR
  endif
 endif
 
+ifndef $(2)_DL_SUBDIR
+ ifdef $(3)_DL_SUBDIR
+  $(2)_DL_SUBDIR = $$($(3)_DL_SUBDIR)
+ endif
+endif
+
+ifndef $(2)_DOWNLOAD_DEPENDENCIES
+ ifdef $(3)_DOWNLOAD_DEPENDENCIES
+  $(2)_DOWNLOAD_DEPENDENCIES = $$(filter-out $(1),$$($(3)_DOWNLOAD_DEPENDENCIES))
+ endif
+endif
+
+ifndef $(2)_DL_ENV
+ ifdef $(3)_DL_ENV
+  $(2)_DL_ENV = $$($(3)_DL_ENV)
+ endif
+endif
+
+ifndef $(2)_DOWNLOAD_POST_PROCESS
+ ifdef $(3)_DOWNLOAD_POST_PROCESS
+  $(2)_DOWNLOAD_POST_PROCESS = $$($(3)_DOWNLOAD_POST_PROCESS)
+ endif
+endif
+
 ifndef $(2)_STRIP_COMPONENTS
  ifdef $(3)_STRIP_COMPONENTS
   $(2)_STRIP_COMPONENTS = $$($(3)_STRIP_COMPONENTS)
@@ -635,11 +660,15 @@ ifndef $(2)_PATCH
  endif
 endif
 
-$(2)_ALL_DOWNLOADS = \
-	$$(if $$($(2)_SOURCE),$$($(2)_SITE_METHOD)+$$($(2)_SITE)/$$($(2)_SOURCE)) \
+$(2)_MAIN_DOWNLOAD = \
+	$$(if $$($(2)_SOURCE),$$($(2)_SITE_METHOD)+$$($(2)_SITE)/$$($(2)_SOURCE))
+
+$(2)_ADDITIONAL_DOWNLOADS = \
 	$$(foreach p,$$($(2)_PATCH) $$($(2)_EXTRA_DOWNLOADS),\
 		$$(if $$(findstring ://,$$(p)),$$(p),\
 			$$($(2)_SITE_METHOD)+$$($(2)_SITE)/$$(p)))
+
+$(2)_ALL_DOWNLOADS = $$($(2)_MAIN_DOWNLOAD) $$($(2)_ADDITIONAL_DOWNLOADS)
 
 ifndef $(2)_SITE
  ifdef $(3)_SITE
@@ -1122,15 +1151,15 @@ $$($(2)_TARGET_DIRCLEAN):		PKG=$(2)
 $$($(2)_TARGET_DIRCLEAN):		NAME=$(1)
 
 # Compute the name of the Kconfig option that correspond to the
-# package being enabled. We handle three cases: the special Linux
-# kernel case, the bootloaders case, and the normal packages case.
-# Virtual packages are handled separately (see below).
+# package being enabled.
 ifeq ($(1),linux)
 $(2)_KCONFIG_VAR = BR2_LINUX_KERNEL
 else ifneq ($$(filter boot/% $$(foreach dir,$$(BR2_EXTERNAL_DIRS),$$(dir)/boot/%),$(pkgdir)),)
 $(2)_KCONFIG_VAR = BR2_TARGET_$(2)
 else ifneq ($$(filter toolchain/% $$(foreach dir,$$(BR2_EXTERNAL_DIRS),$$(dir)/toolchain/%),$(pkgdir)),)
 $(2)_KCONFIG_VAR = BR2_$(2)
+else ifeq ($$($(2)_IS_VIRTUAL),YES)
+$(2)_KCONFIG_VAR = BR2_PACKAGE_HAS_$(2)
 else
 $(2)_KCONFIG_VAR = BR2_PACKAGE_$(2)
 endif
@@ -1236,7 +1265,9 @@ $(eval $(call check-deprecated-variable,$(2)_BUILD_OPT,$(2)_BUILD_OPTS))
 $(eval $(call check-deprecated-variable,$(2)_GETTEXTIZE_OPT,$(2)_GETTEXTIZE_OPTS))
 $(eval $(call check-deprecated-variable,$(2)_KCONFIG_OPT,$(2)_KCONFIG_OPTS))
 
+ifneq ($$($(2)_IS_VIRTUAL),YES)
 PACKAGES += $(1)
+endif
 
 ifneq ($$($(2)_PERMISSIONS),)
 PACKAGES_PERMISSIONS_TABLE += $$($(2)_PERMISSIONS)$$(sep)
@@ -1325,22 +1356,6 @@ endif
 ifneq ($$($(2)_HELP_CMDS),)
 HELP_PACKAGES += $(2)
 endif
-
-# Virtual packages are not built but it's useful to allow them to have
-# permission/device/user tables and target-finalize/rootfs-pre-cmd hooks.
-else ifeq ($$(BR2_PACKAGE_HAS_$(2)),y) # $(2)_KCONFIG_VAR
-
-ifneq ($$($(2)_PERMISSIONS),)
-PACKAGES_PERMISSIONS_TABLE += $$($(2)_PERMISSIONS)$$(sep)
-endif
-ifneq ($$($(2)_DEVICES),)
-PACKAGES_DEVICES_TABLE += $$($(2)_DEVICES)$$(sep)
-endif
-ifneq ($$($(2)_USERS),)
-PACKAGES_USERS += $$($(2)_USERS)$$(sep)
-endif
-TARGET_FINALIZE_HOOKS += $$($(2)_TARGET_FINALIZE_HOOKS)
-ROOTFS_PRE_CMD_HOOKS += $$($(2)_ROOTFS_PRE_CMD_HOOKS)
 
 endif # $(2)_KCONFIG_VAR
 endef # inner-generic-package

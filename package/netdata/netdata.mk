@@ -4,17 +4,23 @@
 #
 ################################################################################
 
-NETDATA_VERSION = 1.21.1
-NETDATA_SITE = $(call github,netdata,netdata,v$(NETDATA_VERSION))
+NETDATA_VERSION = 1.33.1
+NETDATA_SOURCE = netdata-v$(NETDATA_VERSION).tar.gz
+NETDATA_SITE = \
+	https://github.com/netdata/netdata/releases/download/v$(NETDATA_VERSION)
 NETDATA_LICENSE = GPL-3.0+
 NETDATA_LICENSE_FILES = LICENSE
 NETDATA_CPE_ID_VENDOR = netdata
-# netdata's source code is released without a generated configure script
-NETDATA_AUTORECONF = YES
 NETDATA_CONF_OPTS = \
 	--disable-dbengine \
+	--disable-ebpf \
+	--disable-ml \
 	--disable-unit-tests
 NETDATA_DEPENDENCIES = libuv util-linux zlib
+
+# ac_cv_prog_cc_c99 is required for BR2_USE_WCHAR=n because the C99 test
+# provided by autoconf relies on wchar_t.
+NETDATA_CONF_ENV = ac_cv_prog_cc_c99=-std=gnu99
 
 ifeq ($(BR2_GCC_ENABLE_LTO),y)
 NETDATA_CONF_OPTS += --enable-lto
@@ -41,6 +47,13 @@ NETDATA_CONF_OPTS += --with-libcap
 NETDATA_DEPENDENCIES += libcap
 else
 NETDATA_CONF_OPTS += --without-libcap
+endif
+
+ifeq ($(BR2_PACKAGE_LZ4),y)
+NETDATA_CONF_OPTS += --enable-compression
+NETDATA_DEPENDENCIES += lz4
+else
+NETDATA_CONF_OPTS += --disable-compression
 endif
 
 ifeq ($(BR2_PACKAGE_NFACCT),y)

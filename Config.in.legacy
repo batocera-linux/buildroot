@@ -144,7 +144,101 @@ endif
 
 ###############################################################################
 
+comment "Legacy options removed in 2022.05"
+
+config BR2_KERNEL_HEADERS_5_16
+	bool "kernel headers version 5.16.x are no longer supported"
+	select BR2_LEGACY
+	help
+	  Version 5.16.x of the Linux kernel headers are no longer
+	  maintained upstream and are now removed.
+
+config BR2_KERNEL_HEADERS_4_4
+	bool "kernel headers version 4.4.x are no longer supported"
+	select BR2_LEGACY
+	help
+	  Version 4.4.x of the Linux kernel headers are no longer
+	  maintained upstream and are now removed.
+
+config BR2_BINUTILS_VERSION_2_32_X
+	bool "binutils 2.32.x has been removed"
+	select BR2_LEGACY
+	help
+	  binutils 2.32 has been removed, use a newer version.
+
+config BR2_sh2a
+	bool "sh2a architecture support removed"
+	select BR2_LEGACY
+	help
+	  The SuperH 2A (SH2A) architecture was not maintained, and
+	  broken, so its support was dropped.
+
+config BR2_BINUTILS_VERSION_2_35_X
+	bool "binutils 2.35.x has been removed"
+	select BR2_LEGACY
+	help
+	  binutils 2.35 has been removed, use a newer version.
+
+config BR2_PACKAGE_BOOST_LAYOUT_TAGGED
+	bool "boost tagged layout removed"
+	select BR2_LEGACY
+	help
+	  Boost tagged layout isn't handled by some packages (e.g. botan
+	  or libcpprestsdk).
+
+config BR2_PACKAGE_BOOST_LAYOUT_VERSIONED
+	bool "boost versioned layout removed"
+	select BR2_LEGACY
+	help
+	  Boost versioned layout isn't handled by a number of autotools
+	  and cmake packages (e.g. azmq, cc-tool, i2pd).
+
 comment "Legacy options removed in 2022.02"
+
+config BR2_TARGET_ROOTFS_OCI_ENTRYPOINT_ARGS
+	string "entrypoint argumetns has been changed as command"
+	help
+	  The OCI image BR2_TARGET_ROOTFS_OCI_ENTRYPOINT_ARGS option
+	  has been renamed to BR2_TARGET_ROOTFS_OCI_CMD to better
+	  reflect its relation to the actual 'command' of the OCI
+	  image.
+
+	  The new semantic for BR2_TARGET_ROOTFS_OCI_CMD is slightly
+	  differnt in relation to how it is interpreted, so be sure to
+	  review the help entry for it.
+
+	  Due to this breaking change, the old value here could not be
+	  set to the new variable.
+
+config BR2_TARGET_ROOTFS_OCI_ENTRYPOINT_ARGS_WRAP
+	bool
+	default y if BR2_TARGET_ROOTFS_OCI_ENTRYPOINT_ARGS != ""
+	select BR2_LEGACY
+
+config BR2_PACKAGE_LIBCURL_LIBNSS
+	bool "libcurl NSS removed"
+	select BR2_LEGACY
+	help
+	  NSS was deprecated in libcurl 7.82.0.
+
+config BR2_PACKAGE_WESTON_DEFAULT_FBDEV
+	bool "weston fbdev removed"
+	select BR2_LEGACY
+	help
+	  fbdev was deprecated in weston 10.0.0.
+
+config BR2_PACKAGE_WESTON_FBDEV
+	bool "weston fbdev compositor removed"
+	select BR2_LEGACY
+	help
+	  fbdev compositor was deprecated in weston 10.0.0.
+
+config BR2_PACKAGE_PYTHON_PYCLI
+	bool "python-pycli removed"
+	select BR2_LEGACY
+	help
+	  Package was removed because it is not compatible with python
+	  3.10 and is not maintained anymore (no release since 2012).
 
 config BR2_PACKAGE_LINUX_TOOLS_BPFTOOL
 	bool "bpftool was moved"

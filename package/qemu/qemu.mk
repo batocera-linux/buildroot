@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-QEMU_VERSION = 6.2.0
+QEMU_VERSION = 7.0.0
 QEMU_SOURCE = qemu-$(QEMU_VERSION).tar.xz
 QEMU_SITE = http://download.qemu.org
 QEMU_LICENSE = GPL-2.0, LGPL-2.1, MIT, BSD-3-Clause, BSD-2-Clause, Others/BSD-1c
@@ -197,12 +197,12 @@ define QEMU_CONFIGURE_CMDS
 			--disable-coreaudio \
 			--disable-curl \
 			--disable-curses \
+			--disable-dbus-display \
 			--disable-docs \
 			--disable-dsound \
 			--disable-hvf \
 			--disable-jack \
 			--disable-libiscsi \
-			--disable-libxml2 \
 			--disable-linux-aio \
 			--disable-linux-io-uring \
 			--disable-malloc-trim \
@@ -369,6 +369,7 @@ define HOST_QEMU_CONFIGURE_CMDS
 		--disable-containers \
 		--disable-coreaudio \
 		--disable-curl \
+		--disable-dbus-display \
 		--disable-docs \
 		--disable-dsound \
 		--disable-jack \
@@ -398,6 +399,12 @@ define HOST_QEMU_INSTALL_CMDS
 	unset TARGET_DIR; \
 	$(HOST_MAKE_ENV) $(MAKE) -C $(@D) install
 endef
+
+# install symlink to qemu-system
+define HOST_QEMU_POST_INSTALL_SYMLINK
+	ln -sf ./qemu-system-$(HOST_QEMU_ARCH) $(HOST_DIR)/bin/qemu-system
+endef
+HOST_QEMU_POST_INSTALL_HOOKS += HOST_QEMU_POST_INSTALL_SYMLINK
 
 $(eval $(host-generic-package))
 
