@@ -44,6 +44,7 @@ define ESPEAK_INSTALL_TARGET_CMDS
 		AUDIO="$(ESPEAK_AUDIO_BACKEND)" DESTDIR="$(TARGET_DIR)" install
 endef
 
+# batocera
 define ESPEAK_INSTALL_STAGING_CMDS
 	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D)/src DESTDIR="$(STAGING_DIR)" install
 endef

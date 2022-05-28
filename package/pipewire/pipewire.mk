@@ -157,12 +157,13 @@ else
 PIPEWIRE_CONF_OPTS += -Dlibusb=disabled
 endif
 
-ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),y)
-PIPEWIRE_CONF_OPTS += -Dvulkan=enabled
-PIPEWIRE_DEPENDENCIES += mesa3d
-else
+# batocera
+#ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),y)
+#PIPEWIRE_CONF_OPTS += -Dvulkan=enabled
+#PIPEWIRE_DEPENDENCIES += mesa3d
+#else
 PIPEWIRE_CONF_OPTS += -Dvulkan=disabled
-endif
+#endif
 
 ifeq ($(BR2_PACKAGE_LIBSNDFILE),y)
 PIPEWIRE_CONF_OPTS += -Dpw-cat=enabled -Dsndfile=enabled
@@ -182,12 +183,13 @@ ifeq ($(BR2_PACKAGE_READLINE),y)
 PIPEWIRE_DEPENDENCIES += readline
 endif
 
-ifeq ($(BR2_PACKAGE_SDL2),y)
-PIPEWIRE_DEPENDENCIES += sdl2
-PIPEWIRE_CONF_OPTS += -Dsdl2=enabled
-else
+# batocera
+#ifeq ($(BR2_PACKAGE_SDL2),y)
+#PIPEWIRE_DEPENDENCIES += sdl2
+#PIPEWIRE_CONF_OPTS += -Dsdl2=enabled
+#else
 PIPEWIRE_CONF_OPTS += -Dsdl2=disabled
-endif
+#endif
 
 ifeq ($(WEBRTC_AUDIO_PROCESSING),y)
 PIPEWIRE_CONF_OPTS += -Decho-cancel-webrtc=enabled

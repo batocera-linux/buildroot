@@ -11,9 +11,6 @@ BOTAN_LICENSE = BSD-2-Clause
 BOTAN_LICENSE_FILES = license.txt
 BOTAN_CPE_ID_VENDOR = botan_project
 
-# 0001-Avoid-using-short-exponents-with-ElGamal.patch
-BOTAN_IGNORE_CVES += CVE-2021-40529
-
 BOTAN_INSTALL_STAGING = YES
 
 BOTAN_CONF_OPTS = \

@@ -55,64 +55,6 @@ define step_time
 endef
 GLOBAL_INSTRUMENTATION_HOOKS += step_time
 
-# Hooks to collect statistics about installed files
-
-# $(1): package name
-# $(2): base directory to search in
-# $(3): suffix of file (optional)
-define step_pkg_size_before
-	cd $(2); \
-	LC_ALL=C find . \( -type f -o -type l \) -printf '%T@:%i:%#m:%y:%s,%p\n' \
-		| LC_ALL=C sort > $($(PKG)_DIR)/.files-list$(3).before
-endef
-
-# $(1): package name
-# $(2): base directory to search in
-# $(3): suffix of file (optional)
-define step_pkg_size_after
-	cd $(2); \
-	LC_ALL=C find . \( -type f -o -type l \) -printf '%T@:%i:%#m:%y:%s,%p\n' \
-		| LC_ALL=C sort > $($(PKG)_DIR)/.files-list$(3).after
-	LC_ALL=C comm -13 \
-		$($(PKG)_DIR)/.files-list$(3).before \
-		$($(PKG)_DIR)/.files-list$(3).after \
-		| sed -r -e 's/^[^,]+/$(1)/' \
-		> $($(PKG)_DIR)/.files-list$(3).txt
-	rm -f $($(PKG)_DIR)/.files-list$(3).before
-	rm -f $($(PKG)_DIR)/.files-list$(3).after
-endef
-
-define step_pkg_size
-	$(if $(filter start-install-target,$(1)-$(2)),\
-		$(call step_pkg_size_before,$(3),$(TARGET_DIR)))
-	$(if $(filter start-install-staging,$(1)-$(2)),\
-		$(call step_pkg_size_before,$(3),$(STAGING_DIR),-staging))
-	$(if $(filter start-install-host,$(1)-$(2)),\
-		$(call step_pkg_size_before,$(3),$(HOST_DIR),-host))
-
-	$(if $(filter end-install-target,$(1)-$(2)),\
-		$(call step_pkg_size_after,$(3),$(TARGET_DIR)))
-	$(if $(filter end-install-staging,$(1)-$(2)),\
-		$(call step_pkg_size_after,$(3),$(STAGING_DIR),-staging))
-	$(if $(filter end-install-host,$(1)-$(2)),\
-		$(call step_pkg_size_after,$(3),$(HOST_DIR),-host))
-endef
-# batocera
-#GLOBAL_INSTRUMENTATION_HOOKS += step_pkg_size
-
-# Relies on step_pkg_size, so must be after
-define check_bin_arch
-	$(if $(filter end-install-target,$(1)-$(2)),\
-		support/scripts/check-bin-arch -p $(3) \
-			-l $($(PKG)_DIR)/.files-list.txt \
-			$(foreach i,$($(PKG)_BIN_ARCH_EXCLUDE),-i "$(i)") \
-			-r $(TARGET_READELF) \
-			-a $(BR2_READELF_ARCH_NAME))
-endef
-
-# batocera
-#GLOBAL_INSTRUMENTATION_HOOKS += check_bin_arch
-
 # This hook checks that host packages that need libraries that we build
 # have a proper DT_RPATH or DT_RUNPATH tag
 define check_host_rpath

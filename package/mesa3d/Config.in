@@ -7,7 +7,7 @@ menuconfig BR2_PACKAGE_MESA3D
 	depends on !BR2_m68k || BR2_TOOLCHAIN_GCC_AT_LEAST_7 # m68k needs gcc >= 7.x
 	select BR2_PACKAGE_EXPAT
 	select BR2_PACKAGE_LIBDRM
-	select BR2_PACKAGE_WAYLAND_PROTOCOLS    if BR2_PACKAGE_WAYLAND
+	select BR2_PACKAGE_WAYLAND_PROTOCOLS if BR2_PACKAGE_WAYLAND
 	select BR2_PACKAGE_ZLIB
 	select BR2_PACKAGE_PYTHON3              if BR2_PACKAGE_WAYLAND && BR2_PACKAGE_MESA3D_NEEDS_X11 #batocera
 	select BR2_PACKAGE_HOST_GLSLANG         if BR2_PACKAGE_WAYLAND && BR2_PACKAGE_MESA3D_NEEDS_X11 #batocera
@@ -531,15 +531,6 @@ config BR2_PACKAGE_PROVIDES_LIBOPENCL
 	default "mesa3d" if BR2_PACKAGE_MESA3D_OPENCL
 
 endif # BR2_PACKAGE_MESA3D
-
-config BR2_PACKAGE_MESA3D_CUSTOM_VERSION
-        bool "Custom version"
-        help
-          This option allows to use a specific Mesa3D version
-
-config BR2_PACKAGE_MESA3D_CUSTOM_VERSION_VALUE
-        string "Mesa3D version"
-        depends on BR2_PACKAGE_MESA3D_CUSTOM_VERSION
 
 comment "mesa3d needs a toolchain w/ C++, NPTL, dynamic library"
 	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS_NPTL || \

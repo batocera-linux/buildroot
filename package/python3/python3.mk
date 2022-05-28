@@ -13,9 +13,6 @@ PYTHON3_LICENSE_FILES = LICENSE
 PYTHON3_CPE_ID_VENDOR = python
 PYTHON3_CPE_ID_PRODUCT = python
 
-# 0035-closes-bpo-42938-Replace-snprintf-with-Python-unicod.patch
-PYTHON3_IGNORE_CVES += CVE-2021-3177
-
 # This host Python is installed in $(HOST_DIR), as it is needed when
 # cross-compiling third-party Python modules.
 
