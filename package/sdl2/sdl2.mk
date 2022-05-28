@@ -75,7 +75,7 @@ SDL2_CONF_OPTS += --disable-hidapi
 # pipewire
 ifeq ($(BR2_PACKAGE_PIPEWIRE),y)
 SDL2_CONF_OPTS += --enable-pipewire
-SDL2_DEPENDENCIES += pipewire
+#SDL2_DEPENDENCIES += pipewire
 endif
 
 ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
