@@ -35,6 +35,9 @@ MESA3D_CONF_OPTS = \
 	-Dgallium-omx=disabled \
 	-Dpower8=disabled
 
+# batocera
+MESA3D_CONF_OPTS += -Dcpp_rtti=false
+
 # Codesourcery ARM 2014.05 fail to link libmesa_dri_drivers.so with --as-needed linker
 # flag due to a linker bug between binutils 2.24 and 2.25 (2.24.51.20140217).
 ifeq ($(BR2_TOOLCHAIN_EXTERNAL_CODESOURCERY_ARM),y)
