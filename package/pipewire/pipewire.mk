@@ -28,9 +28,12 @@ PIPEWIRE_CONF_OPTS += \
 	-Dvideoconvert=enabled \
 	-Dvideotestsrc=enabled \
 	-Dvolume=enabled \
-	-Dsession-managers=[] \
+	-Dsession-managers=media-session \
 	-Dlegacy-rtkit=false \
 	-Dlibcanberra=disabled
+
+# batocera
+PIPEWIRE_CONF_OPTS += --wrap-mode=default
 
 ifeq ($(BR2_PACKAGE_DBUS),y)
 PIPEWIRE_CONF_OPTS += -Ddbus=enabled
