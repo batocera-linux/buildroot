@@ -4,7 +4,7 @@
 #
 ################################################################################
 # batocera (update)
-MPV_VERSION = 0.34.0
+MPV_VERSION = 0.34.1
 MPV_SITE = $(call github,mpv-player,mpv,v$(MPV_VERSION))
 MPV_DEPENDENCIES = \
 	host-pkgconf ffmpeg libass zlib \
