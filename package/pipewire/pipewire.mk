@@ -161,12 +161,12 @@ PIPEWIRE_CONF_OPTS += -Dlibusb=disabled
 endif
 
 # batocera
-#ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),y)
-#PIPEWIRE_CONF_OPTS += -Dvulkan=enabled
-#PIPEWIRE_DEPENDENCIES += mesa3d
-#else
+ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER)$(BR2_PACKAGE_VULKAN_LOADER),yy)
+PIPEWIRE_CONF_OPTS += -Dvulkan=enabled
+PIPEWIRE_DEPENDENCIES += mesa3d vulkan-loader 
+else
 PIPEWIRE_CONF_OPTS += -Dvulkan=disabled
-#endif
+endif
 
 ifeq ($(BR2_PACKAGE_LIBSNDFILE),y)
 PIPEWIRE_CONF_OPTS += -Dpw-cat=enabled -Dsndfile=enabled
