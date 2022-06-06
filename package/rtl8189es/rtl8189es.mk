@@ -3,8 +3,8 @@
 # rtl8189es
 #
 ################################################################################
-
-RTL8189ES_VERSION = 39c17661136da48f8e9c644194dce6a7f5076896
+# batocera
+RTL8189ES_VERSION = 1269e117454069cd47f1822ffa31e29ec19a10da
 RTL8189ES_SITE = $(call github,jwrdegoede,rtl8189ES_linux,$(RTL8189ES_VERSION))
 RTL8189ES_LICENSE = GPL-2.0
 
