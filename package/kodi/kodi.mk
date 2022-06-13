@@ -99,7 +99,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM),y)
 KODI_CORE_PLATFORM_NAME += gbm
-KODI_DEPENDENCIES += libgbm libinput libxkbcommon 
+KODI_DEPENDENCIES += libinput libxkbcommon # libgbm  removed, batocera
 # batocera - for mali boards
 ifeq ($(BR2_PACKAGE_HAS_LIBMALI),y)
 KODI_DEPENDENCIES += libmali
