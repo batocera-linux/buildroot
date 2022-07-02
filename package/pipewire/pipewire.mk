@@ -109,12 +109,13 @@ else
 PIPEWIRE_CONF_OPTS += -Dbluez5=disabled
 endif
 
-ifeq ($(BR2_PACKAGE_FFMPEG),y)
-PIPEWIRE_CONF_OPTS += -Dffmpeg=enabled
-PIPEWIRE_DEPENDENCIES += ffmpeg
-else
+# batocera, circular dependancy
+#ifeq ($(BR2_PACKAGE_FFMPEG),y)
+#PIPEWIRE_CONF_OPTS += -Dffmpeg=enabled
+#PIPEWIRE_DEPENDENCIES += ffmpeg
+#else
 PIPEWIRE_CONF_OPTS += -Dffmpeg=disabled
-endif
+#endif
 
 ifeq ($(BR2_PACKAGE_NCURSES_WCHAR),y)
 PIPEWIRE_DEPENDENCIES += ncurses
