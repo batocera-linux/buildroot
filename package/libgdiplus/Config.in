@@ -1,10 +1,10 @@
 config BR2_PACKAGE_LIBGDIPLUS
 	bool "libgdiplus"
-	depends on BR2_PACKAGE_XORG7
+	# depends on BR2_PACKAGE_XORG7 # batocera
 	depends on BR2_USE_WCHAR # libglib2 -> gettext
 	depends on BR2_TOOLCHAIN_HAS_THREADS # libglib2
 	depends on BR2_USE_MMU # libglib2
-	select BR2_PACKAGE_XLIB_LIBXFT
+	select BR2_PACKAGE_XLIB_LIBXFT if BR2_PACKAGE_XSERVER_XORG_SERVER # batocera
 	select BR2_PACKAGE_LIBGLIB2
 	select BR2_PACKAGE_CAIRO
 	select BR2_PACKAGE_LIBPNG
