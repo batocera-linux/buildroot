@@ -12,9 +12,10 @@ endif
 
 # Not possible to directly refer to mesa3d variables, because of
 # first/second expansion trickery...
-# When updating the version, please also update mesa3d-headers
-MESA3D_HEADERS_VERSION = 22.1.4
-MESA3D_HEADERS_SOURCE = mesa-$(MESA3D_HEADERS_VERSION).tar.xz
+
+# Keep in the same version of mesa3d
+#MESA3D_HEADERS_VERSION = 22.1.4
+MESA3D_HEADERS_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 MESA3D_HEADERS_SITE = https://archive.mesa3d.org
 MESA3D_HEADERS_DL_SUBDIR = mesa3d
 MESA3D_HEADERS_LICENSE = MIT, SGI, Khronos
