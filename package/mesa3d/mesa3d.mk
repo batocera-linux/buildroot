@@ -4,9 +4,9 @@
 #
 ################################################################################
 # batocera (update)
-# Keep in the same version of mesa3d
+# When updating the version, please also update mesa3d-headers
 
-MESA3D_VERSION = 22.1.5
+MESA3D_VERSION = 22.1.4
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 MESA3D_SITE = https://archive.mesa3d.org
 MESA3D_LICENSE = MIT, SGI, Khronos
