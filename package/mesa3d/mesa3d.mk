@@ -5,7 +5,6 @@
 ################################################################################
 # batocera (update)
 # When updating the version, please also update mesa3d-headers
-
 MESA3D_VERSION = 22.1.4
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 MESA3D_SITE = https://archive.mesa3d.org
@@ -26,22 +25,9 @@ MESA3D_DEPENDENCIES = \
 	libdrm \
 	zlib
 
-# batocera enable libglvnd support
-ifeq ($(BR2_PACKAGE_LIBGLVND),y)
-MESA3D_DEPENDENCIES += libglvnd
-endif
-
 MESA3D_CONF_OPTS = \
 	-Dgallium-omx=disabled \
 	-Dpower8=disabled
-
-# batocera
-ifeq ($(BR2_PACKAGE_LLVM_RTTI),y)
-MESA3D_CONF_OPTS += -Dcpp_rtti=true
-else
-#  by default, cpp_rtti is false, but BR2_PACKAGE_LLVM_RTTI requires it
-MESA3D_CONF_OPTS += -Dcpp_rtti=false
-endif
 
 # Codesourcery ARM 2014.05 fail to link libmesa_dri_drivers.so with --as-needed linker
 # flag due to a linker bug between binutils 2.24 and 2.25 (2.24.51.20140217).
@@ -122,8 +108,6 @@ MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_TEGRA)    += tegra
 MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_V3D)      += v3d
 MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_VC4)      += vc4
 MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_VIRGL)    += virgl
-#batocera - disable the DRI drivers in favor of Gallium for Mesa 22
-# Mesa 22 has dropped support for legacy drivers (DRI)
 #batocera
 # Vulkan Drivers
 MESA3D_VULKAN_DRIVERS-$(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_INTEL)     += intel
@@ -147,15 +131,6 @@ MESA3D_CONF_OPTS += \
 	-Dshared-glapi=enabled \
 	-Dgallium-drivers=$(subst $(space),$(comma),$(MESA3D_GALLIUM_DRIVERS-y)) \
 	-Dgallium-extra-hud=true
-endif
-
-ifeq ($(BR2_PACKAGE_MESA3D_DRI_DRIVER),)
-MESA3D_CONF_OPTS += \
-	-Ddri-drivers=
-else
-MESA3D_CONF_OPTS += \
-	-Dshared-glapi=enabled \
-	-Ddri-drivers=$(subst $(space),$(comma),$(MESA3D_DRI_DRIVERS-y))
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),)
@@ -190,6 +165,8 @@ define MESA3D_ADD_VA_LINKS
 endef
 
 MESA3D_POST_INSTALL_TARGET_HOOKS += MESA3D_ADD_VA_LINKS
+else
+MESA3D_CONF_OPTS += -Dgallium-va=disabled
 endif
 
 # libGL is only provided for a full xorg stack, without libglvnd
@@ -287,11 +264,6 @@ MESA3D_CONF_OPTS += -Dzstd=enabled
 MESA3D_DEPENDENCIES += zstd
 else
 MESA3D_CONF_OPTS += -Dzstd=disabled
-endif
-
-# batocera enable libglvnd support
-ifeq ($(BR2_PACKAGE_LIBGLVND),y)
-MESA3D_CONF_OPTS += -Dglvnd=true
 endif
 
 # batocera icd.@0@.json vulkan files

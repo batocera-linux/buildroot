@@ -65,16 +65,6 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 	bool
 	select BR2_PACKAGE_MESA3D_DRIVER
 
-config BR2_PACKAGE_MESA3D_DRI_DRIVER
-	bool
-	select BR2_PACKAGE_MESA3D_DRI3 if \
-		(BR2_PACKAGE_XORG7 && BR2_TOOLCHAIN_HAS_SYNC_4 && \
-			!BR2_RISCV_32)
-	select BR2_PACKAGE_MESA3D_DRIVER
-	select BR2_PACKAGE_MESA3D_GBM if \
-		!BR2_PACKAGE_MESA3D_OPENGL_GLX && \
-		!BR2_PACKAGE_MESA3D_OPENGL_EGL
-
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 	bool
 	select BR2_PACKAGE_MESA3D_DRIVER
@@ -332,49 +322,6 @@ comment "Gallium XvMC state tracker needs X.org and gallium drivers r600 or nouv
 		!(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_NOUVEAU \
 		|| BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_R600)
 
-comment "DRI drivers"
-
-config BR2_PACKAGE_MESA3D_DRI_DRIVER_I915
-	bool "DRI i915 driver"
-	depends on BR2_i386 || BR2_x86_64
-	select BR2_PACKAGE_MESA3D_DRI_DRIVER
-	select BR2_PACKAGE_LIBDRM_INTEL
-	help
-	  Support for i915-based Intel GPUs.
-
-config BR2_PACKAGE_MESA3D_DRI_DRIVER_I965
-	bool "DRI i965 driver"
-	depends on BR2_i386 || BR2_x86_64
-	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 # memfd.h
-	select BR2_PACKAGE_MESA3D_DRI_DRIVER
-	select BR2_PACKAGE_LIBDRM_INTEL
-	help
-	  Support for i965-based Intel GPUs.
-
-comment "DRI i965 driver needs a toolchain w/ headers >= 3.17"
-	depends on BR2_i386 || BR2_x86_64
-	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17
-
-config BR2_PACKAGE_MESA3D_DRI_DRIVER_NOUVEAU
-	bool "DRI nouveau driver"
-	select BR2_PACKAGE_MESA3D_DRI_DRIVER
-	select BR2_PACKAGE_LIBDRM_NOUVEAU
-	help
-	  Support for Nvidia-based GPUs.
-
-config BR2_PACKAGE_MESA3D_DRI_DRIVER_RADEON
-	bool "DRI radeon r100 driver"
-	depends on BR2_i386 || BR2_x86_64
-	# libdrm's radeon option depends on LIBDRM_HAS_ATOMIC. Propagating
-	# that dependency here causes a circular dependency that Kconfig
-	# can't see is just spurious. However, that dependency is about
-	# the toolchain having sync4 primitives, which is always a given
-	# for i386 and x86_64.
-	select BR2_PACKAGE_MESA3D_DRI_DRIVER
-	select BR2_PACKAGE_LIBDRM_RADEON
-	help
-	  Legacy Radeon driver for R100 series GPUs.
-
 comment "Vulkan drivers"
 
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_INTEL
@@ -454,9 +401,6 @@ comment "panfrost vulkan needs a glibc toolchain w/ headers >= 3.17"
 		!BR2_TOOLCHAIN_USES_GLIBC
 
 comment "Off-screen Rendering"
-
-config BR2_PACKAGE_MESA3D_OSMESA_CLASSIC
-	bool "OSMesa (classic) library"
 
 config BR2_PACKAGE_MESA3D_OSMESA_GALLIUM
 	bool "OSMesa (Gallium) library"
