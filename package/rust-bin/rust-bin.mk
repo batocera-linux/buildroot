@@ -3,8 +3,8 @@
 # rust-bin
 #
 ################################################################################
-
-RUST_BIN_VERSION = 1.61.0
+# Batocera Update
+RUST_BIN_VERSION = 1.63.0
 RUST_BIN_SITE = https://static.rust-lang.org/dist
 RUST_BIN_LICENSE = Apache-2.0 or MIT
 RUST_BIN_LICENSE_FILES = LICENSE-APACHE LICENSE-MIT
