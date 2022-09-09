@@ -73,26 +73,26 @@ config BR2_ARM_CPU_HAS_THUMB2
 
 config BR2_ARM_CPU_ARMV4
 	bool
-	select BR2_ARCH_HAS_MMU_MANDATORY
+	select BR2_USE_MMU
 
 config BR2_ARM_CPU_ARMV5
 	bool
-	select BR2_ARCH_HAS_MMU_MANDATORY
+	select BR2_USE_MMU
 
 config BR2_ARM_CPU_ARMV6
 	bool
-	select BR2_ARCH_HAS_MMU_MANDATORY
+	select BR2_USE_MMU
 
 config BR2_ARM_CPU_ARMV7A
 	bool
-	select BR2_ARCH_HAS_MMU_MANDATORY
+	select BR2_USE_MMU
 
 config BR2_ARM_CPU_ARMV7M
 	bool
 
 config BR2_ARM_CPU_ARMV8A
 	bool
-	select BR2_ARCH_HAS_MMU_MANDATORY
+	select BR2_USE_MMU
 
 choice
 	prompt "Target Architecture Variant"
@@ -769,6 +769,31 @@ config BR2_ARM_INSTRUCTIONS_THUMB2
 	  compiled binary size.
 
 endchoice
+
+choice
+	prompt "MMU Page Size"
+	default BR2_ARM64_PAGE_SIZE_4K
+	depends on BR2_aarch64 || BR2_aarch64_be
+	help
+	  The default is 4KB, and you should probably keep this unless
+	  you know what you are doing. In particular, the kernel
+	  configuration must match this choice. If your kernel is
+	  built by Buildroot, the kernel configuration is
+	  automatically adjusted, but not if you built your kernel
+	  outside of Buildroot.
+
+config BR2_ARM64_PAGE_SIZE_4K
+	bool "4KB"
+
+config BR2_ARM64_PAGE_SIZE_64K
+	bool "64KB"
+
+endchoice
+
+config BR2_ARM64_PAGE_SIZE
+	string
+	default "4K" if BR2_ARM64_PAGE_SIZE_4K
+	default "64K" if BR2_ARM64_PAGE_SIZE_64K
 
 config BR2_ARCH
 	default "arm"		if BR2_arm
