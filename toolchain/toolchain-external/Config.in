@@ -5,9 +5,6 @@ comment "Toolchain External Options"
 choice
 	prompt "Toolchain"
 
-comment "glibc toolchains only available with shared lib support"
-	depends on BR2_STATIC_LIBS
-
 # Kept toolchains sorted by architecture in order to use some toolchain
 # as default choice
 
@@ -22,9 +19,6 @@ source "toolchain/toolchain-external/toolchain-external-linaro-aarch64-be/Config
 
 # ARC
 source "toolchain/toolchain-external/toolchain-external-synopsys-arc/Config.in"
-
-# Andes
-source "toolchain/toolchain-external/toolchain-external-andes-nds32/Config.in"
 
 # ARM (use ARM toolchain by default)
 source "toolchain/toolchain-external/toolchain-external-arm-arm/Config.in"
@@ -129,9 +123,6 @@ source "toolchain/toolchain-external/toolchain-external-linaro-aarch64-be/Config
 
 # ARC
 source "toolchain/toolchain-external/toolchain-external-synopsys-arc/Config.in.options"
-
-# Andes
-source "toolchain/toolchain-external/toolchain-external-andes-nds32/Config.in.options"
 
 # ARM
 source "toolchain/toolchain-external/toolchain-external-arm-arm/Config.in.options"

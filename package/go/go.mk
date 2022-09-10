@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-GO_VERSION = 1.18.3
+GO_VERSION = 1.18.6
 GO_SITE = https://storage.googleapis.com/golang
 GO_SOURCE = go$(GO_VERSION).src.tar.gz
 
@@ -13,10 +13,10 @@ GO_LICENSE_FILES = LICENSE
 GO_CPE_ID_VENDOR = golang
 
 HOST_GO_DEPENDENCIES = host-go-bootstrap
-HOST_GO_GOPATH = $(HOST_DIR)/usr/share/go-path
-HOST_GO_HOST_CACHE = $(HOST_DIR)/usr/share/host-go-cache
+HOST_GO_GOPATH = $(HOST_DIR)/share/go-path
+HOST_GO_HOST_CACHE = $(HOST_DIR)/share/host-go-cache
 HOST_GO_ROOT = $(HOST_DIR)/lib/go
-HOST_GO_TARGET_CACHE = $(HOST_DIR)/usr/share/go-cache
+HOST_GO_TARGET_CACHE = $(HOST_DIR)/share/go-cache
 
 # We pass an empty GOBIN, otherwise "go install: cannot install
 # cross-compiled binaries when GOBIN is set"

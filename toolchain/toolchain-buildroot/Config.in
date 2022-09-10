@@ -20,11 +20,6 @@ config BR2_TOOLCHAIN_BUILDROOT_VENDOR
 
 	  If you're not sure, just leave the default "buildroot" value.
 
-config BR2_TOOLCHAIN_BUILDROOT_STATIC_LIBS_SUPPORTS
-	bool
-	default y if BR2_PACKAGE_UCLIBC_SUPPORTS
-	default y if BR2_PACKAGE_MUSL_SUPPORTS
-
 choice
 	prompt "C library"
 	default BR2_TOOLCHAIN_BUILDROOT_UCLIBC
@@ -50,9 +45,9 @@ config BR2_TOOLCHAIN_BUILDROOT_GLIBC
 
 	  http://www.gnu.org/software/libc/
 
-comment "glibc needs a toolchain w/ dynamic library, kernel headers >= 3.2"
+comment "glibc needs a toolchain w/ kernel headers >= 3.2"
 	depends on BR2_PACKAGE_GLIBC_ARCH_SUPPORTS
-	depends on BR2_STATIC_LIBS || !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_2
+	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_2
 
 # glibc >= 2.26 require kernel headers >= 3.10 on powerpc64le.
 comment "glibc on powerpc64le needs a toolchain w/ headers >= 3.10"
@@ -63,6 +58,18 @@ comment "glibc on powerpc64le needs a toolchain w/ headers >= 3.10"
 comment "glibc on MIPS w/ NAN2008 needs a toolchain w/ headers >= 4.5"
 	depends on BR2_MIPS_NAN_2008
 	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_4_5
+
+comment "glibc on RISC-V 64-bit needs a toolchain w/ headers >= 5.0"
+	depends on BR2_RISCV_64
+	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_0
+
+comment "glibc on ARC needs a toolchain w/ headers >= 5.1"
+	depends on BR2_arc
+	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_1
+
+comment "glibc on or1k needs a toolchain w/ headers >= 5.4"
+	depends on BR2_or1k
+	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_4
 
 config BR2_TOOLCHAIN_BUILDROOT_MUSL
 	bool "musl"
@@ -89,5 +96,4 @@ source "package/uclibc/Config.in"
 source "package/glibc/Config.in"
 source "package/binutils/Config.in.host"
 source "package/gcc/Config.in.host"
-source "package/elf2flt/Config.in.host"
 endif
