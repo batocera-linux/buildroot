@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-# batocera (update for 5.18 kernel)
-RTL8723BU_VERSION = ff22a9fc36595db4c66b7bdc3f7646d70a978a45
+# batocera (update for kernel 6.0)
+RTL8723BU_VERSION = d79a676a8d3f0bb6ac8af126689c6ac6869cb6f2
 RTL8723BU_SITE = $(call github,lwfinger,rtl8723bu,$(RTL8723BU_VERSION))
 RTL8723BU_LICENSE = GPL-2.0, proprietary (*.bin firmware blobs)
 
