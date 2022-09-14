@@ -230,8 +230,9 @@ else
 SDL2_CONF_OPTS += --disable-alsa
 endif
 
+# batocera
 ifeq ($(BR2_PACKAGE_SDL2_KMSDRM),y)
-SDL2_DEPENDENCIES += libdrm libgbm libegl
+SDL2_DEPENDENCIES += libdrm
 SDL2_CONF_OPTS += --enable-video-kmsdrm
 else
 SDL2_CONF_OPTS += --disable-video-kmsdrm
