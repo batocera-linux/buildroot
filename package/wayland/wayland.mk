@@ -3,9 +3,9 @@
 # wayland
 #
 ################################################################################
-
-WAYLAND_VERSION = 1.20.0
-WAYLAND_SITE = https://wayland.freedesktop.org/releases
+# batocera (update)
+WAYLAND_VERSION = 1.21.0
+WAYLAND_SITE = https://gitlab.freedesktop.org/wayland/wayland/-/releases/$(WAYLAND_VERSION)/downloads
 WAYLAND_SOURCE = wayland-$(WAYLAND_VERSION).tar.xz
 WAYLAND_LICENSE = MIT
 WAYLAND_LICENSE_FILES = COPYING
