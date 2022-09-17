@@ -90,14 +90,6 @@ SDL2_DEPENDENCIES += pipewire
 SDL2_CONF_OPTS += --enable-pipewire
 endif
 
-# batocera - enable/disable Wayland video driver
-ifeq ($(BR2_PACKAGE_WAYLAND),y)
-SDL2_DEPENDENCIES += wayland
-SDL2_CONF_OPTS += --enable-video-wayland
-else
-SDL2_CONF_OPTS += --disable-video-wayland
-endif
-
 # batocera - enable/disable Vulkan support
 ifeq ($(BR2_PACKAGE_BATOCERA_VULKAN),y)
 SDL2_CONF_OPTS += --enable-video-vulkan
@@ -236,6 +228,14 @@ SDL2_DEPENDENCIES += libdrm
 SDL2_CONF_OPTS += --enable-video-kmsdrm
 else
 SDL2_CONF_OPTS += --disable-video-kmsdrm
+endif
+
+# batocera - enable/disable Wayland video driver
+ifeq ($(BR2_PACKAGE_SDL2_WAYLAND),y)
+SDL2_DEPENDENCIES += wayland
+SDL2_CONF_OPTS += --enable-video-wayland
+else
+SDL2_CONF_OPTS += --disable-video-wayland
 endif
 
 $(eval $(autotools-package))

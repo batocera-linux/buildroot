@@ -42,6 +42,13 @@ comment "KMS/DRM video driver needs libdrm"
 #comment "KMS/DRM video driver needs mesa3d w/ GBM"
 #	depends on !BR2_PACKAGE_MESA3D_GBM
 
+config BR2_PACKAGE_SDL2_WAYLAND
+	bool "wayland video driver"
+	depends on BR2_PACKAGE_WAYLAND
+
+comment "Wayland video driver needs wayland enabled"
+	depends on !BR2_PACKAGE_WAYLAND
+
 config BR2_PACKAGE_SDL2_OPENGL
 	bool "OpenGL (GLX)"
 	depends on BR2_PACKAGE_HAS_LIBGL
