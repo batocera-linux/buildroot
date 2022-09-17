@@ -49,6 +49,14 @@ config BR2_PACKAGE_SDL2_WAYLAND
 comment "Wayland video driver needs wayland enabled"
 	depends on !BR2_PACKAGE_WAYLAND
 
+config BR2_PACKAGE_SDL2_VULKAN
+	bool "vulkan video driver"
+	depends on BR2_PACKAGE_VULKAN_HEADERS
+	depends on BR2_PACKAGE_VULKAN_LOADER
+
+comment "Vulkan video driver needs vulkan enabled"
+	depends on !BR2_PACKAGE_VULKAN_HEADERS || !BR2_PACKAGE_VULKAN_LOADER
+
 config BR2_PACKAGE_SDL2_OPENGL
 	bool "OpenGL (GLX)"
 	depends on BR2_PACKAGE_HAS_LIBGL
