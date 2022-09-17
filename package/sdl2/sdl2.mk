@@ -90,13 +90,6 @@ SDL2_DEPENDENCIES += pipewire
 SDL2_CONF_OPTS += --enable-pipewire
 endif
 
-# batocera - enable/disable Vulkan support
-ifeq ($(BR2_PACKAGE_BATOCERA_VULKAN),y)
-SDL2_CONF_OPTS += --enable-video-vulkan
-else
-SDL2_CONF_OPTS += --disable-video-vulkan
-endif
-
 ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
 SDL2_DEPENDENCIES += udev
 SDL2_CONF_OPTS += --enable-libudev
@@ -236,6 +229,14 @@ SDL2_DEPENDENCIES += wayland
 SDL2_CONF_OPTS += --enable-video-wayland
 else
 SDL2_CONF_OPTS += --disable-video-wayland
+endif
+
+# batocera - enable/disable Vulkan support
+ifeq ($(BR2_PACKAGE_SDL2_VULKAN),y)
+SDL2_DEPENDENCIES += vulkan-headers vulkan-loader
+SDL2_CONF_OPTS += --enable-video-vulkan
+else
+SDL2_CONF_OPTS += --disable-video-vulkan
 endif
 
 $(eval $(autotools-package))
