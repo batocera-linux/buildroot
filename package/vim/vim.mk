@@ -4,6 +4,7 @@
 #
 ################################################################################
 
+# batocera - add -ltinfo
 VIM_VERSION = 9.0.0292
 VIM_SITE = $(call github,vim,vim,v$(VIM_VERSION))
 VIM_DEPENDENCIES = ncurses $(TARGET_NLS_DEPENDENCIES)
@@ -18,7 +19,8 @@ VIM_CONF_ENV = \
 	vim_cv_stat_ignores_slash=yes \
 	vim_cv_memmove_handles_overlap=yes \
 	ac_cv_sizeof_int=4 \
-	ac_cv_small_wchar_t=no
+	ac_cv_small_wchar_t=no \
+	LIBS="-ltinfo"
 # GUI/X11 headers leak from the host so forcibly disable them
 VIM_CONF_OPTS = --with-tlib=ncurses --enable-gui=no --without-x
 VIM_LICENSE = Charityware
