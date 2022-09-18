@@ -16,7 +16,8 @@ XTERM_CONF_OPTS = --enable-256-color \
 	--x-libraries=$(STAGING_DIR)/usr/lib
 
 # Avoid freetype2 path poisoning by imake
-XTERM_CONF_ENV = ac_cv_path_IMAKE=""
+# batocera - add -ltinfo
+XTERM_CONF_ENV = ac_cv_path_IMAKE="" LIBS="-ltinfo"
 
 ifeq ($(BR2_PACKAGE_XLIB_LIBXFT),y)
 XTERM_DEPENDENCIES += xlib_libXft
