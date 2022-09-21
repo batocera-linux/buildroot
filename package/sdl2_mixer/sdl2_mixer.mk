@@ -3,8 +3,8 @@
 # sdl2_mixer
 #
 ################################################################################
-
-SDL2_MIXER_VERSION = 2.0.4
+# batocera (update)
+SDL2_MIXER_VERSION = 2.6.2
 SDL2_MIXER_SOURCE = SDL2_mixer-$(SDL2_MIXER_VERSION).tar.gz
 SDL2_MIXER_SITE = http://www.libsdl.org/projects/SDL_mixer/release
 SDL2_MIXER_LICENSE = Zlib
