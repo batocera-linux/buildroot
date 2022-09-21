@@ -24,11 +24,6 @@ ifeq ($(BR2_PACKAGE_PYTHON3),y)
 LIBCEC_DEPENDENCIES += host-swig python3
 endif
 
-# batocera
-ifeq ($(BR2_PACKAGE_LIBCEC_EXYNOS_API),y)
-LIBCEC_CONF_OPTS += -DHAVE_EXYNOS_API=1
-endif
-
 ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
 LIBCEC_DEPENDENCIES += rpi-userland
 LIBCEC_CONF_OPTS += \
@@ -38,32 +33,35 @@ LIBCEC_CONF_OPTS += \
 		-I$(STAGING_DIR)/usr/include/interface/vcos/pthreads"
 endif
 
-# batocera
-ifeq ($(BR2_PACKAGE_BATOCERA_RPI_MESA3D),y)
-LIBCEC_CONF_OPTS += \
-	-DHAVE_RPI_API=0 \
-	-DHAVE_LINUX_API=1
-endif
-
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_AMLOGIC_ANY),y)
-LIBCEC_CONF_OPTS += \
-	-DHAVE_AMLOGIC_API=1 \
-	-DHAVE_LINUX_API=1
-endif
-
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ROCKCHIP_ANY),y)
-LIBCEC_CONF_OPTS += \
-	-DBUILD_SHARED_LIBS=1 \
-	-DCMAKE_INSTALL_LIBDIR:STRING=lib \
-	-DCMAKE_INSTALL_LIBDIR_NOARCH:STRING=lib \
-	-DSKIP_PYTHON_WRAPPER=1 \
-	-DHAVE_AOCEC_API=0 -DHAVE_AMLOGIC_API=0 \
-	-DHAVE_IMX_API=0 \
-	-DHAVE_LINUX_API=1
-endif
-
 ifeq ($(BR2_PACKAGE_XLIB_LIBXRANDR),y)
 LIBCEC_DEPENDENCIES += xlib_libXrandr
+endif
+
+# batocera
+ifeq ($(BR2_PACKAGE_LIBCEC_LINUX_API),y)
+LIBCEC_CONF_OPTS += -DHAVE_AOCEC_API=0 \
+                    -DHAVE_AMLOGIC_API=0 \
+                    -DHAVE_EXYNOS_API=0 \
+                    -DHAVE_RPI_API=0 \
+	                -DHAVE_LINUX_API=1
+endif
+
+# batocera
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_AMLOGIC_ANY),y)
+LIBCEC_CONF_OPTS += -DHAVE_AMLOGIC_API=1 \
+                    -DHAVE_LINUX_API=1
+endif
+
+# batocera
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ROCKCHIP_ANY),y)
+LIBCEC_CONF_OPTS += -DBUILD_SHARED_LIBS=1 \
+                    -DCMAKE_INSTALL_LIBDIR:STRING=lib \
+                    -DCMAKE_INSTALL_LIBDIR_NOARCH:STRING=lib \
+                    -DSKIP_PYTHON_WRAPPER=1 \
+                    -DHAVE_AOCEC_API=0 \
+                    -DHAVE_AMLOGIC_API=0 \
+                    -DHAVE_IMX_API=0 \
+                    -DHAVE_LINUX_API=1
 endif
 
 # Disable information about how libCEC is compiled.
