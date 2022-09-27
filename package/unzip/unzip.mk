@@ -13,7 +13,7 @@ UNZIP_LICENSE = Info-ZIP
 UNZIP_LICENSE_FILES = LICENSE
 UNZIP_CPE_ID_VENDOR = unzip_project
 
-# unzip_$(UNZIP_VERSION)-26.debian.tar.xz has patches to fix:
+# unzip_$(UNZIP_VERSION)-27.debian.tar.xz has patches to fix:
 UNZIP_IGNORE_CVES = \
 	CVE-2014-8139 \
 	CVE-2014-8140 \
@@ -25,6 +25,8 @@ UNZIP_IGNORE_CVES = \
 	CVE-2016-9844 \
 	CVE-2018-18384 \
 	CVE-2018-1000035 \
-	CVE-2019-13232
+	CVE-2019-13232 \
+	CVE-2022-0529 \
+	CVE-2022-0530
 
 $(eval $(cmake-package))
