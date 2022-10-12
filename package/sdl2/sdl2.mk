@@ -225,7 +225,7 @@ endif
 
 # batocera - enable/disable Wayland video driver
 ifeq ($(BR2_PACKAGE_WAYLAND),y)
-SDL2_DEPENDENCIES += wayland
+SDL2_DEPENDENCIES += wayland waylandpp wayland-protocols libxkbcommon
 SDL2_CONF_OPTS += --enable-video-wayland
 else
 SDL2_CONF_OPTS += --disable-video-wayland
