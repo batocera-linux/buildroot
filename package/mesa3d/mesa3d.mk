@@ -160,13 +160,16 @@ MESA3D_CONF_OPTS += -Dopengl=true
 
 # libva and mesa3d have a circular dependency
 # we do not need libva support in mesa3d, therefore disable this option
-# batocera
+# batocera - we enable vaapi acceleration
 ifeq ($(BR2_PACKAGE_LIBVA),y)
 MESA3D_CONF_OPTS += -Dgallium-va=enabled
 MESA3D_DEPENDENCIES += libva
-
+# batocera - we link vaapi acceleration drivers accordingly
 define MESA3D_ADD_VA_LINKS
-	(mkdir -p $(TARGET_DIR)/usr/lib/va && cd $(TARGET_DIR)/usr/lib/va && ln -sf /usr/lib/dri/radeonsi_drv_video.so radeonsi_drv_video.so)
+	(mkdir -p $(TARGET_DIR)/usr/lib/va && cd $(TARGET_DIR)/usr/lib/va \
+	    && ln -sf /usr/lib/dri/radeonsi_drv_video.so radeonsi_drv_video.so \
+		&& ln -sf /usr/lib/dri/r600_drv_video.so r600_drv_video.so \
+		&& ln -sf /usr/lib/dri/nouveau_drv_video.so nouveau_drv_video.so)
 endef
 
 MESA3D_POST_INSTALL_TARGET_HOOKS += MESA3D_ADD_VA_LINKS
