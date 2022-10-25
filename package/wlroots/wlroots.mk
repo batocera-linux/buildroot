@@ -28,10 +28,11 @@ WLROOTS_CONF_OPTS = -Dexamples=false -Dxcb-errors=disabled
 WLROOTS_RENDERERS = gles2
 WLROOTS_BACKENDS = libinput drm
 
+# batocera - add xwayland
 ifeq ($(BR2_PACKAGE_WLROOTS_X11),y)
 WLROOTS_BACKENDS += x11
 WLROOTS_CONF_OPTS += -Dxwayland=enabled
-WLROOTS_DEPENDENCIES += libxcb xcb-util-wm xcb-util-renderutil xlib_libX11
+WLROOTS_DEPENDENCIES += libxcb xcb-util-wm xcb-util-renderutil xlib_libX11 xwayland
 else
 WLROOTS_CONF_OPTS += -Dxwayland=disabled
 endif
