@@ -281,6 +281,18 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_VIRGL
 	  virgl is the 3D acceleration backend for the virtio-gpu
 	  shipping with qemu.
 
+# batocera - add zink
+config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ZINK
+	bool "Gallium zink driver"
+	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
+	select BR2_PACKAGE_MESA3D_OPENGL_ES
+	select BR2_PACKAGE_MESA3D_OPENGL_EGL
+	select BR2_PACKAGE_MESA3D_OPENGL_GLX        if BR2_PACKAGE_XORG7
+	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
+	help
+	  The Zink driver emits Vulkan API calls instead of targeting a specific GPU architecture.
+	  This can be used to get full desktop OpenGL support on devices that only support Vulkan.
+
 config BR2_PACKAGE_MESA3D_VDPAU
 	bool "Gallium VDPAU state tracker"
 	depends on BR2_PACKAGE_XORG7
