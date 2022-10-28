@@ -71,6 +71,10 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 	bool
 	select BR2_PACKAGE_MESA3D_DRIVER
 
+config BR2_PACKAGE_MESA3D_VIDEO_CODEC
+	bool
+	select BR2_PACKAGE_MESA3D_DRIVER
+
 config BR2_PACKAGE_MESA3D_DRIVER
 	bool
 
@@ -410,6 +414,41 @@ comment "panfrost vulkan needs a glibc toolchain w/ headers >= 3.17"
 		!BR2_TOOLCHAIN_USES_GLIBC
 
 comment "Off-screen Rendering"
+
+config BR2_PACKAGE_MESA3D_VIDEO_CODEC_VC1DEC
+	bool "VC1DEC video codec support"
+	depends on BR2_i386 || BR2_x86_64
+	select BR2_PACKAGE_MESA3D_VIDEO_CODEC
+	help
+	  VC1 hardware decoding on supported hardware.
+
+config BR2_PACKAGE_MESA3D_VIDEO_CODEC_H264DEC
+	bool "H264DEC video codec support"
+	depends on BR2_i386 || BR2_x86_64
+	select BR2_PACKAGE_MESA3D_VIDEO_CODEC
+	help
+	  H.264 hardware decoding on supported hardware.
+
+config BR2_PACKAGE_MESA3D_VIDEO_CODEC_H264ENC
+	bool "H264ENC video codec support"
+	depends on BR2_i386 || BR2_x86_64
+	select BR2_PACKAGE_MESA3D_VIDEO_CODEC
+	help
+	  H.264 hardware encoding on supported hardware.
+
+config BR2_PACKAGE_MESA3D_VIDEO_CODEC_H265DEC
+	bool "H265DEC video codec support"
+	depends on BR2_i386 || BR2_x86_64
+	select BR2_PACKAGE_MESA3D_VIDEO_CODEC
+	help
+	  H.265 hardware decoding on supported hardware.
+
+config BR2_PACKAGE_MESA3D_VIDEO_CODEC_H265ENC
+	bool "H265ENC video codec support"
+	depends on BR2_i386 || BR2_x86_64
+	select BR2_PACKAGE_MESA3D_VIDEO_CODEC
+	help
+	  H.265 hardware encoding on supported hardware.
 
 config BR2_PACKAGE_MESA3D_OSMESA_GALLIUM
 	bool "OSMesa (Gallium) library"
