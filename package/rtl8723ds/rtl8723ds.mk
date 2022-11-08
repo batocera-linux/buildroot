@@ -3,8 +3,8 @@
 # rtl8723ds
 #
 ################################################################################
-
-RTL8723DS_VERSION = 76146e85847beb2427b1d4958fa275822f2b04ab
+# batocera (update)
+RTL8723DS_VERSION = 5ab2d3f3858dc4c833013c47a79faa05b10198f6
 RTL8723DS_SITE = $(call github,lwfinger,rtl8723ds,$(RTL8723DS_VERSION))
 RTL8723DS_LICENSE = GPL-2.0
 
