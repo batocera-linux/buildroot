@@ -37,6 +37,14 @@ else
 WLROOTS_CONF_OPTS += -Dxwayland=disabled
 endif
 
+# batocera - add vulkan build dependency
+ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yy)
+    WLROOTS_DEPENDENCIES +=  vulkan-headers vulkan-loader host-glslang
+    WLROOTS_CONF_OPTS += -Dvulkan=enabled
+else
+    WLROOTS_CONF_OPTS += -Dvulkan=disabled
+endif
+
 ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),y)
 WLROOTS_RENDERERS += vulkan
 WLROOTS_DEPENDENCIES += mesa3d
