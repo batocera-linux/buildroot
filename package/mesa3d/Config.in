@@ -346,9 +346,29 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_INTEL
 	select BR2_PACKAGE_MESA3D_DRI3 if BR2_PACKAGE_XORG7
 	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 	help
-	  Vulkan driver for Intel hardware from Ivy Bridge onward.
+	  Vulkan driver for Intel hardware from Skylake (Gen9) onward.
 
 comment "intel vulkan needs a glibc toolchain w/ headers >= 3.17"
+	depends on BR2_i386 || BR2_x86_64
+	depends on BR2_TOOLCHAIN_HAS_SYNC_4 || !BR2_PACKAGE_XORG7
+	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
+		!BR2_TOOLCHAIN_USES_GLIBC
+
+comment "Off-screen Rendering"
+
+# batocera
+config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_HASWELL
+	bool "Vulkan Haswell driver"
+	depends on BR2_i386 || BR2_x86_64
+	depends on BR2_TOOLCHAIN_HAS_SYNC_4 || !BR2_PACKAGE_XORG7 # libxshmfence
+	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 # memfd.h
+	depends on BR2_TOOLCHAIN_USES_GLIBC # ifunc, static_assert
+	select BR2_PACKAGE_MESA3D_DRI3 if BR2_PACKAGE_XORG7
+	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
+	help
+	  Vulkan driver for Ivy Bridge / Haswell / Broadwell support.
+
+comment "intel haswell vulkan needs a glibc toolchain w/ headers >= 3.17"
 	depends on BR2_i386 || BR2_x86_64
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4 || !BR2_PACKAGE_XORG7
 	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
