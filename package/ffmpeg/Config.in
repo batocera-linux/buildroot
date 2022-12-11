@@ -14,8 +14,6 @@ config BR2_PACKAGE_FFMPEG_ARCH_SUPPORTS
 	depends on !BR2_m68k_cf
 	# assertion fail in binutils
 	depends on !(BR2_or1k && !BR2_TOOLCHAIN_GCC_AT_LEAST_9)
-	# batocera
-	select BR2_PACKAGE_ROCKCHIP_MPP if BR2_PACKAGE_BATOCERA_TARGET_ROCKCHIP_ANY
 
 menuconfig BR2_PACKAGE_FFMPEG
 	bool "ffmpeg"
