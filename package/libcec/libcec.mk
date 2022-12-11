@@ -52,18 +52,6 @@ LIBCEC_CONF_OPTS += -DHAVE_AMLOGIC_API=1 \
                     -DHAVE_LINUX_API=1
 endif
 
-# batocera
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ROCKCHIP_ANY),y)
-LIBCEC_CONF_OPTS += -DBUILD_SHARED_LIBS=1 \
-                    -DCMAKE_INSTALL_LIBDIR:STRING=lib \
-                    -DCMAKE_INSTALL_LIBDIR_NOARCH:STRING=lib \
-                    -DSKIP_PYTHON_WRAPPER=1 \
-                    -DHAVE_AOCEC_API=0 \
-                    -DHAVE_AMLOGIC_API=0 \
-                    -DHAVE_IMX_API=0 \
-                    -DHAVE_LINUX_API=1
-endif
-
 # Disable information about how libCEC is compiled.
 LIBCEC_CONF_OPTS += -DHAVE_GIT_BIN="" \
 	-DHAVE_WHOAMI_BIN="" \

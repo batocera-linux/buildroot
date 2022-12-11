@@ -552,38 +552,6 @@ endif
 FFMPEG_CONF_ENV += CFLAGS="$(FFMPEG_CFLAGS)"
 FFMPEG_CONF_OPTS += $(call qstrip,$(BR2_PACKAGE_FFMPEG_EXTRACONF))
 
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ROCKCHIP_ANY),y)
-FFMPEG_VERSION = 4.4
-FFMPEG_CONF_OPTS += --enable-rkmpp --enable-version3
-FFMPEG_DEPENDENCIES += rockchip-mpp
-
-FFMPEG_CONF_OPTS += --disable-w32threads \
-	--enable-asm \
-	--enable-bsfs \
-	--enable-demuxers \
-	--enable-encoder=aac \
-	--enable-encoder=ac3 \
-	--enable-encoder=mjpeg \
-	--enable-encoder=png \
-	--enable-encoder=wmav2 \
-	--enable-filters \
-	--enable-gpl \
-	--enable-muxer=adts \
-	--enable-muxer=asf \
-	--enable-muxer=ipod \
-	--enable-muxer=mpegts \
-	--enable-muxer=spdif \
-	--enable-parsers \
-	--enable-pic \
-	--enable-postproc \
-	--enable-protocol=http \
-	--enable-pthreads \
-	--enable-shared \
-	--enable-swscale \
-	--enable-yasm \
-	--enable-zlib
-endif
-
 define FFMPEG_APPLY_LOCAL_PATCHES
 	if [ -d $(@D)/$(FFMPEG_VERSION) ]; then \
 		$(APPLY_PATCHES) $(@D) $(@D)/$(FFMPEG_VERSION) *.patch; \
