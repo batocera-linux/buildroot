@@ -1,0 +1,72 @@
+From c412fd33879a67675a253fce0f4a52977a7551f6 Mon Sep 17 00:00:00 2001
+From: Denis Klester <dinisoft@gmail.com>
+Date: Mon, 12 Dec 2022 21:18:41 +0600
+Subject: [PATCH] Add kernel 6.1
+
+---
+ os_dep/ioctl_cfg80211.c | 15 ++++++++++++++-
+ os_dep/osdep_service.c  |  4 +++-
+ 2 files changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/os_dep/ioctl_cfg80211.c b/os_dep/ioctl_cfg80211.c
+index 0e38a66..3b35498 100644
+--- a/os_dep/ioctl_cfg80211.c
++++ b/os_dep/ioctl_cfg80211.c
+@@ -1429,6 +1429,9 @@ static int rtw_cfg80211_set_encryption(struct net_device *dev, struct ieee_param
+ }
+ 
+ static int cfg80211_rtw_add_key(struct wiphy *wiphy, struct net_device *ndev,
++#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6,1,0))
++				int link_id,
++#endif	// (LINUX_VERSION_CODE >= KERNEL_VERSION(6,1,0))
+ #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,37)) || defined(COMPAT_KERNEL_RELEASE)
+ 				u8 key_index, bool pairwise, const u8 *mac_addr,
+ #else	// (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,37))
+@@ -1566,6 +1569,9 @@ static int cfg80211_rtw_add_key(struct wiphy *wiphy, struct net_device *ndev,
+ }
+ 
+ static int cfg80211_rtw_get_key(struct wiphy *wiphy, struct net_device *ndev,
++#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6,1,0))
++				int link_id,
++#endif	// (LINUX_VERSION_CODE >= KERNEL_VERSION(6,1,0))
+ #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,37)) || defined(COMPAT_KERNEL_RELEASE)
+ 				u8 key_index, bool pairwise, const u8 *mac_addr,
+ #else	// (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,37))
+@@ -1580,6 +1586,9 @@ static int cfg80211_rtw_get_key(struct wiphy *wiphy, struct net_device *ndev,
+ }
+ 
+ static int cfg80211_rtw_del_key(struct wiphy *wiphy, struct net_device *ndev,
++#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6,1,0))
++				int link_id,
++#endif	// (LINUX_VERSION_CODE >= KERNEL_VERSION(6,1,0))
+ #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,37)) || defined(COMPAT_KERNEL_RELEASE)
+ 				u8 key_index, bool pairwise, const u8 *mac_addr)
+ #else	// (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,37))
+@@ -1601,7 +1610,11 @@ static int cfg80211_rtw_del_key(struct wiphy *wiphy, struct net_device *ndev,
+ }
+ 
+ static int cfg80211_rtw_set_default_key(struct wiphy *wiphy,
+-	struct net_device *ndev, u8 key_index
++	struct net_device *ndev,
++#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6,1,0))
++	int link_id,
++#endif	// (LINUX_VERSION_CODE >= KERNEL_VERSION(6,1,0))
++    u8 key_index
+ 	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,38)) || defined(COMPAT_KERNEL_RELEASE)
+ 	, bool unicast, bool multicast
+ 	#endif
+diff --git a/os_dep/osdep_service.c b/os_dep/osdep_service.c
+index 545d00d..87266e0 100644
+--- a/os_dep/osdep_service.c
++++ b/os_dep/osdep_service.c
+@@ -1016,7 +1016,9 @@ u64 rtw_division64(u64 x, u64 y)
+ 
+ inline u32 rtw_random32(void)
+ {
+-	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,8,0))
++	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6,1,0))
++	return get_random_u32();
++	#elif (LINUX_VERSION_CODE >= KERNEL_VERSION(3,8,0))
+ 	return prandom_u32();
+ 	#elif (LINUX_VERSION_CODE <= KERNEL_VERSION(2,6,18))
+ 	u32 random_int;
