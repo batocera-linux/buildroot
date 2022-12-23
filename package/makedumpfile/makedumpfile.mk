@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-MAKEDUMPFILE_VERSION = 1.7.0
-MAKEDUMPFILE_SITE = $(call github,makedumpfile,makedumpfile,$(MAKEDUMPFILE_VERSION))
+MAKEDUMPFILE_VERSION = 1.7.2
+MAKEDUMPFILE_SITE = https://github.com/makedumpfile/makedumpfile/releases/download/$(MAKEDUMPFILE_VERSION)
 MAKEDUMPFILE_DEPENDENCIES = bzip2 elfutils xz zlib
 MAKEDUMPFILE_LICENSE = GPL-2.0
 MAKEDUMPFILE_LICENSE_FILES = COPYING
@@ -29,6 +29,11 @@ endif
 ifeq ($(BR2_PACKAGE_SNAPPY),y)
 MAKEDUMPFILE_DEPENDENCIES += snappy
 MAKEDUMPFILE_MAKE_OPTS += USESNAPPY=on
+endif
+
+ifeq ($(BR2_PACKAGE_ZSTD),y)
+MAKEDUMPFILE_DEPENDENCIES += zstd
+MAKEDUMPFILE_MAKE_OPTS += USEZSTD=on
 endif
 
 define MAKEDUMPFILE_BUILD_CMDS

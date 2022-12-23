@@ -31,6 +31,7 @@ else
 LIBINPUT_CONF_OPTS += -Ddebug-gui=false
 endif
 
+ifeq ($(BR2_PACKAGE_LIBINPUT_PYTHON_TOOLS),)
 LIBINPUT_PYTHON_TOOLS = libinput-analyze-per-slot-delta \
 	libinput-analyze-recording \
 	libinput-analyze-touch-down-state \
@@ -47,5 +48,6 @@ define LIBINPUT_REMOVE_UNNEEDED_FILES
 	)
 endef
 LIBINPUT_POST_INSTALL_TARGET_HOOKS += LIBINPUT_REMOVE_UNNEEDED_FILES
+endif
 
 $(eval $(meson-package))

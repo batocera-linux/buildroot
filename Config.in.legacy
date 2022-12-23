@@ -144,6 +144,74 @@ endif
 
 ###############################################################################
 
+comment "Legacy options removed in 2022.11"
+
+config BR2_PACKAGE_RABBITMQ_SERVER
+	bool "rabbitmq-server removed"
+	select BR2_LEGACY
+	help
+	  Package was removed because it was unmaintained and had
+	  known security issues.
+
+config BR2_PACKAGE_LIBOPENSSL_ENABLE_RC5
+	bool "libopenssl rc5 was never enabled"
+	select BR2_LEGACY
+	help
+	  The libopenssl option for rc5 never actually enabled rc5,
+	  which had always been disabled in Buildroot.
+
+config BR2_PACKAGE_LIBDCADEC
+	bool "package was deprecated upstream, use ffmpeg instead"
+	select BR2_LEGACY
+	help
+	  This decoder has been fully integrated into FFmpeg master
+	  branch and further development will continue there. Using
+	  FFmpeg for DTS decoding is now recommended.
+
+config BR2_KERNEL_HEADERS_5_17
+	bool "kernel headers version 5.17.x are no longer supported"
+	select BR2_LEGACY
+	help
+	  Version 5.17.x of the Linux kernel headers are no longer
+	  maintained upstream and are now removed.
+
+config BR2_iwmmxt
+	bool "ARM iwmmxt variant removed"
+	select BR2_LEGACY
+	help
+	  Support for the ARM iwmmxt architecture variant in GCC has
+	  bitroten and is no longer maintained. GCC maintainers
+	  recommend to no longer use it, and suggest to use "xscale"
+	  as a replacement architecture variant. See
+	  https://gcc.gnu.org/bugzilla/show_bug.cgi?id=106972
+
+config BR2_PACKAGE_UHD_N230
+	bool "uhd N230 support removed"
+	select BR2_LEGACY
+	help
+	  uhd N230 support has been dropped by upstream since version
+	  4.0.0.0.
+
+config BR2_PACKAGE_UHD_RFNOC
+	bool "uhd RFNoC support removed"
+	select BR2_LEGACY
+	help
+	  uhd RFNoC support has been dropped by upstream since version
+	  4.0.0.0.
+
+config BR2_PACKAGE_GPSD_OLDSTYLE
+	bool "gpsd oldstyle removed"
+	select BR2_LEGACY
+	help
+	  gpsd oldstyle option has been removed by upstream in 2015.
+
+config BR2_GDB_VERSION_9_2
+	bool "gdb 9.2 removed"
+	select BR2_LEGACY
+	help
+	  Support for GDB 9.2 has been removed. A new version has
+	  automatically been selected.
+
 comment "Legacy options removed in 2022.08"
 
 config BR2_PACKAGE_LIBOPENSSL_ENABLE_RC5

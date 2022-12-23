@@ -1,18 +1,114 @@
-2022.08.3, released December 10th, 2022
+2022.11, released December 5th, 2022
 
-	Important / security related fixes.
+	Fixes all over the tree.
 
-	Updated/fixed packages: asterisk, dash, dovecot, edk2,
-	edk2-platforms, elf2flt, exim, freerdp, gcc, gdb, git, gnupg2,
-	heimdal, iwd, kodi, libarchive, libkrb5, libksba, libmdbx,
-	libopenssl, matchbox-keyboard, memcached, netsnmp, nginx,
-	nodejs, openpgm, optee-client, python-scipy, python3, rsync,
-	rtl8723bu, samba4, sdl, sdl2, swupdate, sysstat, systemd,
-	uboot, vim, vlc, wilc-driver, xen, xterm
+	Defconfigs: Nitrogen8*: Bump rootfs size, Zynqmp
+	kv260/zcu102/zcu106: Update to Xilinx 2022.2,
+
+	Updated/fixed packages: dash, dovecot, elf2flt, exim, gcc,
+	gdb, git, kodi, libarchive, libmdbx, linuxptp, lxc,
+	matchbox-keyboard, memcached, netsnmp, optee-client,
+	python-scipy, python3, qt6base, qt6serialport, rtl8188eu,
+	rtl8723bu, rtl8723ds, rtl8821au, vim, vlc, wilc-driver
+
+	Removed packages: rabbitmq-server
 
 	Issues resolved (http://bugs.uclibc.org):
 
-	15131: Target GDB uses internal zlib
+	#15131: Target GDB uses internal zlib
+	#15151: Busybox /etc/init.d scripts are not executable
+
+2022.11-rc3, released November 24th, 2022
+
+	Fixes all over the tree.
+
+	Updated/fixed packages: asterisk, edk2, edk2-platforms,
+	freerdp, gitlab-runner, gnupg2, gptfdisk, heimdal,
+	igh-ethercat, iwd, libkrb5, libksba, libnss, libopenssl,
+	mesa3d, nginx, nodejs, openpgm, python3, rsync, rtl8189es,
+	rtl8723ds, samba4, sdl, sdl2, swupdate, sysstat, systemd,
+	uboot, xen, xterm
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#15141: kernel 5.16.2 (realtime patch 19) fails to build
+
+2022.11-rc2, released November 16th, 2022
+
+	Fixes all over the tree.
+
+	Removed defconfigs: Amarule a64 relic, ARM Juno, Bananapi M1 /
+	M1 plus / M2 plus / M64, FriendlyARM NanoPC T4 / A64 / M1 / M1
+	plus / M4 / Neo2 / Neo4 / Neo plus2 / R1 / Orangepi PC2 / Plus
+	/ Prime / rk3399 / Win, Rock PC rk3399 / PI4 / N10.
+
+	Updated/fixed packages: alsa-utils, arm-trusted-firmware,
+	bdwgc, boost, botan, ca-certificates, crun, dbus-broker,
+	docopt-cpp, dracut, efivar, freeipmi, gawk, gensio, gptfdisk,
+	gsl, guile, imagemagick, ipmitool, libidn2, libkcapi,
+	libopenssl, libqb, libuhttpd, libvncserver, linux,
+	linux-tools, lxc, makedumpfile, matchbox-startup-monitor,
+	mdio-tools, multipath-tools, mupdf, ntfs-3g, numactl,
+	perl-net-ssleay, pixman, procps-ng, rpi-userland, rsync,
+	s6-linux-init, socat, strongswan, sudo, swupdate, systemd,
+	udisks, vlc, wavemon, wolfssl, zlib-ng
+
+	Removed packages: libdcadec
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#15121: make nconfig failes with nvidia drivers and mesa3d selected
+
+2022.11-rc1, released November 3rd, 2022
+
+	Fixes all over the tree and new features.
+
+	Architecture:
+
+	- PowerPC: add Power9 CPU type
+	- ARM: support dropped for iWMMXt processors
+
+	Toolchain:
+
+	- binutils 2.39 added, binutils 2.38 is now the default
+	- gdb 12 added, gdb 11 is now the default
+	- support for 5.18, 5.19 and 6.0 kernel headers
+	- glibc updated to 2.36
+
+	Filesystem:
+
+	- Ability to use dracut to create an initramfs that contains a
+          subset of the root filesystem contents.
+
+	New packages: agent-proxy, catatonit, cni-plugins, crun,
+	docopt-cpp, dracut, forge, kmemd, libmanette, mdio-tools,
+	open-isns, python-editables, python-hatch-fancy-pypi-readme,
+	python-hatch-vcs, python-hatchling, python-libevdev,
+	python-minimalmodbus, python-pathspec, qt6-serialport,
+	rtl8192eu, signal-estimator, slirp4netns, tinycompress
+
+	More than 400 packages have been updated to a newer version.
+
+	New defconfigs: ls1028ardb, qemu_aarch64_ebbr, visionfive.
+
+	Issues resolved:
+
+	#11776: qt5webengine 5.12.2 build failed with arm toolchain
+	        and linaro toolchain
+	#12131: qt5webengine builderror in the latest stable Buildroot
+	        2019.05.01 version
+	#13216: 2020.02.6 requires GNU find  utils
+	#14601: Python build fails on 2022.02-rc2
+	#14746: Lack of management after loading
+	#14796: 64 bit time and seccomp conflict (OpenSSH  server crash)
+	#14921: wpewebkit build fails because of internal  build order
+	#14936: nodejs does not build
+	#15006: toolchain Arm AArch64 toolchain 11.2-2022.02
+	#15021: Buildroot not compiling with systemd  and glibc.
+	#15026: package/udisks: install to staging
+	#15061: Node.js Package fails to build against musl  i386
+	#15071: RTL8723BS library is outdated
+>>>>>>> b2addf40a1daa526bcdc9edf81916296b99ff22d
 
 2022.08.2, released November 16th, 2022
 
@@ -208,6 +304,57 @@
 	#14881: Watchdogd Package missing INSTALL_STAGING
 	#14876: arm-trusted-firmware can no longer be  compiled with fPIE
 
+2022.05.3, released October 2nd, 2022
+
+	Important / security related fixes.
+
+	Fixed compatibility issue with make 4.3 and the 'printvars' /
+	'show-vars' commands.
+
+	Dependencies: Ensure 'find' and 'xargs' are available on the
+	build host.
+
+	A large number of typo fixes.
+
+	Defconfigs: Galileo: Fix defconfig syntax, Licheepi zero: Fix
+	U-Boot dependencies, Bananapi m1, Olimx a20 olinuxino lime
+	1+2, a33 olinuxino: Use standard FPU configuration, Pine 64
+	sopine, Rockpro 64: Change to mainline ATF to fix build issue.
+
+	Updated/fixed packages: ace, arm-trusted-firmware,
+	babeltrace2, boost, botan, busybox, clamav, cog, containerd,
+	cups, dhcpcd, directfb, docker-cli, docker-engine, connman,
+	edk2, edk2-platform, elf2flt, expat, ffmpeg, ficl, freeswitch,
+	gcc, gdb, git, glibc, gnutls, go, gocryptfs, graphicsmagick,
+	grub2, gst1-plugins-bad, gst1-plugins-good, heirloom-mailx,
+	icu, igh-ethercat, imagemagick, imx-gpu-viv, jack2, jose,
+	jpeg, jquery-ui-themes, kodi, kvm-unit-tests, libcamera,
+	libconfuse, libfreeimage, libglvnd, libgpg-error, libinput,
+	libmdbx, libp11, libsepol, libtirpc, libupnp, libvirt,
+	libvncserver, libwpe, libxml2, libzlib, linux, linux-tools,
+	lshw, m4, makedevs, mali-driver, mariadb, memcached, mesa3d,
+	minidlna, mosquitto, mutt, mv-ddr-marvell, ncurses, ne10,
+	netsniff-ng, networkd-dispatcher, ocrad, ola, opencv4,
+	openocd, openssh, openvmtools, pango, pcsc-lite, pistache,
+	polkit, postgis, postgresql, python-crossbar,
+	python-paho-mqtt, python-pygame, python-service-identity,
+	python-txdbus, python3, qemu, qlibc,
+	qoriq-cadence-dp-firmware, qt5xmlpatterns, ranger, redis,
+	rng-tools, rsync, rsyslog, rtl8189es, rtl8723bu, runc, rustc,
+	sconeserver, sdl2, snort, sox, sqlite, squid, stress-ng,
+	strongswan, sunxi-mali-utgard-driver, sysdig, syslinux,
+	syslog-ng, tcf-agent, tcpreplay, tesseract-ocr, tinyproxy,
+	uacme, uboot-tools, uclibc, unzip, usbguard, v4l2loopback,
+	vim, waffle, webkitgtk, weston, wolfssl, wpewebkit, xfsprogs,
+	xserver_xorg-server, xtables-addons, zziplib
+
+	Issues resolved:
+
+	#13216: [Documentation] 2020.02.6 requires GNU find utils
+	#14556: python-crossbar fails to build
+	#14796: 64 bit time and seccomp conflict (OpenSSH server crash)
+	#14951: boost compile error when running make  silently
+
 2022.05.2, released August 31st, 2022
 
 	Important / security related fixes.
@@ -367,6 +514,89 @@
 	#14721: python-argon2_cffi no longer works
 	#14731: BR2_PACKAGE_IOSTAT
 	#14751: LVM2 Outdated Link
+
+2022.02.7, released November 17th, 2022
+
+	Important / security related fixes.
+
+	Defconfig: Pine64: Change to mainline ATF to fix build
+	issue, Zynqmp zcu102 / zcu106: Fix pmufw reset issue
+
+	Updated/fixed packages: arm-trusted-firmware, bind, botan,
+	collectd, darkhttpd, dbus, dhcp, dnsmasq, docker-cli,
+	docker-engine, exfatprogs, expat, f2fs-tools, faad2, ffmpeg,
+	freerdp, gnutls, go, gpsd, grub2, gsl, gst-omx, gst1-devtools,
+	gst1-libav, gst1-plugins-bad, gst1-plugins-base,
+	gst1-plugins-good, gst1-plugins-ugly, gst1-python,
+	gst1-rtsp-server, gst1-vaapi, gstreamer1,
+	gstreamer1-editing-services, hdparm, hostapd, imagemagick,
+	iwd, jack2, libbpf, libcurl, libfribi, libidn2, libinput,
+	libmdbx, libopenssl, libosip2, libpng, libtasn1,
+	libtorrent-rasterbar, libuhttpd, libvncserver, libxml2, linux,
+	linux-tools, lldpd, lrzip, lz4, matchbox-startup-monitor,
+	msmtp, multipath-tools, mupdf, musl, mv-ddr-marvell, mxml,
+	nodejs, ntfs-3g, numactl, openvmtools, oracle-mysql,
+	paho-mqtt-c, perl-net-ssleay, php, pixman, poppler, procps-ng,
+	python-django, python3, qdecoder, rpi-userland, rsync,
+	rtl8189es, rtl8189fs, rtl8723bu, rtl8812au-aircrack-ng,
+	rtl8821au, rtl_433, samba4, shapelib, socat, squid, sqlite,
+	squashfs, strongswan, sudo, swupdate, timescaledb, u-boot,
+	uclibc-ng-test, udisks, uftp, uhd, umtprd, vim, wavemon,
+	wireguard-linux-compat, wolfssl, wpa_supplicant, wpewebkit,
+	zlib-ng, zsh
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#15026: package/udisks: install to staging
+	#15061: Node.js Package fails to build against musl i386
+
+2022.02.6, released October 2nd, 2022
+
+	Important / security related fixes.
+
+	Fixed compatibility issue with make 4.3 and the 'printvars' /
+	'show-vars' commands.
+
+	Dependencies: Ensure 'find' and 'xargs' are available on the
+	build host.
+
+	A large number of typo fixes.
+
+	Defconfigs: Galileo: Fix defconfig syntax, Licheepi zero: Fix
+	U-Boot dependencies, Bananapi m1, Olimx a20 olinuxino lime
+	1+2, a33 olinuxino: Use standard FPU configuration, Pine 64
+	sopine, Rockpro 64: Change to mainline ATF to fix build issue.
+
+	Updated/fixed packages: ace, arm-trusted-firmware,
+	babeltrace2, boost, botan, busybox, clamav, cog, connman,
+	containerd, cups, dhcpcd, directfb, docker-cli, docker-engine,
+	edk2, edk2-platforms, elf2flt, expat, ffmpeg, ficl,
+	freeswitch, freetype, gcc, gdb, git, gnutls, go,
+	graphicsmagic, grub2, gst1-plugins-bad, gst1-plugins-good,
+	heirloom-mailx, icu, igh-ethercat, imagemagick, imx-gpu-viv,
+	jose, jpeg, jquery-ui-themes, kodi, libconfuse, libfreeimage,
+	libglvnd, libgpg-error, libinput, libmdbx, libsepol, libtirpc,
+	libupnp, libvirt, libvncserver, libwpe, libxml2, libzlib,
+	linux, linux-tools, lshw, m4, makedevs, makedumpfile,
+	mali-driver, mariadb, memcached, mesa3d, minidlna, mosquitto,
+	mutt, mv-ddr-marvell, ncurses, ne10, netsniff-ng,
+	networkd-dispatcher, ocrad, opencv4, openocd, openssh, pango,
+	pcsc-lite, polkit, postgis, postgresql, python-paho-mqtt,
+	python-pygame, python3, qemu, qlibc,
+	qoriq-cadence-dp-firmware, qt5xmlpatterns, ranger, rng-tools,
+	rsync, rsyslog, rtl8189es, rtl8723be, runc, rustc,
+	sconeserver, sdl2, snort, sox, sqlite, squid, stress-ng,
+	strongswan, sunxi-mali-utgard-driver, syslinux, syslog-ng,
+	tcf-agent, tcpreplay, tesseract-ocr, tinyproxy, uacme,
+	uboot-tools, uclibc, unzip, usbguard, v4l2loopback, vim,
+	webkitgtk, wolfssl, wpewebkit, xfsprogs, xserver_xorg-server,
+	xtables-addons, zziplib
+
+	Issues resolved:
+
+	#13216: [Documentation] 2020.02.6 requires GNU find utils
+	#14796: 64 bit time and seccomp conflict (OpenSSH server crash)
+	#14951: boost compile error when running make silently
 
 2022.02.5, released August 31st, 2022
 

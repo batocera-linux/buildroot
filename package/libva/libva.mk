@@ -3,7 +3,6 @@
 # libva
 #
 ################################################################################
-# batocera - moonlight upgrade
 LIBVA_VERSION = 2.16.0
 LIBVA_SOURCE = libva-$(LIBVA_VERSION).tar.bz2
 LIBVA_SITE = https://github.com/intel/libva/releases/download/$(LIBVA_VERSION)
@@ -30,7 +29,6 @@ endif
 
 ifeq ($(BR2_PACKAGE_WAYLAND),y)
 LIBVA_DEPENDENCIES += wayland
-LIBVA_CONF_ENV += ac_cv_path_WAYLAND_SCANNER=$(HOST_DIR)/bin/wayland-scanner
 LIBVA_CONF_OPTS += --enable-wayland
 else
 LIBVA_CONF_OPTS += --disable-wayland
