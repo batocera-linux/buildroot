@@ -23,7 +23,6 @@ PIPEWIRE_CONF_OPTS += \
 	-Dspa-plugins=enabled \
 	-Daudiomixer=enabled \
 	-Daudioconvert=enabled \
-	-Dbluez5-codec-lc3=disabled \
 	-Dbluez5-codec-lc3plus=disabled \
 	-Dcontrol=enabled \
 	-Daudiotestsrc=enabled \
@@ -36,8 +35,7 @@ PIPEWIRE_CONF_OPTS += \
 	-Dsession-managers=wireplumber \
 	-Dlegacy-rtkit=false \
 	-Davb=disabled \
-	-Dlibcanberra=disabled \
-	-Dflatpak=disabled
+	-Dlibcanberra=disabled
 
 # batocera
 # this is a not nice workaround
@@ -188,7 +186,7 @@ endif
 # batocera
 ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER)$(BR2_PACKAGE_VULKAN_LOADER),yy)
 PIPEWIRE_CONF_OPTS += -Dvulkan=enabled
-PIPEWIRE_DEPENDENCIES += mesa3d vulkan-loader 
+PIPEWIRE_DEPENDENCIES += mesa3d vulkan-loader
 else
 PIPEWIRE_CONF_OPTS += -Dvulkan=disabled
 endif
