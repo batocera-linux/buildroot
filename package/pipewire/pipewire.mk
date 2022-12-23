@@ -37,6 +37,10 @@ PIPEWIRE_CONF_OPTS += \
 	-Davb=disabled \
 	-Dlibcanberra=disabled
 
+# batocera - remove these 3.59 options for now
+#-Dbluez5-codec-lc3=disabled
+#-Dflatpak=disabled
+
 # batocera
 # this is a not nice workaround
 # i don't know why meson uses bad ssl certificates and doesn't manage to download them
