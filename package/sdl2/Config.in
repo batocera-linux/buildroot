@@ -31,19 +31,27 @@ comment "X11 video driver needs X.org"
 
 config BR2_PACKAGE_SDL2_KMSDRM
 	bool "KMS/DRM video driver"
-	depends on BR2_TOOLCHAIN_HAS_THREADS  # libdrm
-	depends on BR2_PACKAGE_HAS_LIBGBM
-	depends on BR2_PACKAGE_HAS_LIBEGL
-	depends on BR2_PACKAGE_SDL2_OPENGL || BR2_PACKAGE_SDL2_OPENGLES
-	select BR2_PACKAGE_LIBDRM
+    # batocera
+    #depends on BR2_PACKAGE_MESA3D_GBM
+    select BR2_PACKAGE_LIBDRM
 
-comment "KMS/DRM video driver needs a toolchain w/ threads"
-	depends on !BR2_TOOLCHAIN_HAS_THREADS
+comment "KMS/DRM video driver needs libdrm"
+	depends on !BR2_PACKAGE_LIBDRM
 
-comment "KMS/DRM video driver needs a GBM provider, and OpenGL or OpenGLES+EGL"
-	depends on !BR2_PACKAGE_HAS_LIBGBM || \
-		!BR2_PACKAGE_HAS_LIBEGL || \
-		!(BR2_PACKAGE_SDL2_OPENGL || BR2_PACKAGE_SDL2_OPENGLES)
+# batocera
+#comment "KMS/DRM video driver needs mesa3d w/ GBM"
+#	depends on !BR2_PACKAGE_MESA3D_GBM
+
+# batocera
+config BR2_PACKAGE_SDL2_WAYLAND
+	bool "SDL2 Wayland support"
+    depends on BR2_PACKAGE_WAYLAND
+	select BR2_PACKAGE_WAYLANDPP
+	select BR2_PACKAGE_WAYLAND_PROTOCOLS
+	select BR2_PACKAGE_LIBXKBCOMMON
+
+comment "SDL2 Wayland support needs wayland"
+	depends on !BR2_PACKAGE_WAYLAND
 
 config BR2_PACKAGE_SDL2_OPENGL
 	bool "OpenGL (GLX)"
