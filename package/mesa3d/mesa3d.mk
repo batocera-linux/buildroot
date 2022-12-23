@@ -3,7 +3,7 @@
 # mesa3d
 #
 ################################################################################
-# batocera (update)
+
 # When updating the version, please also update mesa3d-headers
 MESA3D_VERSION = 22.3.1
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
