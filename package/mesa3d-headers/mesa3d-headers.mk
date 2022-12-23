@@ -12,12 +12,8 @@ endif
 
 # Not possible to directly refer to mesa3d variables, because of
 # first/second expansion trickery...
-<<<<<<< HEAD
 # When updating the version, please also update mesa3d-headers
 MESA3D_HEADERS_VERSION = 22.3.1
-=======
-MESA3D_HEADERS_VERSION = 22.2.2
->>>>>>> b2addf40a1daa526bcdc9edf81916296b99ff22d
 MESA3D_HEADERS_SOURCE = mesa-$(MESA3D_HEADERS_VERSION).tar.xz
 MESA3D_HEADERS_SITE = https://archive.mesa3d.org
 MESA3D_HEADERS_DL_SUBDIR = mesa3d

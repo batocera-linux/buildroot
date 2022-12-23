@@ -5,13 +5,8 @@
 ################################################################################
 
 # based on https://software.intel.com/en-us/articles/build-and-debug-open-source-media-stack
-<<<<<<< HEAD
-# batocera - update for moonlight
-INTEL_MEDIADRIVER_VERSION = 22.5.4
-=======
 
 INTEL_MEDIADRIVER_VERSION = 22.6.0
->>>>>>> b2addf40a1daa526bcdc9edf81916296b99ff22d
 INTEL_MEDIADRIVER_SITE = https://github.com/intel/media-driver/archive
 INTEL_MEDIADRIVER_SOURCE= intel-media-$(INTEL_MEDIADRIVER_VERSION).tar.gz
 INTEL_MEDIADRIVER_LICENSE = MIT, BSD-3-Clause
