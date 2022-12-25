@@ -214,13 +214,6 @@ config BR2_GDB_VERSION_9_2
 
 comment "Legacy options removed in 2022.08"
 
-config BR2_PACKAGE_LIBOPENSSL_ENABLE_RC5
-	bool "libopenssl rc5 was never enabled"
-	select BR2_LEGACY
-	help
-	  The libopenssl option for rc5 never actually enabled rc5,
-	  which had always been disabled in Buildroot.
-
 config BR2_ECLIPSE_REGISTER
 	bool "Eclipse integration removed"
 	select BR2_LEGACY
@@ -306,13 +299,12 @@ config BR2_KERNEL_HEADERS_5_16
 	  Version 5.16.x of the Linux kernel headers are no longer
 	  maintained upstream and are now removed.
 
-# batocera, rk3128
-#config BR2_KERNEL_HEADERS_4_4
-#	bool "kernel headers version 4.4.x are no longer supported"
-#	select BR2_LEGACY
-#	help
-#	  Version 4.4.x of the Linux kernel headers are no longer
-#	  maintained upstream and are now removed.
+config BR2_KERNEL_HEADERS_4_4
+	bool "kernel headers version 4.4.x are no longer supported"
+	select BR2_LEGACY
+	help
+	  Version 4.4.x of the Linux kernel headers are no longer
+	  maintained upstream and are now removed.
 
 config BR2_BINUTILS_VERSION_2_32_X
 	bool "binutils 2.32.x has been removed"

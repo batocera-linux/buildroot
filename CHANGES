@@ -108,7 +108,6 @@
 	#15026: package/udisks: install to staging
 	#15061: Node.js Package fails to build against musl  i386
 	#15071: RTL8723BS library is outdated
->>>>>>> b2addf40a1daa526bcdc9edf81916296b99ff22d
 
 2022.08.2, released November 16th, 2022
 
