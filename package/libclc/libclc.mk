@@ -5,7 +5,7 @@
 ################################################################################
 
 # LLVM, Clang, libclc and lld should be version bumped together
-# batocera bump to 14.0.6
+# batocera (update) bump to 14.0.6
 LIBCLC_VERSION = 14.0.6
 LIBCLC_SITE = https://github.com/llvm/llvm-project/releases/download/llvmorg-$(LIBCLC_VERSION)
 LIBCLC_SOURCE = libclc-$(LIBCLC_VERSION).src.tar.xz

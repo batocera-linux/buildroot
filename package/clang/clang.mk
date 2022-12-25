@@ -5,7 +5,7 @@
 ################################################################################
 
 # LLVM, Clang, libclc and lld should be version bumped together
-# batocera bump to 14.0.6
+# batocera (update) bump to 14.0.6
 CLANG_VERSION = 14.0.6
 CLANG_SITE = https://github.com/llvm/llvm-project/releases/download/llvmorg-$(CLANG_VERSION)
 CLANG_SOURCE = clang-$(CLANG_VERSION).src.tar.xz
