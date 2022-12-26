@@ -141,13 +141,7 @@ MPV_CONF_OPTS += --disable-lua
 endif
 
 # OpenGL support
-ifeq ($(BR2_PACKAGE_HAS_LIBGL),y)
-# Batocera - don't build OpenGL for SBC
-  ifneq ($(BR2_PACKAGE_BATOCERA_SBC_XORG),y)
-    MPV_CONF_OPTS += --enable-gl
-    MPV_DEPENDENCIES += libgl
-  endif
-else ifeq ($(BR2_PACKAGE_HAS_LIBGLES),y)
+ifeq ($(BR2_PACKAGE_HAS_LIBGLES),y)
 MPV_CONF_OPTS += --enable-gl
 MPV_DEPENDENCIES += libgles
 else ifeq ($(BR2_PACKAGE_HAS_LIBEGL),y)
