@@ -208,18 +208,6 @@ ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
 KODI_CONF_OPTS += -DCMAKE_EXE_LINKER_FLAGS=-latomic
 endif
 
-#batocera
-ifeq ($(BR2_PACKAGE_KODI_PLATFORM_GBM_GL),y)
-# batocera - don't set OGL for SBC use GLES instead
-  ifneq ($(BR2_PACKAGE_BATOCERA_SBC_XORG),y)
-    KODI_CONF_OPTS += \
-        -DCORE_PLATFORM_NAME=gbm \
-        -DGBM_RENDER_SYSTEM=gl \
-        -DENABLE_OPENGL=ON
-    KODI_DEPENDENCIES += libegl libglu libinput libxkbcommon mesa3d
-  endif
-endif
-
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_GBM_GLES),y)
 KODI_CONF_OPTS += \
         -DCORE_PLATFORM_NAME=gbm \
