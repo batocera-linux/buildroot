@@ -5,7 +5,7 @@
 ################################################################################
 
 
-PIPEWIRE_VERSION = 0.3.58
+PIPEWIRE_VERSION = 0.3.63
 # Batocera > .58 has issues with wireplumber
 #PIPEWIRE_VERSION = 0.3.59
 PIPEWIRE_SOURCE = pipewire-$(PIPEWIRE_VERSION).tar.bz2
