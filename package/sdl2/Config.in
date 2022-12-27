@@ -32,8 +32,8 @@ comment "X11 video driver needs X.org"
 config BR2_PACKAGE_SDL2_KMSDRM
 	bool "KMS/DRM video driver"
 	depends on BR2_TOOLCHAIN_HAS_THREADS  # libdrm
-	depends on BR2_PACKAGE_HAS_LIBGBM
-	depends on BR2_PACKAGE_HAS_LIBEGL
+	#depends on BR2_PACKAGE_HAS_LIBGBM
+	#depends on BR2_PACKAGE_HAS_LIBEGL
 	depends on BR2_PACKAGE_SDL2_OPENGL || BR2_PACKAGE_SDL2_OPENGLES
 	select BR2_PACKAGE_LIBDRM
 
