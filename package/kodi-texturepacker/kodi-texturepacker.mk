@@ -6,8 +6,7 @@
 
 # Not possible to directly refer to kodi variables, because of
 # first/second expansion trickery...
-# batocera (update) - backported v19.4 commit with libfmt 9.0 support.
-KODI_TEXTUREPACKER_VERSION = 286694e9df8741313a688b46940661a30f36f35c
+KODI_TEXTUREPACKER_VERSION = 19.5-Matrix
 KODI_TEXTUREPACKER_SITE = $(call github,xbmc,xbmc,$(KODI_TEXTUREPACKER_VERSION))
 KODI_TEXTUREPACKER_SOURCE = kodi-$(KODI_TEXTUREPACKER_VERSION).tar.gz
 KODI_TEXTUREPACKER_DL_SUBDIR = kodi
