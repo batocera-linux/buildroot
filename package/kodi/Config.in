@@ -50,7 +50,7 @@ config BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_X11
 	bool
 	default y
 	depends on BR2_PACKAGE_HAS_LIBGL || BR2_PACKAGE_HAS_LIBGLES
-	depends on BR2_PACKAGE_XORG7
+	depends on BR2_PACKAGE_XSERVER_XORG_SERVER # batocera - avoid x11 & wayland build when using xwayland
 	select BR2_PACKAGE_KODI_PLATFORM_SUPPORTS
 
 comment "kodi needs an OpenGL EGL backend with OpenGL or GLES support"
