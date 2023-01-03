@@ -4,10 +4,8 @@
 #
 ################################################################################
 
-
-PIPEWIRE_VERSION = 0.3.58
-# Batocera > .58 has issues with wireplumber
-#PIPEWIRE_VERSION = 0.3.59
+# batocera - version update
+PIPEWIRE_VERSION = 0.3.63
 PIPEWIRE_SOURCE = pipewire-$(PIPEWIRE_VERSION).tar.bz2
 PIPEWIRE_SITE = https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/$(PIPEWIRE_VERSION)
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
@@ -37,8 +35,7 @@ PIPEWIRE_CONF_OPTS += \
 	-Davb=disabled \
 	-Dlibcanberra=disabled
 
-# batocera - remove these 3.59 options for now
-#-Dbluez5-codec-lc3=disabled
+# batocera - remove disabling of flatpak
 #-Dflatpak=disabled
 
 # batocera
