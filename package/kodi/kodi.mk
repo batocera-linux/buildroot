@@ -276,13 +276,12 @@ else
 KODI_CONF_OPTS += -DENABLE_EVENTCLIENTS=OFF
 endif
 
-# batocera - disable alsa, we use pulse audio instead
-#ifeq ($(BR2_PACKAGE_KODI_ALSA_LIB),y)
-#KODI_CONF_OPTS += -DENABLE_ALSA=ON
-#KODI_DEPENDENCIES += alsa-lib
-#else
+ifeq ($(BR2_PACKAGE_KODI_ALSA_LIB),y)
+KODI_CONF_OPTS += -DENABLE_ALSA=ON
+KODI_DEPENDENCIES += alsa-lib
+else
 KODI_CONF_OPTS += -DENABLE_ALSA=OFF
-#endif
+endif
 
 # batocera
 ifeq ($(BR2_PACKAGE_KODI_GBM),y)
