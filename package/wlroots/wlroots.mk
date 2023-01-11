@@ -3,8 +3,8 @@
 # wlroots
 #
 ################################################################################
-
-WLROOTS_VERSION = 0.15.1
+# batocera (update)
+WLROOTS_VERSION = 0.16.1
 WLROOTS_SITE = https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/$(WLROOTS_VERSION)/downloads
 WLROOTS_LICENSE = MIT
 WLROOTS_LICENSE_FILES = LICENSE
