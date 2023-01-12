@@ -19,7 +19,6 @@ LIBXKBCOMMON_CONF_OPTS = \
 # batocera
 ifeq ($(BR2_PACKAGE_WAYLAND),y)
 LIBXKBCOMMON_CONF_OPTS += -Denable-wayland=true
-LIBXKBCOMMON_DEPENDENCIES += libinput
 else
 LIBXKBCOMMON_CONF_OPTS += -Denable-wayland=false
 endif
