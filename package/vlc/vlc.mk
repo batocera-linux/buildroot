@@ -583,4 +583,14 @@ else
 VLC_CONF_OPTS += --disable-gnutls
 endif
 
+# batocera - enable vdpau when available
+# provides lower cpu overhead for ES themes that use videos
+ifeq ($(BR2_PACKAGE_LIBVDPAU)$(BR2_PACKAGE_MESA3D_VDPAU),yy)
+VLC_CONF_OPTS += --enable-vdpau
+endif
+
+# batocera - disable pulse for ES themes
+# this causes audio to bleed through when it shouldn't
+VLC_CONF_OPTS += --disable-pulse
+
 $(eval $(autotools-package))
