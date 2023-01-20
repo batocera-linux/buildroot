@@ -243,6 +243,8 @@ endif
 
 # batocera
 HOST_UTIL_LINUX_CONF_OPTS += --enable-libsmartcols
+# batocera
+UTIL_LINUX_CONF_OPTS += --disable-irqtop # ncurses build issue
 
 # Install libmount Python bindings
 ifeq ($(BR2_PACKAGE_PYTHON3),y)
