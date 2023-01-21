@@ -221,6 +221,12 @@ config BR2_TARGET_UBOOT_NEEDS_ATF_BL31_BIN
 config BR2_TARGET_UBOOT_NEEDS_ATF_BL31_ELF
 	bool "bl31.elf"
 
+config BR2_TARGET_UBOOT_NO_SCP
+	bool "Not want to use SCP firmware"
+    help
+      If you do not want to use SCP firmware, you can silence
+      the warning from binman by pointing it to an empty file.
+
 endchoice
 
 config BR2_TARGET_UBOOT_NEEDS_OPTEE_TEE
