@@ -29,6 +29,11 @@ WLROOTS_CONF_OPTS = -Dexamples=false -Dxcb-errors=disabled
 WLROOTS_RENDERERS = gles2
 WLROOTS_BACKENDS = libinput drm
 
+# batocera
+ifeq ($(BR2_PACKAGE_HAS_LIBGBM),y)
+WLROOTS_CONF_OPTS += -Dallocators=gbm
+endif
+
 # batocera - add xwayland
 ifeq ($(BR2_PACKAGE_WLROOTS_X11),y)
 WLROOTS_BACKENDS += x11
