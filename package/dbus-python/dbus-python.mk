@@ -24,5 +24,10 @@ HOST_DBUS_PYTHON_CONF_ENV = \
 	PYTHON_LIBS="`$(HOST_DIR)/bin/python3-config --ldflags`" \
 	PYTHON_EXTRA_LIBS="`$(HOST_DIR)/bin/python3-config --libs --embed`"
 
+# batocera ; #500
+define DBUS_PYTHON_INSTALL_TARGET_CMDS
+	touch $(TARGET_DIR)/usr/lib/python$(PYTHON3_VERSION_MAJOR)/site-packages/dbus_python-$(DBUS_PYTHON_VERSION).egg-info
+endef
+
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))
