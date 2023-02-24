@@ -5,7 +5,7 @@
 ################################################################################
 # batocera (update)
 SWAY_VERSION = 1.8.1
-SWAY_SITE = $(call github,swaywm,sway,v$(SWAY_VERSION))
+SWAY_SITE = $(call github,swaywm,sway,$(SWAY_VERSION))
 SWAY_LICENSE = MIT
 SWAY_LICENSE_FILES = LICENSE
 SWAY_DEPENDENCIES = host-pkgconf wlroots json-c pcre2 cairo pango
