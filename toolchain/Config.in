@@ -115,7 +115,7 @@ config BR2_TOOLCHAIN_HAS_GCC_BUG_43744
 	bool
 	default y if !BR2_TOOLCHAIN_GCC_AT_LEAST_8
 	default y if BR2_TOOLCHAIN_GCC_AT_LEAST_9
-	depends on BR2_sh4
+	depends on BR2_sh
 
 # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63261. This bug no
 # longer exists in gcc 8.x.
@@ -140,6 +140,11 @@ config BR2_TOOLCHAIN_HAS_GCC_BUG_64735
 config BR2_TOOLCHAIN_HAS_GCC_BUG_68485
 	bool
 	default y if BR2_microblaze
+
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=81426
+config BR2_TOOLCHAIN_HAS_GCC_BUG_81426
+	bool
+	default y if BR2_sh
 
 # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=83143
 # Error: invalid operands (*UND* and .text sections) for `-' on sh4.
@@ -591,6 +596,10 @@ config BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_19
 config BR2_TOOLCHAIN_HEADERS_AT_LEAST_6_0
 	bool
 	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_19
+
+config BR2_TOOLCHAIN_HEADERS_AT_LEAST_6_1
+	bool
+	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_6_0
 	select BR2_TOOLCHAIN_HEADERS_LATEST
 
 # This should be selected by the latest version, above, to indicate that
@@ -604,6 +613,7 @@ config BR2_TOOLCHAIN_HEADERS_LATEST
 # stops affecting a value on the first matching default.
 config BR2_TOOLCHAIN_HEADERS_AT_LEAST
 	string
+	default "6.1"  if BR2_TOOLCHAIN_HEADERS_AT_LEAST_6_1
 	default "6.0"  if BR2_TOOLCHAIN_HEADERS_AT_LEAST_6_0
 	default "5.19" if BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_19
 	default "5.18" if BR2_TOOLCHAIN_HEADERS_AT_LEAST_5_18

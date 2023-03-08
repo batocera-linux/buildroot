@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-RTL8723BU_VERSION = d79a676a8d3f0bb6ac8af126689c6ac6869cb6f2
+RTL8723BU_VERSION = 92c19318cb54ef96c2cfb4a22b2c98eb512812d8
 RTL8723BU_SITE = $(call github,lwfinger,rtl8723bu,$(RTL8723BU_VERSION))
 RTL8723BU_LICENSE = GPL-2.0, proprietary (*.bin firmware blobs)
 

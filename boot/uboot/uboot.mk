@@ -60,6 +60,10 @@ UBOOT_MAKE_TARGET += mdbtrick
 endif
 endif
 
+ifeq ($(BR2_TARGET_UBOOT_FORMAT_REMAKE_ELF),y)
+UBOOT_BINS += u-boot.elf
+endif
+
 # Call 'make all' unconditionally
 UBOOT_MAKE_TARGET += all
 
@@ -238,6 +242,10 @@ endif
 
 ifeq ($(BR2_TARGET_UBOOT_NEEDS_UTIL_LINUX),y)
 UBOOT_DEPENDENCIES += host-util-linux
+endif
+
+ifeq ($(BR2_TARGET_UBOOT_NEEDS_XXD),y)
+UBOOT_DEPENDENCIES += host-vim
 endif
 
 # prior to u-boot 2013.10 the license info was in COPYING. Copy it so

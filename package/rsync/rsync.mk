@@ -18,16 +18,40 @@ RSYNC_CONF_OPTS = \
 	--with-included-zlib=no \
 	--with-included-popt=no \
 	--disable-roll-simd \
-	--disable-openssl \
-	--disable-xxhash \
-	--disable-zstd \
-	--disable-lz4 \
 	--disable-md5-asm
 
 ifeq ($(BR2_PACKAGE_ACL),y)
 RSYNC_DEPENDENCIES += acl
 else
 RSYNC_CONF_OPTS += --disable-acl-support
+endif
+
+ifeq ($(BR2_PACKAGE_LZ4),y)
+RSYNC_DEPENDENCIES += lz4
+RSYNC_CONF_OPTS += --enable-lz4
+else
+RSYNC_CONF_OPTS += --disable-lz4
+endif
+
+ifeq ($(BR2_PACKAGE_OPENSSL),y)
+RSYNC_DEPENDENCIES += openssl
+RSYNC_CONF_OPTS += --enable-openssl
+else
+RSYNC_CONF_OPTS += --disable-openssl
+endif
+
+ifeq ($(BR2_PACKAGE_XXHASH),y)
+RSYNC_DEPENDENCIES += xxhash
+RSYNC_CONF_OPTS += --enable-xxhash
+else
+RSYNC_CONF_OPTS += --disable-xxhash
+endif
+
+ifeq ($(BR2_PACKAGE_ZSTD),y)
+RSYNC_DEPENDENCIES += zstd
+RSYNC_CONF_OPTS += --enable-zstd
+else
+RSYNC_CONF_OPTS += --disable-zstd
 endif
 
 $(eval $(autotools-package))

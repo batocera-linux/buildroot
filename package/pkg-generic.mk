@@ -792,7 +792,7 @@ $(2)_EXTRACT_DEPENDENCIES += \
 endif
 
 ifeq ($$(BR2_CCACHE),y)
-ifeq ($$(filter host-tar host-skeleton host-xz host-lzip host-fakedate host-ccache,$(1)),)
+ifeq ($$(filter host-tar host-skeleton host-xz host-lzip host-fakedate host-ccache host-hiredis host-pkgconf host-zstd,$(1)),)
 $(2)_DEPENDENCIES += host-ccache
 endif
 endif
@@ -1182,9 +1182,11 @@ ifeq ($$($$($(2)_KCONFIG_VAR)),y)
 
 # Ensure the calling package is the declared provider for all the virtual
 # packages it claims to be an implementation of.
+ifeq ($(BR_BUILDING),y)
 ifneq ($$($(2)_PROVIDES),)
 $$(foreach pkg,$$($(2)_PROVIDES),\
 	$$(eval $$(call virt-provides-single,$$(pkg),$$(call UPPERCASE,$$(pkg)),$(1))$$(sep)))
+endif
 endif
 
 # Register package as a reverse-dependencies of all its dependencies
@@ -1247,6 +1249,13 @@ DL_TOOLS_DEPENDENCIES += hg
 else ifeq ($$($(2)_SITE_METHOD),cvs)
 DL_TOOLS_DEPENDENCIES += cvs
 endif # SITE_METHOD
+
+# cargo/go vendoring (may) need git
+ifeq ($$($(2)_DOWNLOAD_POST_PROCESS),cargo)
+DL_TOOLS_DEPENDENCIES += git
+else ifeq ($$($(2)_DOWNLOAD_POST_PROCESS),go)
+DL_TOOLS_DEPENDENCIES += git
+endif
 
 DL_TOOLS_DEPENDENCIES += $$(call extractor-system-dependency,$$($(2)_SOURCE))
 

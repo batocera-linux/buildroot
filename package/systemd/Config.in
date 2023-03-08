@@ -22,7 +22,7 @@ menuconfig BR2_PACKAGE_SYSTEMD
 	depends on !BR2_STATIC_LIBS # kmod
 	depends on BR2_TOOLCHAIN_USES_GLIBC
 	depends on BR2_TOOLCHAIN_HAS_SSP
-	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_13
+	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_15
 	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_5
 	depends on BR2_HOST_GCC_AT_LEAST_5 # host-systemd
 	select BR2_PACKAGE_HAS_UDEV
@@ -51,7 +51,11 @@ menuconfig BR2_PACKAGE_SYSTEMD
 	  an elaborate transactional dependency-based service control
 	  logic.  It can work as a drop-in replacement for sysvinit.
 
-	  Systemd requires a Linux kernel >= 3.13 with the following
+	  Kernel versions below 4.15 ("recommended baseline") have
+	  significant gaps in functionality and are not recommended
+	  for use with this version of systemd.
+
+	  Systemd requires a Linux kernel >= 3.15 with the following
 	  options enabled:
 
 	  - CONFIG_DEVTMPFS
@@ -66,8 +70,10 @@ menuconfig BR2_PACKAGE_SYSTEMD
 	  - CONFIG_PROC_FS
 	  - CONFIG_FHANDLE (libudev, mount and bind mount handling)
 
-	  - CONFIG_NET_NS (needed by PrivateNetwork=, used in some
+	  - CONFIG_NET_NS (Required for PrivateNetwork=, used in some
 	    systemd units)
+
+	  - CONFIG_USER_NS (Required for PrivateUsers=)
 
 	  - CONFIG_AUTOFS_FS / CONFIG_AUTOFS4_FS
 	  - CONFIG_TMPFS_POSIX_ACL
@@ -475,6 +481,22 @@ config BR2_PACKAGE_SYSTEMD_SYSEXT
 
 	  https://www.freedesktop.org/software/systemd/man/systemd-sysext.html
 
+config BR2_PACKAGE_SYSTEMD_SYSUPDATE
+	bool "enable sysupdate support"
+	select BR2_PACKAGE_OPENSSL
+	select BR2_PACKAGE_OPENSSL_FORCE_LIBOPENSSL
+	select BR2_PACKAGE_UTIL_LINUX_LIBFDISK
+	help
+	  systemd-sysupdate atomically updates the host OS, container
+	  images, portable service images or other sources, based on
+	  the transfer configuration files described in sysupdate.d.
+
+	  Note that the bootloader must be configured specifically to
+	  support the A/B update mechanism defined by sysupdate. Only
+	  systemd-boot does this out of the box.
+
+	  https://www.freedesktop.org/software/systemd/man/systemd-sysupdate.html
+
 config BR2_PACKAGE_SYSTEMD_SYSUSERS
 	bool "enable sysusers support"
 	help
@@ -517,6 +539,26 @@ config BR2_PACKAGE_SYSTEMD_USERDB
 	  compatibility.
 
 	  https://www.freedesktop.org/software/systemd/man/systemd-userdbd.service.html
+
+config BR2_PACKAGE_SYSTEMD_UTMP
+	bool "enable utmp support"
+	help
+	  systemd-update-utmp-runlevel.service is a service that writes
+	  SysV runlevel changes to utmp and wtmp, as well as the audit
+	  logs, as they occur.  systemd-update-utmp.service does the
+	  same for system reboots and shutdown requests.
+
+	  https://www.freedesktop.org/software/systemd/man/systemd-update-utmp.service.html
+
+	  Utmp keeps track of what users do on the system (where they
+	  logged from, on which terminal, ...) along with a general
+	  status of the system (list of reboots, current uptime, current
+	  number of users logged in).
+
+	  You should only enable this if your system will have actual
+	  users who log in.
+
+	  https://man7.org/linux/man-pages/man5/utmp.5.html
 
 config BR2_PACKAGE_SYSTEMD_VCONSOLE
 	bool "enable vconsole tool"
