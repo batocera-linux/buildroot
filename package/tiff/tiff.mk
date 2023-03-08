@@ -12,11 +12,13 @@ TIFF_CPE_ID_VENDOR = libtiff
 TIFF_CPE_ID_PRODUCT = libtiff
 TIFF_INSTALL_STAGING = YES
 
+# 0001-tiffcrop-Correct-simple-copy-paste-error-Fix-488.patch
+TIFF_IGNORE_CVES += CVE-2022-48281
+
 # webp has a (optional) dependency on tiff, so we can't have webp
 # support in tiff, or that would create a circular dependency.
 TIFF_CONF_OPTS = \
 	--disable-contrib \
-	--disable-cxx \
 	--disable-tests \
 	--disable-webp \
 	--without-x
@@ -34,6 +36,12 @@ HOST_TIFF_CONF_OPTS = \
 	--disable-webp \
 	--disable-zstd
 HOST_TIFF_DEPENDENCIES = host-pkgconf
+
+ifeq ($(BR2_INSTALL_LIBSTDCPP),y)
+TIFF_CONF_OPTS += --enable-cxx
+else
+TIFF_CONF_OPTS += --disable-cxx
+endif
 
 ifneq ($(BR2_PACKAGE_TIFF_CCITT),y)
 TIFF_CONF_OPTS += --disable-ccitt

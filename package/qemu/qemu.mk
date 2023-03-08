@@ -4,7 +4,9 @@
 #
 ################################################################################
 
-QEMU_VERSION = 7.1.0
+# When updating the version, check whether the list of supported targets
+# needs to be updated.
+QEMU_VERSION = 7.2.0
 QEMU_SOURCE = qemu-$(QEMU_VERSION).tar.xz
 QEMU_SITE = http://download.qemu.org
 QEMU_LICENSE = GPL-2.0, LGPL-2.1, MIT, BSD-3-Clause, BSD-2-Clause, Others/BSD-1c
@@ -20,7 +22,12 @@ QEMU_CPE_ID_VENDOR = qemu
 # However, building is still done with configure and make as in previous versions of QEMU.
 
 # Target-qemu
-QEMU_DEPENDENCIES = host-meson host-pkgconf libglib2 zlib pixman host-python3
+QEMU_DEPENDENCIES = \
+	host-meson \
+	host-pkgconf \
+	host-python3 \
+	libglib2 \
+	zlib
 
 # Need the LIBS variable because librt and libm are
 # not automatically pulled. :-(
@@ -30,30 +37,98 @@ QEMU_OPTS =
 
 QEMU_VARS = LIBTOOL=$(HOST_DIR)/bin/libtool
 
-# If we want to specify only a subset of targets, we must still enable all
-# of them, so that QEMU properly builds its list of default targets, from
-# which it then checks if the specified sub-set is valid. That's what we
-# do in the first part of the if-clause.
-# Otherwise, if we do not want to pass a sub-set of targets, we then need
-# to either enable or disable -user and/or -system emulation appropriately.
-# That's what we do in the else-clause.
-ifneq ($(call qstrip,$(BR2_PACKAGE_QEMU_CUSTOM_TARGETS)),)
-QEMU_OPTS += --enable-system --enable-linux-user
-QEMU_OPTS += --target-list="$(call qstrip,$(BR2_PACKAGE_QEMU_CUSTOM_TARGETS))"
-else
+# If we want to build all emulation targets, we just need to either enable -user
+# and/or -system emulation appropriately.
+# Otherwise, if we want only a subset of targets, we must still enable all of
+# them, so that QEMU properly builds a list of default targets from which it
+# checks if the specified sub-set is valid.
 
 ifeq ($(BR2_PACKAGE_QEMU_SYSTEM),y)
+QEMU_DEPENDENCIES += pixman
 QEMU_OPTS += --enable-system
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_AARCH64) += aarch64-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_ALPHA) += alpha-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_ARM) += arm-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_AVR) += avr-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_CRIS) += cris-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_HPPA) += hppa-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_I386) += i386-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_LOONGARCH64) += loongarch64-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_M68K) += m68k-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_MICROBLAZE) += microblaze-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_MICROBLAZEEL) += microblazeel-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_MIPS) += mips-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_MIPS64) += mips64-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_MIPS64EL) += mips64el-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_MIPSEL) += mipsel-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_NIOS2) += nios2-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_OR1K) += or1k-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_PPC) += ppc-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_PPC64) += ppc64-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_RISCV32) += riscv32-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_RISCV64) += riscv64-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_RX) += rx-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_S390X) += s390x-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_SH4) += sh4-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_SH4EB) += sh4eb-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_SPARC) += sparc-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_SPARC64) += sparc64-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_TRICORE) += tricore-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_X86_64) += x86_64-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_XTENSA) += xtensa-softmmu
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_XTENSAEB) += xtensaeb-softmmu
 else
 QEMU_OPTS += --disable-system
 endif
 
 ifeq ($(BR2_PACKAGE_QEMU_LINUX_USER),y)
 QEMU_OPTS += --enable-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_AARCH64) += aarch64-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_AARCH64_BE) += aarch64_be-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_ALPHA) += alpha-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_ARM) += arm-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_ARMEB) += armeb-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_CRIS) += cris-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_HEXAGON) += hexagon-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_HPPA) += hppa-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_I386) += i386-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_LOONGARCH64) += loongarch64-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_M68K) += m68k-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_MICROBLAZE) += microblaze-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_MICROBLAZEEL) += microblazeel-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_MIPS) += mips-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_MIPS64) += mips64-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_MIPS64EL) += mips64el-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_MIPSEL) += mipsel-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_MIPSN32) += mipsn32-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_MIPSN32EL) += mipsn32el-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_NIOS2) += nios2-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_OR1K) += or1k-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_PPC) += ppc-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_PPC64) += ppc64-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_PPC64LE) += ppc64le-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_RISCV32) += riscv32-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_RISCV64) += riscv64-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_S390X) += s390x-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_SH4) += sh4-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_SH4EB) += sh4eb-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_SPARC) += sparc-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_SPARC32PLUS) += sparc32plus-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_SPARC64) += sparc64-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_X86_64) += x86_64-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_XTENSA) += xtensa-linux-user
+QEMU_TARGET_LIST_$(BR2_PACKAGE_QEMU_TARGET_XTENSAEB) += xtensaeb-linux-user
 else
 QEMU_OPTS += --disable-linux-user
 endif
 
+# Build the list of desired targets, if any.
+ifeq ($(BR2_PACKAGE_QEMU_CHOOSE_TARGETS),y)
+QEMU_TARGET_LIST = $(strip $(QEMU_TARGET_LIST_y))
+ifeq ($(BR_BUILDING).$(QEMU_TARGET_LIST),y.)
+$(error "No emulator target has ben chosen")
+endif
+QEMU_OPTS += --target-list="$(QEMU_TARGET_LIST)"
 endif
 
 ifeq ($(BR2_TOOLCHAIN_USES_UCLIBC),y)
@@ -63,7 +138,7 @@ QEMU_OPTS += --enable-vhost-user
 endif
 
 ifeq ($(BR2_PACKAGE_QEMU_SLIRP),y)
-QEMU_OPTS += --enable-slirp=system
+QEMU_OPTS += --enable-slirp
 QEMU_DEPENDENCIES += slirp
 else
 QEMU_OPTS += --disable-slirp
@@ -246,7 +321,14 @@ $(eval $(generic-package))
 #-------------------------------------------------------------
 # Host-qemu
 
-HOST_QEMU_DEPENDENCIES = host-meson host-pkgconf host-zlib host-libglib2 host-pixman host-python3
+HOST_QEMU_DEPENDENCIES = \
+	host-libglib2 \
+	host-meson \
+	host-pixman \
+	host-pkgconf \
+	host-python3 \
+	host-slirp \
+	host-zlib
 
 #       BR ARCH         qemu
 #       -------         ----
@@ -390,6 +472,7 @@ define HOST_QEMU_CONFIGURE_CMDS
 		--disable-vnc-jpeg \
 		--disable-png \
 		--disable-vnc-sasl \
+		--enable-slirp \
 		--enable-tools \
 		$(HOST_QEMU_OPTS)
 endef
@@ -405,10 +488,12 @@ define HOST_QEMU_INSTALL_CMDS
 endef
 
 # install symlink to qemu-system
+ifeq ($(BR2_PACKAGE_HOST_QEMU_SYSTEM_MODE),y)
 define HOST_QEMU_POST_INSTALL_SYMLINK
 	ln -sf ./qemu-system-$(HOST_QEMU_ARCH) $(HOST_DIR)/bin/qemu-system
 endef
 HOST_QEMU_POST_INSTALL_HOOKS += HOST_QEMU_POST_INSTALL_SYMLINK
+endif
 
 $(eval $(host-generic-package))
 

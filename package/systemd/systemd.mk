@@ -19,7 +19,7 @@
 # - Diff sysusers.d with the previous version
 # - Diff factory/etc/nsswitch.conf with the previous version
 #   (details are often sprinkled around in README and manpages)
-SYSTEMD_VERSION = 250.8
+SYSTEMD_VERSION = 252.4
 SYSTEMD_SITE = $(call github,systemd,systemd-stable,v$(SYSTEMD_VERSION))
 SYSTEMD_LICENSE = \
 	LGPL-2.1+, \
@@ -29,6 +29,7 @@ SYSTEMD_LICENSE = \
 	BSD-3-Clause (tools/chromiumos), \
 	CC0-1.0 (few source files, see LICENSES/README.md), \
 	GPL-2.0 with Linux-syscall-note (linux kernel headers), \
+	MIT-0 (few source files, see LICENSES/README.md), \
 	MIT (few source files, see LICENSES/README.md), \
 	OFL-1.1 (Heebo fonts)
 SYSTEMD_LICENSE_FILES = \
@@ -40,6 +41,7 @@ SYSTEMD_LICENSE_FILES = \
 	LICENSES/LGPL-2.0-or-later.txt \
 	LICENSES/Linux-syscall-note.txt \
 	LICENSES/lookup3-public-domain.txt \
+	LICENSES/MIT-0.txt \
 	LICENSES/MIT.txt \
 	LICENSES/murmurhash2-public-domain.txt \
 	LICENSES/OFL-1.1.txt \
@@ -61,7 +63,13 @@ SYSTEMD_SELINUX_MODULES = systemd udev xdg
 SYSTEMD_PROVIDES = udev
 
 SYSTEMD_CONF_OPTS += \
+	-Ddbus=false \
+	-Ddbus-interfaces-dir=no \
+	-Ddefault-compression='auto' \
 	-Ddefault-hierarchy=unified \
+	-Ddefault-locale='C.UTF-8' \
+	-Ddefault-user-shell=/bin/sh \
+	-Dfirst-boot-full-preset=false \
 	-Didn=true \
 	-Dima=false \
 	-Dkexec-path=/usr/sbin/kexec \
@@ -72,6 +80,7 @@ SYSTEMD_CONF_OPTS += \
 	-Dman=false \
 	-Dmount-path=/usr/bin/mount \
 	-Dmode=release \
+	-Dnspawn-locale='C.UTF-8' \
 	-Dnss-systemd=true \
 	-Dquotacheck-path=/usr/sbin/quotacheck \
 	-Dquotaon-path=/usr/sbin/quotaon \
@@ -87,12 +96,11 @@ SYSTEMD_CONF_OPTS += \
 	-Dtelinit-path= \
 	-Dtests=false \
 	-Dtmpfiles=true \
-	-Dumount-path=/usr/bin/umount \
-	-Dutmp=false
+	-Dumount-path=/usr/bin/umount
 
 SYSTEMD_CFLAGS = $(TARGET_CFLAGS)
 ifeq ($(BR2_OPTIMIZE_FAST),y)
-SYSTEMD_CFLAGS += -O3
+SYSTEMD_CFLAGS += -O3 -fno-finite-math-only
 endif
 
 ifeq ($(BR2_nios2),y)
@@ -237,9 +245,9 @@ endif
 
 ifeq ($(BR2_PACKAGE_LIBGCRYPT),y)
 SYSTEMD_DEPENDENCIES += libgcrypt
-SYSTEMD_CONF_OPTS += -Ddefault-dnssec=allow-downgrade -Dgcrypt=true
+SYSTEMD_CONF_OPTS += -Dgcrypt=true
 else
-SYSTEMD_CONF_OPTS += -Ddefault-dnssec=no -Dgcrypt=false
+SYSTEMD_CONF_OPTS += -Dgcrypt=false
 endif
 
 ifeq ($(BR2_PACKAGE_P11_KIT),y)
@@ -309,6 +317,12 @@ else
 SYSTEMD_CONF_OPTS += -Dselinux=false
 endif
 
+ifneq ($(BR2_PACKAGE_LIBGCRYPT)$(BR2_PACKAGE_LIBOPENSSL),)
+SYSTEMD_CONF_OPTS += -Ddefault-dnssec=allow-downgrade
+else
+SYSTEMD_CONF_OPTS += -Ddefault-dnssec=no
+endif
+
 ifeq ($(BR2_PACKAGE_SYSTEMD_HWDB),y)
 SYSTEMD_CONF_OPTS += -Dhwdb=true
 define SYSTEMD_BUILD_HWDB
@@ -329,6 +343,12 @@ ifeq ($(BR2_PACKAGE_SYSTEMD_BINFMT),y)
 SYSTEMD_CONF_OPTS += -Dbinfmt=true
 else
 SYSTEMD_CONF_OPTS += -Dbinfmt=false
+endif
+
+ifeq ($(BR2_PACKAGE_SYSTEMD_UTMP),y)
+SYSTEMD_CONF_OPTS += -Dutmp=true
+else
+SYSTEMD_CONF_OPTS += -Dutmp=false
 endif
 
 ifeq ($(BR2_PACKAGE_SYSTEMD_VCONSOLE),y)
@@ -479,6 +499,12 @@ else
 SYSTEMD_CONF_OPTS += -Dsysext=false
 endif
 
+ifeq ($(BR2_PACKAGE_SYSTEMD_SYSUPDATE),y)
+SYSTEMD_CONF_OPTS += -Dsysupdate=true
+else
+SYSTEMD_CONF_OPTS += -Dsysupdate=false
+endif
+
 ifeq ($(BR2_PACKAGE_SYSTEMD_NETWORKD),y)
 SYSTEMD_CONF_OPTS += -Dnetworkd=true
 SYSTEMD_NETWORKD_USER = systemd-network -1 systemd-network -1 * - - - systemd Network Management
@@ -553,7 +579,6 @@ SYSTEMD_DEPENDENCIES += gnu-efi
 SYSTEMD_CONF_OPTS += \
 	-Defi=true \
 	-Dgnu-efi=true \
-	-Defi-cc=$(TARGET_CC) \
 	-Defi-ld=bfd \
 	-Defi-libdir=$(STAGING_DIR)/usr/lib \
 	-Defi-includedir=$(STAGING_DIR)/usr/include/efi
@@ -744,12 +769,6 @@ define SYSTEMD_RM_CATALOG_UPDATE_SERVICE
 endef
 SYSTEMD_ROOTFS_PRE_CMD_HOOKS += SYSTEMD_RM_CATALOG_UPDATE_SERVICE
 
-define SYSTEMD_CREATE_TMPFILES_HOOK
-	HOST_SYSTEMD_TMPFILES=$(HOST_DIR)/bin/systemd-tmpfiles \
-		$(SYSTEMD_PKGDIR)/fakeroot_tmpfiles.sh $(TARGET_DIR)
-endef
-SYSTEMD_ROOTFS_PRE_CMD_HOOKS += SYSTEMD_CREATE_TMPFILES_HOOK
-
 define SYSTEMD_PRESET_ALL
 	$(HOST_DIR)/bin/systemctl --root=$(TARGET_DIR) preset-all
 endef
@@ -799,6 +818,8 @@ HOST_SYSTEMD_CONF_OPTS = \
 	-Dbinfmt=false \
 	-Drepart=false \
 	-Dcoredump=false \
+	-Ddbus=false \
+	-Ddbus-interfaces-dir=no \
 	-Dpstore=false \
 	-Doomd=false \
 	-Dlogind=false \
@@ -807,6 +828,7 @@ HOST_SYSTEMD_CONF_OPTS = \
 	-Dmachined=false \
 	-Dportabled=false \
 	-Dsysext=false \
+	-Dsysupdate=false \
 	-Duserdb=false \
 	-Dhomed=false \
 	-Dnetworkd=false \

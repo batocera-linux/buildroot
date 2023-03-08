@@ -1,3 +1,155 @@
+2023.02-rc3, released March 8th, 2023
+
+	Fixes all over the tree.
+
+	Updated/fixed packages: apr, bash, docker-engine, exfat,
+	exfat-utils, f2fs-tools, gensio, gr-osmosdr, libcurl, libglfw,
+	libolm, libpcap, libpjsip, linux, mender, mpv,
+	multipath-tools, opus, paho-mqtt-c, proftpd, pugixml,
+	pulseaudio, qemu, quazip, quickjs, rtl8189es, rtl8821cu,
+	uacme, uqmi, wpebackend-fdo,
+
+2023.02-rc2, released February 27th, 2023
+
+	Fixes all over the tree.
+
+	Updated/fixed packages: asterisk, at91dataflashboot, bind,
+	efivar, erlang, flac, fluent-bit, freerdp, gcc, gdal, gerbera,
+	gnuradio, gqrx, haproxy, hawktracer, imx-gpu-g2d,
+	intel-gmmlib, libarchive, libblockdev, libcamera-apps, libjxl,
+	libmodsecurity, libsigrokdecode, lightning, lirc-tools,
+	lttng-babeltrace, modem-manager, modsecurity2,
+	multipath-tools, mutt, mxs-bootlets, netsurf, network-manager,
+	nginx-naxsi, ntpsec, opensbi, optee-client, pcm-tools,
+	php-xdebug, pistache, postgresql, proxychains-ng,
+	python-m2crypto, python-numpy, python-webargs,
+	python-werkzeug, rtl8723bu, rtty, speechd, sudo, systemd,
+	tiff, tmux, wilc-driver, wpa_supplicant, xerces,
+	xtables-addons, xwayland, zabbix
+
+	Removed packages: uccp420wlan
+
+2023.02-rc1, released February 20th, 2023
+
+	Numerous package updates and many (62) new packages.
+
+	Toolchain:
+
+	- The check for access to "unsafe" (E.G. from the build host)
+	  header files and libraries by the cross compiler is now
+	  unconditionally enabled.
+
+	- Bootlin external toolchains updated to 2022.08
+
+	- The handling of the CCACHE_* environment variables by the
+          toolchain wrapper is now more strict, causing the variables
+          to only be exported when BR2_CCACHE is enabled.
+
+	Infrastructure:
+
+	- Br2-external: Fix make performance issue when many (> 6)
+	  external trees are used together.
+
+	- Legal-info: Stop warning about not saving sources for local
+	  / override packages if <PKG>_REDISTRIBUTE is set to NO.
+
+	- Go: Ensure our go build and module cache is used, even for the
+	  download step.
+
+	- Cargo: CARGO_HOME (the location where cargo stores it
+          downloaded artifacts) is now located under DL_DIR rather
+          than in HOST_DIR/share/cargo, ensuring it is shared between
+          builds.
+
+	Misc:
+
+	- Erofs: Use fixed timestamp and UUID when BR2_REPRODUCIBLE is
+	  used.
+
+	- Ext2: Year 2038+ compatible inodes are now used by default,
+          independently of the filesystem size.
+
+	- Linux: Fix build of < 5.6 kernels with host-gcc >= 10.
+
+	A large number of NXP related packages and defconfigs have
+	been updated as upstream moved the git repositories to Github.
+
+	New defconfigs: i.MX8mn BSH SMM S2 / pro, QEMU ARM EBBR,
+	Sipeed Lichee rv / rv dock, Starfive Visionfive2, Xilinx Versal
+	VCK190.
+
+	New packages: catch2, cli11, dotconf, edk2-non-osi,
+	fluent-bit, fxdiv, hddtemp, highway, imx-vpu-hantro-daemon,
+	libjxl, libsolv, libunibreak, neon-2-sse, open-iscsi,
+	opencv4-contrib, perftest, perl-image-exiftool,
+	python-apispec, python-async-generator, python-cppy,
+	python-dbus-fast, python-dicttoxml2, python-flask-smorest,
+	python-h11, python-hkdf, python-magic-wormhole,
+	python-magic-wormhole-mailbox-server,
+	python-magic-wormhole-transit-relay, python-marshmallow,
+	python-munch, python-outcome, python-pycrate, python-pyspnego,
+	python-reedsolo, python-selenium, python-smbprotocol,
+	python-sniffio, python-spake2, python-trio,
+	python-trio-websocket, python-uhid, python-webargs,
+	python-wsproto, qt5speech, qt6serialbus, rdma-core, reproc,
+	rtl8723ds-bt, rtl8821cu, sexpect, speechd, sscep, stb, sway,
+	termcolor, ti-k3-r5-loader, tl-expected, unifdef,
+	versal-firmware, xwayland, z3
+
+	Removed packages: docker-proxy, elixir, gummiboot,
+	python-bunch, python-m2r, sun20i-d1-spl, ucl,
+	xdriver_xf86-input-keyboard, xdriver_xf86-video-glint,
+	xdriver_xf86-video-imx-viv, xdriver_xf86-video-tga
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#14971: Kernel 3.10.108 fail to build in Buildroot 2022.08-rc1
+	#14996: Too many directories in BR2_EXTERNAL causes hang during make
+	#15161: kernel can't support SUBDIR
+	#15196: Setting BR2_PACKAGE_RPI_FIRMWARE_CONFIG_FILE does not work
+	#15226: lsblk: not found
+	#15271: no start-qemu.sh
+	#15281: Error compiling GDAL library for RPi-64 if libgdal-dev install..
+	#15291: BR2_PACKAGE_GNU_EFI_ARCH_SUPPORTS without location
+	#15301: Selecting NAND Flash boot media (NAND_BOOT) breaks the uboot..
+	#15331: Warning on python-flit-core license when generating legal info
+
+2022.11.2, released March 1st, 2023
+
+	Important / security related fixes.
+
+	Fix make O=..._defconfig builds (regression in 2022.11.1).
+
+	A number of additional/stricter checks have been added to
+	./utils/check-package.
+
+	Build host dependencies check extended to check for a number
+	of specific perl modules to better handle distributions (like
+	Fedora) with very fine grained perl packages. Also ensure
+	build host has git >= 2.0.0 when using packages written in
+	go/rust because the vendoring may need it.
+
+	Defconfigs: ASUS tinker rk3288: Fix boot issue related to TPL
+
+	Updated/fixed packages: afboot-stm32, apache, barebox, c-ares,
+	elf2flt, freeswitch, fwts, gcc, gdal, git, gitlab-runner,
+	ipmitool, kodi, libgit2, libks, libopenssl, libressl, live555,
+	lua, lxc, mariadb, mesa3d-headers, modsecurity2, mongoose,
+	netopeer2, nodejs, openjdk, openpowerlink, openvpn, opusfile,
+	postgresql, proftpd, pugixml, python-future, python-idna, qt5,
+	rtl8192eu, rtl8723ds, sdl2, sofia-sip, ssdp-responder, sudo,
+	sunxi-mali-utgard, thermald, ti-sgx-km, tmux, uboot, upx, vim,
+	webkitgtk, wolfssl, wpewebkit, xlib_libXpm,
+	xserver_xorg-server, xxhash, xz, yajl, zabbix
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#15271: no start-qemu.sh
+	#15281: Error compiling GDAL library for RPi-64 if libgdal-dev install..
+	#15291: BR2_PACKAGE_GNU_EFI_ARCH_SUPPORTS without location
+	#15301: Selecting NAND Flash boot media (NAND_BOOT) breaks the uboot..
+	#15331: Warning on python-flit-core license when generating legal info
+
 2022.11.1, released January 18th, 2023
 
 	Important / security related fixes.
@@ -158,6 +310,22 @@
 	#15026: package/udisks: install to staging
 	#15061: Node.js Package fails to build against musl  i386
 	#15071: RTL8723BS library is outdated
+
+2022.08.3, released December 10th, 2022
+
+	Important / security related fixes.
+
+	Updated/fixed packages: asterisk, dash, dovecot, edk2,
+	edk2-platforms, elf2flt, exim, freerdp, gcc, gdb, git, gnupg2,
+	heimdal, iwd, kodi, libarchive, libkrb5, libksba, libmdbx,
+	libopenssl, matchbox-keyboard, memcached, netsnmp, nginx,
+	nodejs, openpgm, optee-client, python-scipy, python3, rsync,
+	rtl8723bu, samba4, sdl, sdl2, swupdate, sysstat, systemd,
+	uboot, vim, vlc, wilc-driver, xen, xterm
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	15131: Target GDB uses internal zlib
 
 2022.08.2, released November 16th, 2022
 
@@ -563,6 +731,98 @@
 	#14721: python-argon2_cffi no longer works
 	#14731: BR2_PACKAGE_IOSTAT
 	#14751: LVM2 Outdated Link
+
+2022.02.10, released March 1st, 2023
+
+	Important / security related fixes.
+
+	Fix make O=..._defconfig builds (regression in 2022.02.9).
+
+	A number of additional/stricter checks have been added to
+	./utils/check-package.
+
+	Build host dependencies check extended to check for a number
+	of specific perl modules to better handle distributions (like
+	Fedora) with very fine grained perl packages. Also ensure
+	build host has git >= 2.0.0 when using packages written in
+	go/rust because the vendoring may need it.
+
+	Defconfigs: ASUS tinker rk3288: Fix boot issue related to TPL
+
+	Updated/fixed packages: afboot-stm32, apache, barebox, c-ares,
+	elf2flt, freeswitch, fwts, gcc, git, kodi, libgit2, libks,
+	libopenssl, live555, lua, lxc, mesa3d-headers, modsecurity2,
+	netopeer2, openjdk, openpowerlink, openvpn, opusfile,
+	postgresql, pugixml, python-future, qt5, sdl2, sofia-sip,
+	ssdp-responder, sudo, sunxi-mali-utgard, ti-sgx-km, tmux,
+	uboot, upx, vim, webkitgtk, wolfssl, wpewebkit, xlib_libXpm,
+	xserver_xorg-server, xxhash, xz, yajl, zabbix
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#15271: no start-qemu.sh
+	#15291: BR2_PACKAGE_GNU_EFI_ARCH_SUPPORTS without location
+	#15301: Selecting NAND Flash boot media (NAND_BOOT) breaks the uboot..
+
+2022.02.9, released January 18th, 2023
+
+	Important / security related fixes.
+
+	Br2-external: Fix make performance issue when many (> 6)
+	external trees are used together.
+
+	Erofs: Use fixed timestamp and UUID when BR2_REPRODUCIBLE is
+	used.
+
+	Go: Ensure our go build and module cache is used, even for the
+	download step.
+
+	Legal-info: Stop warning about not saving sources for local /
+	override packages if <PKG>_REDISTRIBUTE is set to NO.
+
+	Linux: Fix build of < 5.6 kernels with host-gcc >= 10.
+
+	A large number of NXP related packages and defconfigs have
+	been updated as upstream moved the git repositories to Github.
+
+	Updated/fixed packages: asterisk, bearssl, botan, cairo,
+	capnproto, check, checkpolicy, connman, containerd,
+	docker-cli, docker-engine, exempi, exfat, exfat-utils, fmc,
+	fmlib, glib-networking, go, gobject-introspection, gperf,
+	i2pd, ima-evm-utils, imx-alsa-plugins, imx-kobs, imx-lib,
+	imx-m4fwloader, imx-mkimage, intel-microcode, janus-gateway,
+	libcurl, libftdi1, libksba, libmbim, libmng, libpjsip,
+	libtalloc, libuwsc, libxkbcommon, linux, lpeg, lrzsz,
+	lttng-tools, lua-cqueues, mbedtls, mfgtools, mutt, php,
+	policycoreutils, polkit, postgresql, pptp-linux,
+	qcom-db410c-firmware, qemu, qoriq-rcw, qt5virtualkeyboard,
+	rhash, rtl_433, ruby, sqlite, swupdate, tekui, tiff, tinyxml,
+	tor, wayland, wireshark, wpa_supplicant,
+	xdriver_xf86-video-imx-viv, xserver_xorg-server, xxhash, zip
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#14971: Kernel 3.10.108 fail to build in Buildroot 2022.08-rc1
+	#14996: Too many directories in BR2_EXTERNAL causes hang during make
+	#15161: kernel can't support SUBDIR
+	#15196: Setting BR2_PACKAGE_RPI_FIRMWARE_CONFIG_FILE does not work
+	#15226: lsblk: not found
+
+2022.02.8, released December 10th, 2022
+
+	Important / security related fixes.
+
+	Updated/fixed packages: asterisk, dash, dovecot,
+	dovecot-pigeonhole, edk2, edk2-platforms, elf2flt, exim,
+	freerdp, gcc, gdb, git, gnupg2, heimdal, iwd, kodi,
+	libarchive, libmdbx, libkrb5, libksba, libopenssl, memcached,
+	netsnmp, nginx, openpgm, optee-client, python3, rsync,
+	rtl8723bu, samba4, sdl, sdl2, swupdate, sysstat, systemd,
+	uboot, vim, vlc, xen, xterm
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#15131: Target GDB uses internal zlib
 
 2022.02.7, released November 17th, 2022
 
@@ -7661,7 +7921,7 @@
 
 	Architecture: Default to bf532 CPU variant for blackfin,
 	Fix flat one memory region support for m68k and disable flat
-	seperate data support because of compatibility issues.
+	separate data support because of compatibility issues.
 
 	Defconfigs: Minnowboard and Raspberrypi: Fix errors with
 	post-build scripts when systemd is used.
@@ -8197,7 +8457,7 @@
 
 	Minor fixes.
 
-	Merged/seperate /usr handling is now also performed for
+	Merged/separate /usr handling is now also performed for
 	staging so cross-gdb / gdbserver can find the libraries.
 
 	Updated/fixed packages: autossh, conntrack-tools, dcron,

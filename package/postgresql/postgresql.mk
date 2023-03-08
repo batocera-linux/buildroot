@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-POSTGRESQL_VERSION = 14.6
+POSTGRESQL_VERSION = 15.2
 POSTGRESQL_SOURCE = postgresql-$(POSTGRESQL_VERSION).tar.bz2
 POSTGRESQL_SITE = https://ftp.postgresql.org/pub/source/v$(POSTGRESQL_VERSION)
 POSTGRESQL_LICENSE = PostgreSQL
@@ -91,6 +91,20 @@ else
 POSTGRESQL_CONF_OPTS += --without-libxml
 endif
 
+ifeq ($(BR2_PACKAGE_ZSTD),y)
+POSTGRESQL_DEPENDENCIES += host-pkgconf zstd
+POSTGRESQL_CONF_OPTS += --with-zstd
+else
+POSTGRESQL_CONF_OPTS += --without-zstd
+endif
+
+ifeq ($(BR2_PACKAGE_LZ4),y)
+POSTGRESQL_DEPENDENCIES += host-pkgconf lz4
+POSTGRESQL_CONF_OPTS += --with-lz4
+else
+POSTGRESQL_CONF_OPTS += --without-lz4
+endif
+
 # required for postgresql.service Type=notify
 ifeq ($(BR2_PACKAGE_SYSTEMD),y)
 POSTGRESQL_DEPENDENCIES += systemd
@@ -101,7 +115,7 @@ endif
 
 POSTGRESQL_CFLAGS = $(TARGET_CFLAGS)
 
-ifeq ($(BR2_TOOLCHAIN_HAS_GCC_BUG_85180),y)
+ifneq ($(BR2_TOOLCHAIN_HAS_GCC_BUG_43744)$(BR2_TOOLCHAIN_HAS_GCC_BUG_85180),)
 POSTGRESQL_CFLAGS += -O0
 endif
 

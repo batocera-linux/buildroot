@@ -4,8 +4,7 @@
 #
 ################################################################################
 
-# batocera - version update
-PIPEWIRE_VERSION = 0.3.63
+PIPEWIRE_VERSION = 0.3.65
 PIPEWIRE_SOURCE = pipewire-$(PIPEWIRE_VERSION).tar.bz2
 PIPEWIRE_SITE = https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/$(PIPEWIRE_VERSION)
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
@@ -35,9 +34,6 @@ PIPEWIRE_CONF_OPTS += \
 	-Davb=disabled \
 	-Dlibcanberra=disabled
 
-# batocera - remove disabling of flatpak
-#-Dflatpak=disabled
-
 # batocera
 # this is a not nice workaround
 # i don't know why meson uses bad ssl certificates and doesn't manage to download them
@@ -51,6 +47,13 @@ PIPEWIRE_PRE_CONFIGURE_HOOKS += PIPEWIRE_DWD_DEPENDENCIES
 
 # batocera
 PIPEWIRE_CONF_OPTS += --wrap-mode=default
+
+# batocera
+ifeq ($(BR2_PACKAGE_FLATPAK),y)
+PIPEWIRE_CONF_OPTS += -Dflatpak=enabled
+else
+PIPEWIRE_CONF_OPTS += -Dflatpak=disabled
+endif
 
 ifeq ($(BR2_PACKAGE_DBUS),y)
 PIPEWIRE_CONF_OPTS += -Ddbus=enabled
@@ -121,6 +124,12 @@ endif
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS)$(BR2_PACKAGE_SBC),yy)
 PIPEWIRE_CONF_OPTS += -Dbluez5=enabled
 PIPEWIRE_DEPENDENCIES += bluez5_utils sbc
+ifeq ($(BR2_PACKAGE_MODEM_MANAGER),y)
+PIPEWIRE_CONF_OPTS += -Dbluez5-backend-native-mm=enabled
+PIPEWIRE_DEPENDENCIES += modem-manager
+else
+PIPEWIRE_CONF_OPTS += -Dbluez5-backend-native-mm=disabled
+endif
 ifeq ($(BR2_PACKAGE_OPUS),y)
 PIPEWIRE_CONF_OPTS += -Dbluez5-codec-opus=enabled
 PIPEWIRE_DEPENDENCIES += opus
@@ -131,13 +140,12 @@ else
 PIPEWIRE_CONF_OPTS += -Dbluez5=disabled -Dbluez5-codec-opus=disabled
 endif
 
-# batocera, circular dependancy
-#ifeq ($(BR2_PACKAGE_FFMPEG),y)
-#PIPEWIRE_CONF_OPTS += -Dffmpeg=enabled
-#PIPEWIRE_DEPENDENCIES += ffmpeg
-#else
-PIPEWIRE_CONF_OPTS += -Dffmpeg=disabled
-#endif
+ifeq ($(BR2_PACKAGE_FFMPEG),y)
+PIPEWIRE_CONF_OPTS += -Dffmpeg=enabled -Dpw-cat-ffmpeg=enabled
+PIPEWIRE_DEPENDENCIES += ffmpeg
+else
+PIPEWIRE_CONF_OPTS += -Dffmpeg=disabled -Dpw-cat-ffmpeg=disabled
+endif
 
 ifeq ($(BR2_PACKAGE_NCURSES_WCHAR),y)
 PIPEWIRE_DEPENDENCIES += ncurses
@@ -177,6 +185,13 @@ else
 PIPEWIRE_CONF_OPTS += -Dx11-xfixes=disabled
 endif
 
+ifeq ($(BR2_PACKAGE_LIBGLIB2),y)
+PIPEWIRE_CONF_OPTS += -Dgsettings=enabled
+PIPEWIRE_DEPENDENCIES += libglib2
+else
+PIPEWIRE_CONF_OPTS += -Dgsettings=disabled
+endif
+
 ifeq ($(BR2_PACKAGE_LIBUSB),y)
 PIPEWIRE_CONF_OPTS += -Dlibusb=enabled
 PIPEWIRE_DEPENDENCIES += libusb
@@ -207,7 +222,10 @@ PIPEWIRE_CONF_OPTS += -Dlibpulse=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_READLINE),y)
+PIPEWIRE_CONF_OPTS += -Dreadline=enabled
 PIPEWIRE_DEPENDENCIES += readline
+else
+PIPEWIRE_CONF_OPTS += -Dreadline=disabled
 endif
 
 # batocera
@@ -217,6 +235,13 @@ endif
 #else
 PIPEWIRE_CONF_OPTS += -Dsdl2=disabled
 #endif
+
+ifeq ($(BR2_PACKAGE_PIPEWIRE_COMPRESS_OFFLOAD),y)
+PIPEWIRE_CONF_OPTS += -Dcompress-offload=enabled
+PIPEWIRE_DEPENDENCIES += tinycompress
+else
+PIPEWIRE_CONF_OPTS += -Dcompress-offload=disabled
+endif
 
 ifeq ($(WEBRTC_AUDIO_PROCESSING),y)
 PIPEWIRE_CONF_OPTS += -Decho-cancel-webrtc=enabled

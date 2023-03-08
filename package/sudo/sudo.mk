@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-SUDO_VERSION_MAJOR = 1.9.11
+SUDO_VERSION_MAJOR = 1.9.12
 SUDO_VERSION_MINOR = p2
 SUDO_VERSION = $(SUDO_VERSION_MAJOR)$(SUDO_VERSION_MINOR)
 SUDO_SITE = https://www.sudo.ws/sudo/dist
@@ -13,6 +13,8 @@ SUDO_LICENSE_FILES = LICENSE.md
 SUDO_CPE_ID_VERSION = $(SUDO_VERSION_MAJOR)
 SUDO_CPE_ID_UPDATE = $(SUDO_VERSION_MINOR)
 SUDO_SELINUX_MODULES = sudo
+# We're patching configure.ac
+SUDO_AUTORECONF = YES
 # This is to avoid sudo's make install from chown()ing files which fails
 SUDO_INSTALL_TARGET_OPTS = INSTALL_OWNER="" DESTDIR="$(TARGET_DIR)" install
 SUDO_CONF_OPTS = \
@@ -24,9 +26,6 @@ SUDO_CONF_OPTS = \
 	--with-logging=syslog \
 	--without-interfaces \
 	--with-env-editor
-
-# 0001-Fix-CVE-2022-43995.patch
-SUDO_IGNORE_CVES += CVE-2022-43995
 
 ifeq ($(BR2_PACKAGE_LINUX_PAM),y)
 define SUDO_INSTALL_PAM_CONF
