@@ -34,9 +34,6 @@ PIPEWIRE_CONF_OPTS += \
 	-Davb=disabled \
 	-Dlibcanberra=disabled
 
-# batocera - remove disabling of flatpak
-#-Dflatpak=disabled
-
 # batocera
 # this is a not nice workaround
 # i don't know why meson uses bad ssl certificates and doesn't manage to download them
@@ -50,6 +47,13 @@ PIPEWIRE_PRE_CONFIGURE_HOOKS += PIPEWIRE_DWD_DEPENDENCIES
 
 # batocera
 PIPEWIRE_CONF_OPTS += --wrap-mode=default
+
+# batocera
+ifeq ($(BR2_PACKAGE_FLATPAK),y)
+PIPEWIRE_CONF_OPTS += -Dflatpak=enabled
+else
+PIPEWIRE_CONF_OPTS += -Dflatpak=disabled
+endif
 
 ifeq ($(BR2_PACKAGE_DBUS),y)
 PIPEWIRE_CONF_OPTS += -Ddbus=enabled
