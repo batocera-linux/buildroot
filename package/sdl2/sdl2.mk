@@ -3,8 +3,8 @@
 # sdl2
 #
 ################################################################################
-
-SDL2_VERSION = 2.26.3
+# batocera (update)
+SDL2_VERSION = 2.26.4
 SDL2_SOURCE = SDL2-$(SDL2_VERSION).tar.gz
 SDL2_SITE = http://www.libsdl.org/release
 SDL2_LICENSE = Zlib
@@ -86,7 +86,6 @@ endif
 
 # batocera - use Pipewire audio
 ifeq ($(BR2_PACKAGE_PIPEWIRE),y)
-SDL2_DEPENDENCIES += pipewire
 SDL2_CONF_OPTS += --enable-pipewire
 endif
 
