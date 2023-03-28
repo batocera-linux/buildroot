@@ -189,3 +189,5 @@ LIBCURL_POST_INSTALL_TARGET_HOOKS += LIBCURL_TARGET_CLEANUP
 endif
 
 $(eval $(autotools-package))
+# batocera - removing host-autotools-package causes dependency problem on pipewire
+$(eval $(host-autotools-package))
