@@ -4,7 +4,7 @@
 #
 ################################################################################
 # batocera (update)
-LIBINPUT_VERSION = 1.22.1
+LIBINPUT_VERSION = 1.23.0
 LIBINPUT_SOURCE = libinput-$(LIBINPUT_VERSION).tar.bz2
 LIBINPUT_SITE = https://gitlab.freedesktop.org/libinput/libinput/-/archive/$(LIBINPUT_VERSION)
 LIBINPUT_DEPENDENCIES = host-pkgconf libevdev mtdev udev
