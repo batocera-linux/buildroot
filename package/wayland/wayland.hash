@@ -1,6 +1,6 @@
-# From https://lists.freedesktop.org/archives/wayland-devel/2023-March/042637.html
-sha256  d5ed46e7dca8479614a7ef0518464e49fd4fa549ed6cdba963eabe12a6bccf81  wayland-1.21.92.tar.xz
-sha512  ccc4c658859d4db7d9dd3fc8327d57095d37e5a6d88b1ecae9e32d33432afe49a3494c35bd868fd757964b3d43c2ae0cdce872c422af5441f3cbd96823b86cf0  wayland-1.21.92.tar.xz
+# From https://lists.freedesktop.org/archives/wayland-devel/2023-April/042647.html
+sha256  1540af1ea698a471c2d8e9d288332c7e0fd360c8f1d12936ebb7e7cbc2425842  wayland-1.22.0.tar.xz
+sha512  fb1974efc8433e97254eb83fe28974198f2b4d8246418eb3d34ce657055461e0c97bc06dd52e5066ae91bbe05bac611dc49a0937ba226ac6388d5a47241efb12  wayland-1.22.0.tar.xz
 
 # Locally calculated
 sha256  6eefcb023622a463168a5c20add95fd24a38c7482622a9254a23b99b7c153061  COPYING
