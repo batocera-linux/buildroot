@@ -24,6 +24,7 @@ comment "qt6 needs a toolchain w/ C++, threads, wchar, dynamic library, gcc >= 8
 		!BR2_HOST_GCC_AT_LEAST_8 || !BR2_TOOLCHAIN_HAS_THREADS || \
 		BR2_STATIC_LIBS || !BR2_USE_WCHAR
 
+# batocera - allow QT5 & QT6 to co-exist...
 menuconfig BR2_PACKAGE_QT6
 	bool "Qt6"
 	depends on BR2_INSTALL_LIBSTDCPP
@@ -33,7 +34,7 @@ menuconfig BR2_PACKAGE_QT6
 	depends on BR2_TOOLCHAIN_HAS_THREADS
 	depends on !BR2_STATIC_LIBS
 	depends on BR2_USE_WCHAR
-	depends on !BR2_PACKAGE_QT5
+	#depends on !BR2_PACKAGE_QT5
 	select BR2_PACKAGE_QT6BASE
 	help
 	  This option enables the Qt6 framework. Sub-options allow to

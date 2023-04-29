@@ -80,7 +80,9 @@ define QT6BASE_BUILD_CMDS
 	$(TARGET_MAKE_ENV) $(BR2_CMAKE) --build $(QT6BASE_BUILDDIR)
 endef
 
+# batocera - add host directory
 define QT6BASE_INSTALL_STAGING_CMDS
+	$(TARGET_MAKE_ENV) DESTDIR=$(HOST_DIR) $(BR2_CMAKE) --install $(QT6BASE_BUILDDIR)
 	$(TARGET_MAKE_ENV) DESTDIR=$(STAGING_DIR) $(BR2_CMAKE) --install $(QT6BASE_BUILDDIR)
 endef
 
@@ -155,15 +157,19 @@ else
 QT6BASE_CONF_OPTS += -DFEATURE_linuxfb=OFF
 endif
 
+# batocera - add xinput
 ifeq ($(BR2_PACKAGE_QT6BASE_XCB),y)
 QT6BASE_CONF_OPTS += \
-	-DFEATURE_xcb=ON \
+    -DFEATURE_xcb=ON \
 	-DFEATURE_xcb_xlib=ON \
 	-DFEATURE_xkbcommon=ON \
-	-DFEATURE_xkbcommon_x11=ON
+	-DFEATURE_xkbcommon_x11=ON \
+	-DFEATURE_system_xcb_xinput=ON
+# batocera - add cursor
 QT6BASE_DEPENDENCIES += \
 	libxcb \
 	libxkbcommon \
+	xcb-util-cursor \
 	xcb-util-wm \
 	xcb-util-image \
 	xcb-util-keysyms \
@@ -171,7 +177,7 @@ QT6BASE_DEPENDENCIES += \
 	xlib_libX11
 else
 QT6BASE_CONF_OPTS += -DFEATURE_xcb=OFF
-endif
+endif 
 
 ifeq ($(BR2_PACKAGE_QT6BASE_HARFBUZZ),y)
 QT6BASE_CONF_OPTS += -DFEATURE_harfbuzz=ON
@@ -235,8 +241,10 @@ else
 QT6BASE_CONF_OPTS += -DFEATURE_fontconfig=OFF
 endif
 
+# batocera - add libXext
 ifeq ($(BR2_PACKAGE_QT6BASE_WIDGETS),y)
 QT6BASE_CONF_OPTS += -DFEATURE_widgets=ON
+QT6BASE_DEPENDENCIES += xlib_libXext
 
 # only enable gtk support if libgtk3 X11 backend is enabled
 ifeq ($(BR2_PACKAGE_LIBGTK3)$(BR2_PACKAGE_LIBGTK3_X11),yy)
