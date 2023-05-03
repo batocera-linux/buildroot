@@ -1,4 +1,4 @@
-# From https://gitlab.freedesktop.org/mesa/mesa/-/blob/7c976fbf4a3fca22fd664ba914fd746712ceced7/docs/relnotes/23.0.3.rst
-sha256  386362a5d80df3b096636b67f340e1ce67b705b44767d5bdd11d2ed1037192d5  mesa-23.0.3.tar.xz
+# From https://lists.freedesktop.org/archives/mesa-dev/2023-May/225994.html
+sha256  98ef6dccded17a884aa47dc74d610158bdf19a148eb1beb7e44be191714a124f  mesa-23.1.0-rc4.tar.xz
 # License
 sha256  a00275a53178e2645fb65be99a785c110513446a5071ff2c698ed260ad917d75  docs/license.rst
