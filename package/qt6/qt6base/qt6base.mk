@@ -80,9 +80,7 @@ define QT6BASE_BUILD_CMDS
 	$(TARGET_MAKE_ENV) $(BR2_CMAKE) --build $(QT6BASE_BUILDDIR)
 endef
 
-# batocera - add host directory
 define QT6BASE_INSTALL_STAGING_CMDS
-	$(TARGET_MAKE_ENV) DESTDIR=$(HOST_DIR) $(BR2_CMAKE) --install $(QT6BASE_BUILDDIR)
 	$(TARGET_MAKE_ENV) DESTDIR=$(STAGING_DIR) $(BR2_CMAKE) --install $(QT6BASE_BUILDDIR)
 endef
 
@@ -96,14 +94,15 @@ HOST_QT6BASE_DEPENDENCIES = \
 	host-libb2 \
 	host-pcre2 \
 	host-zlib
+# batocera - gui, testlib & network = ON for other Qt6 packages
 HOST_QT6BASE_CONF_OPTS = \
 	-GNinja \
-	-DFEATURE_gui=OFF \
+	-DFEATURE_gui=ON \
 	-DFEATURE_concurrent=OFF \
 	-DFEATURE_xml=ON \
 	-DFEATURE_sql=OFF \
-	-DFEATURE_testlib=OFF \
-	-DFEATURE_network=OFF \
+	-DFEATURE_testlib=ON \
+	-DFEATURE_network=ON \
 	-DFEATURE_dbus=OFF \
 	-DFEATURE_icu=OFF \
 	-DFEATURE_glib=OFF \
