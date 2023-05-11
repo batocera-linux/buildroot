@@ -94,11 +94,11 @@ HOST_QT6BASE_DEPENDENCIES = \
 	host-libb2 \
 	host-pcre2 \
 	host-zlib
-# batocera - gui, testlib & network = ON for other Qt6 packages
+# batocera - gui, concurrent, testlib & network = ON for other Qt6 packages
 HOST_QT6BASE_CONF_OPTS = \
 	-GNinja \
 	-DFEATURE_gui=ON \
-	-DFEATURE_concurrent=OFF \
+	-DFEATURE_concurrent=ON \
 	-DFEATURE_xml=ON \
 	-DFEATURE_sql=OFF \
 	-DFEATURE_testlib=ON \
