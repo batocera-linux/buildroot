@@ -74,7 +74,9 @@ QT6BASE_CONF_OPTS += \
 	-DFEATURE_avx512vbmi=OFF \
 	-DFEATURE_avx512vbmi2=OFF \
 	-DFEATURE_avx512vl=OFF \
-	-DFEATURE_vaes=OFF
+	-DFEATURE_vaes=OFF \
+    -DQT_BUILD_TESTS_BY_DEFAULT=OFF \
+    -DQT_BUILD_EXAMPLES_BY_DEFAULT=OFF
 
 define QT6BASE_BUILD_CMDS
 	$(TARGET_MAKE_ENV) $(BR2_CMAKE) --build $(QT6BASE_BUILDDIR)
@@ -94,13 +96,13 @@ HOST_QT6BASE_DEPENDENCIES = \
 	host-libb2 \
 	host-pcre2 \
 	host-zlib
-# batocera - gui, concurrent, testlib & network = ON for other Qt6 packages
+# batocera - gui, concurrent, sql, testlib & network = ON for other Qt6 packages
 HOST_QT6BASE_CONF_OPTS = \
 	-GNinja \
 	-DFEATURE_gui=ON \
 	-DFEATURE_concurrent=ON \
 	-DFEATURE_xml=ON \
-	-DFEATURE_sql=OFF \
+	-DFEATURE_sql=ON \
 	-DFEATURE_testlib=ON \
 	-DFEATURE_network=ON \
 	-DFEATURE_dbus=OFF \
@@ -109,7 +111,9 @@ HOST_QT6BASE_CONF_OPTS = \
 	-DFEATURE_system_doubleconversion=ON \
 	-DFEATURE_system_libb2=ON \
 	-DFEATURE_system_pcre2=ON \
-	-DFEATURE_system_zlib=ON
+	-DFEATURE_system_zlib=ON \
+    -DQT_BUILD_TESTS_BY_DEFAULT=OFF \
+    -DQT_BUILD_EXAMPLES_BY_DEFAULT=OFF
 
 define HOST_QT6BASE_BUILD_CMDS
 	$(HOST_MAKE_ENV) $(BR2_CMAKE) --build $(HOST_QT6BASE_BUILDDIR)
