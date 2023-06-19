@@ -3,8 +3,8 @@
 # xdriver_xf86-video-amdgpu
 #
 ################################################################################
-
-XDRIVER_XF86_VIDEO_AMDGPU_VERSION = 22.0.0
+# batocera - upgrade
+XDRIVER_XF86_VIDEO_AMDGPU_VERSION = 23.0.0
 XDRIVER_XF86_VIDEO_AMDGPU_SOURCE = xf86-video-amdgpu-$(XDRIVER_XF86_VIDEO_AMDGPU_VERSION).tar.xz
 XDRIVER_XF86_VIDEO_AMDGPU_SITE = http://xorg.freedesktop.org/releases/individual/driver
 XDRIVER_XF86_VIDEO_AMDGPU_LICENSE = MIT
