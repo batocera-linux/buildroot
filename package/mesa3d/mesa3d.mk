@@ -300,12 +300,22 @@ endif
 
 # batocera icd.@0@.json vulkan files
 define MESA3D_VULKANJSON_X86_64
-        $(SED) s+"host_machine.cpu()"+"'x86_64'"+ $(@D)/src/intel/vulkan/meson.build $(@D)/src/amd/vulkan/meson.build
+        $(SED) s+"host_machine.cpu()"+"'x86_64'"+ $(@D)/src/intel/vulkan/meson.build \
+		    $(@D)/src/intel/vulkan_hasvk/meson.build $(@D)/src/amd/vulkan/meson.build
 endef
 
 define MESA3D_VULKANJSON_X86
-        $(SED) s+"host_machine.cpu()"+"'i686'"+ $(@D)/src/intel/vulkan/meson.build $(@D)/src/amd/vulkan/meson.build
+        $(SED) s+"host_machine.cpu()"+"'i686'"+ $(@D)/src/intel/vulkan/meson.build \
+		    $(@D)/src/intel/vulkan_hasvk/meson.build $(@D)/src/amd/vulkan/meson.build
 endef
+
+ifeq ($(BR2_x86_64),y)
+    MESA3D_PRE_CONFIGURE_HOOKS += MESA3D_VULKANJSON_X86_64
+endif
+ifeq ($(BR2_x86_i686),y)
+    MESA3D_PRE_CONFIGURE_HOOKS += MESA3D_VULKANJSON_X86
+endif
+# end batcoera
 
 MESA3D_CFLAGS = $(TARGET_CFLAGS)
 
