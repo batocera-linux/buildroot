@@ -3,7 +3,7 @@
 # mpv
 #
 ################################################################################
-# batocera (update)
+
 MPV_VERSION = 0.35.1
 MPV_SITE = $(call github,mpv-player,mpv,v$(MPV_VERSION))
 MPV_DEPENDENCIES = \
@@ -141,7 +141,10 @@ MPV_CONF_OPTS += --disable-lua
 endif
 
 # OpenGL support
-ifeq ($(BR2_PACKAGE_HAS_LIBGLES),y)
+ifeq ($(BR2_PACKAGE_HAS_LIBGL),y)
+MPV_CONF_OPTS += --enable-gl
+MPV_DEPENDENCIES += libgl
+else ifeq ($(BR2_PACKAGE_HAS_LIBGLES),y)
 MPV_CONF_OPTS += --enable-gl
 MPV_DEPENDENCIES += libgles
 else ifeq ($(BR2_PACKAGE_HAS_LIBEGL),y)
