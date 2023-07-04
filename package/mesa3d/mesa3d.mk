@@ -203,7 +203,7 @@ MESA3D_CONF_OPTS += -Dopengl=true
 ifneq ($(BR2_PACKAGE_BATOCERA_TARGET_WSL),y)
 ifeq ($(BR2_PACKAGE_LIBVA),y)
 MESA3D_CONF_OPTS += -Dgallium-va=enabled
-#MESA3D_DEPENDENCIES += libva
+MESA3D_DEPENDENCIES += libva
 # batocera - we link vaapi acceleration drivers accordingly
 define MESA3D_ADD_VA_LINKS
 	(mkdir -p $(TARGET_DIR)/usr/lib/va && cd $(TARGET_DIR)/usr/lib/va \
