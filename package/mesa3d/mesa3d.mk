@@ -26,6 +26,11 @@ MESA3D_DEPENDENCIES = \
 	libdrm \
 	zlib
 
+# batocera
+ifeq ($(BR2_PACKAGE_DIRECTX_HEADERS),y)
+MESA3D_DEPENDENCIES += directx-headers
+endif
+
 MESA3D_CONF_OPTS = \
 	-Dgallium-omx=disabled \
 	-Dpower8=disabled
@@ -195,9 +200,10 @@ MESA3D_CONF_OPTS += -Dopengl=true
 # libva and mesa3d have a circular dependency
 # we do not need libva support in mesa3d, therefore disable this option
 # batocera - we enable vaapi acceleration
+ifneq ($(BR2_PACKAGE_BATOCERA_TARGET_WSL),y)
 ifeq ($(BR2_PACKAGE_LIBVA),y)
 MESA3D_CONF_OPTS += -Dgallium-va=enabled
-MESA3D_DEPENDENCIES += libva
+#MESA3D_DEPENDENCIES += libva
 # batocera - we link vaapi acceleration drivers accordingly
 define MESA3D_ADD_VA_LINKS
 	(mkdir -p $(TARGET_DIR)/usr/lib/va && cd $(TARGET_DIR)/usr/lib/va \
@@ -207,6 +213,9 @@ define MESA3D_ADD_VA_LINKS
 endef
 
 MESA3D_POST_INSTALL_TARGET_HOOKS += MESA3D_ADD_VA_LINKS
+else
+MESA3D_CONF_OPTS += -Dgallium-va=disabled
+endif
 else
 MESA3D_CONF_OPTS += -Dgallium-va=disabled
 endif
