@@ -115,6 +115,12 @@ HOST_QT6BASE_CONF_OPTS = \
     -DQT_BUILD_TESTS_BY_DEFAULT=OFF \
     -DQT_BUILD_EXAMPLES_BY_DEFAULT=OFF
 
+# batocera disable opengl when building host-qt6base (for WSL)
+ifeq  ($(BR2_PACKAGE_BATOCERA_TARGET_WSL),y)
+HOST_QT6BASE_CONF_OPTS += \
+	-DINPUT_opengl=no
+endif
+
 define HOST_QT6BASE_BUILD_CMDS
 	$(HOST_MAKE_ENV) $(BR2_CMAKE) --build $(HOST_QT6BASE_BUILDDIR)
 endef
