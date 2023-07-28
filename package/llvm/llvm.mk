@@ -4,18 +4,15 @@
 #
 ################################################################################
 
-# LLVM, Clang, libclc and lld should be version bumped together
-# batocera  bump to 14.0.6
-LLVM_VERSION = 14.0.6
+# LLVM, Clang and lld should be version bumped together
+LLVM_VERSION = 11.1.0
 LLVM_SITE = https://github.com/llvm/llvm-project/releases/download/llvmorg-$(LLVM_VERSION)
-LLVM_SOURCE = llvm-project-$(LLVM_VERSION).src.tar.xz
+LLVM_SOURCE = llvm-$(LLVM_VERSION).src.tar.xz
 LLVM_LICENSE = Apache-2.0 with exceptions
 LLVM_LICENSE_FILES = LICENSE.TXT
 LLVM_CPE_ID_VENDOR = llvm
 LLVM_SUPPORTS_IN_SOURCE_BUILD = NO
 LLVM_INSTALL_STAGING = YES
-# Main CMakeLists.txt in llvm subfolder
-LLVM_SUBDIR = llvm
 
 # LLVM >= 9.0 can use python3 to build.
 HOST_LLVM_DEPENDENCIES = host-python3
