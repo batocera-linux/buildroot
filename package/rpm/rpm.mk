@@ -86,6 +86,20 @@ else
 RPM_CONF_OPTS += --without-selinux
 endif
 
+ifeq ($(BR2_PACKAGE_PYTHON3),y)
+RPM_DEPENDENCIES += python3
+RPM_CONF_OPTS += --enable-python
+else
+RPM_CONF_OPTS += --disable-python
+endif
+
+ifeq ($(BR2_PACKAGE_READLINE),y)
+RPM_DEPENDENCIES += readline
+RPM_CONF_OPTS += --with-readline
+else
+RPM_CONF_OPTS += --without-readline
+endif
+
 ifeq ($(BR2_PACKAGE_SQLITE),y)
 RPM_DEPENDENCIES += sqlite
 RPM_CONF_OPTS += --enable-sqlite

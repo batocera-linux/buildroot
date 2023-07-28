@@ -19,7 +19,7 @@ VIM_CONF_ENV = \
 	vim_cv_memmove_handles_overlap=yes \
 	ac_cv_sizeof_int=4 \
 	ac_cv_small_wchar_t=no \
-	LIBS="-ltinfo"
+	LIBS="-ltinfo" # batocera
 # GUI/X11 headers leak from the host so forcibly disable them
 VIM_CONF_OPTS = --with-tlib=ncurses --enable-gui=no --without-x
 VIM_LICENSE = Charityware
