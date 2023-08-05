@@ -12,9 +12,6 @@ PYTHON_SIP_LICENSE_FILES = LICENSE LICENSE-GPL2 LICENSE-GPL3
 PYTHON_SIP_DEPENDENCIES = python3 qt5base
 HOST_PYTHON_SIP_DEPENDENCIES = host-python3
 
-# batocera / fix regular compilation failure
-PYTHON_SIP_JOBS = 1
-
 define HOST_PYTHON_SIP_CONFIGURE_CMDS
 	(cd $(@D); \
 		$(HOST_MAKE_ENV) $(HOST_CONFIGURE_OPTS) $(HOST_DIR)/bin/python configure.py)
