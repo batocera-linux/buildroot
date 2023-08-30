@@ -61,6 +61,7 @@ define SDL2_FIX_CONFIGURE_PATHS
 	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/Makefile
 	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/sdl2-config
 	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/sdl2.pc
+	sed -i "s+-I/.* ++g"              $(@D)/sdl2.pc
 endef
 
 SDL2_POST_CONFIGURE_HOOKS += SDL2_FIX_WAYLAND_SCANNER_PATH
