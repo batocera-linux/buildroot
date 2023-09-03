@@ -3,8 +3,8 @@
 # libzlib
 #
 ################################################################################
-
-LIBZLIB_VERSION = 1.2.13
+# batocera - update
+LIBZLIB_VERSION = 1.3
 LIBZLIB_SOURCE = zlib-$(LIBZLIB_VERSION).tar.xz
 LIBZLIB_SITE = http://www.zlib.net
 LIBZLIB_LICENSE = Zlib
