@@ -81,10 +81,11 @@ index 253539d..9bd72af 100644
  
  static int hwdep_device_list(snd_ctl_t *ctl)
  {
-@@ -227,17 +229,21 @@ int general_card_info(int cardno)
+@@ -229,18 +229,21 @@ int general_card_info(int cardno)
+ 		return err;
  	}
  	err = card_info(ctl);
- 
+-
 +#ifdef __ALSA_PCM_H
  	first = true;
  	if (err >= 0)
@@ -96,9 +97,9 @@ index 253539d..9bd72af 100644
 +#ifdef __ALSA_RAWMIDI_H
  	first = true;
  	if (err >= 0)
- 		err = rawmidi_device_list(ctl, SND_PCM_STREAM_PLAYBACK, &first);
+ 		err = rawmidi_device_list(ctl, SND_RAWMIDI_STREAM_INPUT, &first);
  	if (err >= 0)
- 		err = rawmidi_device_list(ctl, SND_PCM_STREAM_CAPTURE, &first);
+ 		err = rawmidi_device_list(ctl, SND_RAWMIDI_STREAM_OUTPUT, &first);
 +#endif
  
  	if (err >= 0)
