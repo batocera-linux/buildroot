@@ -4,6 +4,8 @@ config BR2_PACKAGE_QT6BASE
 	select BR2_PACKAGE_LIBB2
 	select BR2_PACKAGE_PCRE2
 	select BR2_PACKAGE_PCRE2_16
+	# batocera fix qt6.5 build failing if not PCRE2_32 selected
+	select BR2_PACKAGE_PCRE2_32
 	select BR2_PACKAGE_ZLIB
 	help
 	  Qt is a cross-platform application and UI framework for
