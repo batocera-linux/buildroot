@@ -115,11 +115,9 @@ HOST_QT6BASE_CONF_OPTS = \
     -DQT_BUILD_TESTS_BY_DEFAULT=OFF \
     -DQT_BUILD_EXAMPLES_BY_DEFAULT=OFF
 
-# batocera disable opengl when building host-qt6base (for WSL)
-ifeq  ($(BR2_PACKAGE_BATOCERA_TARGET_WSL),y)
+# batocera disable opengl when building host-qt6base
 HOST_QT6BASE_CONF_OPTS += \
 	-DINPUT_opengl=no
-endif
 
 define HOST_QT6BASE_BUILD_CMDS
 	$(HOST_MAKE_ENV) $(BR2_CMAKE) --build $(HOST_QT6BASE_BUILDDIR)
@@ -253,7 +251,10 @@ endif
 # batocera - add libXext
 ifeq ($(BR2_PACKAGE_QT6BASE_WIDGETS),y)
 QT6BASE_CONF_OPTS += -DFEATURE_widgets=ON
+
+ifeq ($(BR2_PACKAGE_XSERVER_XORG_SERVER),y)
 QT6BASE_DEPENDENCIES += xlib_libXext
+endif
 
 # only enable gtk support if libgtk3 X11 backend is enabled
 ifeq ($(BR2_PACKAGE_LIBGTK3)$(BR2_PACKAGE_LIBGTK3_X11),yy)
