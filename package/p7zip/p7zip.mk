@@ -5,7 +5,7 @@
 ################################################################################
 # batocera - update version
 P7ZIP_VERSION = v17.05
-P7ZIP_SITE = https://github.com/p7zip-project/p7zip/archive/refs/tags
+P7ZIP_SITE = https://github.com/p7zip-project/p7zip.git
 P7ZIP_SITE_METHOD = git
 P7ZIP_SOURCE = $(P7ZIP_VERSION).tar.gz
 P7ZIP_LICENSE = LGPL-2.1+ with unRAR restriction
