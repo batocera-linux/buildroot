@@ -7,6 +7,8 @@ config BR2_PACKAGE_QT6_ARCH_SUPPORTS
 	default y if BR2_x86_64
 	default y if BR2_mips || BR2_mipsel || BR2_mips64 || BR2_mips64el
 	default y if BR2_powerpc || BR2_powerpc64 || BR2_powerpc64le
+	# batocera add riscv
+	default y if BR2_riscv
 	# sparc 32-bit is supposedly supported, but has issues due to
 	# the need of libatomic
 	default y if BR2_sparc64
