@@ -36,9 +36,9 @@ diff --git a/src/util/compiler.h b/src/util/compiler.h
 index d184ad455af..b5c56807acc 100644
 --- a/src/util/compiler.h
 +++ b/src/util/compiler.h
-@@ -36,6 +36,16 @@
- 
- #include <assert.h>
+@@ -43,6 +43,16 @@
+ #include <stdlib.h>
+ #include <string.h>
  
 +/*
 + * C11 static_assert() macro
@@ -50,8 +50,8 @@ index d184ad455af..b5c56807acc 100644
 +#endif
 +#endif
 +
+ #include "util/detect.h"
  #include "util/macros.h"
- 
  
 diff --git a/src/util/macros.h b/src/util/macros.h
 index 22b18303826..8f73ee72693 100644
