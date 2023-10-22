@@ -1,6 +1,6 @@
-# From https://xorg.freedesktop.org/archive/individual/xserver/xwayland-23.2.0.tar.xz
-sha256  7f33ec2a34de6e66ae1b7e44872c3a2146192872c719b9acf192814edbabd4c5  xwayland-23.2.0.tar.xz
-sha512  3b490839026da4d34136d50050397d87e205d4fdb9c3cc9896eb2980bf90f3c951e7ce5271d7f7379c56a376d36f9e1fe1242211b64e680b715dd065ea58532d  xwayland-23.2.0.tar.xz
+# From https://lists.x.org/archives/xorg-announce/2023-September/003420.html
+sha256  eebc2692c3aa80617d78428bc6ec7b91b254a98214d2a70e997098503cd6ef90  xwayland-23.2.1.tar.xz
+sha512  8ea3061a175c9163166c69569a81dbee2cad605d140dd25d9b61219db555e775811ebe9716c38b6fa6c591299b7c1dfcd5248e797e341ee4cea49b998be89657  xwayland-23.2.1.tar.xz
 
 # Locally calculated
 sha256  4cc0447a22635c7b2f1a93fec4aa94f1970fadeb72a063de006b51cf4963a06f  COPYING
