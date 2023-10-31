@@ -14,7 +14,7 @@ UEMACS_LICENSE_FILES = README
 define UEMACS_BUILD_CMDS
 	$(TARGET_CONFIGURE_OPTS) $(MAKE) -C $(@D) \
 		CC="$(TARGET_CC)" DEFINES="-DAUTOCONF -DPOSIX -DUSG" \
-		CFLAGS+="$(TARGET_CFLAGS) " LIBS="$(TARGET_CFLAGS) -lncurses"
+		CFLAGS+="$(TARGET_CFLAGS) " LIBS="$(TARGET_CFLAGS) -lncurses -ltinfo" # batocera - added -ltinfo required to make the uemacs editor to compile
 endef
 
 define UEMACS_INSTALL_TARGET_CMDS
