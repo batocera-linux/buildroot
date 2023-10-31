@@ -4,7 +4,7 @@
 #
 ################################################################################
 # batocera - bump
-XWAYLAND_VERSION = 23.2.1
+XWAYLAND_VERSION = 23.2.2
 XWAYLAND_SOURCE = xwayland-$(XWAYLAND_VERSION).tar.xz
 XWAYLAND_SITE = https://xorg.freedesktop.org/archive/individual/xserver
 XWAYLAND_LICENSE = MIT
