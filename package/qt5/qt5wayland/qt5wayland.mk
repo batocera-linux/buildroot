@@ -26,4 +26,9 @@ ifeq ($(BR2_PACKAGE_QT5WAYLAND_COMPOSITOR),y)
 QT5WAYLAND_CONF_OPTS += CONFIG+=wayland-compositor
 endif
 
+# batocera
+ifeq ($(BR2_PACKAGE_XSERVER_XORG_SERVER),)
+QT5WAYLAND_CONF_OPTS += DEFINES+=QT_EGL_NO_X11
+endif
+
 $(eval $(qmake-package))

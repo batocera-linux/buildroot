@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBCURL_VERSION = 7.88.1
+LIBCURL_VERSION = 8.1.2
 LIBCURL_SOURCE = curl-$(LIBCURL_VERSION).tar.xz
 LIBCURL_SITE = https://curl.se/download
 LIBCURL_DEPENDENCIES = host-pkgconf \
@@ -16,15 +16,22 @@ LIBCURL_CPE_ID_VENDOR = haxx
 LIBCURL_CPE_ID_PRODUCT = libcurl
 LIBCURL_INSTALL_STAGING = YES
 
-# We disable NTLM support because it uses fork(), which doesn't work
-# on non-MMU platforms. Moreover, this authentication method is
-# probably almost never used. See
-# http://curl.se/docs/manpage.html#--ntlm.
+# We disable NTLM delegation to winbinds ntlm_auth ('--disable-ntlm-wb')
+# support because it uses fork(), which doesn't work on non-MMU platforms.
+# Moreover, this authentication method is probably almost never used (see
+# https://curl.se/docs/manpage.html#--ntlm), so disable NTLM support overall.
+#
 # Likewise, there is no compiler on the target, so libcurl-option (to
 # generate C code) isn't very useful
-LIBCURL_CONF_OPTS = --disable-manual --disable-ntlm-wb \
-	--with-random=/dev/urandom --disable-curldebug \
-	--disable-libcurl-option --disable-ldap --disable-ldaps
+LIBCURL_CONF_OPTS = \
+	--disable-manual \
+	--disable-ntlm \
+	--disable-ntlm-wb \
+	--with-random=/dev/urandom \
+	--disable-curldebug \
+	--disable-libcurl-option \
+	--disable-ldap \
+	--disable-ldaps
 
 ifeq ($(BR2_TOOLCHAIN_HAS_THREADS),y)
 LIBCURL_CONF_OPTS += --enable-threaded-resolver
@@ -56,11 +63,6 @@ endif
 
 ifeq ($(BR2_PACKAGE_LIBCURL_OPENSSL),y)
 LIBCURL_DEPENDENCIES += openssl
-# configure adds the cross openssl dir to LD_LIBRARY_PATH which screws up
-# native stuff during the rest of configure when target == host.
-# Fix it by setting LD_LIBRARY_PATH to something sensible so those libs
-# are found first.
-LIBCURL_CONF_ENV += LD_LIBRARY_PATH=$(if $(LD_LIBRARY_PATH),$(LD_LIBRARY_PATH):)/lib:/usr/lib
 LIBCURL_CONF_OPTS += --with-openssl=$(STAGING_DIR)/usr \
 	--with-ca-path=/etc/ssl/certs
 else

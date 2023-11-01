@@ -74,7 +74,9 @@ QT6BASE_CONF_OPTS += \
 	-DFEATURE_avx512vbmi=OFF \
 	-DFEATURE_avx512vbmi2=OFF \
 	-DFEATURE_avx512vl=OFF \
-	-DFEATURE_vaes=OFF
+	-DFEATURE_vaes=OFF \
+    -DQT_BUILD_TESTS_BY_DEFAULT=OFF \
+    -DQT_BUILD_EXAMPLES_BY_DEFAULT=OFF
 
 define QT6BASE_BUILD_CMDS
 	$(TARGET_MAKE_ENV) $(BR2_CMAKE) --build $(QT6BASE_BUILDDIR)
@@ -94,21 +96,28 @@ HOST_QT6BASE_DEPENDENCIES = \
 	host-libb2 \
 	host-pcre2 \
 	host-zlib
+# batocera - gui, concurrent, sql, testlib & network = ON for other Qt6 packages
 HOST_QT6BASE_CONF_OPTS = \
 	-GNinja \
-	-DFEATURE_gui=OFF \
-	-DFEATURE_concurrent=OFF \
+	-DFEATURE_gui=ON \
+	-DFEATURE_concurrent=ON \
 	-DFEATURE_xml=ON \
-	-DFEATURE_sql=OFF \
-	-DFEATURE_testlib=OFF \
-	-DFEATURE_network=OFF \
+	-DFEATURE_sql=ON \
+	-DFEATURE_testlib=ON \
+	-DFEATURE_network=ON \
 	-DFEATURE_dbus=OFF \
 	-DFEATURE_icu=OFF \
 	-DFEATURE_glib=OFF \
 	-DFEATURE_system_doubleconversion=ON \
 	-DFEATURE_system_libb2=ON \
 	-DFEATURE_system_pcre2=ON \
-	-DFEATURE_system_zlib=ON
+	-DFEATURE_system_zlib=ON \
+    -DQT_BUILD_TESTS_BY_DEFAULT=OFF \
+    -DQT_BUILD_EXAMPLES_BY_DEFAULT=OFF
+
+# batocera disable opengl when building host-qt6base
+HOST_QT6BASE_CONF_OPTS += \
+	-DINPUT_opengl=no
 
 define HOST_QT6BASE_BUILD_CMDS
 	$(HOST_MAKE_ENV) $(BR2_CMAKE) --build $(HOST_QT6BASE_BUILDDIR)
@@ -155,15 +164,19 @@ else
 QT6BASE_CONF_OPTS += -DFEATURE_linuxfb=OFF
 endif
 
+# batocera - add xinput
 ifeq ($(BR2_PACKAGE_QT6BASE_XCB),y)
 QT6BASE_CONF_OPTS += \
-	-DFEATURE_xcb=ON \
+    -DFEATURE_xcb=ON \
 	-DFEATURE_xcb_xlib=ON \
 	-DFEATURE_xkbcommon=ON \
-	-DFEATURE_xkbcommon_x11=ON
+	-DFEATURE_xkbcommon_x11=ON \
+	-DFEATURE_system_xcb_xinput=ON
+# batocera - add cursor
 QT6BASE_DEPENDENCIES += \
 	libxcb \
 	libxkbcommon \
+	xcb-util-cursor \
 	xcb-util-wm \
 	xcb-util-image \
 	xcb-util-keysyms \
@@ -171,7 +184,7 @@ QT6BASE_DEPENDENCIES += \
 	xlib_libX11
 else
 QT6BASE_CONF_OPTS += -DFEATURE_xcb=OFF
-endif
+endif 
 
 ifeq ($(BR2_PACKAGE_QT6BASE_HARFBUZZ),y)
 QT6BASE_CONF_OPTS += -DFEATURE_harfbuzz=ON
@@ -235,8 +248,13 @@ else
 QT6BASE_CONF_OPTS += -DFEATURE_fontconfig=OFF
 endif
 
+# batocera - add libXext
 ifeq ($(BR2_PACKAGE_QT6BASE_WIDGETS),y)
 QT6BASE_CONF_OPTS += -DFEATURE_widgets=ON
+
+ifeq ($(BR2_PACKAGE_XSERVER_XORG_SERVER),y)
+QT6BASE_DEPENDENCIES += xlib_libXext
+endif
 
 # only enable gtk support if libgtk3 X11 backend is enabled
 ifeq ($(BR2_PACKAGE_LIBGTK3)$(BR2_PACKAGE_LIBGTK3_X11),yy)

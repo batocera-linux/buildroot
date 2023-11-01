@@ -3,9 +3,9 @@
 # xapp_xeyes
 #
 ################################################################################
-
-XAPP_XEYES_VERSION = 1.2.0
-XAPP_XEYES_SOURCE = xeyes-$(XAPP_XEYES_VERSION).tar.bz2
+# batocera - update
+XAPP_XEYES_VERSION = 1.3.0
+XAPP_XEYES_SOURCE = xeyes-$(XAPP_XEYES_VERSION).tar.xz
 XAPP_XEYES_SITE = https://xorg.freedesktop.org/archive/individual/app
 XAPP_XEYES_LICENSE = MIT
 XAPP_XEYES_LICENSE_FILES = COPYING

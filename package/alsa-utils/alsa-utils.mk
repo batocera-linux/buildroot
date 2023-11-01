@@ -3,8 +3,8 @@
 # alsa-utils
 #
 ################################################################################
-
-ALSA_UTILS_VERSION = 1.2.8
+# batocera - update
+ALSA_UTILS_VERSION = 1.2.10
 ALSA_UTILS_SOURCE = alsa-utils-$(ALSA_UTILS_VERSION).tar.bz2
 ALSA_UTILS_SITE = https://www.alsa-project.org/files/pub/utils
 ALSA_UTILS_LICENSE = GPL-2.0
@@ -63,6 +63,8 @@ ALSA_UTILS_TARGETS_$(BR2_PACKAGE_ALSA_UTILS_ARECORDMIDI) += usr/bin/arecordmidi
 ALSA_UTILS_TARGETS_$(BR2_PACKAGE_ALSA_UTILS_ASEQDUMP) += usr/bin/aseqdump
 ALSA_UTILS_TARGETS_$(BR2_PACKAGE_ALSA_UTILS_ASEQNET) += usr/bin/aseqnet
 ALSA_UTILS_TARGETS_$(BR2_PACKAGE_ALSA_UTILS_SPEAKER_TEST) += usr/bin/speaker-test
+# batocera - install the alsa-info.sh tools
+ALSA_UTILS_TARGETS_$(BR2_PACKAGE_ALSA_UTILS_ALSAINFO) += usr/sbin/alsa-info.sh
 
 define ALSA_UTILS_INSTALL_TARGET_CMDS
 	mkdir -p $(TARGET_DIR)/var/lib/alsa

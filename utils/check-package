@@ -6,14 +6,15 @@ import inspect
 import magic
 import os
 import re
-import six
 import sys
 
 import checkpackagelib.base
 import checkpackagelib.lib_config
 import checkpackagelib.lib_hash
+import checkpackagelib.lib_ignore
 import checkpackagelib.lib_mk
 import checkpackagelib.lib_patch
+import checkpackagelib.lib_python
 import checkpackagelib.lib_shellscript
 import checkpackagelib.lib_sysv
 
@@ -100,17 +101,22 @@ def get_lib_from_filetype(fname):
     filetype = get_filetype(fname)
     if filetype == "text/x-shellscript":
         return checkpackagelib.lib_shellscript
+    if filetype in ["text/x-python", "text/x-script.python"]:
+        return checkpackagelib.lib_python
     return None
 
 
 CONFIG_IN_FILENAME = re.compile(r"Config\.\S*$")
 DO_CHECK_INTREE = re.compile(r"|".join([
+    r".checkpackageignore",
     r"Config.in",
     r"arch/",
+    r"board/",
     r"boot/",
     r"fs/",
     r"linux/",
     r"package/",
+    r"support/",
     r"system/",
     r"toolchain/",
     r"utils/",
@@ -120,6 +126,11 @@ DO_NOT_CHECK_INTREE = re.compile(r"|".join([
     r"fs/common\.mk$",
     r"package/doc-asciidoc\.mk$",
     r"package/pkg-\S*\.mk$",
+    r"support/dependencies/[^/]+\.mk$",
+    r"support/gnuconfig/config\.",
+    r"support/kconfig/",
+    r"support/misc/[^/]+\.mk$",
+    r"support/testing/tests/.*br2-external/",
     r"toolchain/helpers\.mk$",
     r"toolchain/toolchain-external/pkg-toolchain-external\.mk$",
     ]))
@@ -137,6 +148,8 @@ def get_lib_from_filename(fname):
         if os.path.basename(fname) == "external.mk" and \
            os.path.exists(fname[:-2] + "desc"):
             return None
+    if fname == ".checkpackageignore":
+        return checkpackagelib.lib_ignore
     if CONFIG_IN_FILENAME.search(fname):
         return checkpackagelib.lib_config
     if fname.endswith(".hash"):
@@ -218,12 +231,9 @@ def check_file_using_lib(fname):
         if fail > 0:
             failed.add(name)
         nwarnings += warn
-    if six.PY3:
-        f = open(fname, "r", errors="surrogateescape")
-    else:
-        f = open(fname, "r")
+
     lastline = ""
-    for lineno, text in enumerate(f.readlines()):
+    for lineno, text in enumerate(open(fname, "r", errors="surrogateescape").readlines()):
         nlines += 1
         for name, cf in objects:
             if cf.disable.search(lastline):
@@ -233,7 +243,7 @@ def check_file_using_lib(fname):
                 failed.add(name)
             nwarnings += warn
         lastline = text
-    f.close()
+
     for name, cf in objects:
         warn, fail = print_warnings(cf.after(), name in xfail)
         if fail > 0:
@@ -250,7 +260,7 @@ def check_file_using_lib(fname):
 
     for should_fail in xfail:
         if should_fail not in failed:
-            print("{}:0: {} was expected to fail, did you fixed the file and forgot to update {}?"
+            print("{}:0: {} was expected to fail, did you fix the file and forget to update {}?"
                   .format(fname, should_fail, flags.ignore_filename))
             nwarnings += 1
 

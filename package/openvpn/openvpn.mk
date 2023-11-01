@@ -70,9 +70,10 @@ else
 OPENVPN_CONF_OPTS += --disable-systemd
 endif
 
-define OPENVPN_INSTALL_INIT_SYSV
-	$(INSTALL) -m 755 -D package/openvpn/S60openvpn \
-		$(TARGET_DIR)/etc/init.d/S60openvpn
-endef
+# batocera
+#define OPENVPN_INSTALL_INIT_SYSV
+#	$(INSTALL) -m 755 -D package/openvpn/S60openvpn \
+#		$(TARGET_DIR)/etc/init.d/S60openvpn
+#endef
 
 $(eval $(autotools-package))

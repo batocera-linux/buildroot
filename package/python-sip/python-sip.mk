@@ -42,8 +42,9 @@ define PYTHON_SIP_BUILD_CMDS
 	$(TARGET_MAKE_ENV) $(TARGET_CONFIGURE_OPTS) $(MAKE) -C $(@D)
 endef
 
+# J1MAKE is a batocera hack to force make -j1 while it randomly fails on this package with parallelism
 define PYTHON_SIP_INSTALL_TARGET_CMDS
-	$(TARGET_MAKE_ENV) $(TARGET_CONFIGURE_OPTS) $(MAKE) install -C $(@D)
+	J1MAKE=$$(echo $(MAKE) | sed -e s+'-j[0-9]*'+'-j1'+); echo using $$J1MAKE; $(TARGET_MAKE_ENV) $(TARGET_CONFIGURE_OPTS) $$J1MAKE install -C $(@D)
 endef
 
 $(eval $(generic-package))

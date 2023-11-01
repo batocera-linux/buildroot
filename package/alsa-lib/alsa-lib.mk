@@ -3,8 +3,8 @@
 # alsa-lib
 #
 ################################################################################
-
-ALSA_LIB_VERSION = 1.2.8
+# batocera - update
+ALSA_LIB_VERSION = 1.2.10
 ALSA_LIB_SOURCE = alsa-lib-$(ALSA_LIB_VERSION).tar.bz2
 ALSA_LIB_SITE = https://www.alsa-project.org/files/pub/lib
 ALSA_LIB_LICENSE = LGPL-2.1+ (library), GPL-2.0+ (aserver)

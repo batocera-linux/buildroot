@@ -4,14 +4,15 @@
 #
 ################################################################################
 
-HEIMDAL_VERSION = 7.7.1
-HEIMDAL_SITE = https://github.com/heimdal/heimdal/releases/download/heimdal-$(HEIMDAL_VERSION)
+HEIMDAL_VERSION = f4faaeaba371fff3f8d1bc14389f5e6d70ca8e17
+HEIMDAL_SITE = $(call github,heimdal,heimdal,$(HEIMDAL_VERSION))
 HOST_HEIMDAL_DEPENDENCIES = host-e2fsprogs host-ncurses host-pkgconf
+HOST_HEIMDAL_AUTORECONF = YES
 HEIMDAL_INSTALL_STAGING = YES
 # static because of -fPIC issues with e2fsprogs on x86_64 host
+# batocera - ignore above, works fine. -fPIC required for Qt6
+# removed --disable-shared & --enable-static options
 HOST_HEIMDAL_CONF_OPTS = \
-	--disable-shared \
-	--enable-static \
 	--without-openldap \
 	--without-capng \
 	--with-db-type-preference= \
@@ -29,6 +30,9 @@ HOST_HEIMDAL_CONF_OPTS = \
 
 # Don't use compile_et from e2fsprogs as it raises a build failure with samba4
 HOST_HEIMDAL_CONF_ENV = ac_cv_prog_COMPILE_ET=no MAKEINFO=true
+# batocera - add the -fPIC flag.
+HOST_HEIMDAL_CONF_ENV += CFLAGS="$(HOST_CFLAGS) -fPIC"
+
 HEIMDAL_LICENSE = BSD-3-Clause
 HEIMDAL_LICENSE_FILES = LICENSE
 HEIMDAL_CPE_ID_VENDOR = heimdal_project
@@ -39,14 +43,7 @@ define HOST_HEIMDAL_INSTALL_COMPILE_ET
 		$(HOST_DIR)/bin/compile_et
 endef
 
-# We need asn1_compile in the PATH for samba4
-define HOST_HEIMDAL_MAKE_SYMLINK
-	ln -sf $(HOST_DIR)/libexec/heimdal/asn1_compile \
-		$(HOST_DIR)/bin/asn1_compile
-endef
-
 HOST_HEIMDAL_POST_INSTALL_HOOKS += \
-	HOST_HEIMDAL_INSTALL_COMPILE_ET \
-	HOST_HEIMDAL_MAKE_SYMLINK
+	HOST_HEIMDAL_INSTALL_COMPILE_ET
 
 $(eval $(host-autotools-package))

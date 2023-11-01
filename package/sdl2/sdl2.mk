@@ -3,8 +3,8 @@
 # sdl2
 #
 ################################################################################
-# batocera (update)
-SDL2_VERSION = 2.26.5
+# batocera - update
+SDL2_VERSION = 2.28.4
 SDL2_SOURCE = SDL2-$(SDL2_VERSION).tar.gz
 SDL2_SITE = http://www.libsdl.org/release
 SDL2_LICENSE = Zlib
@@ -61,6 +61,7 @@ define SDL2_FIX_CONFIGURE_PATHS
 	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/Makefile
 	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/sdl2-config
 	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/sdl2.pc
+	sed -i "s+-I/.* ++g"              $(@D)/sdl2.pc
 endef
 
 SDL2_POST_CONFIGURE_HOOKS += SDL2_FIX_WAYLAND_SCANNER_PATH
