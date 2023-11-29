@@ -3,8 +3,8 @@
 # rtl8192eu
 #
 ################################################################################
-# batocera - version bump for linux 6.3+
-RTL8192EU_VERSION = ceedf761d6a02f3da4ac235d199b9dc1e7e840a1
+# batocera - version bump for linux 6.7+
+RTL8192EU_VERSION = a928f08c1dd4f9a1e84d85811a543e974551bc4f
 RTL8192EU_SITE = $(call github,clnhub,rtl8192eu-linux,$(RTL8192EU_VERSION))
 RTL8192EU_LICENSE = GPL-2.0
 
