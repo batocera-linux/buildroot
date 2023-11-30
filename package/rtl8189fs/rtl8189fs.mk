@@ -3,7 +3,7 @@
 # rtl8189fs
 #
 ################################################################################
-
+# batocera - patch for linux 6.7+
 RTL8189FS_VERSION = c223a25b1000d64432eca4201a8f012414dfc7ce
 RTL8189FS_SITE = $(call github,jwrdegoede,rtl8189ES_linux,$(RTL8189FS_VERSION))
 RTL8189FS_LICENSE = GPL-2.0
