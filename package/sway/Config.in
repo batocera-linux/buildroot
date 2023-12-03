@@ -19,6 +19,7 @@ config BR2_PACKAGE_SWAY
 	select BR2_PACKAGE_CAIRO
 	select BR2_PACKAGE_CAIRO_PNG
 	select BR2_PACKAGE_PANGO
+	select BR2_PACKAGE_LIBDECOR # batocera
 	help
 	  i3-compatible Wayland compositor
 

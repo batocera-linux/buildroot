@@ -232,6 +232,11 @@ else
 SDL2_CONF_OPTS += --disable-video-wayland
 endif
 
+# batocera - libdecor
+ifeq ($(BR2_PACKAGE_LIBDECOR),y)
+SDL2_DEPENDENCIES += libdecor
+endif
+
 # batocera - enable/disable Vulkan support
 ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yy)
 SDL2_DEPENDENCIES += vulkan-headers vulkan-loader
