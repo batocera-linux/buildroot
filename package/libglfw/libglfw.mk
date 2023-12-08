@@ -30,7 +30,7 @@ endif
 
 # batocera - don't add wayland for x86
 ifeq ($(BR2_PACKAGE_WAYLAND),y)
-    ifneq ($(BR2_PACKAGE_BATOCERA_TARGET_X86_64_ANY),y)
+    ifneq ($(BR2_PACKAGE_BATOCERA_TARGET_X86_64_ANY)$(BR2_PACKAGE_BATOCERA_XWAYLAND),y)
         LIBGLFW_DEPENDENCIES += libxkbcommon wayland wayland-protocols
         # Override pkg-config pkgdatadir variable, it needs the prefix
         LIBGLFW_CONF_OPTS += \
