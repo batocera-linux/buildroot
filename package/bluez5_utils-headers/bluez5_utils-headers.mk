@@ -6,7 +6,7 @@
 
 # Keep the version and patches in sync with bluez5_utils
 # batocera - update
-BLUEZ5_UTILS_HEADERS_VERSION = 5.68
+BLUEZ5_UTILS_HEADERS_VERSION = 5.71
 BLUEZ5_UTILS_HEADERS_SOURCE = bluez-$(BLUEZ5_UTILS_VERSION).tar.xz
 BLUEZ5_UTILS_HEADERS_SITE = $(BR2_KERNEL_MIRROR)/linux/bluetooth
 BLUEZ5_UTILS_HEADERS_DL_SUBDIR = bluez5_utils
