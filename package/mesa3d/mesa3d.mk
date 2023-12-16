@@ -6,7 +6,14 @@
 # batocera (update)
 # When updating the version, please also update mesa3d-headers
 # also update glslang to the latest stable version
-MESA3D_VERSION = 23.3.1
+
+# RPi4 workaround until - https://gitlab.freedesktop.org/mesa/mesa/-/issues/10306 fixed
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_BCM2711),y)
+    MESA3D_VERSION = 23.2.1
+else
+    MESA3D_VERSION = 23.3.1
+endif
+
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 MESA3D_SITE = https://archive.mesa3d.org
 MESA3D_LICENSE = MIT, SGI, Khronos
