@@ -38,9 +38,10 @@ define PIGPIO_INSTALL_STAGING_CMDS
 	ln -sf libpigpiod_if2.so.1 $(STAGING_DIR)/usr/lib/libpigpiod_if2.so
 endef
 
+# batocera - we want this as a service
 define PIGPIO_INSTALL_INIT_SYSV
 	$(INSTALL) -D -m 755 package/pigpio/S50pigpio \
-		$(TARGET_DIR)/etc/init.d/S50pigpio
+		$(TARGET_DIR)/usr/share/batocera/services/pigpio
 endef
 
 define PIGPIO_INSTALL_INIT_SYSTEMD
