@@ -7,3 +7,4 @@ config BR2_PACKAGE_LIBSERIALPORT
 	  that uses serial ports.
 
 	  http://sigrok.org/wiki/Libserialport
+          https://github.com/sigrokproject/libserialport
