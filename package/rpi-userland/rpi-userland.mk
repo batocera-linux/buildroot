@@ -3,8 +3,8 @@
 # rpi-userland
 #
 ################################################################################
-# batocera (update) - Commits on Mar 22, 2023
-RPI_USERLAND_VERSION = 9d5250fd98679e09c4c1a44883f9312a21f1ac6d
+# batocera (update) - Commits on Oct 20, 2023
+RPI_USERLAND_VERSION = 96a7334ae9d5fc9db7ac92e59852377df63f1848
 RPI_USERLAND_SITE = $(call github,raspberrypi,userland,$(RPI_USERLAND_VERSION))
 RPI_USERLAND_LICENSE = BSD-3-Clause
 RPI_USERLAND_LICENSE_FILES = LICENCE
