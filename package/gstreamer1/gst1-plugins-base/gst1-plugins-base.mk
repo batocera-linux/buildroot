@@ -3,8 +3,8 @@
 # gst1-plugins-base
 #
 ################################################################################
-
-GST1_PLUGINS_BASE_VERSION = 1.22.2
+# batocera - bump
+GST1_PLUGINS_BASE_VERSION = 1.22.9
 GST1_PLUGINS_BASE_SOURCE = gst-plugins-base-$(GST1_PLUGINS_BASE_VERSION).tar.xz
 GST1_PLUGINS_BASE_SITE = https://gstreamer.freedesktop.org/src/gst-plugins-base
 GST1_PLUGINS_BASE_INSTALL_STAGING = YES
@@ -35,6 +35,9 @@ GST1_PLUGINS_BASE_CONF_OPTS += -Dtools=disabled
 endif
 
 GST1_PLUGINS_BASE_DEPENDENCIES = gstreamer1 $(TARGET_NLS_DEPENDENCIES)
+
+# batocera
+GST1_PLUGINS_BASE_DEPENDENCIES += libgraphene
 
 GST1_PLUGINS_BASE_LDFLAGS = $(TARGET_LDFLAGS) $(TARGET_NLS_LIBS)
 
