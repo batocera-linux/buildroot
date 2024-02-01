@@ -4,7 +4,7 @@
 #
 ################################################################################
 # batocera - update
-LIBDRM_VERSION = 2.4.117
+LIBDRM_VERSION = 2.4.120
 LIBDRM_SOURCE = libdrm-$(LIBDRM_VERSION).tar.xz
 LIBDRM_SITE = https://dri.freedesktop.org/libdrm
 LIBDRM_LICENSE = MIT
