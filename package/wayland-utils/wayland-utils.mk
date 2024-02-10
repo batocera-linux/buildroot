@@ -3,7 +3,7 @@
 # wayland-utils
 #
 ################################################################################
-# batocera (update)
+
 WAYLAND_UTILS_VERSION = 1.2.0
 WAYLAND_UTILS_SITE = https://gitlab.freedesktop.org/wayland/wayland-utils/-/releases/$(WAYLAND_UTILS_VERSION)/downloads
 WAYLAND_UTILS_SOURCE = wayland-utils-$(WAYLAND_UTILS_VERSION).tar.xz
