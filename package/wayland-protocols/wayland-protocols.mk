@@ -3,8 +3,8 @@
 # wayland-protocols
 #
 ################################################################################
-
-WAYLAND_PROTOCOLS_VERSION = 1.31
+# batocera (update)
+WAYLAND_PROTOCOLS_VERSION = 1.33
 WAYLAND_PROTOCOLS_SITE = https://gitlab.freedesktop.org/wayland/wayland-protocols/-/releases/$(WAYLAND_PROTOCOLS_VERSION)/downloads
 WAYLAND_PROTOCOLS_SOURCE = wayland-protocols-$(WAYLAND_PROTOCOLS_VERSION).tar.xz
 WAYLAND_PROTOCOLS_LICENSE = MIT
