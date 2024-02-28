@@ -87,6 +87,13 @@ while read f; do
 		continue
 	fi
 
+	# batocera: Aarch32(ARM) is available on aarch64 devices.
+	if test "${arch}" = "ARM" && "${arch_name}" = "AArch64"; then
+		printf 'WARN: architecture for "%s" is "%s"(expect "%s")\n' \
+			"${f}" "${arch}" "${arch_name}"
+		continue
+	fi
+
 	# batocera: support Compiling arm64 in arm userspace - will eventually want to update to verify kernel is 64bit
 	if [ "${arch}" = "AArch64" -a "${arch_name}" = "ARM" ] ; then
 		printf 'NOTE: Detected Arch is AArch64 with ARM Userspace for file:\n"%s"\n\n' \
