@@ -3,8 +3,8 @@
 # libglfw
 #
 ################################################################################
-
-LIBGLFW_VERSION = 3.3.8
+# batcoera (update)
+LIBGLFW_VERSION = 3.4
 LIBGLFW_SITE = $(call github,glfw,glfw,$(LIBGLFW_VERSION))
 LIBGLFW_INSTALL_STAGING = YES
 LIBGLFW_LICENSE = Zlib
@@ -34,7 +34,7 @@ ifeq ($(BR2_PACKAGE_WAYLAND),y)
         LIBGLFW_DEPENDENCIES += libxkbcommon wayland wayland-protocols
         # Override pkg-config pkgdatadir variable, it needs the prefix
         LIBGLFW_CONF_OPTS += \
-            -DGLFW_USE_WAYLAND=1 \
+            -DGLFW_BUILD_WAYLAND=1 \
             -DWAYLAND_PROTOCOLS_BASE=$(STAGING_DIR)/usr/share/wayland-protocols
     endif
 endif
