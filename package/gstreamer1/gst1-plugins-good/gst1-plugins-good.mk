@@ -3,7 +3,7 @@
 # gst1-plugins-good
 #
 ################################################################################
-# batocera - bump
+
 GST1_PLUGINS_GOOD_VERSION = 1.22.9
 GST1_PLUGINS_GOOD_SOURCE = gst-plugins-good-$(GST1_PLUGINS_GOOD_VERSION).tar.xz
 GST1_PLUGINS_GOOD_SITE = https://gstreamer.freedesktop.org/src/gst-plugins-good
@@ -56,6 +56,13 @@ endif
 ifeq ($(BR2_PACKAGE_ORC),y)
 GST1_PLUGINS_GOOD_CONF_OPTS += -Dorc=enabled
 GST1_PLUGINS_GOOD_DEPENDENCIES += orc
+endif
+
+ifeq ($(BR2_PACKAGE_GST1_PLUGINS_GOOD_ADAPTIVEMUX2),y)
+GST1_PLUGINS_GOOD_CONF_OPTS += -Dadaptivedemux2=enabled
+GST1_PLUGINS_GOOD_DEPENDENCIES += libsoup libxml2
+else
+GST1_PLUGINS_GOOD_CONF_OPTS += -Dadaptivedemux2=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_GST1_PLUGINS_GOOD_PLUGIN_ALPHA),y)

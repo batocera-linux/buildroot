@@ -3,7 +3,7 @@
 # xlib_libXrandr
 #
 ################################################################################
-
+# batocera - update
 XLIB_LIBXRANDR_VERSION = 1.5.4
 XLIB_LIBXRANDR_SOURCE = libXrandr-$(XLIB_LIBXRANDR_VERSION).tar.xz
 XLIB_LIBXRANDR_SITE = https://xorg.freedesktop.org/archive/individual/lib

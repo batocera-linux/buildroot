@@ -3,15 +3,16 @@
 # xwayland
 #
 ################################################################################
-# batocera - bump
+
 XWAYLAND_VERSION = 23.2.4
 XWAYLAND_SOURCE = xwayland-$(XWAYLAND_VERSION).tar.xz
 XWAYLAND_SITE = https://xorg.freedesktop.org/archive/individual/xserver
 XWAYLAND_LICENSE = MIT
 XWAYLAND_LICENSE_FILES = COPYING
+XWAYLAND_CPE_ID_VENDOR = x.org
 XWAYLAND_INSTALL_STAGING = YES
 XWAYLAND_DEPENDENCIES = \
-    libdrm \
+	libdrm \
 	pixman \
 	wayland \
 	wayland-protocols \
@@ -23,7 +24,7 @@ XWAYLAND_DEPENDENCIES = \
 	xlib_xtrans \
 	xorgproto
 XWAYLAND_CONF_OPTS = \
-    -Ddri3=true \
+	-Ddri3=true \
 	-Dxwayland_eglstream=false \
 	-Dxvfb=false \
 	-Ddefault_font_path=/usr/share/fonts/X11/ \

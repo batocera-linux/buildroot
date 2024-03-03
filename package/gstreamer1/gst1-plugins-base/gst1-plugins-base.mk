@@ -3,7 +3,7 @@
 # gst1-plugins-base
 #
 ################################################################################
-# batocera - bump
+
 GST1_PLUGINS_BASE_VERSION = 1.22.9
 GST1_PLUGINS_BASE_SOURCE = gst-plugins-base-$(GST1_PLUGINS_BASE_VERSION).tar.xz
 GST1_PLUGINS_BASE_SITE = https://gstreamer.freedesktop.org/src/gst-plugins-base

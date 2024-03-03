@@ -4,12 +4,10 @@
 #
 ################################################################################
 
-# batocera / kodi20 (LibreElec)
-# FLATBUFFERS_VERSION = 2.0.8
-FLATBUFFERS_VERSION = 23.3.3
+FLATBUFFERS_VERSION = 23.5.26
 FLATBUFFERS_SITE = $(call github,google,flatbuffers,v$(FLATBUFFERS_VERSION))
 FLATBUFFERS_LICENSE = Apache-2.0
-FLATBUFFERS_LICENSE_FILES = LICENSE.txt
+FLATBUFFERS_LICENSE_FILES = LICENSE
 FLATBUFFERS_CPE_ID_VENDOR = google
 FLATBUFFERS_INSTALL_STAGING = YES
 FLATBUFFERS_DEPENDENCIES = host-flatbuffers

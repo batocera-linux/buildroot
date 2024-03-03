@@ -3,7 +3,7 @@
 # xcb-util-cursor
 #
 ################################################################################
-
+# batocera - update
 XCB_UTIL_CURSOR_VERSION = 0.1.5
 XCB_UTIL_CURSOR_SITE = https://xorg.freedesktop.org/archive/individual/lib
 XCB_UTIL_CURSOR_SOURCE = xcb-util-cursor-$(XCB_UTIL_CURSOR_VERSION).tar.xz

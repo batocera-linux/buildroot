@@ -69,6 +69,11 @@ config BR2_PACKAGE_LINUX_FIRMWARE_QUALCOMM_6174A_BT
 	help
 	  Firmware files for QCA Rome 6174A bluetooth support.
 
+config BR2_PACKAGE_LINUX_FIRMWARE_QUALCOMM_9377_BT
+	bool "Qualcomm Atheros QCA9377 Bluetooth"
+	help
+	  Firmware files for QCA9377 bluetooth support.
+
 config BR2_PACKAGE_LINUX_FIRMWARE_AR3011
 	bool "Qualcomm Atheros 3011"
 	help
@@ -274,6 +279,12 @@ config BR2_PACKAGE_LINUX_FIRMWARE_IWLWIFI_6E
 	  Firmware files for the Intel Wi-Fi 6 and Wi-Fi 6E devices
 	  supported by the iwlwifi kernel driver.
 
+config BR2_PACKAGE_LINUX_FIRMWARE_IWLWIFI_QUZ
+	bool "Intel iwlwifi QuZ"
+	help
+	  Firmware files for the Intel Wifi QuZ devices (used in NUC10)
+	  supported by the iwlwifi kernel driver.
+
 config BR2_PACKAGE_LINUX_FIRMWARE_LIBERTAS_SD8686_V8
 	bool "Libertas SD 8686 v8"
 	help
@@ -449,8 +460,13 @@ config BR2_PACKAGE_LINUX_FIRMWARE_BROADCOM_TIGON3
 	  Firmware files for Broadcom Tigon3 ethernet cards
 	  (tigon)
 
-config BR2_PACKAGE_LINUX_FIRMWARE_BNX2X
+config BR2_PACKAGE_LINUX_FIRMWARE_BNX2
 	bool "Broadcom NetXtremeII"
+	help
+	  Firmware files for Broadcom NetXtreme ethernet cards (bnx2)
+
+config BR2_PACKAGE_LINUX_FIRMWARE_BNX2X
+	bool "Broadcom NetXtremeII 10Gb"
 	help
 	  Firmware files for Broadcom NetXtreme 10Gb ethernet cards
 	  (bnx2x)
@@ -478,6 +494,11 @@ config BR2_PACKAGE_LINUX_FIRMWARE_INTEL_ICE
 	help
 	  Firmware files for Intel Ethernet 800 Series Network Adapters
 	  (ice)
+
+config BR2_PACKAGE_LINUX_FIRMWARE_MARVELL_PRESTERA
+	bool "Marvell Prestera"
+	help
+	  Firmware files for Marvell Prestera ethernet cards
 
 config BR2_PACKAGE_LINUX_FIRMWARE_MICROCHIP_VSC85XX_PHY
 	bool "Microchip VSC85xx PHYs"

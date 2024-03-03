@@ -1,5 +1,5 @@
 # From https://lists.x.org/archives/xorg-announce/2024-January/003442.html
-sha256  1d3dadbd57fb86b16a018e9f5f957aeeadf744f56c0553f55737628d06d326ef  xorg-server-21.1.11.tar.xz
-sha512  ad5edacbe8c7e2ebe6b4a690af94c7ea5ebc781d00b0e58ae2d273c78ceee2fa00b86d10479ad69da1b3233490619bae5a33db64c967c24bbfc5d5d39ddce1cb  xorg-server-21.1.11.tar.xz
+sha256  1aa0ee1adad0b2db7f291f3823a4ab240c7f4aea710e89f5ef4aa232b6833403  xorg-server-21.1.11.tar.gz
+sha512  e41bf71955691e66084a67fc20643632087f0326d5eddc31e6edd118d05005b8ab536738c181f4c352f331ec8fc8f23ae1b45f237592fa5d7eddbffe43638b08  xorg-server-21.1.11.tar.gz
 # Locally calculated
 sha256  4cc0447a22635c7b2f1a93fec4aa94f1970fadeb72a063de006b51cf4963a06f  COPYING

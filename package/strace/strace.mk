@@ -3,7 +3,7 @@
 # strace
 #
 ################################################################################
-# batocera - bump
+
 STRACE_VERSION = 6.6
 STRACE_SOURCE = strace-$(STRACE_VERSION).tar.xz
 STRACE_SITE = https://github.com/strace/strace/releases/download/v$(STRACE_VERSION)

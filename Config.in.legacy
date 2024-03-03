@@ -144,6 +144,103 @@ endif
 
 ###############################################################################
 
+comment "Legacy options removed in 2023.11"
+
+config BR2_PACKAGE_LIBCAMERA_PIPELINE_RASPBERRYPI
+	bool "libcamera pipeline 'raspberrypi' was renamed to 'rpi/vc4'"
+	depends on BR2_arm || BR2_aarch64
+	depends on BR2_USE_WCHAR
+	select BR2_LEGACY
+	select BR2_PACKAGE_LIBCAMERA_PIPELINE_RPI_VC4
+	help
+	  Since version 0.1.0 the libcamera pipeline option
+	  'raspberrypi' was renamed to 'rpi/vc4'.
+
+config BR2_PACKAGE_PYTHON_PYXB
+	bool "python-pyxb removed"
+	select BR2_LEGACY
+	help
+	  python-pyxb has been removed due to being abandoned and
+	  distutils no longer being supported in python 3.12.0.
+
+config BR2_PACKAGE_OPENJDK_VERSION_11
+	bool "openjdk 11 has been removed"
+	select BR2_LEGACY
+	help
+	  Version 11 of OpenJDK is no longer supported, version 17
+	  should now be used as the new LTS release.
+
+config BR2_KERNEL_HEADERS_6_4
+	bool "kernel headers version 6.4.x are no longer supported"
+	select BR2_LEGACY
+	help
+	  Version 6.4.x of the Linux kernel headers are no longer
+	  maintained upstream and are now removed.
+
+config BR2_PACKAGE_GOOGLE_MATERIAL_DESIGN_ICONS
+	bool "google-material-design-icons removed"
+	select BR2_LEGACY
+	help
+	  The google-material-design-icons package has been removed.
+
+config BR2_GDB_VERSION_10
+	bool "gdb 10.x removed"
+	select BR2_LEGACY
+	help
+	  gdb 10.x has been removed, use a newer version.
+
+comment "Legacy options removed in 2023.08"
+
+config BR2_TARGET_LPC32XXCDL
+	bool "lpc32xxcdl has been removed"
+	select BR2_LEGACY
+	help
+	  lpc32xxcdl has been removed, due to licensing concerns.
+
+config BR2_BINUTILS_VERSION_2_38_X
+	bool "binutils 2.38.x has been removed"
+	select BR2_LEGACY
+	help
+	  binutils 2.38 has been removed, use a newer version.
+
+config BR2_GCC_VERSION_10_X
+	bool "gcc 10.x support removed"
+	select BR2_LEGACY
+	help
+	  Support for gcc version 10.x has been removed. The current
+	  default version (12.x or later) has been selected instead.
+
+config BR2_KERNEL_HEADERS_6_3
+	bool "kernel headers version 6.3.x are no longer supported"
+	select BR2_LEGACY
+	help
+	  Version 6.3.x of the Linux kernel headers are no longer
+	  maintained upstream and are now removed.
+
+config BR2_PACKAGE_TOVID
+	bool "tovid removed"
+	select BR2_LEGACY
+	help
+	  tovid was removed
+
+config BR2_PACKAGE_LIBASPLIB
+	bool "libasplib removed"
+	select BR2_LEGACY
+	help
+	  libasplib is no longer needed.
+
+config BR2_PACKAGE_OCF_LINUX
+	bool "ocf-linux has been removed"
+	select BR2_LEGACY
+	help
+	  ocf-linux is incompatible with newer kernels.
+
+config BR2_BINUTILS_VERSION_2_37_X
+	bool "binutils 2.37.x has been removed"
+	select BR2_LEGACY
+	help
+	  binutils 2.37 has been removed, use a newer version.
+
 comment "Legacy options removed in 2023.05"
 
 config BR2_KERNEL_HEADERS_6_2

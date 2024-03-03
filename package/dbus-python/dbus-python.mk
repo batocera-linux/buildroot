@@ -24,15 +24,5 @@ HOST_DBUS_PYTHON_CONF_ENV = \
 	PYTHON_LIBS="`$(HOST_DIR)/bin/python3-config --ldflags`" \
 	PYTHON_EXTRA_LIBS="`$(HOST_DIR)/bin/python3-config --libs --embed`"
 
-# batocera ; #511 #671
-define HOST_DBUS_PYTHON_MARK_AS_INSTALLED
-	egg_info="$(TARGET_DIR)/usr/lib/python$(PYTHON3_VERSION_MAJOR)/site-packages/dbus_python-$(DBUS_PYTHON_VERSION).egg-info"
-	mkdir -p "${egg_info}"
-	echo >>"{egg_info}/PKG-INFO" "Name: dbus-python"
-	echo >>"{egg_info}/PKG-INFO" "Version: $(DBUS_PYTHON_VERSION)"
-endef
-
-HOST_DBUS_PYTHON_POST_INSTALL_HOOKS += HOST_DBUS_PYTHON_MARK_AS_INSTALLED
-
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))

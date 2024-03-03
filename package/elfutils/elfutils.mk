@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-ELFUTILS_VERSION = 0.186
+ELFUTILS_VERSION = 0.189
 ELFUTILS_SOURCE = elfutils-$(ELFUTILS_VERSION).tar.bz2
 ELFUTILS_SITE = https://sourceware.org/elfutils/ftp/$(ELFUTILS_VERSION)
 ELFUTILS_INSTALL_STAGING = YES
@@ -50,8 +50,12 @@ ELFUTILS_LDFLAGS += -latomic
 endif
 
 ifeq ($(BR2_TOOLCHAIN_USES_GLIBC),)
-ELFUTILS_DEPENDENCIES += musl-fts
+ELFUTILS_DEPENDENCIES += musl-fts argp-standalone
 ELFUTILS_LDFLAGS += -lfts
+endif
+
+ifeq ($(BR2_TOOLCHAIN_USES_UCLIBC),y)
+ELFUTILS_CONF_OPTS += --disable-symbol-versioning
 endif
 
 # disable for now, needs "distro" support
@@ -61,9 +65,10 @@ HOST_ELFUTILS_CONF_OPTS += --disable-libdebuginfod --disable-debuginfod
 ELFUTILS_CONF_ENV += \
 	LDFLAGS="$(ELFUTILS_LDFLAGS)"
 
-ifeq ($(BR2_TOOLCHAIN_USES_UCLIBC),y)
-ELFUTILS_DEPENDENCIES += argp-standalone
-ELFUTILS_CONF_OPTS += --disable-symbol-versioning
+ifeq ($(BR2_INSTALL_LIBSTDCPP),y)
+ELFUTILS_CONF_OPTS += --enable-demangler
+else
+ELFUTILS_CONF_OPTS += --disable-demangler
 endif
 
 ifeq ($(BR2_PACKAGE_BZIP2),y)

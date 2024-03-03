@@ -3,7 +3,7 @@
 # libpthread-stubs
 #
 ################################################################################
-# batocera - update
+
 LIBPTHREAD_STUBS_VERSION = 0.5
 LIBPTHREAD_STUBS_SOURCE = libpthread-stubs-$(LIBPTHREAD_STUBS_VERSION).tar.xz
 LIBPTHREAD_STUBS_SITE = http://xcb.freedesktop.org/dist

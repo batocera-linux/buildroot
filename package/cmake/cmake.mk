@@ -3,10 +3,10 @@
 # cmake
 #
 ################################################################################
-# batocera - bump
+
 # When updating the version, please also update BR2_HOST_CMAKE_AT_LEAST_X_Y
 CMAKE_VERSION_MAJOR = 3.27
-CMAKE_VERSION = $(CMAKE_VERSION_MAJOR).5
+CMAKE_VERSION = $(CMAKE_VERSION_MAJOR).7
 CMAKE_SITE = https://cmake.org/files/v$(CMAKE_VERSION_MAJOR)
 CMAKE_LICENSE = BSD-3-Clause
 CMAKE_LICENSE_FILES = Copyright.txt
@@ -33,6 +33,7 @@ CMAKE_CONF_OPTS = \
 	-DKWSYS_CHAR_IS_SIGNED=TRUE \
 	-DCMAKE_USE_SYSTEM_LIBRARIES=1 \
 	-DCTEST_USE_XMLRPC=OFF \
+	-DCMake_ENABLE_DEBUGGER=0 \
 	-DBUILD_CursesDialog=OFF
 
 # Get rid of -I* options from $(HOST_CPPFLAGS) to prevent that a

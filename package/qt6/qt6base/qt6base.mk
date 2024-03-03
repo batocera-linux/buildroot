@@ -7,6 +7,10 @@
 QT6BASE_VERSION = $(QT6_VERSION)
 QT6BASE_SITE = $(QT6_SITE)
 QT6BASE_SOURCE = qtbase-$(QT6_SOURCE_TARBALL_PREFIX)-$(QT6BASE_VERSION).tar.xz
+QT6BASE_CPE_ID_VENDOR = qt
+QT6BASE_CPE_ID_PRODUCT = qt
+
+QT6BASE_CMAKE_BACKEND = ninja
 
 QT6BASE_LICENSE = \
 	GPL-2.0+ or LGPL-3.0, \
@@ -158,20 +162,26 @@ QT6BASE_CONF_OPTS += \
 	-DFEATURE_vulkan=OFF
 QT6BASE_DEPENDENCIES += freetype
 
+ifeq ($(BR2_PACKAGE_QT6BASE_VULKAN),y)
+QT6BASE_DEPENDENCIES   += vulkan-headers vulkan-loader
+QT6BASE_CONFIGURE_OPTS += -DFEATURE_vulkan=ON
+else
+QT6BASE_CONFIGURE_OPTS += -DFEATURE_vulkan=OFF
+endif
+
 ifeq ($(BR2_PACKAGE_QT6BASE_LINUXFB),y)
 QT6BASE_CONF_OPTS += -DFEATURE_linuxfb=ON
 else
 QT6BASE_CONF_OPTS += -DFEATURE_linuxfb=OFF
 endif
 
-# batocera - add xinput
 ifeq ($(BR2_PACKAGE_QT6BASE_XCB),y)
 QT6BASE_CONF_OPTS += \
-    -DFEATURE_xcb=ON \
+	-DFEATURE_xcb=ON \
 	-DFEATURE_xcb_xlib=ON \
 	-DFEATURE_xkbcommon=ON \
 	-DFEATURE_xkbcommon_x11=ON \
-	-DFEATURE_system_xcb_xinput=ON
+	-DFEATURE_system_xcb_xinput=ON # batocera
 # batocera - add cursor
 QT6BASE_DEPENDENCIES += \
 	libxcb \
@@ -184,7 +194,7 @@ QT6BASE_DEPENDENCIES += \
 	xlib_libX11
 else
 QT6BASE_CONF_OPTS += -DFEATURE_xcb=OFF
-endif 
+endif
 
 ifeq ($(BR2_PACKAGE_QT6BASE_HARFBUZZ),y)
 QT6BASE_CONF_OPTS += -DFEATURE_harfbuzz=ON

@@ -22,12 +22,8 @@ config BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM
 	bool
 	default y
 	depends on BR2_PACKAGE_HAS_LIBGL || BR2_PACKAGE_HAS_LIBGLES
-
-	# batocera
-	#depends on BR2_PACKAGE_HAS_LIBGBM
-	#depends on BR2_PACKAGE_LIBGBM_HAS_FEATURE_DMA_BUF
-	depends on BR2_PACKAGE_MESA3D_GBM || BR2_PACKAGE_HAS_LIBMALI
-
+	depends on BR2_PACKAGE_HAS_LIBGBM
+	depends on BR2_PACKAGE_LIBGBM_HAS_FEATURE_DMA_BUF
 	depends on BR2_PACKAGE_HAS_UDEV # libinput
 	select BR2_PACKAGE_KODI_PLATFORM_SUPPORTS
 
@@ -49,7 +45,7 @@ config BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_X11
 	bool
 	default y
 	depends on BR2_PACKAGE_HAS_LIBGL || BR2_PACKAGE_HAS_LIBGLES
-	depends on BR2_PACKAGE_XSERVER_XORG_SERVER # batocera - avoid x11 & wayland build when using xwayland
+	depends on BR2_PACKAGE_XORG7
 	select BR2_PACKAGE_KODI_PLATFORM_SUPPORTS
 
 comment "kodi needs an OpenGL EGL backend with OpenGL or GLES support"
@@ -70,6 +66,7 @@ menuconfig BR2_PACKAGE_KODI
 	depends on BR2_PACKAGE_PYTHON3
 	depends on !BR2_PACKAGE_PYTHON3_PYC_ONLY
 	select BR2_NEEDS_HOST_JAVA
+	select BR2_HOST_CMAKE_AT_LEAST_3_24
 	select BR2_PACKAGE_FFMPEG
 	select BR2_PACKAGE_FFMPEG_GPL
 	select BR2_PACKAGE_FFMPEG_POSTPROC
@@ -120,18 +117,6 @@ menuconfig BR2_PACKAGE_KODI
 	  http://kodi.tv
 
 if BR2_PACKAGE_KODI
-
-# batocera
-config BR2_PACKAGE_KODI_LIBTHEORA
-        bool "theora"
-        select BR2_PACKAGE_LIBTHEORA
-        help
-          Enable Theora input support.
-          Select this if you want to play back OGG/OGV files (Video).
-config BR2_PACKAGE_KODI_GBM
-       bool "gbm"
-       help
-	 Enable gbm support.
 
 config BR2_PACKAGE_KODI_ALSA_LIB
 	bool "alsa"
@@ -221,23 +206,6 @@ choice
 	prompt "render system"
 	default BR2_PACKAGE_KODI_RENDER_SYSTEM_GL
 
-#batocera
-config BR2_PACKAGE_KODI_PLATFORM_GBM_GL
-        bool "gbm/OpenGL"
-        depends on BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM_GL
-        select BR2_PACKAGE_LIBGLU
-        select BR2_PACKAGE_LIBINPUT
-        select BR2_PACKAGE_LIBXKBCOMMON
-config BR2_PACKAGE_KODI_PLATFORM_GBM_GLES
-        bool "gbm/GLES"
-        depends on BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM_GLES
-        select BR2_PACKAGE_LIBINPUT
-        select BR2_PACKAGE_LIBXKBCOMMON
-
-config BR2_PACKAGE_KODI_PLATFORM_WAYLAND_GL
-	bool "Wayland/OpenGL"
-	depends on BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_WAYLAND_GL
-
 config BR2_PACKAGE_KODI_RENDER_SYSTEM_GL
 	bool "OpenGL"
 	depends on BR2_PACKAGE_HAS_LIBGL
@@ -321,6 +289,11 @@ menu "Audio encoder addons"
 	source "package/kodi-audioencoder-lame/Config.in"
 	source "package/kodi-audioencoder-vorbis/Config.in"
 	source "package/kodi-audioencoder-wav/Config.in"
+endmenu
+
+menu "Image decoder addons"
+	source "package/kodi-imagedecoder-heif/Config.in"
+	source "package/kodi-imagedecoder-raw/Config.in"
 endmenu
 
 menu "Peripheral addons"

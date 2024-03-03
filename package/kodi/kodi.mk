@@ -6,7 +6,7 @@
 
 # When updating the version, please also update kodi-jsonschemabuilder
 # and kodi-texturepacker
-KODI_VERSION_MAJOR = 20.1
+KODI_VERSION_MAJOR = 20.2
 KODI_VERSION_NAME = Nexus
 KODI_VERSION = $(KODI_VERSION_MAJOR)-$(KODI_VERSION_NAME)
 KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION))
@@ -78,6 +78,7 @@ KODI_CONF_OPTS += \
 	-DENABLE_INTERNAL_SPDLOG=OFF \
 	-DKODI_DEPENDSBUILD=OFF \
 	-DENABLE_GOLD=OFF \
+	-DCLANG_FORMAT_EXECUTABLE=OFF \
 	-DHOST_CAN_EXECUTE_TARGET=FALSE \
 	-DNATIVEPREFIX=$(HOST_DIR) \
 	-DDEPENDS_PATH=$(STAGING_DIR)/usr \
@@ -87,11 +88,14 @@ KODI_CONF_OPTS += \
 	-DPYTHON_INCLUDE_DIRS=$(STAGING_DIR)/usr/include/python$(PYTHON3_VERSION_MAJOR) \
 	-DPYTHON_PATH=$(STAGING_DIR)/usr/lib/python$(PYTHON3_VERSION_MAJOR) \
 	-DPYTHON_VER=$(PYTHON3_VERSION_MAJOR) \
-	-DWITH_JSONSCHEMABUILDER=$(HOST_DIR)/bin/JsonSchemaBuilder \
-	-DWITH_TEXTUREPACKER=$(HOST_DIR)/bin/TexturePacker \
+	-DWITH_JSONSCHEMABUILDER=$(HOST_DIR)/bin/ \
+	-DWITH_TEXTUREPACKER=$(HOST_DIR)/bin/ \
 	-DLIBDVDCSS_URL=$(KODI_DL_DIR)/kodi-libdvdcss-$(KODI_LIBDVDCSS_VERSION).tar.gz \
 	-DLIBDVDNAV_URL=$(KODI_DL_DIR)/kodi-libdvdnav-$(KODI_LIBDVDNAV_VERSION).tar.gz \
 	-DLIBDVDREAD_URL=$(KODI_DL_DIR)/kodi-libdvdread-$(KODI_LIBDVDREAD_VERSION).tar.gz
+
+# batocera
+KODI_CONF_OPTS += -DADDONS_CONFIGURE_AT_STARTUP=OFF 
 
 ifeq ($(BR2_PACKAGE_KODI_RENDER_SYSTEM_GL),y)
 KODI_CONF_OPTS += -DAPP_RENDER_SYSTEM=gl
@@ -103,17 +107,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM),y)
 KODI_CORE_PLATFORM_NAME += gbm
-KODI_DEPENDENCIES += libinput libxkbcommon # libgbm  removed, batocera
-
-#batocera
-ifeq ($(BR2_PACKAGE_HAS_LIBGBM),y)
-  KODI_DEPENDENCIES += libgbm
-endif
-
-# batocera - for mali boards
-ifeq ($(BR2_PACKAGE_HAS_LIBMALI),y)
-KODI_DEPENDENCIES += libmali
-endif
+KODI_DEPENDENCIES += libgbm libinput libxkbcommon
 endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_WAYLAND),y)
@@ -219,21 +213,6 @@ ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
 KODI_CONF_OPTS += -DCMAKE_EXE_LINKER_FLAGS=-latomic
 endif
 
-# batocera
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RK3588),y)
-  KODI_CONF_OPTS += -DCMAKE_EXE_LINKER_FLAGS="$${CMAKE_EXE_LINKER_FLAGS} -lmali_hook -Wl,--whole-archive -lmali_hook_injector -Wl,--no-whole-archive -lmali"
-endif
-
-ifeq ($(BR2_PACKAGE_KODI_PLATFORM_GBM_GLES),y)
-KODI_CONF_OPTS += \
-        -DCORE_PLATFORM_NAME=gbm \
-        -DGBM_RENDER_SYSTEM=gles
-KODI_DEPENDENCIES += libgles libinput libxkbcommon
-ifeq ($(BR2_PACKAGE_PROVIDES_LIBGLES),mesa3d)
-        KODI_DEPENDENCIES += mesa3d
-endif
-endif
-
 ifeq ($(BR2_TOOLCHAIN_GCC_AT_LEAST_5),)
 KODI_C_FLAGS += -std=gnu99
 endif
@@ -297,16 +276,6 @@ KODI_CONF_OPTS += -DENABLE_ALSA=ON
 KODI_DEPENDENCIES += alsa-lib
 else
 KODI_CONF_OPTS += -DENABLE_ALSA=OFF
-endif
-
-# batocera
-ifeq ($(BR2_PACKAGE_KODI_GBM),y)
-  ifeq ($(BR2_PACKAGE_MESA3D),y)
-    KODI_DEPENDENCIES += mesa3d
-  endif
-KODI_CONF_OPTS += -DENABLE_GBM=ON
-else
-KODI_CONF_OPTS += -DENABLE_GBM=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_KODI_LIBMICROHTTPD),y)
@@ -395,8 +364,7 @@ else
 KODI_CONF_OPTS += -DENABLE_OPTICAL=OFF
 endif
 
-# batocera - fix dependency
-ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
+ifeq ($(BR2_PACKAGE_KODI_PULSEAUDIO),y)
 KODI_CONF_OPTS += -DENABLE_PULSEAUDIO=ON
 KODI_DEPENDENCIES += pulseaudio
 else
