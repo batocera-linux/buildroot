@@ -54,7 +54,8 @@ BINUTILS_CONF_OPTS = \
 	--with-system-zlib \
 	--disable-gprofng \
 	$(BINUTILS_DISABLE_GDB_CONF_OPTS) \
-	$(BINUTILS_EXTRA_CONFIG_OPTIONS)
+	$(BINUTILS_EXTRA_CONFIG_OPTIONS) \
+	--without-zstd
 
 ifeq ($(BR2_STATIC_LIBS),y)
 BINUTILS_CONF_OPTS += --disable-plugins
@@ -104,7 +105,7 @@ endif
 # our TARGET_CONFIGURE_ARGS are taken into consideration for those
 BINUTILS_MAKE_ENV = $(TARGET_CONFIGURE_ARGS)
 
-ifeq ($(BR2_PACKAGE_BINUTILS_HAS_LIBSFRAME),y)
+ifeq ($(BR2_PACKAGE_BINUTILS_HAS_NO_LIBSFRAME),)
 define BINUTILS_INSTALL_STAGING_LIBSFRAME
 	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D)/libsframe DESTDIR=$(STAGING_DIR) install
 endef

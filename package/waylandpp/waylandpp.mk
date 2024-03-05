@@ -3,7 +3,7 @@
 # waylandpp
 #
 ################################################################################
-# batocera (update)
+
 WAYLANDPP_VERSION = 1.0.0
 WAYLANDPP_SITE = $(call github,NilsBrause,waylandpp,$(WAYLANDPP_VERSION))
 WAYLANDPP_LICENSE = MIT, GPL-3.0+ (wayland_scanner)

@@ -203,10 +203,15 @@ endif
 # Base X11 support. Config.in ensures that if BR2_PACKAGE_XORG7 is
 # enabled, xlib_libX11, xlib_libXext, xlib_libXinerama,
 # xlib_libXrandr, xlib_libXScrnSaver.
-# batocera - add the xlib_libXpresent dependency
 ifeq ($(BR2_PACKAGE_XORG7),y)
 MPV_CONF_OPTS += --enable-x11
-MPV_DEPENDENCIES += xlib_libX11 xlib_libXext xlib_libXinerama xlib_libXrandr xlib_libXScrnSaver xlib_libXpresent
+MPV_DEPENDENCIES += \
+	xlib_libX11 \
+	xlib_libXext \
+	xlib_libXinerama \
+	xlib_libXpresent \
+	xlib_libXrandr \
+	xlib_libXScrnSaver
 # XVideo
 ifeq ($(BR2_PACKAGE_XLIB_LIBXV),y)
 MPV_CONF_OPTS += --enable-xv

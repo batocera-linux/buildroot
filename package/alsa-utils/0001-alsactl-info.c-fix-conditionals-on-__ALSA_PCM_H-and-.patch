@@ -28,6 +28,8 @@ functions when support is not available.
 
 Signed-off-by: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 Upstream: https://mailman.alsa-project.org/pipermail/alsa-devel/2022-July/203846.html
+[Bernd: update patch for 1.2.10]
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
 ---
  alsactl/info.c | 14 ++++++++++----
  1 file changed, 10 insertions(+), 4 deletions(-)
@@ -81,11 +83,10 @@ index 253539d..9bd72af 100644
  
  static int hwdep_device_list(snd_ctl_t *ctl)
  {
-@@ -229,18 +229,21 @@ int general_card_info(int cardno)
- 		return err;
+@@ -227,17 +229,21 @@ int general_card_info(int cardno)
  	}
  	err = card_info(ctl);
--
+ 
 +#ifdef __ALSA_PCM_H
  	first = true;
  	if (err >= 0)

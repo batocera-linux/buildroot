@@ -3,7 +3,7 @@
 # gst1-vaapi
 #
 ################################################################################
-# batocera - bump
+
 GST1_VAAPI_VERSION = 1.22.9
 GST1_VAAPI_SITE = https://gstreamer.freedesktop.org/src/gstreamer-vaapi
 GST1_VAAPI_SOURCE = gstreamer-vaapi-$(GST1_VAAPI_VERSION).tar.xz

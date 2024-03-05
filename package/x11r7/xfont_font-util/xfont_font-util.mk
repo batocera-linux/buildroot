@@ -3,7 +3,7 @@
 # xfont_font-util
 #
 ################################################################################
-
+# batocera - update
 XFONT_FONT_UTIL_VERSION = 1.4.1
 XFONT_FONT_UTIL_SOURCE = font-util-$(XFONT_FONT_UTIL_VERSION).tar.xz
 XFONT_FONT_UTIL_SITE = https://xorg.freedesktop.org/archive/individual/font

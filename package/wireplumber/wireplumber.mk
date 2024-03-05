@@ -3,7 +3,7 @@
 # wireplumber
 #
 ################################################################################
-# batocera - bump
+# batocera - bump (patch removed)
 # don't upgrade to 0.4.81 until this comment removed
 WIREPLUMBER_VERSION = 0.4.17
 WIREPLUMBER_SOURCE = wireplumber-$(WIREPLUMBER_VERSION).tar.bz2

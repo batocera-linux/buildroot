@@ -240,6 +240,25 @@ config BR2_TARGET_UBOOT_NEEDS_OPTEE_TEE
 	  U-Boot, and that the TEE variable pointing to OPTEE's
 	  tee.elf, is passed during the Buildroot build.
 
+config BR2_TARGET_UBOOT_NEEDS_TI_K3_DM
+	bool "U-Boot needs TI K3 Device Manager (DM)"
+	# We use the SoC selection defined for the ti-k3-image-gen
+	# package
+	depends on BR2_TARGET_TI_K3_IMAGE_GEN
+	depends on BR2_TARGET_TI_K3_IMAGE_GEN_SOC_AM62AX || BR2_TARGET_TI_K3_IMAGE_GEN_SOC_AM62X
+	help
+	  Some TI K3 devices need the Device Manager (DM) firmware to
+	  be available for the U-Boot build.
+
+if BR2_TARGET_UBOOT_NEEDS_TI_K3_DM
+
+config BR2_TARGET_UBOOT_TI_K3_DM_SOCNAME
+	string
+	default "am62axx" if BR2_TARGET_TI_K3_IMAGE_GEN_SOC_AM62AX
+	default "am62xx"  if BR2_TARGET_TI_K3_IMAGE_GEN_SOC_AM62X
+
+endif
+
 config BR2_TARGET_UBOOT_NEEDS_OPENSBI
 	bool "U-Boot needs OpenSBI"
 	depends on BR2_TARGET_OPENSBI
@@ -261,6 +280,15 @@ config BR2_TARGET_UBOOT_NEEDS_IMX_FIRMWARE
 	  U-Boot.
 	  This option makes sure that the i.MX firmwares are copied into
 	  the U-Boot source directory.
+
+config BR2_TARGET_UBOOT_NEEDS_ROCKCHIP_RKBIN
+	bool "U-Boot needs rockchip-rkbin"
+	depends on BR2_PACKAGE_ROCKCHIP_RKBIN
+	help
+	  For some Rockchip SoCs U-Boot needs binary blobs from
+	  Rockchip.
+	  This option makes sure that the needed binary blobs are copied
+	  into the U-Boot source directory.
 
 menu "U-Boot binary format"
 
@@ -394,6 +422,16 @@ config BR2_TARGET_UBOOT_FORMAT_SD
 config BR2_TARGET_UBOOT_FORMAT_STM32
 	bool "u-boot.stm32"
 	depends on BR2_arm
+
+if BR2_TARGET_UBOOT_FORMAT_STM32
+config BR2_TARGET_UBOOT_BUILD_FORMAT_STM32_LEGACY
+	bool "Legacy build (u-boot.stm32 target)"
+	help
+	  Select this option if you use U-Boot with version older than
+	  2022.01), so that we use the old build target. Otherwise,
+	  binman application is called to create the stm32 binary
+	  format.
+endif
 
 config BR2_TARGET_UBOOT_FORMAT_CUSTOM
 	bool "Custom (specify below)"

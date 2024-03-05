@@ -3,7 +3,7 @@
 # mesa3d
 #
 ################################################################################
-# batocera (update)
+# batocera (update) - patch 5 not needed
 # When updating the version, please also update mesa3d-headers
 # also update glslang to the latest stable version
 

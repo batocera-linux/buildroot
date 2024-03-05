@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-IPROUTE2_VERSION = 6.2.0
+IPROUTE2_VERSION = 6.5.0
 IPROUTE2_SOURCE = iproute2-$(IPROUTE2_VERSION).tar.xz
 IPROUTE2_SITE = $(BR2_KERNEL_MIRROR)/linux/utils/net/iproute2
 IPROUTE2_DEPENDENCIES = host-bison host-flex host-pkgconf \
@@ -38,8 +38,16 @@ ifeq ($(BR2_PACKAGE_BERKELEYDB_COMPAT185),y)
 IPROUTE2_DEPENDENCIES += berkeleydb
 endif
 
+ifeq ($(BR2_PACKAGE_LIBBPF),y)
+IPROUTE2_DEPENDENCIES += libbpf
+IPROUTE2_CONFIGURE_OPTS += --libbpf_force on
+else
+IPROUTE2_CONFIGURE_OPTS += --libbpf_force off
+endif
+
 define IPROUTE2_CONFIGURE_CMDS
-	cd $(@D) && $(TARGET_CONFIGURE_OPTS) ./configure
+	cd $(@D) && $(TARGET_CONFIGURE_OPTS) ./configure \
+		$(IPROUTE2_CONFIGURE_OPTS)
 	$(IPROUTE2_DISABLE_IPTABLES)
 endef
 

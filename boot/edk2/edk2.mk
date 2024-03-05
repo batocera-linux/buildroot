@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-EDK2_VERSION = edk2-stable202208
+EDK2_VERSION = edk2-stable202308
 EDK2_SITE = https://github.com/tianocore/edk2
 EDK2_SITE_METHOD = git
 EDK2_LICENSE = BSD-2-Clause-Patent
@@ -16,8 +16,15 @@ EDK2_INSTALL_IMAGES = YES
 
 ifeq ($(BR2_ENABLE_DEBUG),y)
 EDK2_BUILD_TYPE = DEBUG
+ifeq ($(BR2_TARGET_EDK2_OVMF_DEBUG_ON_SERIAL),y)
+# DEBUG_ON_SERIAL_PORT is only tested to be set, so don't disable it, as
+# it would still be set.
+EDK2_BUILD_OPTS += -DDEBUG_ON_SERIAL_PORT
+endif
 else
 EDK2_BUILD_TYPE = RELEASE
+# DEBUG_ON_SERIAL_PORT is only valid in debug builds, so useless to set
+# it (enabled or disabled) on a relase build.
 endif
 
 # Build system notes.
@@ -137,7 +144,13 @@ EDK2_BASETOOLS_OPTS = \
 
 EDK2_PACKAGES_PATH = $(subst $(space),:,$(strip $(EDK2_PACKAGES_PATHS)))
 
+# EDK2 "build" script internally uses and calls "make", which controls
+# its own flags. It is mainly tested while not being a sub-make. In
+# order to stay in that configuration, we avoid leaking top-level
+# Buildroot make flags into EDK2 build by clearing the MAKEFLAGS
+# environment variable.
 EDK2_BUILD_ENV += \
+	MAKEFLAGS= \
 	WORKSPACE=$(@D) \
 	PACKAGES_PATH=$(EDK2_PACKAGES_PATH) \
 	PYTHON_COMMAND=$(HOST_DIR)/bin/python3 \

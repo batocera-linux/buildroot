@@ -3,7 +3,7 @@
 # gst1-plugins-bad
 #
 ################################################################################
-# batocera - bump
+
 GST1_PLUGINS_BAD_VERSION = 1.22.9
 GST1_PLUGINS_BAD_SOURCE = gst-plugins-bad-$(GST1_PLUGINS_BAD_VERSION).tar.xz
 GST1_PLUGINS_BAD_SITE = https://gstreamer.freedesktop.org/src/gst-plugins-bad

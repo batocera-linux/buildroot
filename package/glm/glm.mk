@@ -15,10 +15,9 @@ GLM_INSTALL_STAGING = YES
 GLM_INSTALL_TARGET = NO
 
 # Don't build libraries as GLM is header-only
-# Batocera - enable shared libs for cemu
 GLM_CONF_OPTS = \
 	-DGLM_TEST_ENABLE=OFF \
-	-DBUILD_SHARED_LIBS=ON \
+	-DBUILD_SHARED_LIBS=OFF \
 	-DBUILD_STATIC_LIBS=OFF
 
 $(eval $(cmake-package))
