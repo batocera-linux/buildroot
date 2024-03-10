@@ -194,7 +194,7 @@ define GLIBC_CONFIGURE_CMDS
 		--disable-werror \
 		--without-gd \
 		--with-headers=$(STAGING_DIR)/usr/include \
-		$(if $(BR2_aarch64)$(BR2_aarch64_be),--enable-mathvec) \
+		$(if $(BR2_aarch64)$(BR2_aarch64_be),--disable-mathvec) \
 		--enable-crypt \
 		$(GLIBC_CONF_OPTS))
 	$(GLIBC_ADD_MISSING_STUB_H)
