@@ -3,7 +3,7 @@
 # vlc
 #
 ################################################################################
-# batocera - bump
+
 VLC_VERSION = 3.0.20
 VLC_SITE = https://get.videolan.org/vlc/$(VLC_VERSION)
 VLC_SOURCE = vlc-$(VLC_VERSION).tar.xz
