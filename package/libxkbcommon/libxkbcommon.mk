@@ -37,4 +37,11 @@ else
 LIBXKBCOMMON_CONF_OPTS += -Denable-tools=false
 endif
 
+ifeq ($(BR2_PACKAGE_LIBXKBCOMMON_TOOLS)$(BR2_PACKAGE_WAYLAND),yy)
+LIBXKBCOMMON_CONF_OPTS += -Denable-wayland=true
+LIBXKBCOMMON_DEPENDENCIES += wayland wayland-protocols
+else
+LIBXKBCOMMON_CONF_OPTS += -Denable-wayland=false
+endif
+
 $(eval $(meson-package))

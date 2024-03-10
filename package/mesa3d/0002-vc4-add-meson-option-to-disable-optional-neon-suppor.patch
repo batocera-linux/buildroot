@@ -1,4 +1,4 @@
-From e3b47c1b84964c62b3e1fa782f1ffa4be0ae62f9 Mon Sep 17 00:00:00 2001
+From f719e942dde0a46a9ff0080001cb3466012ffcc0 Mon Sep 17 00:00:00 2001
 From: Peter Seiderer <ps.report@gmx.net>
 Date: Mon, 9 Mar 2020 13:01:14 +0100
 Subject: [PATCH] vc4: add meson option to disable optional neon support
@@ -7,10 +7,12 @@ Not all toolchains are able to compile the runtime
 optional vc4 neon support, so add an meson option
 to force disabling it at compile time.
 
-[Upstream: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/4114]
+Upstream: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/4114
 Signed-off-by: Peter Seiderer <ps.report@gmx.net>
 Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
-[rebased for 20.2.0, 20.3.0 & 21.1.0]
+[rebased for 20.2.0, 20.3.0, 21.1.0, 23.1.0 & 23.2.0]
+Signed-off-by: Peter Seiderer <ps.report@gmx.net>
+[fix syntax error after previous rebases]
 ---
  meson_options.txt                    | 8 ++++++++
  src/gallium/drivers/vc4/meson.build  | 4 ++--
@@ -18,18 +20,17 @@ Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
  3 files changed, 12 insertions(+), 4 deletions(-)
 
 diff --git a/meson_options.txt b/meson_options.txt
-index 8e0bf2a..e5c2268 100644
+index 8e0bf2a..1cf0e07 100644
 --- a/meson_options.txt
 +++ b/meson_options.txt
-@@ -116,6 +116,14 @@ option(
+@@ -124,6 +124,13 @@ option(
    description : 'enable gallium va frontend.',
  )
-
+ 
 +option(
 +  'gallium-vc4-neon',
-+  type : 'combo',
-+  value : 'auto',
-+  choices : ['auto', 'disabled'],
++  type : 'feature',
++  deprecated: {'true': 'enabled', 'false': 'disabled'},
 +  description : 'enable gallium vc4 optional neon support.',
 +)
 +
@@ -37,7 +38,7 @@ index 8e0bf2a..e5c2268 100644
    'va-libs-path',
    type : 'string',
 diff --git a/src/gallium/drivers/vc4/meson.build b/src/gallium/drivers/vc4/meson.build
-index 84da951..76bc902 100644
+index 84da951..7f950de 100644
 --- a/src/gallium/drivers/vc4/meson.build
 +++ b/src/gallium/drivers/vc4/meson.build
 @@ -84,7 +84,7 @@ files_libvc4 = files(
@@ -45,7 +46,7 @@ index 84da951..76bc902 100644
 
  libvc4_neon = []
 -if host_machine.cpu_family() == 'arm'
-+if host_machine.cpu_family() == 'arm' and get_option('gallium-vc4-neon') != 'disabled'
++if host_machine.cpu_family() == 'arm' and not get_option('gallium-vc4-neon').disabled()
    libvc4_neon = static_library(
      'vc4_neon',
      'vc4_tiling_lt_neon.c',
@@ -80,6 +81,6 @@ index 5afe329..919b299 100644
          if (util_get_cpu_caps()->has_neon) {
                  vc4_store_lt_image_neon(dst, dst_stride, src, src_stride,
                                          cpp, box);
---
-2.40.1
+-- 
+2.41.0
 

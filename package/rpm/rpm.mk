@@ -30,7 +30,6 @@ RPM_INSTALL_STAGING = YES
 # --enable-openmp is provided and OpenMP is < 4.5:
 # https://github.com/rpm-software-management/rpm/pull/1433
 RPM_CONF_OPTS = \
-	--disable-python \
 	--disable-rpath \
 	--with-gnu-ld \
 	--without-fapolicyd \
