@@ -12,13 +12,8 @@ endif
 
 # Not possible to directly refer to mesa3d variables, because of
 # first/second expansion trickery...
-# When updating the version, please also update mesa3d-headers
-# RPi4/Panfrost workaround until - https://gitlab.freedesktop.org/mesa/mesa/-/issues/10306 fixed
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_BCM2711)$(BR2_PACKAGE_BATOCERA_PANFROST_MESA3D),y)
-    MESA3D_VERSION = 23.2.1
-else
-    MESA3D_VERSION = 24.0.2
-endif
+# batocera (update)
+MESA3D_HEADERS_VERSION = $(MESA3D_VERSION)
 MESA3D_HEADERS_SOURCE = mesa-$(MESA3D_HEADERS_VERSION).tar.xz
 MESA3D_HEADERS_SITE = https://archive.mesa3d.org
 MESA3D_HEADERS_DL_SUBDIR = mesa3d
