@@ -8,7 +8,7 @@ GDB_VERSION = $(call qstrip,$(BR2_GDB_VERSION))
 GDB_SITE = $(BR2_GNU_MIRROR)/gdb
 GDB_SOURCE = gdb-$(GDB_VERSION).tar.xz
 
-ifeq ($(BR2_arc),y)
+ifeq ($(GDB_VERSION),arc-2023.09-release)
 GDB_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,binutils-gdb,$(GDB_VERSION))
 GDB_SOURCE = gdb-$(GDB_VERSION).tar.gz
 GDB_FROM_GIT = y
@@ -56,11 +56,8 @@ GDB_DEPENDENCIES += host-flex host-bison
 HOST_GDB_DEPENDENCIES += host-flex host-bison
 endif
 
-# All newer versions of GDB need host-gmp, so it's only for older
-# versions that the dependency can be avoided.
-ifeq ($(BR2_arc),)
+# All newer versions of GDB need host-gmp
 HOST_GDB_DEPENDENCIES += host-gmp
-endif
 
 # When gdb sources are fetched from the binutils-gdb repository, they
 # also contain the binutils sources, but binutils shouldn't be built,
@@ -135,7 +132,6 @@ GDB_CONF_OPTS = \
 	--disable-werror \
 	--enable-static \
 	--disable-shared \
-	--without-mpfr \
 	--disable-source-highlight
 
 ifeq ($(BR2_PACKAGE_GDB_DEBUGGER),y)
@@ -159,12 +155,22 @@ GDB_CONF_OPTS += \
 endif
 
 # Starting from GDB 11.x, gmp is needed as a dependency to build full
-# gdb. So we avoid the dependency only for the special version used on
-# ARC.
-ifeq ($(BR2_arc):$(BR2_PACKAGE_GDB_DEBUGGER),:y)
+# gdb.
+ifeq ($(BR2_PACKAGE_GDB_DEBUGGER),y)
 GDB_CONF_OPTS += \
 	--with-libgmp-prefix=$(STAGING_DIR)/usr
 GDB_DEPENDENCIES += gmp
+endif
+
+# Starting from GDB 14.x, mpfr is needed as a dependency to build full
+# gdb.
+# GDB fork from ARC GNU tools 2023.09 is based on GDB14 branch and so
+# requires MPFR as well.
+ifeq ($(BR2_GDB_VERSION_14)$(BR2_arc):$(BR2_PACKAGE_GDB_DEBUGGER),y:y)
+GDB_DEPENDENCIES += mpfr
+GDB_CONF_OPTS += --with-mpfr=$(STAGING_DIR)
+else
+GDB_CONF_OPTS += --without-mpfr
 endif
 
 ifeq ($(BR2_PACKAGE_GDB_SERVER),y)
@@ -260,9 +266,18 @@ HOST_GDB_CONF_OPTS = \
 	--without-included-gettext \
 	--with-system-zlib \
 	--with-curses \
-	--without-mpfr \
 	--disable-source-highlight \
 	$(GDB_DISABLE_BINUTILS_CONF_OPTS)
+
+# GDB newer than 14.x need host-mpfr
+# GDB fork from ARC GNU tools 2023.09 is based on GDB14 branch and so
+# requires MPFR as well.
+ifeq ($(BR2_GDB_VERSION_14)$(BR2_arc),y)
+HOST_GDB_DEPENDENCIES += host-mpfr
+HOST_GDB_CONF_OPTS += --with-mpfr=$(HOST_DIR)
+else
+HOST_GDB_CONF_OPTS += --without-mpfr
+endif
 
 ifeq ($(BR2_PACKAGE_HOST_GDB_TUI),y)
 HOST_GDB_CONF_OPTS += --enable-tui

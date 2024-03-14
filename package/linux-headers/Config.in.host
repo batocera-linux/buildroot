@@ -24,11 +24,6 @@ config BR2_KERNEL_HEADERS_AS_KERNEL
 	depends on BR2_LINUX_KERNEL
 	select BR2_KERNEL_HEADERS_LATEST if BR2_LINUX_KERNEL_LATEST_VERSION
 
-config BR2_KERNEL_HEADERS_4_14
-	bool "Linux 4.14.x kernel headers"
-	depends on !BR2_riscv
-	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_4_14
-
 config BR2_KERNEL_HEADERS_4_19
 	bool "Linux 4.19.x kernel headers"
 	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_4_19
@@ -48,10 +43,6 @@ config BR2_KERNEL_HEADERS_5_15
 config BR2_KERNEL_HEADERS_6_1
 	bool "Linux 6.1.x kernel headers"
 	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_6_1
-
-config BR2_KERNEL_HEADERS_6_5
-	bool "Linux 6.5.x kernel headers"
-	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_6_5
 
 config BR2_KERNEL_HEADERS_6_6
 	bool "Linux 6.6.x kernel headers"

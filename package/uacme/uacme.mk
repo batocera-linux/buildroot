@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-UACME_VERSION = 1.7.4
+UACME_VERSION = 1.7.5
 # Released versions are on branch upstream/latest, tagged as
 # upstream/X.Y.Z Do not use vX.Y.Z tags from master, as they do not
 # include .tarball-version
@@ -12,6 +12,9 @@ UACME_SITE = $(call github,ndilieto,uacme,upstream/$(UACME_VERSION))
 UACME_LICENSE = GPL-3.0+
 UACME_LICENSE_FILES = COPYING
 UACME_DEPENDENCIES = libcurl
+
+# 0001-Fix-cross-compilation.patch touches configure.ac
+UACME_AUTORECONF = YES
 
 UACME_CONF_ENV = ac_cv_prog_cc_c99='-std=gnu99' LIBS="$(UACME_LIBS)"
 
