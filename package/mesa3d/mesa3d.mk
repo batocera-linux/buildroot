@@ -337,7 +337,7 @@ endif
 ifeq ($(BR2_x86_i686),y)
     MESA3D_PRE_CONFIGURE_HOOKS += MESA3D_VULKANJSON_X86
 endif
-# end batcoera
+# end batocera
 
 MESA3D_CFLAGS = $(TARGET_CFLAGS)
 
