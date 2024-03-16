@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBBLOCKDEV_VERSION = 3.0.4
+LIBBLOCKDEV_VERSION = 3.1.0
 LIBBLOCKDEV_SITE = https://github.com/storaged-project/libblockdev/releases/download/$(LIBBLOCKDEV_VERSION)-1
 LIBBLOCKDEV_LICENSE = LGPL-2.1
 LIBBLOCKDEV_LICENSE_FILES = LICENSE
@@ -16,20 +16,15 @@ LIBBLOCKDEV_AUTORECONF = YES
 LIBBLOCKDEV_CONF_OPTS = \
 	--disable-introspection \
 	--with-loop \
-	--without-bcache \
 	--without-btrfs \
 	--without-dm \
-	--without-dmraid \
 	--without-escrow \
-	--without-kbd \
 	--without-lvm_dbus \
 	--without-mpath \
 	--without-nvdimm \
-	--without-python2 \
 	--without-python3 \
 	--without-s390 \
-	--without-tools \
-	--without-vdo
+	--without-tools
 
 ifeq ($(BR2_PACKAGE_LIBBLOCKDEV_CRYPTO),y)
 LIBBLOCKDEV_DEPENDENCIES += cryptsetup keyutils

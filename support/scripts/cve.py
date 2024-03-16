@@ -21,8 +21,8 @@ import datetime
 import os
 import requests  # URL checking
 import distutils.version
+import lzma
 import time
-import gzip
 import sys
 import operator
 
@@ -40,9 +40,8 @@ except ImportError:
 
 sys.path.append('utils/')
 
-NVD_START_YEAR = 2002
-NVD_JSON_VERSION = "1.1"
-NVD_BASE_URL = "https://nvd.nist.gov/feeds/json/cve/" + NVD_JSON_VERSION
+NVD_START_YEAR = 1999
+NVD_BASE_URL = "https://github.com/fkie-cad/nvd-json-data-feeds/releases/latest/download"
 
 ops = {
     '>=': operator.ge,
@@ -83,15 +82,15 @@ class CVE:
 
     @staticmethod
     def download_nvd_year(nvd_path, year):
-        metaf = "nvdcve-%s-%s.meta" % (NVD_JSON_VERSION, year)
+        metaf = "CVE-%s.meta" % year
         path_metaf = os.path.join(nvd_path, metaf)
-        jsonf_gz = "nvdcve-%s-%s.json.gz" % (NVD_JSON_VERSION, year)
-        path_jsonf_gz = os.path.join(nvd_path, jsonf_gz)
+        jsonf_xz = "CVE-%s.json.xz" % year
+        path_jsonf_xz = os.path.join(nvd_path, jsonf_xz)
 
         # If the database file is less than a day old, we assume the NVD data
         # locally available is recent enough.
-        if os.path.exists(path_jsonf_gz) and os.stat(path_jsonf_gz).st_mtime >= time.time() - 86400:
-            return path_jsonf_gz
+        if os.path.exists(path_jsonf_xz) and os.stat(path_jsonf_xz).st_mtime >= time.time() - 86400:
+            return path_jsonf_xz
 
         # If not, we download the meta file
         url = "%s/%s" % (NVD_BASE_URL, metaf)
@@ -104,19 +103,26 @@ class CVE:
         # we need to re-download the database.
         # If the database does not exist locally, we need to redownload it in
         # any case.
-        if os.path.exists(path_metaf) and os.path.exists(path_jsonf_gz):
+        if os.path.exists(path_metaf) and os.path.exists(path_jsonf_xz):
             meta_known = open(path_metaf, "r").read()
             if page_meta.text == meta_known:
-                return path_jsonf_gz
+                return path_jsonf_xz
 
         # Grab the compressed JSON NVD, and write files to disk
-        url = "%s/%s" % (NVD_BASE_URL, jsonf_gz)
+        url = "%s/%s" % (NVD_BASE_URL, jsonf_xz)
         print("Getting %s" % url)
         page_json = requests.get(url)
         page_json.raise_for_status()
-        open(path_jsonf_gz, "wb").write(page_json.content)
+        open(path_jsonf_xz, "wb").write(page_json.content)
         open(path_metaf, "w").write(page_meta.text)
-        return path_jsonf_gz
+        return path_jsonf_xz
+
+    @staticmethod
+    def sort_id(cve_ids):
+        def cve_key(cve_id):
+            year, id_ = cve_id.split('-')[1:]
+            return (int(year), int(id_))
+        return sorted(cve_ids, key=cve_key)
 
     @classmethod
     def read_nvd_dir(cls, nvd_dir):
@@ -128,7 +134,7 @@ class CVE:
         for year in range(NVD_START_YEAR, datetime.datetime.now().year + 1):
             filename = CVE.download_nvd_year(nvd_dir, year)
             try:
-                content = ijson.items(gzip.GzipFile(filename), 'CVE_Items.item')
+                content = ijson.items(lzma.LZMAFile(filename), 'cve_items.item')
             except:  # noqa: E722
                 print("ERROR: cannot read %s. Please remove the file then rerun this script" % filename)
                 raise
@@ -155,11 +161,11 @@ class CVE:
             for parsed_node in self.parse_node(child):
                 yield parsed_node
 
-        for cpe in node.get('cpe_match', ()):
+        for cpe in node.get('cpeMatch', ()):
             if not cpe['vulnerable']:
                 return
-            product = cpe_product(cpe['cpe23Uri'])
-            version = cpe_version(cpe['cpe23Uri'])
+            product = cpe_product(cpe['criteria'])
+            version = cpe_version(cpe['criteria'])
             # ignore when product is '-', which means N/A
             if product == '-':
                 return
@@ -191,7 +197,7 @@ class CVE:
                     v_end = cpe['versionEndExcluding']
 
             yield {
-                'id': cpe['cpe23Uri'],
+                'id': cpe['criteria'],
                 'v_start': v_start,
                 'op_start': op_start,
                 'v_end': v_end,
@@ -199,14 +205,15 @@ class CVE:
             }
 
     def each_cpe(self):
-        for node in self.nvd_cve['configurations']['nodes']:
-            for cpe in self.parse_node(node):
-                yield cpe
+        for nodes in self.nvd_cve.get('configurations', []):
+            for node in nodes['nodes']:
+                for cpe in self.parse_node(node):
+                    yield cpe
 
     @property
     def identifier(self):
         """The CVE unique identifier"""
-        return self.nvd_cve['cve']['CVE_data_meta']['ID']
+        return self.nvd_cve['id']
 
     @property
     def affected_products(self):

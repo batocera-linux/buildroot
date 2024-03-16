@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-OPENCV4_VERSION = 4.8.1
+OPENCV4_VERSION = 4.9.0
 OPENCV4_SITE = $(call github,opencv,opencv,$(OPENCV4_VERSION))
 OPENCV4_INSTALL_STAGING = YES
 OPENCV4_LICENSE = Apache-2.0
@@ -410,7 +410,7 @@ OPENCV4_CONF_OPTS += \
 	-DPYTHON3_NUMPY_VERSION=$(PYTHON_NUMPY_VERSION)
 OPENCV4_DEPENDENCIES += python3
 OPENCV4_KEEP_PY_FILES += usr/lib/python$(PYTHON3_VERSION_MAJOR)/site-packages/cv2/config*.py
-OPENCV4_CONF_ENV += $(PKG_PYTHON_DISTUTILS_ENV)
+OPENCV4_CONF_ENV += $(PKG_PYTHON_SETUPTOOLS_ENV)
 OPENCV4_DEPENDENCIES += python-numpy
 else
 OPENCV4_CONF_OPTS += \

@@ -339,7 +339,7 @@ QT6BASE_CONF_OPTS += -DFEATURE_sql_db2=OFF -DFEATURE_sql_ibase=OFF -DFEATURE_sql
 
 ifeq ($(BR2_PACKAGE_QT6BASE_MYSQL),y)
 QT6BASE_CONF_OPTS += -DFEATURE_sql_mysql=ON
-QT6BASE_DEPENDENCIES += mysql
+QT6BASE_DEPENDENCIES += mariadb
 else
 QT6BASE_CONF_OPTS += -DFEATURE_sql_mysql=OFF
 endif
@@ -393,6 +393,11 @@ QT6BASE_DEPENDENCIES += zstd
 else
 QT6BASE_CONF_OPTS += -DFEATURE_zstd=OFF
 endif
+
+define QT6BASE_RM_USR_MKSPECS
+	$(Q)rm -rf $(TARGET_DIR)/usr/mkspecs
+endef
+QT6BASE_TARGET_FINALIZE_HOOKS += QT6BASE_RM_USR_MKSPECS
 
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))

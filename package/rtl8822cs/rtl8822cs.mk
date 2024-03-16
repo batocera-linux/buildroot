@@ -3,7 +3,7 @@
 # rtl8822cs
 #
 ################################################################################
-# batocera: Commits on Jan 30, 2024
+
 RTL8822CS_VERSION = fda6cd263e89567272060e6182a39aee20b894c4
 RTL8822CS_SITE = $(call github,jethome-ru,rtl88x2cs,$(RTL8822CS_VERSION))
 RTL8822CS_LICENSE = GPL-2.0
