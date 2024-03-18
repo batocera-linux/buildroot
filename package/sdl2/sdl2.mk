@@ -4,7 +4,7 @@
 #
 ################################################################################
 # batocera - update
-SDL2_VERSION = 2.30.0
+SDL2_VERSION = 2.30.1
 SDL2_SOURCE = SDL2-$(SDL2_VERSION).tar.gz
 SDL2_SITE = http://www.libsdl.org/release
 SDL2_LICENSE = Zlib
