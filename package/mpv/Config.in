@@ -29,7 +29,7 @@ config BR2_PACKAGE_MPV
 	select BR2_PACKAGE_XLIB_LIBXPRESENT if BR2_PACKAGE_XORG7
 	select BR2_PACKAGE_XLIB_LIBXSCRNSAVER if BR2_PACKAGE_XORG7
 	select BR2_PACKAGE_XLIB_LIBXRANDR if BR2_PACKAGE_XORG7
-	select BR2_PACKAGE_XLIB_LIBXPRESENT if BR2_PACKAGE_XORG7   #batocera
+	select BR2_PACKAGE_XLIB_LIBXPRESENT if BR2_PACKAGE_XORG7   # batocera
 	help
 	  mpv is a fork of mplayer2 and MPlayer. It shares some features
 	  with the former projects while introducing many more.

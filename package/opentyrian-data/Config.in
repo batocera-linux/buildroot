@@ -1,6 +1,6 @@
 config BR2_PACKAGE_OPENTYRIAN_DATA
 	bool "OpenTyrian data"
-	#batocera
+	# batocera
 	#depends on BR2_PACKAGE_OPENTYRIAN
 	help
 	  Data files to use with OpenTyrian game. Currently only the

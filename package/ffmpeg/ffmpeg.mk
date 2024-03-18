@@ -526,14 +526,6 @@ else
 FFMPEG_CONF_OPTS += --disable-altivec
 endif
 
-#batocera rk3588 hwdec
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RK3588)$(BR2_PACKAGE_ROCKCHIP_MPP)$(BR2_PACKAGE_ROCKCHIP_RGA),yyy)
-FFMPEG_CONF_OPTS += --enable-rkmpp
-FFMPEG_CONF_OPTS += --enable-version3
-FFMPEG_CONF_OPTS += --enable-librga
-FFMPEG_DEPENDENCIES += rockchip-mpp rockchip-rga
-endif
-
 # Uses __atomic_fetch_add_4
 ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
 FFMPEG_CONF_OPTS += --extra-libs=-latomic

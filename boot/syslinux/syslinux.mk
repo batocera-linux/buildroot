@@ -97,7 +97,7 @@ SYSLINUX_IMAGES-$(BR2_TARGET_SYSLINUX_ISOLINUX) += bios/core/isolinux.bin
 SYSLINUX_IMAGES-$(BR2_TARGET_SYSLINUX_PXELINUX) += bios/core/pxelinux.bin
 SYSLINUX_IMAGES-$(BR2_TARGET_SYSLINUX_MBR) += bios/mbr/mbr.bin
 SYSLINUX_IMAGES-$(BR2_TARGET_SYSLINUX_EFI) += $(SYSLINUX_EFI_BITS)/efi/syslinux.efi
-#batocera install gptmbr.bin
+# batocera install gptmbr.bin
 SYSLINUX_IMAGES-y += bios/mbr/gptmbr.bin
 
 SYSLINUX_C32 = $(call qstrip,$(BR2_TARGET_SYSLINUX_C32))
