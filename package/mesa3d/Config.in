@@ -9,8 +9,8 @@ menuconfig BR2_PACKAGE_MESA3D
 	select BR2_PACKAGE_LIBDRM
 	select BR2_PACKAGE_WAYLAND_PROTOCOLS if BR2_PACKAGE_WAYLAND
 	select BR2_PACKAGE_ZLIB
-	select BR2_PACKAGE_PYTHON3              if BR2_PACKAGE_WAYLAND && BR2_PACKAGE_MESA3D_NEEDS_X11 #batocera
-	select BR2_PACKAGE_HOST_GLSLANG         if BR2_PACKAGE_BATOCERA_VULKAN && BR2_PACKAGE_MESA3D_NEEDS_X11 #batocera
+	select BR2_PACKAGE_PYTHON3              if BR2_PACKAGE_WAYLAND && BR2_PACKAGE_MESA3D_NEEDS_X11 # batocera
+	select BR2_PACKAGE_HOST_GLSLANG         if BR2_PACKAGE_BATOCERA_VULKAN && BR2_PACKAGE_MESA3D_NEEDS_X11 # batocera
 	help
 	  Mesa 3D, an open-source implementation of the OpenGL
 	  specification.
@@ -251,7 +251,7 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_TEGRA
 
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_V3D
 	bool "Gallium v3d driver"
-	depends on BR2_arm || BR2_aarch64 #batocera
+	depends on BR2_arm || BR2_aarch64 # batocera
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4 || !BR2_PACKAGE_XORG7 # libxshmfence
 	select BR2_PACKAGE_MESA3D_DRI3 if BR2_PACKAGE_XORG7
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
@@ -267,7 +267,7 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_V3D
 
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_VC4
 	bool "Gallium vc4 driver"
-	depends on BR2_arm || BR2_aarch64 #batocera
+	depends on BR2_arm || BR2_aarch64 # batocera
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4 || !BR2_PACKAGE_XORG7 # libxshmfence
 	select BR2_PACKAGE_MESA3D_DRI3 if BR2_PACKAGE_XORG7
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
@@ -395,7 +395,7 @@ comment "intel haswell vulkan needs a glibc toolchain w/ headers >= 3.17"
 
 comment "Off-screen Rendering"
 
-#batocera
+# batocera
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_AMD
 	bool "Vulkan AMD Radeon driver"
 	depends on BR2_i386 || BR2_x86_64
@@ -417,7 +417,7 @@ comment "radeon vulkan depends on X.org and needs a glibc toolchain w/ headers >
 
 comment "Off-screen Rendering"
 
-#batocera
+# batocera
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_BROADCOM
 	bool "Raspberry Pi 4 Vulkan driver"
 	depends on BR2_arm || BR2_aarch64

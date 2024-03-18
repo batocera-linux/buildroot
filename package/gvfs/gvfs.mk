@@ -71,7 +71,7 @@ else
 GVFS_CONF_OPTS += -Dbluray=false
 endif
 
-#batocera
+# batocera
 GVFS_CONF_OPTS += -Dadmin=false
 #ifeq ($(BR2_PACKAGE_LIBCAP)$(BR2_PACKAGE_POLKIT),yy)
 #GVFS_DEPENDENCIES += libcap polkit
