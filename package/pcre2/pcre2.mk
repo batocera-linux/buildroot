@@ -3,8 +3,8 @@
 # pcre2
 #
 ################################################################################
-
-PCRE2_VERSION = 10.42
+# batocera - update
+PCRE2_VERSION = 10.43
 PCRE2_SITE = https://github.com/PCRE2Project/pcre2/releases/download/pcre2-$(PCRE2_VERSION)
 PCRE2_SOURCE = pcre2-$(PCRE2_VERSION).tar.bz2
 PCRE2_LICENSE = BSD-3-Clause

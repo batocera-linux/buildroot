@@ -3,8 +3,8 @@
 # xlib_libXext
 #
 ################################################################################
-
-XLIB_LIBXEXT_VERSION = 1.3.5
+# batocera - bump
+XLIB_LIBXEXT_VERSION = 1.3.6
 XLIB_LIBXEXT_SOURCE = libXext-$(XLIB_LIBXEXT_VERSION).tar.xz
 XLIB_LIBXEXT_SITE = https://xorg.freedesktop.org/archive/individual/lib
 XLIB_LIBXEXT_LICENSE = MIT
