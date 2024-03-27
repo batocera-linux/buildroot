@@ -3,8 +3,8 @@
 # sdl2
 #
 ################################################################################
-# batocera - update
-SDL2_VERSION = 2.30.1
+
+SDL2_VERSION = 2.28.5
 SDL2_SOURCE = SDL2-$(SDL2_VERSION).tar.gz
 SDL2_SITE = http://www.libsdl.org/release
 SDL2_LICENSE = Zlib
@@ -90,6 +90,10 @@ ifeq ($(BR2_PACKAGE_PIPEWIRE),y)
 SDL2_CONF_OPTS += --enable-pipewire
 endif
 
+ifeq ($(BR2_ARM_INSTRUCTIONS_THUMB),y)
+SDL2_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -marm"
+endif
+
 ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
 SDL2_DEPENDENCIES += udev
 SDL2_CONF_OPTS += --enable-libudev
@@ -149,14 +153,6 @@ else
 SDL2_CONF_OPTS += --disable-video-x11-xcursor
 endif
 
-# batocera - needs removing, not a valid option
-#ifeq ($(BR2_PACKAGE_XLIB_LIBXINERAMA),y)
-#SDL2_DEPENDENCIES += xlib_libXinerama
-#SDL2_CONF_OPTS += --enable-video-x11-xinerama
-#else
-#SDL2_CONF_OPTS += --disable-video-x11-xinerama
-#endif
-
 ifeq ($(BR2_PACKAGE_XLIB_LIBXI),y)
 SDL2_DEPENDENCIES += xlib_libXi
 SDL2_CONF_OPTS += --enable-video-x11-xinput
@@ -177,14 +173,6 @@ SDL2_CONF_OPTS += --enable-video-x11-scrnsaver
 else
 SDL2_CONF_OPTS += --disable-video-x11-scrnsaver
 endif
-
-# batocera - needs removing, not a valid option
-#ifeq ($(BR2_PACKAGE_XLIB_LIBXXF86VM),y)
-#SDL2_DEPENDENCIES += xlib_libXxf86vm
-#SDL2_CONF_OPTS += --enable-video-x11-vm
-#else
-#SDL2_CONF_OPTS += --disable-video-x11-vm
-#endif
 
 else
 SDL2_CONF_OPTS += --disable-video-x11 --without-x
