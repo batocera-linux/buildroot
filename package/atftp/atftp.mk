@@ -20,9 +20,6 @@ ATFTP_LIBS = -lpthread
 ATFTP_CONF_ENV = LIBS="$(ATFTP_LIBS)" \
 	CFLAGS="$(TARGET_CFLAGS) -fgnu89-inline"
 
-# batocera : 0004-Fix-for-DoS-issue-CVE-2020-6097.patch
-ATFTP_IGNORE_CVES += CVE-2020-6097
-
 ifeq ($(BR2_PACKAGE_READLINE),y)
 ATFTP_DEPENDENCIES += readline
 ATFTP_CONF_OPTS += --enable-libreadline
