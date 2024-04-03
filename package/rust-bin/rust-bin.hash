@@ -10,7 +10,7 @@ sha256  8818d7eb62ffbc9cfca570c4b829226eeb9b15befdaec7b91affbd2009cd4a6b  rust-s
 sha256  dc8acd573d8b673ef9b1fa99ac2223a31f871ec2863b3ac0b23368e926c20170  rust-std-1.77.1-armv7-unknown-linux-gnueabihf.tar.xz
 sha256  7bf24ca93bde8cd761128e68cbcabc9d304c5cf19fcdd020bca2d56e43014381  rust-std-1.77.1-i686-unknown-linux-gnu.tar.xz
 sha256  317e604909360d1bb92f7558aaa5ce449312630d8226767ae9df99bf5bef4fd1  rust-std-1.77.1-x86_64-unknown-linux-gnu.tar.xz
-
+sha256  fa7d6af3bd4c200c903ec019c420ba4735d35806aebba5278b157278724c831e  rust-std-1.77.1-riscv64gc-unknown-linux-gnu.tar.xz
 
 # From https://static.rust-lang.org/dist/rust-1.74.1-aarch64-unknown-linux-gnu.tar.xz.sha256
 # Verified using https://static.rust-lang.org/dist/rust-1.74.1-aarch64-unknown-linux-gnu.tar.xz.asc
