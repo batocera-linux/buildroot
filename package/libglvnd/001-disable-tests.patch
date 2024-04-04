@@ -1,0 +1,10 @@
+--- a/meson.build	2024-04-04 00:22:57.786673495 +0200
++++ b/meson.build	2024-04-04 00:23:09.266948370 +0200
+@@ -252,7 +252,6 @@
+ 
+ subdir('include')
+ subdir('src')
+-subdir('tests')
+ 
+ pkg.generate(
+   name : 'libglvnd',
