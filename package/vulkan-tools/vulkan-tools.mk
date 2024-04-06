@@ -3,8 +3,8 @@
 # vulkan-tools
 #
 ################################################################################
-
-VULKAN_TOOLS_VERSION = $(VULKAN_HEADERS_VERSION)
+# batocera - change version
+VULKAN_TOOLS_VERSION = v1.3.280
 VULKAN_TOOLS_SITE = $(call github,KhronosGroup,Vulkan-Tools,$(VULKAN_TOOLS_VERSION))
 VULKAN_TOOLS_LICENSE = Apache-2.0
 VULKAN_TOOLS_LICENSE_FILES = LICENSE.txt
@@ -17,7 +17,8 @@ VULKAN_TOOLS_CONF_OPTS += \
 	-DBUILD_CUBE=OFF \
 	-DBUILD_ICD=OFF \
 	-DBUILD_VULKANINFO=ON \
-	-DINSTALL_ICD=OFF
+	-DINSTALL_ICD=OFF \
+	-DUPDATE_DEPS=ON # batocera
 
 ifeq ($(BR2_PACKAGE_DIRECTFB),y)
 VULKAN_TOOLS_DEPENDENCIES += directfb
