@@ -28,12 +28,15 @@ ifeq ($(BR2_PACKAGE_HAS_LIBGLES),y)
 LIBGLFW_DEPENDENCIES += libgles
 endif
 
+# batocera - don't add wayland for x86
 ifeq ($(BR2_PACKAGE_WAYLAND),y)
-LIBGLFW_DEPENDENCIES += libxkbcommon wayland wayland-protocols
-# Override pkg-config pkgdatadir variable, it needs the prefix
-LIBGLFW_CONF_OPTS += \
-	-DGLFW_USE_WAYLAND=1 \
-	-DWAYLAND_PROTOCOLS_BASE=$(STAGING_DIR)/usr/share/wayland-protocols
+    ifneq ($(BR2_PACKAGE_BATOCERA_TARGET_X86_64_ANY)$(BR2_PACKAGE_BATOCERA_XWAYLAND),y)
+	    LIBGLFW_DEPENDENCIES += libxkbcommon wayland wayland-protocols
+		# Override pkg-config pkgdatadir variable, it needs the prefix
+		LIBGLFW_CONF_OPTS += \
+		    -DGLFW_USE_WAYLAND=1 \
+			-DWAYLAND_PROTOCOLS_BASE=$(STAGING_DIR)/usr/share/wayland-protocols
+	endif
 endif
 
 ifeq ($(BR2_PACKAGE_XLIB_LIBXXF86VM),y)
