@@ -4,7 +4,10 @@
 #
 ################################################################################
 
-FFMPEG_VERSION = 4.4.4
+# REG: FFMPEG 5.1.4 OK
+# REG: FFMPEG 6.1.1 KO on H3
+#FFMPEG_VERSION = 6.1.1
+FFMPEG_VERSION = 5.1.4
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
 FFMPEG_SITE = https://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
@@ -32,10 +35,6 @@ FFMPEG_CONF_OPTS = \
 	--disable-gray \
 	--enable-swscale-alpha \
 	--disable-small \
-	--enable-dct \
-	--enable-fft \
-	--enable-mdct \
-	--enable-rdft \
 	--disable-crystalhd \
 	--disable-dxva2 \
 	--enable-runtime-cpudetect \
@@ -44,6 +43,10 @@ FFMPEG_CONF_OPTS = \
 	--disable-mipsdspr2 \
 	--disable-msa \
 	--enable-hwaccels \
+	--enable-dct \
+	--enable-fft \
+	--enable-mdct \
+	--enable-rdft \
 	--disable-cuda \
 	--disable-cuvid \
 	--disable-nvenc \
@@ -93,10 +96,10 @@ else
 FFMPEG_CONF_OPTS += --disable-libv4l2
 endif
 
-ifeq ($(BR2_PACKAGE_FFMPEG_AVRESAMPLE),y)
-FFMPEG_CONF_OPTS += --enable-avresample
+ifeq ($(BR2_PACKAGE_FFMPEG_SWRESAMPLE),y)
+FFMPEG_CONF_OPTS += --enable-swresample
 else
-FFMPEG_CONF_OPTS += --disable-avresample
+FFMPEG_CONF_OPTS += --disable-swresample
 endif
 
 ifeq ($(BR2_PACKAGE_FFMPEG_FFPROBE),y)
