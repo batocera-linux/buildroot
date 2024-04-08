@@ -59,7 +59,7 @@ else
 AUBIO_CONF_OPTS += --disable-fftw3
 endif
 
-ifeq ($(BR2_PACKAGE_FFMPEG_AVRESAMPLE),y)
+ifeq ($(BR2_PACKAGE_FFMPEG_SWRESAMPLE),y)
 AUBIO_DEPENDENCIES += ffmpeg
 AUBIO_CONF_OPTS += --enable-avcodec
 else
