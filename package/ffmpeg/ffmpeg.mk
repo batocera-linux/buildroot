@@ -4,10 +4,8 @@
 #
 ################################################################################
 
-# REG: FFMPEG 5.1.4 OK
-# REG: FFMPEG 6.1.1 KO on H3
-#FFMPEG_VERSION = 6.1.1
-FFMPEG_VERSION = 5.1.4
+# REG: FFMPEG 6.0.1 OK
+FFMPEG_VERSION = 6.0.1
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
 FFMPEG_SITE = https://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
@@ -500,9 +498,7 @@ FFMPEG_CONF_OPTS += --enable-vfp
 else
 FFMPEG_CONF_OPTS += --disable-vfp
 endif
-ifeq ($(BR2_ARM_CPU_HAS_NEON),y)
-FFMPEG_CONF_OPTS += --enable-neon
-else ifeq ($(BR2_aarch64),y)
+ifeq ($(BR2_ARM_CPU_HAS_NEON)$(BR2_aarch64),y)
 FFMPEG_CONF_OPTS += --enable-neon
 else
 FFMPEG_CONF_OPTS += --disable-neon
