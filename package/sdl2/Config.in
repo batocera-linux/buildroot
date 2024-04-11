@@ -49,7 +49,6 @@ comment "KMS/DRM video driver needs a GBM provider, and OpenGL or OpenGLES+EGL"
 config BR2_PACKAGE_SDL2_WAYLAND
     bool "SDL2 Wayland support"
     depends on BR2_PACKAGE_WAYLAND
-    select BR2_PACKAGE_WAYLANDPP
     select BR2_PACKAGE_WAYLAND_PROTOCOLS
     select BR2_PACKAGE_LIBXKBCOMMON
 
