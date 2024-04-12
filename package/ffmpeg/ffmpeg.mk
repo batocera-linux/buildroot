@@ -22,7 +22,7 @@ FFMPEG_CPE_ID_VENDOR = ffmpeg
 FFMPEG_CONF_OPTS = \
 	--prefix=/usr \
 	--enable-avfilter \
-	--disable-version3 \
+	--enable-version3 \
 	--enable-logging \
 	--enable-optimizations \
 	--disable-extra-warnings \
