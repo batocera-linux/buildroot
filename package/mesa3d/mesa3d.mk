@@ -11,7 +11,7 @@
 ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_BCM2711)$(BR2_PACKAGE_BATOCERA_PANFROST_MESA3D),y)
     MESA3D_VERSION = 23.2.1
 else
-    MESA3D_VERSION = 24.0.4
+    MESA3D_VERSION = 24.0.5
 endif
 
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
@@ -151,11 +151,6 @@ MESA3D_VIDEO_CODECS-$(BR2_PACKAGE_MESA3D_VIDEO_CODEC_VP9DEC)        += vp9dec
 ifeq ($(BR2_PACKAGE_WAYLAND)$(BR2_PACKAGE_MESA3D_NEEDS_X11),yy)
 MESA3D_DEPENDENCIES += python3 host-glslang
 MESA3D_CONF_OPTS += -Dvulkan-layers=device-select,overlay
-endif
-
-# batocera - add Xe (Tigerlake and newer platforms)
-ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_IRIS),y)
-MESA3D_CONF_OPTS += -Dintel-xe-kmd=enabled
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER),)
