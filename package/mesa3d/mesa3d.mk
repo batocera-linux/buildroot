@@ -11,11 +11,19 @@
 ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_BCM2711)$(BR2_PACKAGE_BATOCERA_PANFROST_MESA3D),y)
     MESA3D_VERSION = 23.2.1
 else
-    MESA3D_VERSION = 24.0.4
+    MESA3D_VERSION = 24.0.5
 endif
 
+# Asahi Edge
+ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ASAHI),y)
+MESA3D_VERSION = asahi-20240228
+MESA3D_SITE = https://gitlab.freedesktop.org/asahi/mesa
+MESA3D_SITE_METHOD = git
+else
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 MESA3D_SITE = https://archive.mesa3d.org
+endif
+
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
 MESA3D_CPE_ID_VENDOR = mesa3d
@@ -49,12 +57,11 @@ else
 MESA3D_CONF_OPTS += -Ddri3=disabled
 endif
 
-# batocera - adjust the llvm dependencies
 ifeq ($(BR2_PACKAGE_MESA3D_LLVM),y)
-MESA3D_DEPENDENCIES += host-batocera-llvm batocera-llvm
+MESA3D_DEPENDENCIES += host-llvm llvm
 MESA3D_MESON_EXTRA_BINARIES += llvm-config='$(STAGING_DIR)/usr/bin/llvm-config'
 MESA3D_CONF_OPTS += -Dllvm=enabled
-ifeq ($(BR2_PACKAGE_BATOCERA_LLVM_RTTI),y)
+ifeq ($(BR2_PACKAGE_LLVM_RTTI),y)
 MESA3D_CONF_OPTS += -Dcpp_rtti=true
 else
 MESA3D_CONF_OPTS += -Dcpp_rtti=false
@@ -72,6 +79,11 @@ MESA3D_DEPENDENCIES += clang libclc
 MESA3D_CONF_OPTS += -Dgallium-opencl=standalone
 else
 MESA3D_CONF_OPTS += -Dgallium-opencl=disabled
+endif
+
+#REG: asahi needs libclc spirv-tools and host-spirv-llvm-translator
+ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ASAHI),y)
+MESA3D_DEPENDENCIES += host-qemu host-libclc libclc spirv-tools spirv-llvm-translator clang #host-spirv-llvm-translator
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_NEEDS_ELFUTILS),y)
@@ -128,6 +140,8 @@ MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_VIRGL)    += virgl
 MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ZINK)     += zink
 # batocera - add d3d12
 MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_D3D12)    += d3d12
+# REG: add asahi
+MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ASAHI)    += asahi
 # batocera - Vulkan Drivers
 MESA3D_VULKAN_DRIVERS-$(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_INTEL)     += intel
 MESA3D_VULKAN_DRIVERS-$(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_HASWELL)   += intel_hasvk

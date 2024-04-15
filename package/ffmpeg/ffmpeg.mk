@@ -4,16 +4,25 @@
 #
 ################################################################################
 
-FFMPEG_VERSION = 4.4.4
+# REG: FFMPEG 6.0.1 OK
+# REG: rpi-FFMPEG 6.0 branch for amlogic
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_AMLOGIC_ANY),y)
+FFMPEG_VERSION = 9011d22fed1834cb7bd946349cc8a5eda748eec7
+FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.gz
+FFMPEG_SITE = https://github.com/jc-kynesim/rpi-ffmpeg
+FFMPEG_SITE_METHOD = git
+else
+FFMPEG_VERSION = 6.0.1
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
 FFMPEG_SITE = https://ffmpeg.org/releases
+endif
 FFMPEG_INSTALL_STAGING = YES
 
 FFMPEG_LICENSE = LGPL-2.1+, libjpeg license
 FFMPEG_LICENSE_FILES = LICENSE.md COPYING.LGPLv2.1
 ifeq ($(BR2_PACKAGE_FFMPEG_GPL),y)
-FFMPEG_LICENSE += and GPL-2.0+
-FFMPEG_LICENSE_FILES += COPYING.GPLv2
+FFMPEG_LICENSE += and GPL-3.0+
+FFMPEG_LICENSE_FILES += COPYING.GPLv3
 endif
 
 FFMPEG_CPE_ID_VENDOR = ffmpeg
@@ -21,7 +30,7 @@ FFMPEG_CPE_ID_VENDOR = ffmpeg
 FFMPEG_CONF_OPTS = \
 	--prefix=/usr \
 	--enable-avfilter \
-	--disable-version3 \
+	--enable-version3 \
 	--enable-logging \
 	--enable-optimizations \
 	--disable-extra-warnings \
@@ -32,10 +41,6 @@ FFMPEG_CONF_OPTS = \
 	--disable-gray \
 	--enable-swscale-alpha \
 	--disable-small \
-	--enable-dct \
-	--enable-fft \
-	--enable-mdct \
-	--enable-rdft \
 	--disable-crystalhd \
 	--disable-dxva2 \
 	--enable-runtime-cpudetect \
@@ -44,6 +49,10 @@ FFMPEG_CONF_OPTS = \
 	--disable-mipsdspr2 \
 	--disable-msa \
 	--enable-hwaccels \
+	--enable-dct \
+	--enable-fft \
+	--enable-mdct \
+	--enable-rdft \
 	--disable-cuda \
 	--disable-cuvid \
 	--disable-nvenc \
@@ -88,15 +97,15 @@ endif
 
 ifeq ($(BR2_PACKAGE_LIBV4L),y)
 FFMPEG_DEPENDENCIES += libv4l
-FFMPEG_CONF_OPTS += --enable-libv4l2
+FFMPEG_CONF_OPTS += --enable-libv4l2 --enable-v4l2_m2m
 else
 FFMPEG_CONF_OPTS += --disable-libv4l2
 endif
 
-ifeq ($(BR2_PACKAGE_FFMPEG_AVRESAMPLE),y)
-FFMPEG_CONF_OPTS += --enable-avresample
+ifeq ($(BR2_PACKAGE_FFMPEG_SWRESAMPLE),y)
+FFMPEG_CONF_OPTS += --enable-swresample
 else
-FFMPEG_CONF_OPTS += --disable-avresample
+FFMPEG_CONF_OPTS += --disable-swresample
 endif
 
 ifeq ($(BR2_PACKAGE_FFMPEG_FFPROBE),y)
@@ -288,10 +297,16 @@ FFMPEG_DEPENDENCIES += rpi-userland
 ifeq ($(BR2_arm),y)
 FFMPEG_CONF_OPTS += --enable-mmal
 else
-FFMPEG_CONF_OPTS += --disable-mmal
+FFMPEG_CONF_OPTS += --disable-mmal --enable-sand
 endif
 else
 FFMPEG_CONF_OPTS += --disable-mmal --disable-omx --disable-omx-rpi
+endif
+
+# REG
+FFMPEG_CONF_OPTS += --enable-hwaccels
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_H3)$(BR2_PACKAGE_BATOCERA_TARGET_H5)$(BR2_PACKAGE_BATOCERA_TARGET_H6)$(BR2_PACKAGE_BATOCERA_TARGET_H616)$(BR2_PACKAGE_BATOCERA_TARGET_ROCKCHIP_ANY)$(BR2_PACKAGE_BATOCERA_TARGET_BCM2711)$(BR2_PACKAGE_BATOCERA_TARGET_BCM2712),y)
+FFMPEG_CONF_OPTS +=  --enable-libudev --enable-v4l2-request
 endif
 
 # To avoid a circular dependency only use opencv if opencv itself does
@@ -497,9 +512,7 @@ FFMPEG_CONF_OPTS += --enable-vfp
 else
 FFMPEG_CONF_OPTS += --disable-vfp
 endif
-ifeq ($(BR2_ARM_CPU_HAS_NEON),y)
-FFMPEG_CONF_OPTS += --enable-neon
-else ifeq ($(BR2_aarch64),y)
+ifeq ($(BR2_ARM_CPU_HAS_NEON)$(BR2_aarch64),y)
 FFMPEG_CONF_OPTS += --enable-neon
 else
 FFMPEG_CONF_OPTS += --disable-neon

@@ -10,7 +10,7 @@ LIBCLC_SOURCE = libclc-$(LIBCLC_VERSION).src.tar.xz
 LIBCLC_LICENSE = Apache-2.0 with exceptions or MIT
 LIBCLC_LICENSE_FILES = LICENSE.TXT
 
-LIBCLC_DEPENDENCIES = host-clang host-llvm host-spirv-llvm-translator
+LIBCLC_DEPENDENCIES = host-clang host-llvm spirv-tools host-spirv-tools spirv-llvm-translator
 LIBCLC_INSTALL_STAGING = YES
 
 # CMAKE_*_COMPILER_FORCED=ON skips testing the tools and assumes
@@ -40,3 +40,7 @@ LIBCLC_CONF_OPTS = \
 	-DLLVM_CONFIG="$(HOST_DIR)/bin/llvm-config"
 
 $(eval $(cmake-package))
+
+HOST_LIBCLC_DEPENDENCIES = host-clang host-llvm host-spirv-tools host-spirv-llvm-translator
+
+$(eval $(host-cmake-package))

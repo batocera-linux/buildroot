@@ -55,6 +55,10 @@ config BR2_TARGET_ROOTFS_SQUASHFS_BS
 	default "512K" if BR2_TARGET_ROOTFS_SQUASHFS_BS_512K
 	default "1024K" if BR2_TARGET_ROOTFS_SQUASHFS_BS_1024K
 
+config BR2_TARGET_ROOTFS_SQUASHFS_EXCLUDE_DIRS
+	string "exclude directories from squashfs"
+	default ""
+
 config BR2_TARGET_ROOTFS_SQUASHFS_PAD
 	bool "pad to a 4K boundary"
 	default y # legacy was always ON

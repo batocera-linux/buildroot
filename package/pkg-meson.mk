@@ -104,6 +104,7 @@ define PKG_MESON_CROSSCONFIG_SED
         -e "s%@HOST_DIR@%$(HOST_DIR)%g" \
         -e "s%@STAGING_DIR@%$(STAGING_DIR)%g" \
         -e "s%@STATIC@%$(if $(BR2_STATIC_LIBS),true,false)%g" \
+        -e "s%@NEEDS_EXE_WRAPPER@%$(if $(BR2_x86_64),false,true)%g" \
         $(TOPDIR)/support/misc/cross-compilation.conf.in
 endef
 

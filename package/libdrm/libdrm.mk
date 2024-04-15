@@ -13,7 +13,8 @@ LIBDRM_INSTALL_STAGING = YES
 
 LIBDRM_DEPENDENCIES = \
 	libpthread-stubs \
-	host-pkgconf
+	host-pkgconf \
+	host-qemu
 
 LIBDRM_CONF_OPTS = \
 	-Dcairo-tests=disabled \

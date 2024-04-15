@@ -2,6 +2,7 @@ menuconfig BR2_PACKAGE_LIBDRM
 	bool "libdrm"
 	depends on BR2_TOOLCHAIN_HAS_THREADS # libpthread-stubs
 	select BR2_PACKAGE_LIBPTHREAD_STUBS
+	select BR2_PACKAGE_HOST_QEMU
 	help
 	  Direct Rendering Manager
 
