@@ -37,4 +37,3 @@ QT6SVG_DEPENDENCIES = \
 	qt6base
 
 $(eval $(cmake-package))
-$(eval $(host-cmake-package))

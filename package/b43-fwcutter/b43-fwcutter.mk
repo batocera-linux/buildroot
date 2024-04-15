@@ -5,8 +5,8 @@
 ################################################################################
 
 B43_FWCUTTER_VERSION = 019
-B43_FWCUTTER_SITE = http://deb.debian.org/debian/pool/contrib/b/b43-fwcutter/
-B43_FWCUTTER_SOURCE = b43-fwcutter_$(B43_FWCUTTER_VERSION).orig.tar.bz2
+B43_FWCUTTER_SITE = http://bues.ch/b43/fwcutter
+B43_FWCUTTER_SOURCE = b43-fwcutter-$(B43_FWCUTTER_VERSION).tar.bz2
 B43_FWCUTTER_LICENSE = BSD-2-Clause
 B43_FWCUTTER_LICENSE_FILES = COPYING
 

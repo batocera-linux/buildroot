@@ -75,9 +75,6 @@ LINUX_DEPENDENCIES = \
 	$(BR2_MAKE_HOST_DEPENDENCY)
 LINUX_MAKE = $(BR2_MAKE)
 
-# Needed for Rust support
-LINUX_DEPENDENCIES += host-libcurl host-rustc host-rust-bindgen
-
 # The kernel CONFIG_EXTRA_FIRMWARE feature requires firmware files at build
 # time. Make sure they are available before the kernel builds.
 LINUX_DEPENDENCIES += \

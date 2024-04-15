@@ -74,10 +74,10 @@ config BR2_PACKAGE_FFMPEG_XCBGRAB
 	help
 	  X11 screen grabbing using libxcb.
 
-config BR2_PACKAGE_FFMPEG_SWRESAMPLE
-	bool "Build libswresample"
+config BR2_PACKAGE_FFMPEG_AVRESAMPLE
+	bool "Build libavresample"
 	help
-	  Swresample is a audio conversion library for compatibility.
+	  Avresample is a audio conversion library for compatibility.
 
 config BR2_PACKAGE_FFMPEG_POSTPROC
 	bool "Build libpostproc"

@@ -33,7 +33,7 @@ HOST_LIBGLIB2_CONF_OPTS = \
 	-Doss_fuzz=disabled
 
 LIBGLIB2_DEPENDENCIES = \
-	host-pkgconf host-libglib2 host-qemu \
+	host-pkgconf host-libglib2 \
 	libffi pcre2 zlib $(TARGET_NLS_DEPENDENCIES)
 
 HOST_LIBGLIB2_DEPENDENCIES = \

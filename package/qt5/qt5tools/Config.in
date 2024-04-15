@@ -17,19 +17,20 @@ config BR2_PACKAGE_QT5TOOLS_LINGUIST_TOOLS
 	  This option enables the linguist host tools
 	  lconvert, lrelease and lupdate.
 
+# batocera - use batocera llvm
 config BR2_PACKAGE_QT5TOOLS_QDOC_TOOL
 	bool "qdoc host tool"
 	# Needs llvm-config and libclang for the host, which is not
 	# currently supported in Buildroot, unless the target is
 	# already supported by llvm.
-	depends on BR2_PACKAGE_LLVM_ARCH_SUPPORTS 
-	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_7 
-	depends on BR2_TOOLCHAIN_HAS_THREADS 
-	depends on BR2_INSTALL_LIBSTDCPP 
-	depends on !BR2_TOOLCHAIN_HAS_GCC_BUG_64735 
-	depends on !BR2_STATIC_LIBS 
-	depends on BR2_USE_WCHAR 
-	depends on BR2_HOST_GCC_AT_LEAST_7 
+	depends on BR2_PACKAGE_BATOCERA_LLVM_ARCH_SUPPORTS # batocera-llvm, clang
+	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_7 # batocera-llvm, clang
+	depends on BR2_TOOLCHAIN_HAS_THREADS # batocera-llvm, clang
+	depends on BR2_INSTALL_LIBSTDCPP # batocera-llvm, clang
+	depends on !BR2_TOOLCHAIN_HAS_GCC_BUG_64735 # batocera-llvm, clang
+	depends on !BR2_STATIC_LIBS # batocera-llvm, clang
+	depends on BR2_USE_WCHAR # batocera-llvm, clang
+	depends on BR2_HOST_GCC_AT_LEAST_7 # batocera-llvm, clang
 	help
 	  This option enables the qdoc host tool.
 

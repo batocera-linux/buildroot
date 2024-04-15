@@ -1,2 +1,0 @@
-config BR2_PACKAGE_HOST_RUST_BINDGEN
-	bool "host-rust-bindgen"

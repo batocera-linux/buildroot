@@ -7,7 +7,6 @@ config BR2_PACKAGE_LIBGLIB2
 	select BR2_PACKAGE_LIBFFI
 	select BR2_PACKAGE_PCRE2
 	select BR2_PACKAGE_ZLIB
-	select BR2_PACKAGE_HOST_QEMU
 	help
 	  Low-level core library that forms the basis of GTK+ and GNOME.
 
