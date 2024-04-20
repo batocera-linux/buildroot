@@ -3,10 +3,10 @@
 # python-pillow
 #
 ################################################################################
-
-PYTHON_PILLOW_VERSION = 10.2.0
-PYTHON_PILLOW_SITE = https://files.pythonhosted.org/packages/f8/3e/32cbd0129a28686621434cbf17bb64bf1458bfb838f1f668262fefce145c
-PYTHON_PILLOW_SOURCE = pillow-$(PYTHON_PILLOW_VERSION).tar.gz
+# batocera - bump
+PYTHON_PILLOW_VERSION = 10.3.0
+PYTHON_PILLOW_SITE = https://github.com/python-pillow/Pillow/archive/refs/tags
+PYTHON_PILLOW_SOURCE = $(PYTHON_PILLOW_VERSION).tar.gz
 PYTHON_PILLOW_LICENSE = HPND
 PYTHON_PILLOW_LICENSE_FILES = LICENSE
 PYTHON_PILLOW_CPE_ID_VENDOR = python
