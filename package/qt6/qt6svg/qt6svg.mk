@@ -36,4 +36,18 @@ QT6SVG_DEPENDENCIES = \
 	host-pkgconf \
 	qt6base
 
+# batocera - add host
+HOST_QT6SVG_CONF_OPTS = \
+	-DQT_HOST_PATH=$(HOST_DIR) \
+	-DBUILD_WITH_PCH=OFF \
+	-DQT_BUILD_EXAMPLES=OFF \
+	-DQT_BUILD_TESTS=OFF
+
+# batocera - add host
+HOST_QT6SVG_DEPENDENCIES = \
+	host-pkgconf \
+	host-qt6base
+
+# batocera - add host
 $(eval $(cmake-package))
+$(eval $(host-cmake-package))
