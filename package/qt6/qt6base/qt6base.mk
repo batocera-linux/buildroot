@@ -51,9 +51,10 @@ QT6BASE_CONF_OPTS = \
 	-DFEATURE_icu=OFF \
 	-DFEATURE_glib=OFF \
 	-DFEATURE_system_doubleconversion=ON \
-	-DFEATURE_system_pcre2=ON \
 	-DFEATURE_system_zlib=ON \
 	-DFEATURE_system_libb2=ON
+
+# batcoera remove -DFEATURE_system_pcre2=ON above, this shouldn't be set
 
 # x86 optimization options. While we have a BR2_X86_CPU_HAS_AVX512, it
 # is not clear yet how it maps to all the avx512* options of Qt, so we
