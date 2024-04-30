@@ -86,6 +86,14 @@ HOST_QT6BASE_DEPENDENCIES = \
 	host-libb2 \
 	host-pcre2 \
 	host-zlib
+
+# batocera
+HOST_QT6BASE_DEPENDENCIES += \
+	host-libglvnd \
+	host-freetype \
+	host-harfbuzz \
+	host-zstd
+
 # batocera - gui, concurrent, sql, testlib & network = ON for other Qt6 packages
 HOST_QT6BASE_CONF_OPTS = \
 	-GNinja \
