@@ -16,3 +16,5 @@ XLIB_LIBXEXT_DEPENDENCIES = xlib_libX11 xorgproto
 XLIB_LIBXEXT_CONF_OPTS = --disable-malloc0returnsnull
 
 $(eval $(autotools-package))
+# batocera - add host package
+$(eval $(host-autotools-package))
