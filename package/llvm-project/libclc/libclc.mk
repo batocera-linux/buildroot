@@ -40,3 +40,5 @@ LIBCLC_CONF_OPTS = \
 	-DLLVM_CONFIG="$(HOST_DIR)/bin/llvm-config"
 
 $(eval $(cmake-package))
+# batocera - add host package for host-intel-clc
+$(eval $(host-cmake-package))
