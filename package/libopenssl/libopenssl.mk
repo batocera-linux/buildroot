@@ -3,8 +3,8 @@
 # libopenssl
 #
 ################################################################################
-
-LIBOPENSSL_VERSION = 3.2.1
+# batocera - bump
+LIBOPENSSL_VERSION = 3.3.0
 LIBOPENSSL_SITE = https://www.openssl.org/source
 LIBOPENSSL_SOURCE = openssl-$(LIBOPENSSL_VERSION).tar.gz
 LIBOPENSSL_LICENSE = Apache-2.0
