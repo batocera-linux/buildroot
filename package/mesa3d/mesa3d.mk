@@ -10,8 +10,12 @@
 # RPi4/Panfrost workaround until - https://gitlab.freedesktop.org/mesa/mesa/-/issues/10306 fixed
 ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_BCM2711)$(BR2_PACKAGE_BATOCERA_PANFROST_MESA3D),y)
     MESA3D_VERSION = 23.2.1
+    GLVND_TRUE = true
+    GLVND_FALSE = false
 else
     MESA3D_VERSION = 24.1.0
+    GLVND_TRUE = enabled
+    GLVND_FALSE = disabled
 endif
 
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
@@ -340,14 +344,14 @@ MESA3D_CFLAGS += -mlong-jump-table-offsets
 endif
 
 ifeq ($(BR2_PACKAGE_LIBGLVND),y)
-ifneq ($(BR2_PACKAGE_MESA3D_OPENGL_GLX)$(BR2_PACKAGE_MESA3D_OPENGL_EGL),)
-MESA3D_DEPENDENCIES += libglvnd
-MESA3D_CONF_OPTS += -Dglvnd=enabled
+    ifneq ($(BR2_PACKAGE_MESA3D_OPENGL_GLX)$(BR2_PACKAGE_MESA3D_OPENGL_EGL),)
+        MESA3D_DEPENDENCIES += libglvnd
+        MESA3D_CONF_OPTS += -Dglvnd=$(GLVND_TRUE)
+    else
+        MESA3D_CONF_OPTS += -Dglvnd=$(GLVND_FALSE)
+    endif
 else
-MESA3D_CONF_OPTS += -Dglvnd=disabled
-endif
-else
-MESA3D_CONF_OPTS += -Dglvnd=disabled
+    MESA3D_CONF_OPTS += -Dglvnd=$(GLVND_FALSE)
 endif
 
 $(eval $(meson-package))
