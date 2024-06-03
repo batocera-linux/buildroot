@@ -4,7 +4,7 @@
 #
 ################################################################################
 # batocera - change version
-VULKAN_TOOLS_VERSION = v1.3.280
+VULKAN_TOOLS_VERSION = v1.3.285
 VULKAN_TOOLS_SITE = $(call github,KhronosGroup,Vulkan-Tools,$(VULKAN_TOOLS_VERSION))
 VULKAN_TOOLS_LICENSE = Apache-2.0
 VULKAN_TOOLS_LICENSE_FILES = LICENSE.txt
