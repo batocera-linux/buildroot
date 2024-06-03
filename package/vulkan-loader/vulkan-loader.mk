@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-VULKAN_LOADER_VERSION = $(VULKAN_HEADERS_VERSION)
+VULKAN_LOADER_VERSION = v1.3.285
 VULKAN_LOADER_SITE = $(call github,KhronosGroup,Vulkan-Loader,$(VULKAN_LOADER_VERSION))
 VULKAN_LOADER_LICENSE = Apache-2.0
 VULKAN_LOADER_LICENSE_FILES = LICENSE.txt
