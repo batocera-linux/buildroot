@@ -6,7 +6,7 @@ config BR2_PACKAGE_VULKAN_TOOLS
 	depends on BR2_TOOLCHAIN_HAS_THREADS # vulkan-loader
 	select BR2_PACKAGE_VULKAN_HEADERS
 	select BR2_PACKAGE_VULKAN_LOADER
-
+	select BR2_PACKAGE_VULKAN_VOLK # batocera
 	help
 	  The Khronos official Vulkan Tools and Utilities.
 
