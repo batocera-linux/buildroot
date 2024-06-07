@@ -1,3 +1,3 @@
-# From https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-1.22.9.tar.xz.sha256sum
-sha256  192f7d27d21c1e7c72c339a2647a9b0c247fedc62ea5029115f8c3e22ebb87d8  gst-libav-1.22.9.tar.xz
+# From https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-1.24.4.tar.xz.sha256sum
+sha256  4d3803f36008e847fc4842c8dd366162baf8359526cc46c1851bf68bb638da73  gst-libav-1.24.4.tar.xz
 sha256  ad2eec519ebd4b5df86ea84dff24ae3bfa2edea846a703b58902dd221ae375db  COPYING
