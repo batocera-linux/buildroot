@@ -380,6 +380,12 @@ else
 FFMPEG_CONF_OPTS += --disable-iconv
 endif
 
+# batocera - add cuda
+ifeq ($(BR2_PACKAGE_BATOCERA_NVIDIA_DRIVER_CUDA),y)
+FFMPEG_CONF_OPTS += --enable-cuda
+FFMPEG_DEPENDENCIES += nv-codec-headers
+endif
+
 # ffmpeg freetype support require fenv.h which is only
 # available/working on glibc.
 # The microblaze variant doesn't provide the needed exceptions
