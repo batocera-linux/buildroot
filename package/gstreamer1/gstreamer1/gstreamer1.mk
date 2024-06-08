@@ -3,8 +3,8 @@
 # gstreamer1
 #
 ################################################################################
-
-GSTREAMER1_VERSION = 1.22.9
+# batocera - bump
+GSTREAMER1_VERSION = 1.24.4
 GSTREAMER1_SOURCE = gstreamer-$(GSTREAMER1_VERSION).tar.xz
 GSTREAMER1_SITE = https://gstreamer.freedesktop.org/src/gstreamer
 GSTREAMER1_INSTALL_STAGING = YES

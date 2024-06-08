@@ -3,8 +3,8 @@
 # gst1-plugins-ugly
 #
 ################################################################################
-
-GST1_PLUGINS_UGLY_VERSION = 1.22.9
+# batocera - bump
+GST1_PLUGINS_UGLY_VERSION = 1.24.4
 GST1_PLUGINS_UGLY_SOURCE = gst-plugins-ugly-$(GST1_PLUGINS_UGLY_VERSION).tar.xz
 GST1_PLUGINS_UGLY_SITE = https://gstreamer.freedesktop.org/src/gst-plugins-ugly
 GST1_PLUGINS_UGLY_LICENSE_FILES = COPYING
@@ -19,8 +19,6 @@ GST1_PLUGINS_UGLY_CONF_OPTS += \
 
 GST1_PLUGINS_UGLY_CONF_OPTS += \
 	-Da52dec=disabled \
-	-Damrnb=disabled \
-	-Damrwbdec=disabled \
 	-Dcdio=disabled \
 	-Dsidplay=disabled
 

@@ -3,8 +3,8 @@
 # gst1-plugins-good
 #
 ################################################################################
-
-GST1_PLUGINS_GOOD_VERSION = 1.22.9
+# batocera - bump
+GST1_PLUGINS_GOOD_VERSION = 1.24.4
 GST1_PLUGINS_GOOD_SOURCE = gst-plugins-good-$(GST1_PLUGINS_GOOD_VERSION).tar.xz
 GST1_PLUGINS_GOOD_SITE = https://gstreamer.freedesktop.org/src/gst-plugins-good
 GST1_PLUGINS_GOOD_LICENSE_FILES = COPYING
