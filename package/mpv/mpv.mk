@@ -227,4 +227,9 @@ ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
 MPV_CONF_ENV += LDFLAGS="$(TARGET_LDFLAGS) -latomic"
 endif
 
+# batocera - add cuda
+ifeq ($(BR2_PACKAGE_BATOCERA_NVIDIA_DRIVER_CUDA),y)
+MPV_CONF_OPTS += --enable-cuda-hwaccel
+endif
+
 $(eval $(waf-package))
