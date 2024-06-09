@@ -90,6 +90,11 @@ ifeq ($(BR2_PACKAGE_PIPEWIRE),y)
 SDL2_CONF_OPTS += --enable-pipewire
 endif
 
+# batocera - ensure mesa for riscv is built before sdl2
+ifeq ($(BR2_PACKAGE_IMG_MESA3D),y)
+SDL2_DEPENDENCIES += img-mesa3d
+endif
+
 ifeq ($(BR2_ARM_INSTRUCTIONS_THUMB),y)
 SDL2_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -marm"
 endif
