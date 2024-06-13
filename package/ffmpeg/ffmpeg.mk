@@ -58,6 +58,12 @@ FFMPEG_CONF_OPTS = \
 	--disable-symver \
 	--disable-doc
 
+# batocera - add pulse audio support for batocera-record
+ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
+FFMPEG_CONF_OPTS += --enable-libpulse
+FFMPEG_DEPENDENCIES += pulseaudio
+endif
+
 FFMPEG_DEPENDENCIES += host-pkgconf
 
 ifeq ($(BR2_PACKAGE_FFMPEG_GPL),y)
