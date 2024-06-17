@@ -48,7 +48,7 @@ endif
 # i don't know why meson uses bad ssl certificates and doesn't manage to download them
 define WIREPLUMBER_DWD_DEPENDENCIES
 	mkdir -p $(@D)/subprojects/packagecache
-	$(HOST_DIR)/bin/curl -L https://www.lua.org/ftp/lua-5.4.4.tar.gz -o \
+	$(HOST_DIR)/bin/curl -L http://sources.buildroot.net/lua/lua-5.4.4.tar.gz -o \
 	    $(@D)/subprojects/packagecache/lua-5.4.4.tar.gz
 	$(HOST_DIR)/bin/curl -L https://wrapdb.mesonbuild.com/v2/lua_5.4.4-1/get_patch -o \
 	    $(@D)/subprojects/packagecache/lua_5.4.4-1_patch.zip
