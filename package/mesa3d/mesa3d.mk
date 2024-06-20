@@ -8,12 +8,12 @@
 # also update glslang to the latest stable version
 
 # RPi4/Panfrost workaround until - https://gitlab.freedesktop.org/mesa/mesa/-/issues/10306 fixed
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_BCM2711)$(BR2_PACKAGE_BATOCERA_PANFROST_MESA3D),y)
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_BCM2711),y)
     MESA3D_VERSION = 23.2.1
     GLVND_TRUE = true
     GLVND_FALSE = false
 else
-    MESA3D_VERSION = 24.1.1
+    MESA3D_VERSION = 24.1.2
     GLVND_TRUE = enabled
     GLVND_FALSE = disabled
 endif

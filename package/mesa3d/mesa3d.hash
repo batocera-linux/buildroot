@@ -1,5 +1,5 @@
-# From https://docs.mesa3d.org/relnotes/24.1.1.html
-sha256  0038826c6f7e88d90b4ce6f719192fa58ca7dedf4edcaa1174cf7bd920ef89ea  mesa-24.1.1.tar.xz
+# From https://docs.mesa3d.org/relnotes/24.1.2.html
+sha256  a2c584c8d57d3bd8ba11790a6e9ae3713f8821df96c059b78afb29dd975c9f45  mesa-24.1.2.tar.xz
 # From https://docs.mesa3d.org/relnotes/23.2.1.html
 sha256  64de0616fc2d801f929ab1ac2a4f16b3e2783c4309a724c8a259b20df8bbc1cc  mesa-23.2.1.tar.xz
 # License
