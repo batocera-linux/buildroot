@@ -3,8 +3,8 @@
 # rockchip-rkbin
 #
 ################################################################################
-
-ROCKCHIP_RKBIN_VERSION = b4558da0860ca48bf1a571dd33ccba580b9abe23
+# batocera - bump
+ROCKCHIP_RKBIN_VERSION = a2a0b89b6c8c612dca5ed9ed8a68db8a07f68bc0
 ROCKCHIP_RKBIN_SITE = https://github.com/rockchip-linux/rkbin.git
 ROCKCHIP_RKBIN_SITE_METHOD = git
 ROCKCHIP_RKBIN_LICENSE = PROPRIETARY
