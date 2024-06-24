@@ -4,7 +4,7 @@
 #
 ################################################################################
 # batocera - kernel 6.9 support
-RTL8192EU_VERSION = 3af9a868a0ca622d830966ac83aea2bf17cd0d65
+RTL8192EU_VERSION = 35ccd90d378baa943aded03f6075d2c90652b154
 RTL8192EU_SITE = $(call github,clnhub,rtl8192eu-linux,$(RTL8192EU_VERSION))
 RTL8192EU_LICENSE = GPL-2.0
 
