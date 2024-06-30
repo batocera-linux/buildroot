@@ -58,5 +58,8 @@ PYTHON_NUMPY_POST_INSTALL_STAGING_HOOKS += PYTHON_NUMPY_FIXUP_NPY_PKG_CONFIG_FIL
 # in the staging area.
 PYTHON_NUMPY_INSTALL_STAGING = YES
 
-$(eval $(meson-package))
-$(eval $(host-meson-package))
+# batocera - switch to pyton-package
+PYTHON_NUMPY_SETUP_TYPE = setuptools
+
+$(eval $(python-package))
+$(eval $(host-python-package))

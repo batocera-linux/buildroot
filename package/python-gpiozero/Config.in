@@ -1,6 +1,6 @@
 config BR2_PACKAGE_PYTHON_GPIOZERO
 	bool "python-gpiozero"
-	depends on BR2_arm
+	depends on BR2_arm || BR2_aarch64 # batocera
 	select BR2_PACKAGE_PYTHON_COLORZERO # runtime
 	select BR2_PACKAGE_PYTHON_RPI_GPIO # runtime
 	select BR2_PACKAGE_PYTHON_SETUPTOOLS # runtime
