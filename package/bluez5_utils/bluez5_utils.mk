@@ -21,10 +21,10 @@ BLUEZ5_UTILS_DEPENDENCIES = \
 	dbus \
 	libglib2
 
+# batocera - remove --disable-datafiles, we need them
 BLUEZ5_UTILS_CONF_OPTS = \
 	--enable-library \
 	--disable-cups \
-	--disable-datafiles \
 	--disable-manpages \
 	--disable-asan \
 	--disable-lsan \
