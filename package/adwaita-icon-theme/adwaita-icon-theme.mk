@@ -3,9 +3,9 @@
 # adwaita-icon-theme
 #
 ################################################################################
-
-ADWAITA_ICON_THEME_VERSION_MAJOR = 3.37
-ADWAITA_ICON_THEME_VERSION = $(ADWAITA_ICON_THEME_VERSION_MAJOR).2
+# batocera - bump
+ADWAITA_ICON_THEME_VERSION_MAJOR = 3.38
+ADWAITA_ICON_THEME_VERSION = $(ADWAITA_ICON_THEME_VERSION_MAJOR).0
 ADWAITA_ICON_THEME_SITE = https://download.gnome.org/sources/adwaita-icon-theme/$(ADWAITA_ICON_THEME_VERSION_MAJOR)
 ADWAITA_ICON_THEME_SOURCE = adwaita-icon-theme-$(ADWAITA_ICON_THEME_VERSION).tar.xz
 ADWAITA_ICON_THEME_INSTALL_STAGING = YES
