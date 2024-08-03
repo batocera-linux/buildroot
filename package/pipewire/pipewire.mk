@@ -4,7 +4,7 @@
 #
 ################################################################################
 # batocera - update
-PIPEWIRE_VERSION = 1.0.4
+PIPEWIRE_VERSION = 1.2.2
 PIPEWIRE_SOURCE = pipewire-$(PIPEWIRE_VERSION).tar.bz2
 PIPEWIRE_SITE = https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/$(PIPEWIRE_VERSION)
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
@@ -110,6 +110,12 @@ PIPEWIRE_CONF_OPTS += -Dpipewire-jack=enabled -Djack=enabled
 PIPEWIRE_DEPENDENCIES += jack2
 else
 PIPEWIRE_CONF_OPTS += -Dpipewire-jack=disabled -Djack=disabled
+endif
+
+# batocera
+ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS)$(BR2_PACKAGE_LIBFREEAPTX),yy)
+PIPEWIRE_CONF_OPTS += -Dbluez5-codec-aptx=enabled
+PIPEWIRE_DEPENDENCIES += bluez5_utils libfreeaptx
 endif
 
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS)$(BR2_PACKAGE_SBC),yy)
