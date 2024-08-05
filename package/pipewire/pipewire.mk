@@ -118,6 +118,18 @@ PIPEWIRE_CONF_OPTS += -Dbluez5-codec-aptx=enabled
 PIPEWIRE_DEPENDENCIES += bluez5_utils libfreeaptx
 endif
 
+# batocera
+ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS)$(BR2_PACKAGE_LIBLDAC),yy)
+PIPEWIRE_CONF_OPTS += -Dbluez5-codec-ldac=enabled
+PIPEWIRE_DEPENDENCIES += bluez5_utils libldac
+endif
+
+# batocera
+ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS)$(BR2_PACKAGE_LIBLC3),yy)
+PIPEWIRE_CONF_OPTS += -Dbluez5-codec-lc3=enabled
+PIPEWIRE_DEPENDENCIES += bluez5_utils liblc3
+endif
+
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS)$(BR2_PACKAGE_SBC),yy)
 PIPEWIRE_CONF_OPTS += -Dbluez5=enabled
 PIPEWIRE_DEPENDENCIES += bluez5_utils sbc

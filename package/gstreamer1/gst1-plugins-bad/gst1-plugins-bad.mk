@@ -99,11 +99,25 @@ endif
 
 ifeq ($(BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_BLUEZ),y)
 GST1_PLUGINS_BAD_DEPENDENCIES += bluez5_utils
-# batocera
-GST1_PLUGINS_BAD_DEPENDENCIES += libfreeaptx
 GST1_PLUGINS_BAD_CONF_OPTS += -Dbluez=enabled
 else
 GST1_PLUGINS_BAD_CONF_OPTS += -Dbluez=disabled
+endif
+
+# batocera
+ifeq ($(BR2_PACKAGE_LIBFREEAPTX),y)
+GST1_PLUGINS_BAD_DEPENDENCIES += libfreeaptx
+endif
+
+# batocera
+ifeq ($(BR2_PACKAGE_LIBLDAC),y)
+GST1_PLUGINS_BAD_DEPENDENCIES += libldac
+GST1_PLUGINS_BAD_CONF_OPTS += -Dldac=enabled
+endif
+
+# batocera
+ifeq ($(BR2_PACKAGE_LIBLC3),y)
+GST1_PLUGINS_BAD_DEPENDENCIES += liblc3
 endif
 
 ifeq ($(BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_ACCURIP),y)

@@ -4,19 +4,16 @@
 #
 ################################################################################
 # batocera - bump (patch removed)
-# don't upgrade to 0.4.81 until this comment removed
-WIREPLUMBER_VERSION = 0.4.17
+WIREPLUMBER_VERSION = 0.5.5
 WIREPLUMBER_SOURCE = wireplumber-$(WIREPLUMBER_VERSION).tar.bz2
 WIREPLUMBER_SITE = https://gitlab.freedesktop.org/pipewire/wireplumber/-/archive/$(WIREPLUMBER_VERSION)
 WIREPLUMBER_LICENSE = MIT
 WIREPLUMBER_LICENSE_FILES = LICENSE
-# batocera : remove lua
-WIREPLUMBER_DEPENDENCIES = host-pkgconf pipewire libglib2
+WIREPLUMBER_DEPENDENCIES = host-pkgconf pipewire libglib2 lua
 
-# batocera : disable lua system
 WIREPLUMBER_CONF_OPTS = \
 	-Ddoc=disabled \
-	-Dsystem-lua=false \
+	-Dsystem-lua=true \
 	-Dsystem-lua-version=
 
 ifeq ($(BR2_PACKAGE_DBUS),y)
@@ -42,18 +39,5 @@ WIREPLUMBER_CONF_OPTS += \
 	-Dsystemd-system-service=false \
 	-Dsystemd-user-service=false
 endif
-
-# batocera
-# this is a not nice workaround
-# i don't know why meson uses bad ssl certificates and doesn't manage to download them
-define WIREPLUMBER_DWD_DEPENDENCIES
-	mkdir -p $(@D)/subprojects/packagecache
-	$(HOST_DIR)/bin/curl -L http://sources.buildroot.net/lua/lua-5.4.4.tar.gz -o \
-	    $(@D)/subprojects/packagecache/lua-5.4.4.tar.gz
-	$(HOST_DIR)/bin/curl -L https://wrapdb.mesonbuild.com/v2/lua_5.4.4-1/get_patch -o \
-	    $(@D)/subprojects/packagecache/lua_5.4.4-1_patch.zip
-endef
-WIREPLUMBER_DEPENDENCIES += host-libcurl
-WIREPLUMBER_PRE_CONFIGURE_HOOKS += WIREPLUMBER_DWD_DEPENDENCIES
 
 $(eval $(meson-package))
