@@ -13,7 +13,7 @@ ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_BCM2711),y)
     GLVND_TRUE = true
     GLVND_FALSE = false
 else
-    MESA3D_VERSION = 24.1.4
+    MESA3D_VERSION = 24.1.5
     GLVND_TRUE = enabled
     GLVND_FALSE = disabled
 endif
