@@ -11,7 +11,7 @@ LIBCLC_LICENSE = Apache-2.0 with exceptions or MIT
 LIBCLC_LICENSE_FILES = LICENSE.TXT
 
 LIBCLC_DEPENDENCIES = host-clang host-llvm host-spirv-llvm-translator
-# batocera - add host package for host-intel-clc
+# batocera - add host package for host-mesa3d
 HOST_LIBCLC_DEPENDENCIES = host-clang host-llvm host-spirv-llvm-translator
 LIBCLC_INSTALL_STAGING = YES
 
@@ -42,5 +42,5 @@ LIBCLC_CONF_OPTS = \
 	-DLLVM_CONFIG="$(HOST_DIR)/bin/llvm-config"
 
 $(eval $(cmake-package))
-# batocera - add host package for host-intel-clc
+# batocera - add host package for host-mesa3d
 $(eval $(host-cmake-package))
