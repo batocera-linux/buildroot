@@ -507,6 +507,14 @@ else
 FFMPEG_CONF_OPTS += --disable-neon
 endif
 
+# batocera
+ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER)$(BR2_PACKAGE_SHADERC),yyy)
+FFMPEG_CONF_OPTS += --enable-vulkan --enable-libshaderc
+FFMPEG_DEPENDENCIES += vulkan-headers vulkan-loader shaderc
+else
+FFMPEG_CONF_OPTS += --disable-vulkan
+endif
+
 ifeq ($(BR2_mips)$(BR2_mipsel)$(BR2_mips64)$(BR2_mips64el),y)
 ifeq ($(BR2_MIPS_SOFT_FLOAT),y)
 FFMPEG_CONF_OPTS += --disable-mipsfpu
