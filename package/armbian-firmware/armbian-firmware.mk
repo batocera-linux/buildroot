@@ -44,6 +44,14 @@ ARMBIAN_FIRMWARE_FILES += \
 	rtl_bt/rtl8822cs_fw.bin
 endif
 
+# Batocera - Realtek 8723Bx BT firmware
+ifeq ($(BR2_PACKAGE_ARMBIAN_FIRMWARE_RTL8723BX),y)
+ARMBIAN_FIRMWARE_FILES += \
+	rtl_bt/rtl8723b_config.bin \
+	rtl_bt/rtl8723bs_config-pine64.bin \
+	# rtl8723b_fw.bin is part of alllinuxfirmware
+endif
+
 # XR819 WiFi firmware
 ifeq ($(BR2_PACKAGE_ARMBIAN_FIRMWARE_XR819),y)
 ARMBIAN_FIRMWARE_FILES += \
