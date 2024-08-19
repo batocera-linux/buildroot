@@ -28,6 +28,11 @@ config BR2_PACKAGE_ARMBIAN_FIRMWARE_RTL8822CS
 	help
 	  Firmware files for Realtek 8822CS SDIO combo chip.
 
+config BR2_PACKAGE_ARMBIAN_FIRMWARE_RTL8723BX # batocera
+	bool "Realtek 8723Bx USB WiFi/BT"
+	help
+	  Firmware files for Realtek 8723Bx USB combo chips.
+
 config BR2_PACKAGE_ARMBIAN_FIRMWARE_XR819
 	bool "XR819 WiFi"
 	help
