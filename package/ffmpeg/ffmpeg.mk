@@ -290,6 +290,15 @@ else
 FFMPEG_CONF_OPTS += --disable-mmal --disable-omx --disable-omx-rpi
 endif
 
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_BCM2711)$(BR2_PACKAGE_BATOCERA_TARGET_BCM2712),y)
+FFMPEG_CONF_OPTS += --disable-mmal
+FFMPEG_CONF_OPTS += --enable-neon
+FFMPEG_CONF_OPTS += --enable-v4l2-request
+FFMPEG_CONF_OPTS += --enable-libudev
+FFMPEG_CONF_OPTS += --enable-epoxy
+FFMPEG_CONF_OPTS += --enable-sand
+endif
+
 # To avoid a circular dependency only use opencv if opencv itself does
 # not depend on ffmpeg.
 ifeq ($(BR2_PACKAGE_OPENCV3_LIB_IMGPROC)x$(BR2_PACKAGE_OPENCV3_WITH_FFMPEG),yx)
