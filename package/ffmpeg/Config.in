@@ -181,4 +181,10 @@ config BR2_PACKAGE_FFMPEG_EXTRACONF
 	  Extra parameters that will be appended to FFmpeg's
 	  ./configure commandline.
 
+# batocera - RPI option
+config BR2_PACKAGE_RPI_HEVC
+	bool "Enable RPi H.265 hwaccel"
+	help
+	  Allows for H.265 hardware acceleration for supported Raspberry Pi boards.
+
 endif
