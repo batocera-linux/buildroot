@@ -290,7 +290,8 @@ else
 FFMPEG_CONF_OPTS += --disable-mmal --disable-omx --disable-omx-rpi
 endif
 
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_BCM2711)$(BR2_PACKAGE_BATOCERA_TARGET_BCM2712),y)
+# batocera - add RPi H.265 hardware acceleration
+ifeq ($(BR2_PACKAGE_RPI_HEVC),y)
 FFMPEG_CONF_OPTS += --disable-mmal
 FFMPEG_CONF_OPTS += --enable-neon
 FFMPEG_CONF_OPTS += --enable-v4l2-request
