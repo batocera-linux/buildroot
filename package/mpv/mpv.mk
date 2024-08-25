@@ -224,7 +224,7 @@ MPV_CONF_ENV += LDFLAGS="$(TARGET_LDFLAGS) -latomic"
 endif
 
 # batocera - add cuda
-ifeq ($(BR2_PACKAGE_BATOCERA_NVIDIA_DRIVER_CUDA),y)
+ifeq ($(BR2_PACKAGE_NVIDIA_OPEN_DRIVER_CUDA),y)
 MPV_CONF_OPTS += -Dcuda-hwaccel=enabled
 else
 MPV_CONF_OPTS += -Dcuda-hwaccel=disabled
