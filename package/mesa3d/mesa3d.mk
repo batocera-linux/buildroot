@@ -13,7 +13,7 @@ ifneq ($(BR2_PACKAGE_BATOCERA_TARGET_X86_ANY)$(BR2_PACKAGE_BATOCERA_TARGET_RK358
     GLVND_TRUE = true
     GLVND_FALSE = false
 else
-    MESA3D_VERSION = 24.1.6
+    MESA3D_VERSION = 24.2.1
     GLVND_TRUE = enabled
     GLVND_FALSE = disabled
 endif
@@ -44,6 +44,9 @@ endif
 
 MESA3D_CONF_OPTS = \
 	-Dgallium-omx=disabled \
+	-Dgallium-rusticl=false \
+	-Dmicrosoft-clc=disabled \
+	-Dopencl-spirv=false \
 	-Dpower8=disabled
 
 ifeq ($(BR2_PACKAGE_MESA3D_DRIVER)$(BR2_PACKAGE_XORG7),yy)
@@ -167,11 +170,17 @@ MESA3D_CONF_OPTS += \
 	-Dgallium-extra-hud=true
 endif
 
-# batocera - intel ray tracing
+ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ETNAVIV),y)
+MESA3D_DEPENDENCIES += host-python-pycparser
+endif
+
 ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_INTEL),y)
-    MESA3D_DEPENDENCIES += host-intel-clc host-python-ply
-    MESA3D_CONF_OPTS += -Dintel-clc=system
-    MESA3D_MESON_EXTRA_BINARIES += intel_clc='$(HOST_DIR)/usr/bin/intel_clc'
+MESA3D_DEPENDENCIES += host-python-ply
+endif
+
+ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_IRIS),y)
+MESA3D_CONF_OPTS += -Dintel-clc=system
+MESA3D_DEPENDENCIES += host-mesa3d spirv-llvm-translator spirv-tools
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),)
@@ -354,4 +363,30 @@ else
     MESA3D_CONF_OPTS += -Dglvnd=$(GLVND_FALSE)
 endif
 
+# batocera - add host package
+HOST_MESA3D_DEPENDENCIES = \
+	host-bison \
+	host-flex \
+	host-llvm \
+	host-python-mako \
+	host-expat \
+	libdrm \
+	host-libclc \
+	host-spirv-tools \
+	host-spirv-llvm-translator \
+	host-zlib
+
+HOST_MESA3D_CONF_OPTS = \
+	-Dgallium-omx=disabled \
+	-Dpower8=disabled \
+	-Dgallium-drivers="" \
+	-Dvulkan-drivers="" \
+	-Dglx=disabled \
+	-Dplatforms="" \
+	-Dintel-clc=enabled \
+	-Dllvm=enabled \
+	-Dinstall-intel-clc=true
+
 $(eval $(meson-package))
+# batocera - add host package
+$(eval $(host-meson-package))
