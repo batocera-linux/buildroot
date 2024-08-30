@@ -3,7 +3,7 @@
 # kodi-peripheral-joystick
 #
 ################################################################################
-
+# batocera - bump
 KODI_PERIPHERAL_JOYSTICK_VERSION = 21.1.18-Omega
 KODI_PERIPHERAL_JOYSTICK_SITE = $(call github,xbmc,peripheral.joystick,$(KODI_PERIPHERAL_JOYSTICK_VERSION))
 KODI_PERIPHERAL_JOYSTICK_LICENSE = GPL-2.0+

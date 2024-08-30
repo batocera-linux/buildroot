@@ -3,7 +3,7 @@
 # libpng
 #
 ################################################################################
-# batocera - update
+
 LIBPNG_VERSION = 1.6.43
 LIBPNG_SERIES = 16
 LIBPNG_SOURCE = libpng-$(LIBPNG_VERSION).tar.xz

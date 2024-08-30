@@ -3,7 +3,7 @@
 # libusb
 #
 ################################################################################
-# batocera - bump
+
 LIBUSB_VERSION_MAJOR = 1.0
 LIBUSB_VERSION = $(LIBUSB_VERSION_MAJOR).27
 LIBUSB_SOURCE = libusb-$(LIBUSB_VERSION).tar.bz2

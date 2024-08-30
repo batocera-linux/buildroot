@@ -144,7 +144,84 @@ endif
 
 ###############################################################################
 
-comment "Legacy options removed in 2024.02"
+comment "Legacy options removed in 2024.05"
+
+config BR2_TARGET_AT91BOOTSTRAP
+	bool "at91bootstrap removed"
+	select BR2_LEGACY
+	help
+	  Upstream for at91bootstrap 1.x is no longer available and
+	  has been replaced by at91bootstrap3.
+
+config BR2_TARGET_AT91DATAFLASHBOOT
+	bool "at91dataflashboot removed"
+	select BR2_LEGACY
+	help
+	  at91dataflashboot has been replaced by at91bootstrap3.
+
+config BR2_PACKAGE_ON2_8170_MODULES
+	bool "on2-8170-modules removed"
+	select BR2_LEGACY
+	help
+	  The corresponding library and gstreamer 0.10 plugin are no
+	  longer available.
+
+config BR2_PACKAGE_ON2_8170_LIBS
+	bool "on2-8170-libs removed"
+	select BR2_LEGACY
+	help
+	  Upstream for this binary only library is no longer available.
+
+config BR2_GCC_VERSION_11_X
+	bool "gcc 11.x support removed"
+	select BR2_LEGACY
+	help
+	  Support for gcc version 11.x has been removed. The current
+	  default version (13.x or later) has been selected instead.
+
+config BR2_BINFMT_FLAT_SHARED
+	bool "FLAT shared binary format removed"
+	select BR2_LEGACY
+	help
+	  Support for the FLAT shared binary format has been removed:
+	  its support was removed from the Linux kernel, and also from
+	  uClibc-ng, the only C library that supported it.
+
+config BR2_PACKAGE_OMXPLAYER
+	bool "omxplayer removed"
+	select BR2_LEGACY
+	help
+	  Package was deprecated in 2020 and is broken with ffmpeg 6.x
+
+config BR2_KERNEL_HEADERS_6_7
+	bool "kernel headers version 6.7.x are no longer supported"
+	select BR2_LEGACY
+	help
+	  Version 6.7.x of the Linux kernel headers are no longer
+	  maintained upstream and are now removed.
+
+config BR2_TARGET_TI_K3_IMAGE_GEN
+	bool "ti-k3-image-gen removed"
+	select BR2_LEGACY
+	help
+	  ti-k3-image-gen tool  has been removed and replaced by
+	  U-Boot binman tool (requires U-boot >= 2023.10).
+
+config BR2_TARGET_UBOOT_NEEDS_TI_K3_DM
+	bool "u-boot TI K3 DM option has been removed."
+	select BR2_LEGACY
+	help
+	  The TI K3 Device Manager is already included in
+	  ti-k3-boot-firmware.
+
+config BR2_PACKAGE_FLUTTER_GALLERY
+	bool "flutter-gallery removed"
+	select BR2_LEGACY
+	help
+	  flutter-gallery has been removed due to being abandoned
+	  and no longer working with flutter 3.19+. It is replaced by
+	  flutter-packages, where individual sub-packages (examples)
+	  must be selected for the build.
 
 config BR2_TOOLCHAIN_EXTERNAL_CODESCAPE_IMG_MIPS
 	bool "Codescape IMG GNU Linux Toolchain 2018.09 has been removed"
@@ -173,6 +250,14 @@ config BR2_TOOLCHAIN_EXTERNAL_CODESOURCERY_ARM
 	help
 	  The Sourcery CodeBench ARM toolchain has been removed, use
 	  an ARM/Bootlin/Linaro toolchain instead.
+
+config BR2_BINUTILS_VERSION_2_39_X
+	bool "binutils 2.39 has been removed"
+	select BR2_LEGACY
+	help
+	  binutils 2.39 has been removed, use a newer version.
+
+comment "Legacy options removed in 2024.02"
 
 config BR2_PACKAGE_MYSQL
 	bool "mysql virtual package removed"

@@ -3,7 +3,7 @@
 # kodi-pvr-nextpvr
 #
 ################################################################################
-
+# batocera - bump
 KODI_PVR_NEXTPVR_VERSION = 21.1.1-Omega
 KODI_PVR_NEXTPVR_SITE = $(call github,kodi-pvr,pvr.nextpvr,$(KODI_PVR_NEXTPVR_VERSION))
 KODI_PVR_NEXTPVR_LICENSE = GPL-2.0+

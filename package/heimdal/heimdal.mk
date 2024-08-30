@@ -3,8 +3,8 @@
 # heimdal
 #
 ################################################################################
-
-HEIMDAL_VERSION = f4faaeaba371fff3f8d1bc14389f5e6d70ca8e17
+# batocera - bump
+HEIMDAL_VERSION = ba8c3dbc6261ab397ce5bb4fc0ca6b0ea23eb46a
 HEIMDAL_SITE = $(call github,heimdal,heimdal,$(HEIMDAL_VERSION))
 HOST_HEIMDAL_DEPENDENCIES = host-e2fsprogs host-ncurses host-pkgconf
 HOST_HEIMDAL_AUTORECONF = YES

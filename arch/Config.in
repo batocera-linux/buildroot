@@ -216,11 +216,6 @@ config BR2_sh
 config BR2_sparc
 	bool "SPARC"
 	select BR2_USE_MMU
-	# uClibc-ng broken on sparc due to recent gcc changes
-	# that need to be reverted since gcc 8.4, 9.3 and 10.1.
-	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98784
-	# gcc <= 10.x has been removed from Buildroot.
-	select BR2_ARCH_HAS_NO_TOOLCHAIN_BUILDROOT
 	help
 	  SPARC (from Scalable Processor Architecture) is a RISC
 	  instruction set architecture (ISA) developed by Sun
@@ -449,31 +444,6 @@ config BR2_BINFMT_FLAT
 	  FLAT binary is a relatively simple and lightweight executable
 	  format based on the original a.out format. It is widely used
 	  in environment where no MMU is available.
-
-endchoice
-
-# Set up flat binary type
-choice
-	prompt "FLAT Binary type"
-	default BR2_BINFMT_FLAT_ONE
-	depends on BR2_BINFMT_FLAT
-
-config BR2_BINFMT_FLAT_ONE
-	bool "One memory region"
-	help
-	  All segments are linked into one memory region.
-
-config BR2_BINFMT_FLAT_SHARED
-	bool "Shared binary"
-	depends on BR2_m68k
-	# Even though this really generates shared binaries, there is no libdl
-	# and dlopen() cannot be used. So packages that require shared
-	# libraries cannot be built. Therefore, we don't select
-	# BR2_BINFMT_SUPPORTS_SHARED and therefore force BR2_STATIC_LIBS.
-	# Although this adds -static to the compilation, that's not a problem
-	# because the -mid-shared-library option overrides it.
-	help
-	  Allow to load and link indiviual FLAT binaries at run time.
 
 endchoice
 

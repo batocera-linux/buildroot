@@ -3,7 +3,7 @@
 # libva
 #
 ################################################################################
-
+# batocera - bump
 LIBVA_VERSION = 2.22.0
 LIBVA_SITE = $(call github,intel,libva,$(LIBVA_VERSION))
 LIBVA_LICENSE = MIT

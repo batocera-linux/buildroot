@@ -46,6 +46,8 @@ patchdir=${2-../kernel-patches}
 shift 2
 patchpattern=${@-*}
 
+export TAR=${TAR:-tar}
+
 # use a well defined sorting order
 export LC_COLLATE=C
 
@@ -146,7 +148,7 @@ function scan_patchdir {
                 unpackedarchivedir="$builddir/.patches-$(basename $i)-unpacked"
                 rm -rf "$unpackedarchivedir" 2> /dev/null
                 mkdir "$unpackedarchivedir"
-                tar -C "$unpackedarchivedir" -xaf "${path}/$i"
+                ${TAR} -C "$unpackedarchivedir" -xaf "${path}/$i"
                 scan_patchdir "$unpackedarchivedir"
             else
                 apply_patch "$path" "$i"
