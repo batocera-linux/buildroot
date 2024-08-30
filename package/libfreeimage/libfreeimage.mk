@@ -30,9 +30,18 @@ ifeq ($(BR2_ARM_CPU_ARMV8A),y)
 	LIBFREEIMAGE_CFLAGS=$(TARGET_CFLAGS) -DPNG_ARM_NEON_OPT=0
 endif
 
+# batocera - add -fPIC during cross-compile
+ifeq ($(HOSTARCH),aarch64)
+ifeq ($(BR2_x86_64),y)
+	LIBFREEIMAGE_CFLAGS += -fPIC
+	LIBFREEIMAGE_CXXFLAGS=$(TARGET_CXXFLAGS) -fPIC
+endif
+endif
+
+# batocera - add -fPIC during cross-compile
 define LIBFREEIMAGE_BUILD_CMDS
 	$(TARGET_MAKE_ENV) $(TARGET_CONFIGURE_OPTS) CFLAGS="$(LIBFREEIMAGE_CFLAGS)" \
-		CXXFLAGS="$(TARGET_CXXFLAGS) -std=c++11" $(MAKE) -C $(@D)
+		CXXFLAGS="$(LIBFREEIMAGE_CXXFLAGS) -std=c++11" $(MAKE) -C $(@D)
 endef
 
 define LIBFREEIMAGE_INSTALL_STAGING_CMDS
