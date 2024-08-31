@@ -29,10 +29,12 @@ MESA3D_INSTALL_STAGING = YES
 
 MESA3D_PROVIDES =
 
+# batocera - add host-python-pyyaml
 MESA3D_DEPENDENCIES = \
 	host-bison \
 	host-flex \
 	host-python-mako \
+	host-python-pyyaml \
 	expat \
 	libdrm \
 	zlib
@@ -363,7 +365,7 @@ else
     MESA3D_CONF_OPTS += -Dglvnd=$(GLVND_FALSE)
 endif
 
-# batocera - add host package
+# batocera - add host build
 HOST_MESA3D_DEPENDENCIES = \
 	host-bison \
 	host-flex \
