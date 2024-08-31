@@ -5,7 +5,7 @@
 ################################################################################
 
 PROFTPD_VERSION = 1.3.8b
-PROFTPD_SITE = ftp://ftp.proftpd.org/distrib/source
+PROFTPD_SITE = https://github.com/proftpd/proftpd/archive/v$(PROFTPD_VERSION)
 PROFTPD_LICENSE = GPL-2.0+
 PROFTPD_LICENSE_FILES = COPYING
 PROFTPD_CPE_ID_VENDOR = proftpd
@@ -29,6 +29,10 @@ PROFTPD_CONF_OPTS = \
 
 ifeq ($(BR2_PACKAGE_LIBIDN2),y)
 PROFTPD_DEPENDENCIES += libidn2
+endif
+
+ifeq ($(BR2_PACKAGE_LIBXCRYPT),y)
+PROFTPD_DEPENDENCIES += libxcrypt
 endif
 
 ifeq ($(BR2_PACKAGE_PCRE2),y)

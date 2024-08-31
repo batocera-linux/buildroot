@@ -3,7 +3,7 @@
 # kodi-pvr-vuplus
 #
 ################################################################################
-
+# batocera - bump
 KODI_PVR_VUPLUS_VERSION = 21.2.1-Omega
 KODI_PVR_VUPLUS_SITE = $(call github,kodi-pvr,pvr.vuplus,$(KODI_PVR_VUPLUS_VERSION))
 KODI_PVR_VUPLUS_LICENSE = GPL-2.0+

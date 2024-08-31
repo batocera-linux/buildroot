@@ -3,7 +3,7 @@
 # kodi-pvr-argustv
 #
 ################################################################################
-
+# batocera - bump
 KODI_PVR_ARGUSTV_VERSION = 21.0.2-Omega
 KODI_PVR_ARGUSTV_SITE = $(call github,kodi-pvr,pvr.argustv,$(KODI_PVR_ARGUSTV_VERSION))
 KODI_PVR_ARGUSTV_LICENSE = GPL-2.0+

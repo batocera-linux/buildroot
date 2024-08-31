@@ -3,7 +3,7 @@
 # kodi-pvr-filmon
 #
 ################################################################################
-
+# batocera - bump
 KODI_PVR_FILMON_VERSION = 21.0.2-Omega
 KODI_PVR_FILMON_SITE = $(call github,kodi-pvr,pvr.filmon,$(KODI_PVR_FILMON_VERSION))
 KODI_PVR_FILMON_LICENSE = GPL-2.0+

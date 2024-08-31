@@ -15,7 +15,7 @@ system, generally recognizable by the usage of a +setup.py+ script or
 First, let's see how to write a +.mk+ file for a Python package,
 with an example :
 
-------------------------
+----
 01: ################################################################################
 02: #
 03: # python-foo
@@ -32,7 +32,7 @@ with an example :
 14: PYTHON_FOO_SETUP_TYPE = setuptools
 15:
 16: $(eval $(python-package))
-------------------------
+----
 
 On line 7, we declare the version of the package.
 
@@ -80,10 +80,7 @@ or +host-python-package+ macros.
 
 All the package metadata information variables that exist in the
 xref:generic-package-reference[generic package infrastructure] also
-exist in the Python infrastructure: +PYTHON_FOO_VERSION+,
-+PYTHON_FOO_SOURCE+, +PYTHON_FOO_PATCH+, +PYTHON_FOO_SITE+,
-+PYTHON_FOO_SUBDIR+, +PYTHON_FOO_DEPENDENCIES+, +PYTHON_FOO_LICENSE+,
-+PYTHON_FOO_LICENSE_FILES+, +PYTHON_FOO_INSTALL_STAGING+, etc.
+exist in the Python infrastructure.
 
 Note that:
 
@@ -92,7 +89,7 @@ Note that:
    dependencies are automatically added as needed by the Python
    package infrastructure.
 
- * Similarly, it is not needed to add +host-setuptools+ to
+ * Similarly, it is not needed to add +host-python-setuptools+ to
    +PYTHON_FOO_DEPENDENCIES+ for setuptools-based packages, since it's
    automatically added by the Python infrastructure as needed.
 
@@ -173,9 +170,9 @@ your host.
 
 When at the root of your buildroot directory just do :
 
------------------------
+----
 utils/scanpypi foo bar -o package
------------------------
+----
 
 This will generate packages +python-foo+ and +python-bar+ in the package
 folder if they exist on https://pypi.python.org.
@@ -193,18 +190,18 @@ need to manually add the package to the +package/Config.in+ file.
 If your Buildroot package is not in the official Buildroot tree but in
 a br2-external tree, use the -o flag as follows:
 
------------------------
+----
 utils/scanpypi foo bar -o other_package_dir
------------------------
+----
 
 This will generate packages +python-foo+ and +python-bar+ in the
 +other_package_directory+ instead of +package+.
 
 Option +-h+ will list the available options:
 
------------------------
+----
 utils/scanpypi -h
------------------------
+----
 
 [[python-package-cffi-backend]]
 
@@ -222,17 +219,17 @@ Such a package should:
 compiled C library wrapper on the target. This is achieved by adding
 +select BR2_PACKAGE_PYTHON_CFFI+ to the package +Config.in+.
 
-------------------------
+----
 config BR2_PACKAGE_PYTHON_FOO
         bool "python-foo"
         select BR2_PACKAGE_PYTHON_CFFI # runtime
-------------------------
+----
 
  * add +host-python-cffi+ as a build-time dependency in order to
 cross-compile the C wrapper. This is achieved by adding
 +host-python-cffi+ to the +PYTHON_FOO_DEPENDENCIES+ variable.
 
-------------------------
+----
 ################################################################################
 #
 # python-foo
@@ -244,4 +241,4 @@ cross-compile the C wrapper. This is achieved by adding
 PYTHON_FOO_DEPENDENCIES = host-python-cffi
 
 $(eval $(python-package))
-------------------------
+----

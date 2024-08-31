@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LINUX_FIRMWARE_VERSION = 20240115
+LINUX_FIRMWARE_VERSION = 20240410
 LINUX_FIRMWARE_SOURCE = linux-firmware-$(LINUX_FIRMWARE_VERSION).tar.xz
 LINUX_FIRMWARE_SITE = $(BR2_KERNEL_MIRROR)/linux/kernel/firmware
 LINUX_FIRMWARE_INSTALL_IMAGES = YES
@@ -90,16 +90,7 @@ endif
 # Realtek 88xx Bluetooth
 ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_RTL_88XX_BT),y)
 LINUX_FIRMWARE_FILES += \
-	rtl_bt/rtl8812ae_fw.bin rtl_bt/rtl8821a_fw.bin \
-	rtl_bt/rtl8821c_config.bin rtl_bt/rtl8821c_fw.bin \
-	rtl_bt/rtl8822b_config.bin rtl_bt/rtl8822b_fw.bin \
-	rtl_bt/rtl8822cs_config.bin rtl_bt/rtl8822cs_fw.bin \
-	rtl_bt/rtl8822cu_config.bin rtl_bt/rtl8822cu_fw.bin \
-	rtl_bt/rtl8851bu_fw.bin rtl_bt/rtl8851bu_config.bin \
-	rtl_bt/rtl8852au_fw.bin rtl_bt/rtl8852au_config.bin \
-	rtl_bt/rtl8852bu_fw.bin rtl_bt/rtl8852bu_config.bin \
-	rtl_bt/rtl8852cu_fw.bin rtl_bt/rtl8852cu_config.bin \
-	rtl_bt/rtl8852cu_fw_v2.bin
+	rtl_bt/rtl88*.bin
 LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENCE.rtlwifi_firmware.txt
 endif
 
@@ -486,6 +477,36 @@ LINUX_FIRMWARE_FILES += wil6210.*
 LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENSE.QualcommAtheros_ath10k
 endif
 
+ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_IWLWIFI_100),y)
+LINUX_FIRMWARE_FILES += iwlwifi-100-*.ucode
+LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENCE.iwlwifi_firmware
+endif
+
+ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_IWLWIFI_105),y)
+LINUX_FIRMWARE_FILES += iwlwifi-105-*.ucode
+LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENCE.iwlwifi_firmware
+endif
+
+ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_IWLWIFI_135),y)
+LINUX_FIRMWARE_FILES += iwlwifi-135-*.ucode
+LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENCE.iwlwifi_firmware
+endif
+
+ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_IWLWIFI_1000),y)
+LINUX_FIRMWARE_FILES += iwlwifi-1000-*.ucode
+LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENCE.iwlwifi_firmware
+endif
+
+ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_IWLWIFI_2000),y)
+LINUX_FIRMWARE_FILES += iwlwifi-2000-*.ucode
+LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENCE.iwlwifi_firmware
+endif
+
+ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_IWLWIFI_2030),y)
+LINUX_FIRMWARE_FILES += iwlwifi-2030-*.ucode
+LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENCE.iwlwifi_firmware
+endif
+
 ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_IWLWIFI_22000),y)
 LINUX_FIRMWARE_FILES += iwlwifi-QuZ-*.ucode iwlwifi-Qu-*.ucode
 LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENCE.iwlwifi_firmware
@@ -562,6 +583,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_IWLWIFI_9XXX),y)
 LINUX_FIRMWARE_FILES += iwlwifi-9???-*.ucode
+LINUX_FIRMWARE_FILES += iwlwifi-so-a0-jf-b0*.ucode
 LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENCE.iwlwifi_firmware
 endif
 
@@ -853,6 +875,12 @@ ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_CX23885),y)
 LINUX_FIRMWARE_FILES += v4l-cx23885-avcore-01.fw
 # No license file; the license is in the file WHENCE
 # which is installed unconditionally
+endif
+
+ifeq ($(BR2_PACKAGE_LINUX_FIRMWARE_INTEL_ATOMISP),y)
+LINUX_FIRMWARE_FILES += intel/ipu/shisp_2400b0_v21.bin
+LINUX_FIRMWARE_FILES += intel/ipu/shisp_2401a0_v21.bin
+LINUX_FIRMWARE_ALL_LICENSE_FILES += LICENSE.ivsc
 endif
 
 ifneq ($(LINUX_FIRMWARE_FILES)$(LINUX_FIRMWARE_DIRS),)
