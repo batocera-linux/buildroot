@@ -389,9 +389,9 @@ else
 FFMPEG_CONF_OPTS += --disable-iconv
 endif
 
-# batocera - add cuda
+# batocera - add cuda & nvenc
 ifeq ($(BR2_PACKAGE_NVIDIA_OPEN_DRIVER_CUDA),y)
-FFMPEG_CONF_OPTS += --enable-cuda
+FFMPEG_CONF_OPTS += --enable-cuda --enable-cuvid --enable-nvdec --enable-nvenc
 FFMPEG_DEPENDENCIES += nv-codec-headers
 endif
 
