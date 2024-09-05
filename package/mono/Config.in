@@ -2,6 +2,8 @@ config BR2_PACKAGE_HOST_MONO_ARCH_SUPPORTS
 	bool
 	default y if BR2_HOSTARCH = "x86_64"
 	default y if BR2_HOSTARCH = "x86"
+	# batocera : add aarch64
+	default y if BR2_HOSTARCH = "aarch64"
 
 config BR2_PACKAGE_MONO_ARCH_SUPPORTS
 	bool
