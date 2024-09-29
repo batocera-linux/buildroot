@@ -3,8 +3,8 @@
 # intel-gmmlib
 #
 ################################################################################
-
-INTEL_GMMLIB_VERSION = 22.3.20
+# batocera - bump
+INTEL_GMMLIB_VERSION = 22.5.2
 INTEL_GMMLIB_SITE = https://github.com/intel/gmmlib/archive
 INTEL_GMMLIB_LICENSE = MIT
 INTEL_GMMLIB_LICENSE_FILES = LICENSE.md
