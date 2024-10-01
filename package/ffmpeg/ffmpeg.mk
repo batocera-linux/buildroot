@@ -60,6 +60,10 @@ FFMPEG_CONF_OPTS += --enable-libpulse
 FFMPEG_DEPENDENCIES += pulseaudio
 endif
 
+# batocera - force dash demuxer & libxml2 for Kodi
+FFMPEG_CONF_OPTS += --enable-demuxer=dash
+FFMPEG_CONF_OPTS += --enable-libxml2
+
 FFMPEG_DEPENDENCIES += host-pkgconf
 
 ifeq ($(BR2_PACKAGE_FFMPEG_GPL),y)
