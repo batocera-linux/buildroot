@@ -5,7 +5,7 @@
 ################################################################################
 # batocera - upgrade to v7 (removed patches) so most packages use this version
 # buildroot 4.4.x moved to a batocera package
-FFMPEG_VERSION = 7.0.2
+FFMPEG_VERSION = 7.1
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
 FFMPEG_SITE = https://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
