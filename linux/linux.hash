@@ -1,5 +1,5 @@
 # batocera
-sha256  55d2c6c025ebc27810c748d66325dd5bc601e8d32f8581d9e77673529bdacb2e  linux-6.11.tar.xz
+sha256  ec9ef7a0b9cebb55940e1ef87a1f9e1004b10456a119dc386bb3e565b0d39c42  linux-6.11.2.tar.xz
 
 # From https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
 sha256  19b31956d229b5b9ca5671fa1c74320179682a3d8d00fc86794114b21da86039  linux-6.8.12.tar.xz
