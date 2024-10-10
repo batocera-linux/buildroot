@@ -4,7 +4,7 @@
 #
 ################################################################################
 # batocera - bump (patch removed)
-WIREPLUMBER_VERSION = 0.5.5
+WIREPLUMBER_VERSION = 0.5.6
 WIREPLUMBER_SOURCE = wireplumber-$(WIREPLUMBER_VERSION).tar.bz2
 WIREPLUMBER_SITE = https://gitlab.freedesktop.org/pipewire/wireplumber/-/archive/$(WIREPLUMBER_VERSION)
 WIREPLUMBER_LICENSE = MIT
