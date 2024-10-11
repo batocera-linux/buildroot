@@ -12,4 +12,9 @@ GST1_LIBAV_LICENSE_FILES = COPYING
 GST1_LIBAV_DEPENDENCIES =  host-pkgconf ffmpeg gstreamer1 gst1-plugins-base
 GST1_LIBAV_CONF_OPTS = -Ddoc=disabled
 
+# batocera - workaround, use ffmpeg-rockchip for RK devices
+ifeq ($(BR2_PACKAGE_ROCKCHIP_RGA),y)
+GST1_LIBAV_DEPENDENCIES += ffmpeg-rockchip
+endif
+
 $(eval $(meson-package))
