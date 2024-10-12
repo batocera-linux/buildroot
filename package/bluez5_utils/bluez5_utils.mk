@@ -4,8 +4,9 @@
 #
 ################################################################################
 
+# batocera - bump
 # Keep the version and patches in sync with bluez5_utils-headers
-BLUEZ5_UTILS_VERSION = 5.77
+BLUEZ5_UTILS_VERSION = 5.78
 BLUEZ5_UTILS_SOURCE = bluez-$(BLUEZ5_UTILS_VERSION).tar.xz
 BLUEZ5_UTILS_SITE = $(BR2_KERNEL_MIRROR)/linux/bluetooth
 # 0001-configure.ac-Fix-disable-cups.patch
