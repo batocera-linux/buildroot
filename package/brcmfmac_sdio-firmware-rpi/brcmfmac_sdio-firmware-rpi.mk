@@ -3,8 +3,8 @@
 # brcmfmac_sdio-firmware-rpi
 #
 ################################################################################
-# batocera (update) - Commits on Nov 21, 2023
-BRCMFMAC_SDIO_FIRMWARE_RPI_VERSION = 26ff205b45dc109b498a70aaf182804ad9dbfea5
+# batocera (update) - Commits on Aug 24, 2024
+BRCMFMAC_SDIO_FIRMWARE_RPI_VERSION = 4c1789eb8705336b956b3bf1a3e6e3359c0555e4
 BRCMFMAC_SDIO_FIRMWARE_RPI_SITE = $(call github,LibreELEC,brcmfmac_sdio-firmware-rpi,$(BRCMFMAC_SDIO_FIRMWARE_RPI_VERSION))
 BRCMFMAC_SDIO_FIRMWARE_RPI_LICENSE = PROPRIETARY
 BRCMFMAC_SDIO_FIRMWARE_RPI_LICENSE_FILES = LICENSE
