@@ -8,7 +8,7 @@
 # also update glslang to the latest stable version
 
 # RPi4/Panfrost workaround until - https://gitlab.freedesktop.org/mesa/mesa/-/issues/10306 fixed
-ifneq ($(BR2_PACKAGE_BATOCERA_TARGET_X86_ANY)$(BR2_PACKAGE_BATOCERA_TARGET_RK3588)$(BR2_PACKAGE_BATOCERA_TARGET_BCM2712),y)
+ifneq ($(BR2_PACKAGE_BATOCERA_TARGET_X86_ANY)$(BR2_PACKAGE_BATOCERA_TARGET_RK3588)$(BR2_PACKAGE_BATOCERA_TARGET_BCM2712)$(BR2_PACKAGE_BATOCERA_TARGET_SM8250),y)
     MESA3D_VERSION = 23.2.1
     GLVND_TRUE = true
     GLVND_FALSE = false
