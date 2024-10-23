@@ -438,6 +438,22 @@ comment "panfrost vulkan needs a glibc toolchain w/ headers >= 3.17"
 	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
 		!BR2_TOOLCHAIN_USES_GLIBC
 
+config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_FREEDRENO
+	bool "Freedreno (Turnip) Vulkan driver"
+	depends on BR2_arm || BR2_aarch64
+	depends on BR2_TOOLCHAIN_HAS_SYNC_4 # libxshmfence
+	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 # memfd.h
+	depends on BR2_TOOLCHAIN_USES_GLIBC # ifunc, static_assert
+	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
+	help
+	  Vulkan driver for freedreno supported hardware.
+
+comment "panfrost vulkan needs a glibc toolchain w/ headers >= 3.17"
+	depends on BR2_arm || BR2_aarch64
+	depends on BR2_TOOLCHAIN_HAS_SYNC_4
+	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
+		!BR2_TOOLCHAIN_USES_GLIBC
+
 comment "Off-screen Rendering"
 
 config BR2_PACKAGE_MESA3D_VIDEO_CODEC_VC1DEC

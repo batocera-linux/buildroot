@@ -346,12 +346,6 @@ ifeq ($(BR2_x86_i686),y)
     MESA3D_PRE_CONFIGURE_HOOKS += MESA3D_VULKANJSON_X86
 endif
 
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_SM8250),y)
-   MESA3D_CONF_OPTS += -Dvulkan-drivers=freedreno
-   MESA3D_CONF_OPTS += -Ddri3=enabled
-   MESA3D_DEPENDENCIES += xlib_libxshmfence
-endif
-
 # end batocera
 
 MESA3D_CFLAGS = $(TARGET_CFLAGS)
