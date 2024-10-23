@@ -448,7 +448,7 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_FREEDRENO
 	help
 	  Vulkan driver for freedreno supported hardware.
 
-comment "panfrost vulkan needs a glibc toolchain w/ headers >= 3.17"
+comment "freedreno vulkan needs a glibc toolchain w/ headers >= 3.17"
 	depends on BR2_arm || BR2_aarch64
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4
 	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
