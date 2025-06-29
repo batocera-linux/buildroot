@@ -270,10 +270,9 @@ HOST_LLVM_CONF_OPTS += \
 	-DLLVM_INCLUDE_TESTS=OFF \
 	-DLLVM_INCLUDE_BENCHMARKS=OFF
 
-# batocera - add perf & lto options
+# batocera - add perf & LLVMgold plugin options
 HOST_LLVM_CONF_OPTS += \
 	-DLLVM_USE_PERF=ON \
-	-DLLVM_ENABLE_LTO=ON \
 	-DLLVM_BINUTILS_INCDIR=$(HOST_DIR)/lib/gcc/$(ARCH)-buildroot-linux-gnu/$(GCC_VERSION)/plugin/include
 HOST_LLVM_DEPENDENCIES += host-gcc-final
 
@@ -283,7 +282,7 @@ else
 HOST_LLVM_CONF_OPTS += -DLLVM_USE_INTEL_JITEVENTS=OFF
 endif
 
-# batocera - add perf option
+# batocera - add perf & LLVMgold plugin option
 # remove LLVM_INCLUDE_GO_TESTS - not a valid option
 LLVM_CONF_OPTS += \
 	-DLLVM_BUILD_EXAMPLES=OFF \
@@ -296,7 +295,8 @@ LLVM_CONF_OPTS += \
 	-DLLVM_INCLUDE_DOCS=OFF \
 	-DLLVM_INCLUDE_TESTS=OFF \
 	-DLLVM_INCLUDE_BENCHMARKS=OFF \
-	-DLLVM_USE_PERF=ON
+	-DLLVM_USE_PERF=ON \
+	-DLLVM_BINUTILS_INCDIR=$(HOST_DIR)/lib/gcc/$(ARCH)-buildroot-linux-gnu/$(GCC_VERSION)/plugin/include
 
 ifeq ($(BR2_x86_64),y)
 LLVM_CONF_OPTS += -DLLVM_USE_INTEL_JITEVENTS=ON
