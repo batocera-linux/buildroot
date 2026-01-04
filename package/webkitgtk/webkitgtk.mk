@@ -22,7 +22,7 @@ WEBKITGTK_CMAKE_BACKEND = ninja
 # batocera - limit the number of parallel jobs
 # otherwise webkitgtk eats all your memory C....
 total_memory_kb := $(shell grep MemTotal /proc/meminfo | awk '{print $$2}')
-memory_based_jobs := $(shell echo $$(( $(total_memory_kb) / 1024 / 1024 / 2 + 1)))
+memory_based_jobs := $(shell echo $$(( $(total_memory_kb) / 1024 / 1024 / 4 + 1)))
 cpu_threads := $(shell nproc)
 jobs := $(shell echo $$(( $(memory_based_jobs) < $(cpu_threads) ? $(memory_based_jobs) : $(cpu_threads) )))
 WEBKITGTK_BUILD_OPTS= -j$(jobs) -- -l$(jobs)
