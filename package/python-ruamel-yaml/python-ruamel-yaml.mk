@@ -14,3 +14,5 @@ PYTHON_RUAMEL_YAML_CPE_ID_VENDOR = ruamel.yaml_project
 PYTHON_RUAMEL_YAML_CPE_ID_PRODUCT = ruamel.yaml
 
 $(eval $(python-package))
+# batocera: needed for batocera-es-system
+$(eval $(host-python-package))
