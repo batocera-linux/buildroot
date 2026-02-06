@@ -77,6 +77,15 @@ LINUX_HEADERS_SITE = $(BR2_KERNEL_MIRROR)/linux/kernel/v$(firstword $(subst ., ,
 endif # x2.6
 endif # LINUX_HEADERS_CUSTOM_TARBALL
 
+# Apply Amlogic common drivers if necessary.
+ifeq ($(BR2_LINUX_KERNEL_EXT_AMLOGIC_COMMON_DRIVERS),y)
+define AMLOGIC_COMMON_DRIVERS_PREPARE_KERNEL_HEADERS
+	@$(call MESSAGE,"Injecting Amlogic common drivers into kernel headers tree")
+	cp -r $(AMLOGIC_COMMON_DRIVERS_DIR) $(LINUX_HEADERS_DIR)/common_drivers
+endef
+LINUX_HEADERS_POST_EXTRACT_HOOKS += AMLOGIC_COMMON_DRIVERS_PREPARE_KERNEL_HEADERS
+endif
+
 # Apply any necessary patches if we are using the headers from a kernel
 # build.
 ifeq ($(BR2_KERNEL_HEADERS_AS_KERNEL),y)
@@ -126,6 +135,9 @@ LINUX_HEADERS_INSTALL_STAGING = YES
 LINUX_HEADERS_ADD_TOOLCHAIN_DEPENDENCY = NO
 
 LINUX_HEADERS_DEPENDENCIES = $(BR2_MAKE_HOST_DEPENDENCY)
+ifeq ($(BR2_LINUX_KERNEL_EXT_AMLOGIC_COMMON_DRIVERS),y)
+LINUX_HEADERS_DEPENDENCIES += amlogic-common-drivers
+endif
 
 # For some architectures (eg. Arc, Cris, Hexagon, ia64, parisc,
 # score and xtensa), the Linux buildsystem tries to call the
