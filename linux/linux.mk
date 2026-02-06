@@ -464,6 +464,19 @@ define LINUX_BUILD_DTB
 	$(LINUX_MAKE_ENV) $(BR2_MAKE) $(LINUX_MAKE_FLAGS) -C $(@D) $(LINUX_DTBS)
 endef
 ifeq ($(BR2_LINUX_KERNEL_APPENDED_DTB),)
+ifeq ($(BR2_LINUX_KERNEL_EXT_AMLOGIC_COMMON_DRIVERS),y)
+# The Amlogic 5.15 vendor kernel output binaries have the kernel image located in $(LINUX_DIR)/arch/xxx,
+# but the dtb is located in $(LINUX_DIR)/common_drivers/arch/xxx.
+# Therefore, instead of modifying LINUX_ARCH_PATH, just modify LINUX_INSTALL_DTB.
+define LINUX_INSTALL_DTB
+	# The dtb compiled from the Amlogic 5.15 vendor kernel is located in common_drivers/arch/arm64/boot/dts/amlogic
+	$(foreach dtb,$(LINUX_DTBS), \
+		install -D \
+			$(LINUX_DIR)/common_drivers/arch/$(KERNEL_ARCH)/boot/dts/amlogic/$(dtb) \
+			$(1)/$(if $(BR2_LINUX_KERNEL_DTB_KEEP_DIRNAME),$(dtb),$(notdir $(dtb)))
+	)
+endef
+else
 define LINUX_INSTALL_DTB
 	# dtbs moved from arch/<ARCH>/boot to arch/<ARCH>/boot/dts since 3.8-rc1
 	$(foreach dtb,$(LINUX_DTBS), \
@@ -472,6 +485,7 @@ define LINUX_INSTALL_DTB
 			$(1)/$(if $(BR2_LINUX_KERNEL_DTB_KEEP_DIRNAME),$(dtb),$(notdir $(dtb)))
 	)
 endef
+endif # BR2_LINUX_KERNEL_EXT_AMLOGIC_COMMON_DRIVERS
 endif # BR2_LINUX_KERNEL_APPENDED_DTB
 endif # BR2_LINUX_KERNEL_DTB_IS_SELF_BUILT
 endif # BR2_LINUX_KERNEL_DTS_SUPPORT

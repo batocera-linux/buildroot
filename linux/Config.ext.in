@@ -148,6 +148,13 @@ config BR2_LINUX_KERNEL_EXT_AUFS_VERSION
 
 endif # aufs
 
+config BR2_LINUX_KERNEL_EXT_AMLOGIC_COMMON_DRIVERS
+	bool "Amlogic Common Drivers Support"
+	select BR2_PACKAGE_AMLOGIC_COMMON_DRIVERS
+	help
+	  This will download the Amlogic common drivers repository and
+	  link it into the kernel source tree.
+
 # kernel extensions from br2-external trees, if any
 source "$BR2_BASE_DIR/.br2-external.in.linux"
 
