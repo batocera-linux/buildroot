@@ -16,3 +16,5 @@ VULKAN_HEADERS_DEPENDENCIES += mesa3d
 endif
 
 $(eval $(cmake-package))
+# batocera: enable host build
+$(eval $(host-cmake-package))
