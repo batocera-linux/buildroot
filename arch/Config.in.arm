@@ -501,6 +501,15 @@ config BR2_tsv110
 	select BR2_ARM_CPU_HAS_FP_ARMV8
 	select BR2_ARM_CPU_ARMV8A
 	select BR2_ARCH_NEEDS_GCC_AT_LEAST_9
+# batocera - add cortex a77
+config BR2_cortex_a77
+	bool "cortex-A77"
+	select BR2_ARM_CPU_HAS_ARM if !BR2_ARCH_IS_64
+	select BR2_ARM_CPU_HAS_NEON if !BR2_ARCH_IS_64
+	select BR2_ARM_CPU_HAS_THUMB2 if !BR2_ARCH_IS_64
+	select BR2_ARM_CPU_HAS_FP_ARMV8
+	select BR2_ARM_CPU_ARMV8A
+	select BR2_ARCH_NEEDS_GCC_AT_LEAST_10
 
 comment "armv8.4a cores"
 config BR2_neoverse_v1
@@ -515,6 +524,15 @@ config BR2_saphira
 	select BR2_ARM_CPU_HAS_FP_ARMV8
 	select BR2_ARM_CPU_ARMV8A
 	select BR2_ARCH_NEEDS_GCC_AT_LEAST_8
+
+# batocera - add armv8.6a cores & BR2_qualcomm_oryon_1
+comment "armv8.6a cores"
+config BR2_qualcomm_oryon_1
+	bool "Qualcomm Oryon-1 (Snapdragon Elite)"
+	depends on BR2_ARCH_IS_64
+	select BR2_ARM_CPU_HAS_FP_ARMV8
+	select BR2_ARM_CPU_ARMV8A
+	select BR2_ARCH_NEEDS_GCC_AT_LEAST_14
 
 comment "armv9.0a cores"
 config BR2_cortex_a710
@@ -531,6 +549,13 @@ config BR2_neoverse_n2
 	select BR2_ARCH_NEEDS_GCC_AT_LEAST_11
 config BR2_neoverse_v2
 	bool "neoverse-V2 (aka demeter)"
+	depends on BR2_ARCH_IS_64
+	select BR2_ARM_CPU_HAS_FP_ARMV8
+	select BR2_ARM_CPU_ARMV9A
+	select BR2_ARCH_NEEDS_GCC_AT_LEAST_13
+# batocera - add BR2_cortex_x3
+config BR2_cortex_x3
+	bool "Cortex-X3"
 	depends on BR2_ARCH_IS_64
 	select BR2_ARM_CPU_HAS_FP_ARMV8
 	select BR2_ARM_CPU_ARMV9A
@@ -946,13 +971,17 @@ config BR2_GCC_TARGET_CPU
 	default "cortex-a78"	if BR2_cortex_a78
 	default "neoverse-n1"	if BR2_neoverse_n1
 	default "tsv110"	if BR2_tsv110
+	default "cortex-a77"	if BR2_cortex_a77 # batocera
 	# armv8.4a
 	default "neoverse-v1"   if BR2_neoverse_v1
 	default "saphira"	if BR2_saphira
+	# armv8.6a
+	default "oryon-1"	if BR2_qualcomm_oryon_1 # batocera
 	# armv9.0a
 	default "cortex-a710"	if BR2_cortex_a710
 	default "neoverse-n2"	if BR2_neoverse_n2
 	default "neoverse-v2"	if BR2_neoverse_v2
+	default "cortex-x3"	    if BR2_cortex_x3 # batocera
 	# armv9.2a
 	default "cortex-a720"	if BR2_cortex_a720
 	default "neoverse-v3"	if BR2_neoverse_v3
