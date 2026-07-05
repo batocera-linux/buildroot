@@ -107,10 +107,6 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 	bool
 	select BR2_PACKAGE_MESA3D_DRIVER
 
-config BR2_PACKAGE_MESA3D_VIDEO_CODEC
-	bool
-	select BR2_PACKAGE_MESA3D_DRIVER
-
 config BR2_PACKAGE_MESA3D_DRIVER
 	bool
 	select BR2_PACKAGE_XLIB_LIBXSHMFENCE if BR2_PACKAGE_XORG7
@@ -154,6 +150,7 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_FREEDRENO
 	# the toolchain having sync4 primitives, which is always a given
 	# for arm/aarch64.
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
+	select BR2_PACKAGE_MESA3D_HOST_NATIVE_CONTEXT_SUPPORTED_DRIVER
 	select BR2_PACKAGE_LIBDRM_FREEDRENO
 	select BR2_PACKAGE_MESA3D_OPENGL_EGL # batocera
 	help
@@ -201,6 +198,7 @@ comment "llvmpipe driver needs llvm"
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_NOUVEAU
 	bool "Gallium nouveau driver"
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
+	select BR2_PACKAGE_MESA3D_GALLIUM_VA_SUPPORTED_DRIVER
 	select BR2_PACKAGE_LIBDRM_NOUVEAU
 	select BR2_PACKAGE_LLVM_RTTI if BR2_PACKAGE_MESA3D_LLVM
 	select BR2_PACKAGE_MESA3D_RUSTICL_SUPPORTED_DRIVER
@@ -240,6 +238,7 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_R600
 		(BR2_PACKAGE_MESA3D_LLVM && (BR2_TOOLCHAIN_USES_UCLIBC || \
 			BR2_TOOLCHAIN_USES_GLIBC)) # elfutils
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
+	select BR2_PACKAGE_MESA3D_GALLIUM_VA_SUPPORTED_DRIVER
 	select BR2_PACKAGE_LIBDRM_RADEON
 	select BR2_PACKAGE_LLVM_AMDGPU if BR2_PACKAGE_MESA3D_LLVM
 	select BR2_PACKAGE_ELFUTILS if BR2_PACKAGE_MESA3D_LLVM
@@ -257,16 +256,25 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_RADEONSI
 	bool "Gallium Radeon SI driver"
 	depends on BR2_USE_MMU # libdrm
 	depends on BR2_i386 || BR2_x86_64
-	depends on BR2_PACKAGE_MESA3D_LLVM
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
+	select BR2_PACKAGE_MESA3D_GALLIUM_VA_SUPPORTED_DRIVER
+	select BR2_PACKAGE_MESA3D_HOST_NATIVE_CONTEXT_SUPPORTED_DRIVER
 	select BR2_PACKAGE_LIBDRM_AMDGPU
 	select BR2_PACKAGE_LIBDRM_RADEON
-	select BR2_PACKAGE_LLVM_AMDGPU
+	select BR2_PACKAGE_LLVM_AMDGPU if BR2_PACKAGE_MESA3D_LLVM
 	select BR2_PACKAGE_ELFUTILS
 	select BR2_PACKAGE_MESA3D_NEEDS_ELFUTILS
 	select BR2_PACKAGE_MESA3D_RUSTICL_SUPPORTED_DRIVER
 	help
 	  Driver for ATI/AMD Radeon HD7000/HD8000/Rx200 GPUs.
+
+	  Since Mesa 26.0.0, the default shader compiler is ACO,
+	  even when LLVM support is enabled at build time.
+
+	  Use the env var AMD_DEBUG=usellvm to override the
+	  default and use LLVM at runtime.
+
+	  https://docs.mesa3d.org/envvars.html#envvar-AMD_DEBUG
 
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_SVGA
 	bool "Gallium vmware svga driver"
@@ -321,6 +329,7 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_VC4
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_VIRGL
 	bool "Gallium virgl driver"
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
+	select BR2_PACKAGE_MESA3D_GALLIUM_VA_SUPPORTED_DRIVER
 	select BR2_PACKAGE_MESA3D_OPENGL_EGL
 	help
 	  virgl is the 3D acceleration backend for the virtio-gpu
@@ -343,6 +352,7 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_AMD
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4 || !BR2_PACKAGE_XORG7 # libxshmfence
 	select BR2_PACKAGE_LIBDRM_AMDGPU
 	select BR2_PACKAGE_LLVM_AMDGPU if BR2_PACKAGE_MESA3D_LLVM
+	select BR2_PACKAGE_MESA3D_HOST_NATIVE_CONTEXT_SUPPORTED_DRIVER
 	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 	help
 	  RADV is a userspace driver that implements the
@@ -357,6 +367,13 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_BROADCOM
 	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 	help
 	  Vulkan broadcom driver.
+
+config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_FREEDRENO
+	bool "Vulkan freedreno driver (turnip)"
+	select BR2_PACKAGE_MESA3D_HOST_NATIVE_CONTEXT_SUPPORTED_DRIVER
+	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
+	help
+	  Vulkan freedreno driver.
 
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_IMAGINATION
 	bool "Vulkan imagination driver"
@@ -390,13 +407,6 @@ comment "intel vulkan needs a glibc toolchain w/ headers >= 3.17"
 	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
 		!BR2_TOOLCHAIN_USES_GLIBC
 
-config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_SWRAST
-	bool "Vulkan swrast driver"
-	depends on BR2_PACKAGE_MESA3D_LLVM
-	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_SOFTPIPE
-	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
-	help
-	  Vulkan swrast driver.
 
 # batocera
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_HASWELL
@@ -428,22 +438,13 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_PANFROST
 comment "panfrost vulkan needs llvm"
 	depends on !BR2_PACKAGE_MESA3D_LLVM
 
-# batocera
-config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_FREEDRENO
-	bool "Freedreno (Turnip) Vulkan driver"
-	depends on BR2_arm || BR2_aarch64
-	depends on BR2_TOOLCHAIN_HAS_SYNC_4 # libxshmfence
-	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 # memfd.h
-	depends on BR2_TOOLCHAIN_USES_GLIBC # ifunc, static_assert
+config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_SWRAST
+	bool "Vulkan swrast driver"
+	depends on BR2_PACKAGE_MESA3D_LLVM
+	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_SOFTPIPE
 	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 	help
-	  Vulkan driver for freedreno supported hardware.
-
-comment "freedreno vulkan needs a glibc toolchain w/ headers >= 3.17"
-	depends on BR2_arm || BR2_aarch64
-	depends on BR2_TOOLCHAIN_HAS_SYNC_4
-	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
-		!BR2_TOOLCHAIN_USES_GLIBC
+	  Vulkan swrast driver.
 
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_VIRTIO
 	bool "Vulkan VirtIO driver (Venus)"
@@ -451,54 +452,34 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_VIRTIO
 	help
 	  Vulkan VirtIO (venus) driver.
 
-# batocera - codecs
-config BR2_PACKAGE_MESA3D_VIDEO_CODEC_VC1DEC
-	bool "VC1DEC video codec support"
-	select BR2_PACKAGE_MESA3D_VIDEO_CODEC
-	help
-	  VC1 hardware decoding on supported hardware.
+comment "Host native context drivers"
+	depends on BR2_PACKAGE_MESA3D_HOST_NATIVE_CONTEXT_SUPPORTED_DRIVER
 
-config BR2_PACKAGE_MESA3D_VIDEO_CODEC_H264DEC
-	bool "H264DEC video codec support"
-	select BR2_PACKAGE_MESA3D_VIDEO_CODEC
+config BR2_PACKAGE_MESA3D_HOST_NATIVE_CONTEXT_DRIVER_AMDGPU
+	bool "amdgpu-virtio"
+	depends on BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_RADEONSI || \
+		BR2_PACKAGE_MESA3D_VULKAN_DRIVER_AMD
 	help
-	  H.264 hardware decoding on supported hardware.
+	  Enable VirtIO support for AMDGPU native contexts
+	  used by the radeonsi (OpenGL) and RADV (Vulkan) drivers.
 
-config BR2_PACKAGE_MESA3D_VIDEO_CODEC_H264ENC
-	bool "H264ENC video codec support"
-	select BR2_PACKAGE_MESA3D_VIDEO_CODEC
-	help
-	  H.264 hardware encoding on supported hardware.
+	  Select this when running Mesa inside a virtual machine
+	  with virtio-gpu host native context support.
 
-config BR2_PACKAGE_MESA3D_VIDEO_CODEC_H265DEC
-	bool "H265DEC video codec support"
-	select BR2_PACKAGE_MESA3D_VIDEO_CODEC
+config BR2_PACKAGE_MESA3D_HOST_NATIVE_CONTEXT_DRIVER_FREEDRENO
+	bool "freedreno-virtio"
+	depends on BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_FREEDRENO || \
+		BR2_PACKAGE_MESA3D_VULKAN_DRIVER_FREEDRENO
 	help
-	  H.265 hardware decoding on supported hardware.
+	  Enable VirtIO support for freedreno native contexts
+	  used by the freedreno (OpenGL) and Turnip (Vulkan)
+	  drivers.
 
-config BR2_PACKAGE_MESA3D_VIDEO_CODEC_H265ENC
-	bool "H265ENC video codec support"
-	select BR2_PACKAGE_MESA3D_VIDEO_CODEC
-	help
-	  H.265 hardware encoding on supported hardware.
+	  Select this when running Mesa inside a virtual machine
+	  with virtio-gpu host native context support.
 
-config BR2_PACKAGE_MESA3D_VIDEO_CODEC_AV1DEC
-	bool "AV1DEC video codec support"
-	select BR2_PACKAGE_MESA3D_VIDEO_CODEC
-	help
-	  AV1 hardware decoding on supported hardware.
-
-config BR2_PACKAGE_MESA3D_VIDEO_CODEC_AV1ENC
-	bool "AV1ENC video codec support"
-	select BR2_PACKAGE_MESA3D_VIDEO_CODEC
-	help
-	  AV1 hardware encoding on supported hardware.
-
-config BR2_PACKAGE_MESA3D_VIDEO_CODEC_VP9DEC
-	bool "VP9DEC video codec support"
-	select BR2_PACKAGE_MESA3D_VIDEO_CODEC
-	help
-	  VP9 hardware decoding on supported hardware.
+config BR2_PACKAGE_MESA3D_HOST_NATIVE_CONTEXT_SUPPORTED_DRIVER
+	bool
 
 if BR2_PACKAGE_MESA3D_DRIVER
 
@@ -548,6 +529,36 @@ config BR2_PACKAGE_MESA3D_OPENGL_ES
 	  embedded systems and represents a subset of the OpenGL API.
 
 endif # BR2_PACKAGE_MESA3D_DRIVER
+
+config BR2_PACKAGE_MESA3D_GALLIUM_VA_SUPPORTED_DRIVER
+	bool
+
+config BR2_PACKAGE_MESA3D_GALLIUM_VA
+	bool "Gallium VA-API"
+	depends on BR2_PACKAGE_MESA3D_GALLIUM_VA_SUPPORTED_DRIVER
+	# circular dependency: mesa3d -> libva -> libgl -> mesa3d
+	depends on !BR2_PACKAGE_MESA3D_OPENGL_GLX || BR2_PACKAGE_LIBGLVND
+	select BR2_PACKAGE_LIBVA
+	help
+	  Enable VA-API video acceleration support in Gallium drivers.
+
+comment "Gallium VA-API needs a supported gallium driver, incompatible with GLX w/o libglvnd"
+	depends on !BR2_PACKAGE_MESA3D_GALLIUM_VA_SUPPORTED_DRIVER || \
+		(BR2_PACKAGE_MESA3D_OPENGL_GLX && !BR2_PACKAGE_LIBGLVND)
+
+config BR2_PACKAGE_MESA3D_PATENTED_VIDEO_CODECS
+	bool "patented video codecs (H.264, H.265)"
+	depends on BR2_PACKAGE_MESA3D_GALLIUM_VA || BR2_PACKAGE_MESA3D_VULKAN_DRIVER
+	help
+	  Enable patent-encumbered video codec support (H.264, H.265,
+	  VC-1 decode/encode) for Gallium VA-API and/or Vulkan video.
+
+	  Without this, only royalty-free codecs are supported
+	  (AV1, VP9, MPEG-1/2, JPEG).
+
+comment "patented video codecs need Gallium VA-API or a Vulkan driver"
+	depends on !BR2_PACKAGE_MESA3D_GALLIUM_VA && \
+		!BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 
 config BR2_PACKAGE_PROVIDES_LIBGBM
 	default "mesa3d" if BR2_PACKAGE_MESA3D_GBM
