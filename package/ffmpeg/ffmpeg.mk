@@ -3,14 +3,12 @@
 # ffmpeg
 #
 ################################################################################
-# batocera - upgrade to v7.1 (removed patches) so most packages use this version
-# use a specialist repo for the RPi 4/5 & 
-# buildroot 4.4.x moved to a batocera package
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_BCM2712)$(BR2_PACKAGE_BATOCERA_TARGET_BCM2711),y)
-    FFMPEG_VERSION = 6dbf87aefd7f491210abe1e043a1c228fa1439a0
+# batocera - uses jc-kynesim's optimized branch for Amlogic
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_AMLOGIC_ANY),y)
+    FFMPEG_VERSION = 3a4c4864e5790539ef00eeef8a229dbf19dc62e0
     FFMPEG_SITE = $(call github,jc-kynesim,rpi-ffmpeg,$(FFMPEG_VERSION))
 else
-    FFMPEG_VERSION = 7.1.1
+    FFMPEG_VERSION = 8.1.2
     FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
     FFMPEG_SITE = https://ffmpeg.org/releases
 endif
@@ -119,9 +117,10 @@ endif
 ifeq ($(BR2_PACKAGE_LIBV4L),y)
 FFMPEG_DEPENDENCIES += libv4l
 FFMPEG_CONF_OPTS += --enable-libv4l2
-# batocera - rk3568 patches include --enable-v4l2-request support
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RK3568),y)
-FFMPEG_CONF_OPTS += --enable-v4l2-request
+# batocera - patches include --enable-v4l2-request support
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RK3568)$(BR2_PACKAGE_BATOCERA_TARGET_RK3576)$(BR2_PACKAGE_BATOCERA_TARGET_RK3588_MAINLINE),y)
+FFMPEG_CONF_OPTS += --enable-v4l2-request --enable-libudev
+FFMPEG_DEPENDENCIES += udev
 endif
 else
 FFMPEG_CONF_OPTS += --disable-libv4l2
@@ -330,6 +329,7 @@ FFMPEG_CONF_OPTS += --enable-v4l2-request
 FFMPEG_CONF_OPTS += --enable-libudev
 FFMPEG_CONF_OPTS += --enable-epoxy
 FFMPEG_CONF_OPTS += --enable-sand
+FFMPEG_DEPENDENCIES += udev
 endif
 
 # To avoid a circular dependency only use opencv if opencv itself does
