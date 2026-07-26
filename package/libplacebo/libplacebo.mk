@@ -15,6 +15,24 @@ LIBPLACEBO_INSTALL_STAGING = YES
 # batcoera - add the options below...
 LIBPLACEBO_CONF_OPTS = -Ddemos=false
 
+# batcoera - add lcms support
+ifeq ($(BR2_PACKAGE_LCMS2),y)
+LIBPLACEBO_CONF_OPTS += -Dlcms=enabled
+LIBPLACEBO_DEPENDENCIES += lcms2
+else
+LIBPLACEBO_CONF_OPTS += -Dlcms=disabled
+endif
+
+# batocera - ass dolby vision reshaping support
+ifeq ($(BR2_PACKAGE_LIBDOVI),y)
+LIBPLACEBO_CONF_OPTS += -Ddovi=enabled
+LIBPLACEBO_CONF_OPTS += -Dlibdovi=enabled
+LIBPLACEBO_DEPENDENCIES += libdovi
+else
+LIBPLACEBO_CONF_OPTS += -Ddovi=disabled
+LIBPLACEBO_CONF_OPTS += -Dlibdovi=disabled
+endif
+
 ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER)$(BR2_PACKAGE_VULKAN_LOADER),yy)
 LIBPLACEBO_CONF_OPTS += -Dvulkan=enabled
 LIBPLACEBO_DEPENDENCIES += mesa3d vulkan-loader
