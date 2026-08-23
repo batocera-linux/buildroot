@@ -15,8 +15,9 @@ LLVM_SUPPORTS_IN_SOURCE_BUILD = NO
 LLVM_SUBDIR = llvm
 LLVM_INSTALL_STAGING = YES
 
-HOST_LLVM_DEPENDENCIES = host-python3 host-llvm-cmake
-LLVM_DEPENDENCIES = host-llvm
+# batocera - add host-cmake
+HOST_LLVM_DEPENDENCIES += host-python3 host-llvm-cmake host-cmake
+LLVM_DEPENDENCIES += host-llvm host-cmake
 
 # Path to cmake modules from host-llvm-cmake
 HOST_LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm
