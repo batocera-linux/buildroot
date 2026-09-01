@@ -3,7 +3,6 @@
 # mesa3d
 #
 ################################################################################
-
 # When updating the version, please also update mesa3d-headers
 MESA3D_VERSION = 26.2.1
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
