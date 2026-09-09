@@ -67,5 +67,12 @@ define FREETYPE_FIX_CONFIG_FILE
 endef
 FREETYPE_POST_INSTALL_STAGING_HOOKS += FREETYPE_FIX_CONFIG_FILE
 
+# batocera- configure generates a correct freetype2.pc
+define FREETYPE_INSTALL_PKGCONFIG_FILE
+	$(INSTALL) -D -m 0644 $(@D)/builds/unix/freetype2.pc \
+		$(STAGING_DIR)/usr/lib/pkgconfig/freetype2.pc
+endef
+FREETYPE_POST_INSTALL_STAGING_HOOKS += FREETYPE_INSTALL_PKGCONFIG_FILE
+
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))
