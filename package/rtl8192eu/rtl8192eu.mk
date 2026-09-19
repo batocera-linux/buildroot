@@ -8,8 +8,8 @@ ifeq ($(BR2_PACKAGE_HOST_LINUX_HEADERS_CUSTOM_4_4),y)
 # batocera
 RTL8192EU_VERSION = a928f08c1dd4f9a1e84d85811a543e974551bc4f
 else
-# batocera - kernel 6.17+ support
-RTL8192EU_VERSION = 85f3b62620b5eb7931fa129730820ae6693216ac
+# batocera - kernel 7.2+ support
+RTL8192EU_VERSION = 0c01d67c609de752ac0b80a7e7152a3fa42b7234
 endif
 
 RTL8192EU_SITE = $(call github,clnhub,rtl8192eu-linux,$(RTL8192EU_VERSION))

@@ -1,6 +1,6 @@
-# From https://lists.freedesktop.org/archives/mesa-dev/2026-August/226694.html
-sha256  c47e81bddc4760360a41ac3c5acec38acb81f9d750ecef47e7f3adc7021a4442  mesa-26.2.1.tar.xz
-sha512  d4bc755442c6573a1b75cafad50ec66594fa0ca7599c525f368bdecbd551a970e890ed6b044d9251f84278d27dcaa30649fbf4f4bf0adbaa76e1cc1ba6a1181f  mesa-26.2.1.tar.xz
+# From https://lists.freedesktop.org/archives/mesa-dev/2026-September/226702.html
+sha256  1628058a8d2c0615975de5a15ab7bbb9638c50000b5bed9456ff423ea034a81f  mesa-26.2.3.tar.xz
+sha512  ec621735ae4679762ea27b979a5314c7aecfdd4165afea19c8c55f933d79b40f01fa041a95874fc4347e732ac565786d9b616a9aa8856a422204d9ecc9a12ec4  mesa-26.2.3.tar.xz
 # License
 sha256  0d1a0472ecc81830e75c20d59b0ea02841e3db21255e0ebad97ab682c54d6615  docs/license.rst
 sha256  323c587d0ccf10e376f8bf9a7f31fb4ca6078105194b42e0b1e0ee2bc9bde71f  licenses/MIT
