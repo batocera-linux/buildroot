@@ -10,8 +10,7 @@ RTL8723BU_LICENSE = GPL-2.0, proprietary (*.bin firmware blobs)
 
 RTL8723BU_MODULE_MAKE_OPTS = \
 	KVER=$(LINUX_VERSION_PROBED) \
-	KSRC=$(LINUX_DIR) \
-	USER_EXTRA_CFLAGS="-Wno-error=incompatible-pointer-types" # batocera
+	KSRC=$(LINUX_DIR)
 
 define RTL8723BU_LINUX_CONFIG_FIXUPS
 	$(call KCONFIG_ENABLE_OPT,CONFIG_NET)
