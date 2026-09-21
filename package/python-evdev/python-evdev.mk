@@ -21,6 +21,8 @@ PYTHON_EVDEV_BUILD_OPTS = \
 	-C--build-option=--evdev-headers=$(STAGING_DIR)/usr/include/linux/input.h:$(STAGING_DIR)/usr/include/linux/input-event-codes.h:$(STAGING_DIR)/usr/include/linux/uinput.h
 
 # batocera - Build with the headers in staging so the generated ecodes.py is for the target
+HOST_PYTHON_EVDEV_DEPENDENCIES = linux-headers
+
 HOST_PYTHON_EVDEV_BUILD_OPTS = \
 	-C--build-option=build_ecodes \
 	-C--build-option=--evdev-headers=$(STAGING_DIR)/usr/include/linux/input.h:$(STAGING_DIR)/usr/include/linux/input-event-codes.h:$(STAGING_DIR)/usr/include/linux/uinput.h
