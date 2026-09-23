@@ -206,6 +206,8 @@ config BR2_PACKAGE_KODI_MYSQL
 
 choice
 	prompt "render system"
+	# batocera - prefer GLES on non-x86 targets so V4L2/DRM PRIME hw decode works
+	default BR2_PACKAGE_KODI_RENDER_SYSTEM_GLES if BR2_PACKAGE_HAS_LIBGLES && !BR2_PACKAGE_BATOCERA_TARGET_X86_ANY
 	default BR2_PACKAGE_KODI_RENDER_SYSTEM_GL
 
 config BR2_PACKAGE_KODI_RENDER_SYSTEM_GL
