@@ -3,15 +3,9 @@
 # ffmpeg
 #
 ################################################################################
-# batocera - uses jc-kynesim's optimized branch for Amlogic
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_AMLOGIC_ANY),y)
-    FFMPEG_VERSION = 3a4c4864e5790539ef00eeef8a229dbf19dc62e0
-    FFMPEG_SITE = $(call github,jc-kynesim,rpi-ffmpeg,$(FFMPEG_VERSION))
-else
-    FFMPEG_VERSION = 8.1.2
-    FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
-    FFMPEG_SITE = https://ffmpeg.org/releases
-endif
+FFMPEG_VERSION = 8.1.2
+FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
+FFMPEG_SITE = https://ffmpeg.org/releases
 
 FFMPEG_INSTALL_STAGING = YES
 
