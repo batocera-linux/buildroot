@@ -16,6 +16,12 @@ LZ4_CPE_ID_VALID = YES
 LZ4_SUPPORTS_IN_SOURCE_BUILD = NO
 HOST_LZ4_SUBDIR = build/cmake
 
+# batocera: the cmake build drops the lz4c symlink that pre-6.11 kernels call
+define HOST_LZ4_INSTALL_LZ4C
+	ln -sf lz4 $(HOST_DIR)/bin/lz4c
+endef
+HOST_LZ4_POST_INSTALL_HOOKS += HOST_LZ4_INSTALL_LZ4C
+
 ifeq ($(BR2_STATIC_LIBS),y)
 LZ4_MAKE_OPTS += BUILD_SHARED=no
 else ifeq ($(BR2_SHARED_LIBS),y)
