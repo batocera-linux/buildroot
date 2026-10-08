@@ -4,6 +4,8 @@ config BR2_PACKAGE_CPUINFO_ARCH_SUPPORTS
 	default y if BR2_arm
 	default y if BR2_i386
 	default y if BR2_x86_64
+	# batocera: cpuinfo has riscv linux support
+	default y if BR2_riscv
 
 config BR2_PACKAGE_CPUINFO
 	bool "cpuinfo"
