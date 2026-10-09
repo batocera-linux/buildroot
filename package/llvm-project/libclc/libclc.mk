@@ -44,5 +44,10 @@ LIBCLC_CONF_OPTS = \
 HOST_LIBCLC_CONF_OPTS = \
 	-DLIBCLC_TARGETS_TO_BUILD=spirv64-mesa3d-
 
+# batocera: host-clang installs the toolchain wrapper as clang, which appends
+# BR2_TARGET_OPTIMIZATION to every call; -mcpu is an error for the libclc targets
+LIBCLC_CONF_OPTS += -DLLVM_CUSTOM_TOOL_clang=$(HOST_DIR)/bin/clang.br_real
+HOST_LIBCLC_CONF_OPTS += -DLLVM_TOOL_clang=$(HOST_DIR)/bin/clang.br_real
+
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))
