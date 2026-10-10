@@ -246,9 +246,11 @@ HOST_IMAGEMAGICK_CONF_OPTS += \
 	--with-pango \
 	--with-rsvg
 else
+# batocera: freetype so the host tools can render text (boot splash version)
+HOST_IMAGEMAGICK_DEPENDENCIES += host-freetype
 HOST_IMAGEMAGICK_CONF_OPTS += \
 	--without-fontconfig \
-	--without-freetype \
+	--with-freetype \
 	--without-pango \
 	--without-rsvg
 endif
