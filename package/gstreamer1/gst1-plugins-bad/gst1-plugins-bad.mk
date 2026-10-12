@@ -525,7 +525,7 @@ endif
 # batocera - add vulkan support
 ifeq ($(BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_VULKAN),y)
 GST1_PLUGINS_BAD_CONF_OPTS += -Dvulkan=enabled -Dvulkan-video=enabled
-GST1_PLUGINS_BAD_DEPENDENCIES += vulkan-headers vulkan-loader
+GST1_PLUGINS_BAD_DEPENDENCIES += vulkan-headers vulkan-loader host-glslang
 ifeq ($(BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_WAYLAND)$(BR2_PACKAGE_XORG7),yy)
 GST1_PLUGINS_BAD_CONF_OPTS += -Dvulkan-windowing=wayland,x11
 else ifeq ($(BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_WAYLAND),y)
