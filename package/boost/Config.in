@@ -45,6 +45,7 @@ config BR2_PACKAGE_BOOST_CONTEXT_ARCH_SUPPORTS
 	default y if BR2_mipsel
 	default y if BR2_powerpc
 	default y if BR2_x86_64
+	default y if BR2_riscv # batocera: boost.context has riscv64 support
 
 config BR2_PACKAGE_BOOST_CONTEXT
 	bool "boost-context"
