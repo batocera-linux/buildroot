@@ -14,3 +14,5 @@ PYTHON_FONTTOOLS_DEPENDENCIES = host-python-cython
 PYTHON_FONTTOOLS_ENV = FONTTOOLS_WITH_CYTHON=1
 
 $(eval $(python-package))
+# batocera - openabl needs it built as a host package
+$(eval $(host-python-package))
