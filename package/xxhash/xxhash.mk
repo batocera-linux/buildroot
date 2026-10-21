@@ -29,9 +29,10 @@ XXHASH_TARGETS += libxxhash
 XXHASH_INSTALL_TARGETS += install_libxxhash
 endif
 
+# batocera - Add PREFIX=/usr so pkgconfig file is generated with correct path
 define XXHASH_BUILD_CMDS
 	$(TARGET_MAKE_ENV) $(TARGET_CONFIGURE_OPTS) $(MAKE) -C $(@D) \
-		MOREFLAGS=-DXXH_NO_INLINE_HINTS $(XXHASH_TARGETS)
+		PREFIX=/usr MOREFLAGS=-DXXH_NO_INLINE_HINTS $(XXHASH_TARGETS)
 endef
 
 define XXHASH_INSTALL_STAGING_CMDS
