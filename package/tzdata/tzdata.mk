@@ -39,13 +39,13 @@ define TZDATA_SET_LOCALTIME
 endef
 endif
 
+# batocera: zones at the top level and posix -> . so a resolved /etc/localtime has no posix/ prefix
 define TZDATA_INSTALL_TARGET_CMDS
+	rm -rf $(TARGET_DIR)/usr/share/zoneinfo
 	$(INSTALL) -d -m 0755 $(TARGET_DIR)/usr/share/zoneinfo
 	cp -a $(HOST_DIR)/share/zoneinfo/* $(TARGET_DIR)/usr/share/zoneinfo
 	cd $(TARGET_DIR)/usr/share/zoneinfo; \
-	for zone in posix/*; do \
-	    ln -sfn "$${zone}" "$${zone##*/}"; \
-	done
+	cp -a posix/. . && rm -rf posix && ln -s . posix
 	$(TZDATA_SET_LOCALTIME)
 endef
 
