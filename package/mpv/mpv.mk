@@ -273,6 +273,6 @@ endif
 $(eval $(meson-package))
 
 # batcoera - add by board type (patched) currently
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RK3568)$(BR2_PACKAGE_BATOCERA_TARGET_H616)$(BR2_PACKAGE_BATOCERA_TARGET_RK3576)$(BR2_PACKAGE_BATOCERA_TARGET_RK3588_MAINLINE),y)
+ifeq ($(BR2_PACKAGE_BATOCERA_V4L2_REQUEST),y)
 MPV_CONF_OPTS += -Dv4l2request=enabled
 endif
