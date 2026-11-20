@@ -1,6 +1,6 @@
-# From https://github.com/libarchive/libarchive/releases/tag/v3.8.7
+# From https://github.com/libarchive/libarchive/releases/tag/v3.8.11
 # After verifying the pgp signature from:
-# https://www.libarchive.de/downloads/libarchive-3.8.7.tar.xz.asc
-sha256  d3a8ba457ae25c27c84fd2830a2efdcc5b1d40bf585d4eb0d35f47e99e5d4774  libarchive-3.8.7.tar.xz
+# https://www.libarchive.de/downloads/libarchive-3.8.11.tar.xz.asc
+sha256  a3dc0872b1b39da34dc18ef1b944f0f11ffd37425d70ae04be679279f1cf43d2  libarchive-3.8.11.tar.xz
 # Locally computed:
 sha256  30e556b3959e3985d66efefec5eaac51d4995053caa1d3cffe6eb916f146f229  COPYING
