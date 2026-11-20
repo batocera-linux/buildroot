@@ -4,7 +4,7 @@
 #
 ################################################################################
 # When updating the version, please also update mesa3d-headers
-MESA3D_VERSION = 26.3.0
+MESA3D_VERSION = 26.3.1
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 MESA3D_SITE = https://archive.mesa3d.org
 MESA3D_LICENSE = MIT, SGI, Khronos
