@@ -1,0 +1,43 @@
+From: Alejandro Arrufat <15357691+AlexArrufat@users.noreply.github.com>
+Subject: [PATCH] wpa_supplicant: preserve legacy PSK offload authorization
+
+Rebase the existing Buildroot 2.11 compatibility revert onto 2.12.
+The 2.12 update removes that revert, but upstream 2.12 still requires a
+port-authorized event for PSK offload. Drivers such as brcmfmac need a
+separate kernel fix before the revert can safely be removed.
+
+Keep the old PSK compatibility behavior only. The OWE offload branch was
+combined with PSK in 2.12; retain its authorization-event handling.
+
+This preserves the behavior of the existing Buildroot 2.11 patch.
+Kernel-side port-authorized reporting is the preferred long-term fix:
+https://lore.kernel.org/r/20260912-brcmfmac-4way-handshake-offload-authenticated-event-v1-1-e41a6a8281a2@jannau.net
+
+Upstream: Not applicable [compatibility with kernels lacking PSK port authorization events]
+Signed-off-by: Alejandro Arrufat <15357691+AlexArrufat@users.noreply.github.com>
+
+--- a/wpa_supplicant/events.c
++++ b/wpa_supplicant/events.c
+@@ -4921,10 +4921,18 @@
+ 		wpa_supplicant_set_state(wpa_s, WPA_COMPLETED);
+ 		eapol_sm_notify_portValid(wpa_s->eapol, true);
+ 		eapol_sm_notify_eap_success(wpa_s->eapol, true);
+-	} else if (((wpa_s->drv_flags & WPA_DRIVER_FLAGS_4WAY_HANDSHAKE_PSK) &&
+-		    wpa_key_mgmt_wpa_psk(wpa_s->key_mgmt)) ||
+-		   ((wpa_s->drv_flags2 & WPA_DRIVER_FLAGS2_OWE_OFFLOAD_STA) &&
+-		    wpa_s->key_mgmt == WPA_KEY_MGMT_OWE)) {
++	} else if ((wpa_s->drv_flags & WPA_DRIVER_FLAGS_4WAY_HANDSHAKE_PSK) &&
++		   wpa_key_mgmt_wpa_psk(wpa_s->key_mgmt)) {
++		/* Preserve compatibility with drivers that complete the firmware
++		 * handshake before reporting association, but do not send a
++		 * separate port-authorized event.
++		 */
++		wpa_supplicant_cancel_auth_timeout(wpa_s);
++		wpa_supplicant_set_state(wpa_s, WPA_COMPLETED);
++		eapol_sm_notify_portValid(wpa_s->eapol, true);
++		eapol_sm_notify_eap_success(wpa_s->eapol, true);
++	} else if ((wpa_s->drv_flags2 & WPA_DRIVER_FLAGS2_OWE_OFFLOAD_STA) &&
++		   wpa_s->key_mgmt == WPA_KEY_MGMT_OWE) {
+ 		if (already_authorized) {
+ 			/*
+ 			 * We are done; the driver will take care of RSN 4-way
